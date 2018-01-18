@@ -1,0 +1,9 @@
+{
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+	"phonetworks/pho-server-rest": "dev-master",
+	"pho-recipes/web": "dev-master",
+	"phonetworks/pho-microkernel": "dev-master"
+    }
+}
