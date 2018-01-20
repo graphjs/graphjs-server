@@ -32,7 +32,7 @@ class Router extends \Pho\Server\Rest\Router
             $next();
         });
         //$server->get('signup', [$controllers["authentication"], "signup"]);
-        $server->get('signup', function(Request $request, Response $response) use ($controllers, $kernel) {
+        $server->get('signup', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
         });
         $server->get('login', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
