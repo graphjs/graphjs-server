@@ -1,0 +1,41 @@
+<?php
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+namespace GraphPress;
+
+
+use CapMousse\ReactRestify\Http\Request;
+use CapMousse\ReactRestify\Http\Response;
+use CapMousse\ReactRestify\Http\Session;
+use Pho\Kernel\Kernel;
+use Pho\Server\Rest\Server;
+
+/**
+ * Determines routes
+ * 
+ * @author Emre Sokullu <emre@phonetworks.org>
+ */
+class Router extends \Pho\Server\Rest\Router
+{
+    public static function init2(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->add(Session::class);
+        $server->use(function(Request $request, Response $response, Session $session, $next) use($kernel) {
+            $session->start($request, $response);
+            //eval(\Psy\sh());
+            $next();
+        });
+        //$server->get('signup', [$controllers["authentication"], "signup"]);
+        $server->get('signup', function(Request $request, Response $response, Session $session) use ($controllers, $kernel) {
+            $controllers["authentication"]->signup($request, $response, $session, $kernel);
+        });
+        $server->get('logout', [$controllers["authentication"], "logout"]);
+        $server->get('whoami', [$controllers["authentication"], "whoami"]);
+    }
+} 
