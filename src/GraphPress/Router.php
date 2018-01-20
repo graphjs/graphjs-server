@@ -43,7 +43,7 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('logout', function(Request $request, Response $response) use ($session, $controllers) {
             $controllers["authentication"]->logout($request, $response, $session);
         });
-        $server->get('whoami', function(Request $request, Response $response) use ($session, $controller) {
+        $server->get('whoami', function(Request $request, Response $response) use ($session, $controllers) {
             $controllers["authentication"]->login($request, $response, $session);
         });
     }
