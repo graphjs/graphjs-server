@@ -48,7 +48,7 @@ class Daemon extends \Pho\Server\Rest\Daemon
         );
         error_log(print_r($configs, true));
         $this->kernel = new Kernel($configs);
-        $founder = new User($this->kernel, $this->kernel->space(), "esokullu@gmail.com", "123456");
+        $founder = new User($this->kernel, $this->kernel->space(), "EmreSokullu", "esokullu@gmail.com", "123456");
         $this->kernel->boot($founder);
     }
 
