@@ -25,7 +25,7 @@ class Router extends \Pho\Server\Rest\Router
 {
     public static function init2(Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->add(Session::class);
+        $server->add(Session::class, new Session(__DIR__ . "/../../sessions"));
         $server->use(function(Request $request, Response $response, Session $session, $next) use($kernel) {
             $session->start($request, $response);
             //eval(\Psy\sh());

@@ -22,9 +22,6 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
     public function signup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        // do I have to put these validations here?
-        // shouldn't the schema take care of this?
-        // or is it already?
         $v = new Validator($data);
         $v->rule('required', ['username', 'email', 'password']);
         $v->rule('email', 'email');
