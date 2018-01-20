@@ -25,20 +25,26 @@ class Router extends \Pho\Server\Rest\Router
 {
     public static function init2(Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->add(Session::class, new Session(__DIR__ . "/../../sessions"));
-        $server->use(function(Request $request, Response $response, Session $session, $next) use($kernel) {
+        $session = new Session(__DIR__ . "/../../sessions");
+        $server->use(function(Request $request, Response $response, $next) use($session, $kernel) {
             $session->start($request, $response);
             //eval(\Psy\sh());
             $next();
         });
         //$server->get('signup', [$controllers["authentication"], "signup"]);
-        $server->get('signup', function(Request $request, Response $response, Session $session) use ($controllers, $kernel) {
+        $server->get('signup', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
         });
-        $server->get('login', function(Request $request, Response $response, Session $session) use ($controllers, $kernel) {
+        $server->get('login', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->login($request, $response, $session, $kernel);
         });
-        $server->get('logout', [$controllers["authentication"], "logout"]);
-        $server->get('whoami', [$controllers["authentication"], "whoami"]);
+        //$server->get('logout', [$controllers["authentication"], "logout"]);
+        //$server->get('whoami', [$controllers["authentication"], "whoami"]);
+        $server->get('logout', function(Request $request, Response $response) use ($session, $controllers) {
+            $controllers["authentication"]->logout($request, $response, $session);
+        });
+        $server->get('whoami', function(Request $request, Response $response) use ($session, $controller) {
+            $controllers["authentication"]->login($request, $response, $session);
+        });
     }
 } 
