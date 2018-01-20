@@ -56,7 +56,7 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
         $v->rule('required', ['username', 'password']);
         //$v->rule('email', 'email');
         if(!$v->validate()) {
-            $this->fail($response, "Email and password fields are required.");
+            $this->fail($response, "Username and password fields are required.");
             return;
         }
         $result = $kernel->index()->query(
