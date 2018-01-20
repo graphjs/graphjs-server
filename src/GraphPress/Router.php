@@ -35,6 +35,9 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('signup', function(Request $request, Response $response, Session $session) use ($controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
         });
+        $server->get('login', function(Request $request, Response $response, Session $session) use ($controllers, $kernel) {
+            $controllers["authentication"]->login($request, $response, $session, $kernel);
+        });
         $server->get('logout', [$controllers["authentication"], "logout"]);
         $server->get('whoami', [$controllers["authentication"], "whoami"]);
     }
