@@ -25,13 +25,10 @@ class Router extends \Pho\Server\Rest\Router
 {
     public static function init2(Server $server, array $controllers, Kernel $kernel): void
     {
-        $cors_enable = function(Request $req, Response $res) {
-            $res->addHeader("Access-Control-Allow-Origin", "*");  
-        };
         $session = new Session(__DIR__ . "/../../sessions");
         $server->use(function(Request $request, Response $response, $next) use($session, $kernel) {
             $session->start($request, $response);
-            $cors_enable($request, $response);
+            $response->addHeader("Access-Control-Allow-Origin", "*");   // cors
             //eval(\Psy\sh());
             $next();
         });
