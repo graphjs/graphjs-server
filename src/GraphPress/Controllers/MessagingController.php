@@ -21,6 +21,11 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
 {
     public function message(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        $id = $session->get($request, "id");
+        if(is_null($id)) {
+            $this->fail($response, "You must be logged in to use this functionality");
+            return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['to', 'message']);
