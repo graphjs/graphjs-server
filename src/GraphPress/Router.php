@@ -23,15 +23,33 @@ use Pho\Server\Rest\Server;
  */
 class Router extends \Pho\Server\Rest\Router
 {
+
+    private static $session;
+
     public static function init2(Server $server, array $controllers, Kernel $kernel): void
     {
-        $session = new Session(__DIR__ . "/../../sessions");
+        
+        self::initSession(...\func_get_args());
+        self::initAuthentication(...\func_get_args(), self::$session);
+        self::initMessaging(...\func_get_args(), self::$session);
+        
+    }
+
+    protected function initSession(Server $server, array $controllers, Kernel $kernel): void
+    {
+        if(!isset(self::$session))
+            self::$session = new Session(__DIR__ . "/../../sessions");
+        $session = self::$session;
         $server->use(function(Request $request, Response $response, $next) use($session, $kernel) {
             $session->start($request, $response);
             $response->addHeader("Access-Control-Allow-Origin", "*");   // cors
             //eval(\Psy\sh());
             $next();
         });
+    }
+
+    public function initAuthentication(Server $server, array $controllers, Kernel $kernel, Session $session): void
+    {
         //$server->get('signup', [$controllers["authentication"], "signup"]);
         $server->get('signup', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
@@ -47,9 +65,17 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('whoami', function(Request $request, Response $response) use ($session, $controllers) {
             $controllers["authentication"]->whoami($request, $response, $session);
         });
-        
-        $server->get('message', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
-            $controllers["messaging"]->message($request, $response, $session, $kernel);
+    }
+
+    public function initMessaging(Server $server, array $controllers, Kernel $kernel, Session $session): void
+    {
+        $id = $session->get($request, "id");
+        if(is_null($id)) {
+            $this->fail($response, "You must be logged in to use this functionality");
+            return;
+        }
+        $server->get('message', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+            $controllers["messaging"]->message($request, $response, $session, $kernel, $id);
         });
     }
 } 
