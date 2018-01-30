@@ -95,6 +95,15 @@ class Router extends \Pho\Server\Rest\Router
             }
             $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel, $id);
         });
+
+        $server->get('message', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
+            $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel, $id);
+        });
         
     }
 } 
