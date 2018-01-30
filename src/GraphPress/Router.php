@@ -50,6 +50,6 @@ class Router extends \Pho\Server\Rest\Router
         
         $server->get('message', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->message($request, $response, $session, $kernel);
-        }
+        });
     }
 } 
