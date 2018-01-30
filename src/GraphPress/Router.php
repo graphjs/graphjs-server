@@ -47,5 +47,9 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('whoami', function(Request $request, Response $response) use ($session, $controllers) {
             $controllers["authentication"]->whoami($request, $response, $session);
         });
+        
+        $server->get('message', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->message($request, $response, $session, $kernel);
+        }
     }
 } 
