@@ -62,9 +62,36 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
     {
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
+        //eval(\Psy\sh());
         $response->writeJson([
             "status"=>"success", 
             "messages" => $incoming_messages
+        ])->end();
+    }
+
+    public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['msgid']);
+        if(!$v->validate()) {
+            $this->fail($response, "Valid message id required.");
+            return;
+        }
+        if(!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["msgid"])) {
+            $this->fail($response, "Invalid message ID");
+            return;
+        }
+        $i = $kernel->gs()->node($id);
+        if( !$i->hasIncomingMessage($data["msgid"]) && !$i->hasOutgoingMessage($data["msgid"]) ) {
+            $this->fail($response, "Message ID is not associated with the logged in user.");
+            return;
+        }
+        $msg = $kernel->gs()->edge($data["msgid"]);
+        $msg->setIsRead(true);
+        $response->writeJson([
+            "status"=>"success", 
+            "message" => $msg->attributes()->toArray()
         ])->end();
     }
 }

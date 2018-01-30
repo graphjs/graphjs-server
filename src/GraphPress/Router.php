@@ -30,8 +30,8 @@ class Router extends \Pho\Server\Rest\Router
     {
         
         self::initSession(...\func_get_args());
-        self::initAuthentication(...\func_get_args(), self::$session);
-        self::initMessaging(...\func_get_args(), self::$session);
+        self::initAuthentication(self::$session, ...\func_get_args());
+        self::initMessaging(self::$session, ...\func_get_args());
         
     }
 
@@ -48,7 +48,7 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    public function initAuthentication(Server $server, array $controllers, Kernel $kernel, Session $session): void
+    protected static function initAuthentication(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
         //$server->get('signup', [$controllers["authentication"], "signup"]);
         $server->get('signup', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
@@ -67,15 +67,34 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    public function initMessaging(Server $server, array $controllers, Kernel $kernel, Session $session): void
+    protected static function initMessaging(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
-        $id = $session->get($request, "id");
-        if(is_null($id)) {
-            $this->fail($response, "You must be logged in to use this functionality");
-            return;
-        }
         $server->get('message', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
             $controllers["messaging"]->message($request, $response, $session, $kernel, $id);
         });
+
+        $server->get('count', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
+            $controllers["messaging"]->fetchUnreadMessageCount($request, $response, $session, $kernel, $id);
+        });
+
+        $server->get('inbox', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
+            $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel, $id);
+        });
+        
     }
 } 
