@@ -69,7 +69,7 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initMessaging(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->get('message', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
+        $server->put('message', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
             $id = $session->get($request, "id");
             if(is_null($id)) {
                 $this->fail($response, "You must be logged in to use this functionality");
@@ -102,7 +102,7 @@ class Router extends \Pho\Server\Rest\Router
                 $this->fail($response, "You must be logged in to use this functionality");
                 return;
             }
-            $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel, $id);
+            $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel, $id);
         });
         
     }
