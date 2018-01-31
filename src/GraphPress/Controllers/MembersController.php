@@ -22,13 +22,16 @@ use Pho\Lib\Graph\ID;
 
 class MembersController extends \Pho\Server\Rest\Controllers\AbstractController 
 {
-    public function getMembers(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function getMembers(Request $request, Response $response, Kernel $kernel)
     {
         $nodes = $kernel->graph()->members();
         $members = [];
         foreach($nodes as $node) {
             if($node instanceof User)
-                $members[] = (string) $node->id();
+                $members[(string) $node->id()] = [
+                    "username" => (string) $node->getUsername(),
+                    "avatar" => (string) $node->getAvatar()
+                ];
         }
         $response->writeJson([
             "status"=>"success", 

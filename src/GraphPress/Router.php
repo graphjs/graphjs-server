@@ -32,6 +32,8 @@ class Router extends \Pho\Server\Rest\Router
         self::initSession(...\func_get_args());
         self::initAuthentication(self::$session, ...\func_get_args());
         self::initMessaging(self::$session, ...\func_get_args());
+        self::initProfile(self::$session, ...\func_get_args());
+        self::initMembers(...\func_get_args());
         
     }
 
@@ -105,5 +107,28 @@ class Router extends \Pho\Server\Rest\Router
             $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel, $id);
         });
         
+    }
+
+    protected static function initProfile(Session $session, Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->get('profile', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["profile"]->getProfile($request, $response, $kernel);
+        });
+
+        $server->get('setProfile', function(Request $request, Response $response) use ($controllers, $session, $kernel) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
+            $controllers["profile"]->setProfile($request, $response, $session, $kernel, $id);
+        });
+    }
+
+    protected static function initMembers( Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->get('members', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["members"]->getMembers($request, $response, $kernel);
+        });
     }
 } 

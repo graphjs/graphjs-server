@@ -22,6 +22,19 @@ use Pho\Lib\Graph\ID;
 
 class MessagingController extends \Pho\Server\Rest\Controllers\AbstractController 
 {
+    /**
+     * Send a Message
+     * 
+     * @score 5/10 (message content not set!)
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * 
+     * @return void
+     */
     public function message(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
         $data = $request->getQueryParams();
@@ -50,7 +63,19 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
         ])->end();
     }
 
-
+    /**
+     * Fetch Unread Message Count
+     * 
+     * @score 10/10
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * 
+     * @return void
+     */
     public function fetchUnreadMessageCount(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
         $i = $kernel->gs()->node($id);
@@ -61,6 +86,19 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
         ])->end();
     }
 
+    /**
+     * Fetch Inbox
+     *
+     * @score 5/10 (no message info!)
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * 
+     * @return void
+     */
     public function fetchInbox(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
         $i = $kernel->gs()->node($id);
@@ -72,6 +110,18 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
         ])->end();
     }
 
+    /**
+     * Fetch Message
+     * 
+     * @score 5/10 (not much info about the message!)
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * @return void
+     */
     public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
         $data = $request->getQueryParams();
