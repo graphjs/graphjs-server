@@ -96,7 +96,7 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
     /**
      * Fetch Inbox
      *
-     * @score 5/10 (no message info!)
+     * @score 10/10
      * 
      * @param Request $request
      * @param Response $response
@@ -110,16 +110,18 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
     {
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
-        /*$ret = [];
-        foreach($incoming_messages as $id=>$im) 
+        $ret = [];
+        foreach($incoming_messages as $m) 
         {
-            $ret[$id] =
+            $ret[(string) $m->id()] = [
+                "from" => $m->tail()->id()->toString(),
+                "message" => substr($m->getContent(), 0, 70),
+                "is_read" => $m->getIsRead() ? true : false
+            ];
         }
-        */
-        //eval(\Psy\sh());
         $response->writeJson([
             "status"=>"success", 
-            "messages" => $incoming_messages
+            "messages" => $ret
         ])->end();
     }
 

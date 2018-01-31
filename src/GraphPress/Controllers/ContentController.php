@@ -23,12 +23,25 @@ use Pho\Lib\Graph\ID;
 /**
  * Takes care of Content
  * 
- * 0/10
+ * 10/10
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
 class ContentController extends \Pho\Server\Rest\Controllers\AbstractController 
 {
+    /**
+     * Star 
+     *
+     * @score 10/10
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * 
+     * @return void
+     */
     public function star(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
         $data = $request->getQueryParams();

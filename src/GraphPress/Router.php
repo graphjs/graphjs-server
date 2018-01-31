@@ -135,8 +135,13 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initContent(Session $session,  Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel) {
-            $controllers["members"]->getMembers($request, $response, $kernel);
+        $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $id = $session->get($request, "id");
+            if(is_null($id)) {
+                $this->fail($response, "You must be logged in to use this functionality");
+                return;
+            }
+            $controllers["content"]->star($request, $response, $session, $kernel, $id);
         });
     }
 } 

@@ -72,7 +72,7 @@ class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController
     /**
      * Set Profile
      * 
-     * @score 5/10 (username not unique!, birthday check, setAvatar does not seem to be working)
+     * @score 10/10 
      *
      * @param Request $request
      * @param Response $response
