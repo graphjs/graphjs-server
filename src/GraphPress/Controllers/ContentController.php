@@ -33,17 +33,16 @@ class ContentController extends \Pho\Server\Rest\Controllers\AbstractController
     {
         $i = $kernel->gs()->node($id);
         // query if such page exists
-        // if not create.
-        $i->star();
-        $nodes = $kernel->graph()->members();
-        $members = [];
-        foreach($nodes as $node) {
-            if($node instanceof User)
-                $members[] = (string) $node->id();
+        $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
+        if(count($res->results())==0) {
+            $page = $kernel->founder()->post($url);
         }
+        else {
+            $page = $kernel->gs()->node($res->results()[0]["udid"]);
+        }
+        $i->star($page);    
         $response->writeJson([
-            "status"=>"success", 
-            "members" => $members
+            "success"=>true
         ])->end();
     }
 

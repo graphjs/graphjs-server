@@ -34,6 +34,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initMessaging(self::$session, ...\func_get_args());
         self::initProfile(self::$session, ...\func_get_args());
         self::initMembers(...\func_get_args());
+        self::initContent(self::$session, ...\func_get_args());
         
     }
 
@@ -128,6 +129,13 @@ class Router extends \Pho\Server\Rest\Router
     protected static function initMembers( Server $server, array $controllers, Kernel $kernel): void
     {
         $server->get('members', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["members"]->getMembers($request, $response, $kernel);
+        });
+    }
+
+    protected static function initContent(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["members"]->getMembers($request, $response, $kernel);
         });
     }

@@ -52,7 +52,7 @@ class MembersController extends \Pho\Server\Rest\Controllers\AbstractController
                 ];
         }
         $response->writeJson([
-            "status"=>"success", 
+            "success"=>true, 
             "members" => $members
         ])->end();
     }
