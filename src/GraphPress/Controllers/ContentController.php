@@ -29,8 +29,17 @@ use Pho\Lib\Graph\ID;
  */
 class ContentController extends \Pho\Server\Rest\Controllers\AbstractController 
 {
-    public function star(Request $request, Response $response, Session $session, Kernel $kernel, string $id, string $url)
+    public function star(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
     {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['url']);
+        $v->rule('url', ['url']);
+        if(!$v->validate()) {
+            $this->fail($response, "Url required.");
+            return;
+        }
+        $url = $data["url"];
         $i = $kernel->gs()->node($id);
         // query if such page exists
         $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
