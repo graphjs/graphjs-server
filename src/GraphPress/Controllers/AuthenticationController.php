@@ -62,7 +62,7 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
         );
         $session->set($request, "id", (string) $new_user->id());
         $response->writeJson([
-            "status"=>"success", 
+            "success"=>true, 
             "id" => (string) $new_user->id()
         ])->end();
     }
@@ -103,7 +103,7 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
         $user = $result->results()[0];
         $session->set($request, "id", $user["udid"]);
         $response->writeJson([
-            "status"=>"success", 
+            "success"=> true, 
             "id" => $user["udid"]
         ])->end();
     }
@@ -122,7 +122,7 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
     {
         $session->set($request, "id", null);
         $response->writeJson([
-            "status"=>"success"
+            "success"=> true
         ])->end();
     }
 
@@ -138,8 +138,16 @@ class AuthenticationController extends \Pho\Server\Rest\Controllers\AbstractCont
      */
     public function whoami(Request $request, Response $response, Session $session)
     {
+        $id = $session->get($request, "id");
+        if(is_null($id)) {
+            $this->fail($response, "No active session");
+            return;
+        }
         $response->writeJson(
-            ["whoami"=>$session->get($request, "id")]
+            [
+                "success"=>true,
+                "id"=>$id
+            ]
         )->end();
     }
 
