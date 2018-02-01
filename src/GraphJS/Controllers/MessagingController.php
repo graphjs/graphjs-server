@@ -124,6 +124,39 @@ class MessagingController extends AbstractController
         );
     }
 
+
+    /**
+     * Fetch Inbox
+     * 
+     * @param Request $request
+     * @param Response $response
+     * @param Session $session
+     * @param Kernel $kernel
+     * @param string $id
+     * 
+     * @return void
+     */
+    public function fetchOutbox(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
+        $i = $kernel->gs()->node($id);
+        $sent_messages = $i->getSentMessages();
+        $ret = [];
+        foreach($sent_messages as $m) 
+        {
+            $ret[(string) $m->id()] = [
+                "to" => $m->head()->id()->toString(),
+                "message" => substr($m->getContent(), 0, 70),
+                "is_read" => $m->getIsRead() ? true : false
+            ];
+        }
+        $this->succeed($response, [
+                "messages" => $ret
+            ]
+        );
+    }
+
     /**
      * Fetch Message
      * 

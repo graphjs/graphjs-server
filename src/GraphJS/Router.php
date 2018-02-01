@@ -81,6 +81,10 @@ class Router extends \Pho\Server\Rest\Router
             $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel);
         });
 
+        $server->get('getOutbox', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->fetchOutbox($request, $response, $session, $kernel);
+        });
+
         $server->get('getMessage', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel);
         });
