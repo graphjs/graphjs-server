@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
- namespace GraphPress\Controllers;
+ namespace GraphJS\Controllers;
 
 use CapMousse\ReactRestify\Http\Request;
 use CapMousse\ReactRestify\Http\Response;
