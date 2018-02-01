@@ -30,6 +30,8 @@ class ContentController extends AbstractController
     /**
      * Star 
      * 
+     * [url]
+     * 
      * @param Request $request
      * @param Response $response
      * @param Session $session

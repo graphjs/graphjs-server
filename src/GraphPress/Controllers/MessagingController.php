@@ -29,6 +29,8 @@ class MessagingController extends AbstractController
 {
     /**
      * Send a Message
+     * 
+     * [to, message]
      *
      * @param Request $request
      * @param Response $response
@@ -124,12 +126,15 @@ class MessagingController extends AbstractController
 
     /**
      * Fetch Message
+     * 
+     * [msgid]
      *
      * @param Request $request
      * @param Response $response
      * @param Session $session
      * @param Kernel $kernel
      * @param string $id
+     * 
      * @return void
      */
     public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel)
@@ -156,7 +161,13 @@ class MessagingController extends AbstractController
         $msg = $kernel->gs()->edge($data["msgid"]);
         $msg->setIsRead(true);
         $this->succeed($response, [
-                "message" => $msg->attributes()->toArray()
+                "message" => array_merge(
+                    $msg->attributes()->toArray(),
+                    [
+                        "from" => (string) $msg->tail()->id(),
+                        "to" => (string) $msg->head()->id()
+                    ]
+                )
             ]
         );
     }

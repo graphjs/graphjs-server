@@ -29,6 +29,8 @@ class AuthenticationController extends AbstractController
     /**
      * Sign Up
      * 
+     * [username, email, password]
+     * 
      * @param Request $request
      * @param Response $response
      * @param Session $session
@@ -67,6 +69,8 @@ class AuthenticationController extends AbstractController
 
     /**
      * Log In
+     * 
+     * [username, password]
      *
      * @param Request $request
      * @param Response $response

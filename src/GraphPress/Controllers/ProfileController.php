@@ -29,6 +29,8 @@ class ProfileController extends AbstractController
 {
     /**
      * Get Profile
+     * 
+     * [id]
      *
      * @param Request $request
      * @param Response $response
@@ -67,6 +69,8 @@ class ProfileController extends AbstractController
 
     /**
      * Set Profile
+     * 
+     * [avatar, birthday, about, username]
      *
      * @param Request $request
      * @param Response $response
