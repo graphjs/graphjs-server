@@ -27,7 +27,7 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController 
+class ProfileController extends AbstractController 
 {
     /**
      * Get Profile
@@ -57,8 +57,7 @@ class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController
             $this->fail($response, "Invalid user ID");
             return;
         }
-        $response->writeJson([
-            "status"=>"success", 
+        $this->succeed($response, [
             "profile" => array_filter(
                 $user->attributes()->toArray(), 
                 function(string $key): bool {
@@ -66,7 +65,7 @@ class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController
                 },
                 ARRAY_FILTER_USE_KEY
             )
-        ])->end();
+        ]);
     }
 
     /**
@@ -81,8 +80,10 @@ class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController
      * @param string $id
      * @return void
      */
-    public function setProfile(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function setProfile(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         // Avatar, Birthday, About, Username
         $data = $request->getQueryParams();
         $v = new Validator($data);
@@ -128,11 +129,11 @@ class ProfileController extends \Pho\Server\Rest\Controllers\AbstractController
             $this->fail($response, "No field to set");
             return;
         }
-        
-        $response->writeJson([
-            "status"=>"success", 
-            "message" => sprintf("Following fields set successfully: %s", implode(", ", $sets))
-        ])->end();
-
+        $this->succeed($response, [
+            "message" => sprintf(
+                    "Following fields set successfully: %s", 
+                    implode(", ", $sets)
+                )
+        ]);
     }
 }

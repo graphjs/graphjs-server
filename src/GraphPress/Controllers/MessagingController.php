@@ -23,16 +23,12 @@ use Pho\Lib\Graph\ID;
 /**
  * Takes care of Messaging
  * 
- * 8/10 (inbox may be richer)
- * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class MessagingController extends \Pho\Server\Rest\Controllers\AbstractController 
+class MessagingController extends AbstractController 
 {
     /**
      * Send a Message
-     * 
-     * @score 10/10
      *
      * @param Request $request
      * @param Response $response
@@ -42,8 +38,10 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
      * 
      * @return void
      */
-    public function message(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function message(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['to', 'message']);
@@ -63,17 +61,14 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
         $i = $kernel->gs()->node($id);
         $recipient = $kernel->gs()->node($data["to"]);
         $msg = $i->message($recipient, $data["message"]);
-        
-        $response->writeJson([
-            "status"=>"success", 
-            "id" => (string) $msg->id()
-        ])->end();
+        $this->succeed($response, [
+                "id" => (string) $msg->id()
+            ]
+        );
     }
 
     /**
      * Fetch Unread Message Count
-     * 
-     * @score 10/10
      *
      * @param Request $request
      * @param Response $response
@@ -83,20 +78,20 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
      * 
      * @return void
      */
-    public function fetchUnreadMessageCount(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function fetchUnreadMessageCount(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
-        $response->writeJson([
-            "status"=>"success", 
-            "count" => (string) count($incoming_messages)
-        ])->end();
+        $this->succeed($response, [
+                "count" => (string) count($incoming_messages)
+            ]
+        );
     }
 
     /**
      * Fetch Inbox
-     *
-     * @score 10/10
      * 
      * @param Request $request
      * @param Response $response
@@ -106,8 +101,10 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
      * 
      * @return void
      */
-    public function fetchInbox(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function fetchInbox(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
         $ret = [];
@@ -119,16 +116,14 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
                 "is_read" => $m->getIsRead() ? true : false
             ];
         }
-        $response->writeJson([
-            "status"=>"success", 
-            "messages" => $ret
-        ])->end();
+        $this->succeed($response, [
+                "messages" => $ret
+            ]
+        );
     }
 
     /**
      * Fetch Message
-     * 
-     * @score 10/10
      *
      * @param Request $request
      * @param Response $response
@@ -137,8 +132,10 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
      * @param string $id
      * @return void
      */
-    public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['msgid']);
@@ -158,9 +155,9 @@ class MessagingController extends \Pho\Server\Rest\Controllers\AbstractControlle
         }
         $msg = $kernel->gs()->edge($data["msgid"]);
         $msg->setIsRead(true);
-        $response->writeJson([
-            "status"=>"success", 
-            "message" => $msg->attributes()->toArray()
-        ])->end();
+        $this->succeed($response, [
+                "message" => $msg->attributes()->toArray()
+            ]
+        );
     }
 }

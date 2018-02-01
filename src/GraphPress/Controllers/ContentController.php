@@ -27,7 +27,7 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class ContentController extends \Pho\Server\Rest\Controllers\AbstractController 
+class ContentController extends AbstractController 
 {
     /**
      * Star 
@@ -42,8 +42,10 @@ class ContentController extends \Pho\Server\Rest\Controllers\AbstractController
      * 
      * @return void
      */
-    public function star(Request $request, Response $response, Session $session, Kernel $kernel, string $id)
+    public function star(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url']);
@@ -63,9 +65,7 @@ class ContentController extends \Pho\Server\Rest\Controllers\AbstractController
             $page = $kernel->gs()->node($res->results()[0]["udid"]);
         }
         $i->star($page);    
-        $response->writeJson([
-            "success"=>true
-        ])->end();
+        $this->succeed($response);
     }
 
 }

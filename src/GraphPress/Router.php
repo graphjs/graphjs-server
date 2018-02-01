@@ -53,15 +53,12 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initAuthentication(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
-        //$server->get('signup', [$controllers["authentication"], "signup"]);
         $server->get('signup', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
         });
         $server->get('login', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->login($request, $response, $session, $kernel);
         });
-        //$server->get('logout', [$controllers["authentication"], "logout"]);
-        //$server->get('whoami', [$controllers["authentication"], "whoami"]);
         $server->get('logout', function(Request $request, Response $response) use ($session, $controllers) {
             $controllers["authentication"]->logout($request, $response, $session);
         });
@@ -72,40 +69,20 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initMessaging(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->get('sendMessage', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
-            $controllers["messaging"]->message($request, $response, $session, $kernel, $id);
+        $server->get('sendMessage', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->message($request, $response, $session, $kernel);
         });
 
-        $server->get('count', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
-            $controllers["messaging"]->fetchUnreadMessageCount($request, $response, $session, $kernel, $id);
+        $server->get('count', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->fetchUnreadMessageCount($request, $response, $session, $kernel);
         });
 
-        $server->get('inbox', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
-            $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel, $id);
+        $server->get('inbox', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel);
         });
 
-        $server->get('getMessage', function(Request $request, Response $response) use ($id, $session, $controllers, $kernel) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
-            $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel, $id);
+        $server->get('getMessage', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel);
         });
         
     }
@@ -117,12 +94,7 @@ class Router extends \Pho\Server\Rest\Router
         });
 
         $server->get('setProfile', function(Request $request, Response $response) use ($controllers, $session, $kernel) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
-            $controllers["profile"]->setProfile($request, $response, $session, $kernel, $id);
+            $controllers["profile"]->setProfile($request, $response, $session, $kernel);
         });
     }
 
@@ -136,11 +108,6 @@ class Router extends \Pho\Server\Rest\Router
     protected static function initContent(Session $session,  Server $server, array $controllers, Kernel $kernel): void
     {
         $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
-            $id = $session->get($request, "id");
-            if(is_null($id)) {
-                $this->fail($response, "You must be logged in to use this functionality");
-                return;
-            }
             $controllers["content"]->star($request, $response, $session, $kernel, $id);
         });
     }

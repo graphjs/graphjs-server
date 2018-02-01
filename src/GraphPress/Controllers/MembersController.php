@@ -27,7 +27,7 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class MembersController extends \Pho\Server\Rest\Controllers\AbstractController 
+class MembersController extends AbstractController 
 {
     /**
      * Get Members
@@ -51,10 +51,7 @@ class MembersController extends \Pho\Server\Rest\Controllers\AbstractController
                     "avatar" => (string) $node->getAvatar()
                 ];
         }
-        $response->writeJson([
-            "success"=>true, 
-            "members" => $members
-        ])->end();
+        $this->succeed($response, ["members" => $members]);
     }
 
 }
