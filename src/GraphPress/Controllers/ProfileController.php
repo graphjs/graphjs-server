@@ -23,20 +23,17 @@ use Pho\Lib\Graph\ID;
 /**
  * Takes care of Profile
  * 
- * 8/10 (minor bugs)
- * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
 class ProfileController extends AbstractController 
 {
     /**
      * Get Profile
-     * 
-     * @score 10/10
      *
      * @param Request $request
      * @param Response $response
      * @param Kernel $kernel
+     * 
      * @return void
      */
     public function getProfile(Request $request, Response $response, Kernel $kernel)
@@ -70,14 +67,13 @@ class ProfileController extends AbstractController
 
     /**
      * Set Profile
-     * 
-     * @score 10/10 
      *
      * @param Request $request
      * @param Response $response
      * @param Session $session
      * @param Kernel $kernel
      * @param string $id
+     * 
      * @return void
      */
     public function setProfile(Request $request, Response $response, Session $session, Kernel $kernel)

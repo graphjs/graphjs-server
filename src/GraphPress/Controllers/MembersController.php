@@ -23,16 +23,12 @@ use Pho\Lib\Graph\ID;
 /**
  * Takes care of Members
  * 
- * 10/10
- * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
 class MembersController extends AbstractController 
 {
     /**
      * Get Members
-     * 
-     * @score 10/10
      *
      * @param Request $request
      * @param Response $response

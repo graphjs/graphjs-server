@@ -73,11 +73,11 @@ class Router extends \Pho\Server\Rest\Router
             $controllers["messaging"]->message($request, $response, $session, $kernel);
         });
 
-        $server->get('count', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+        $server->get('countUnreadMessages', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->fetchUnreadMessageCount($request, $response, $session, $kernel);
         });
 
-        $server->get('inbox', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+        $server->get('getInbox', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->fetchInbox($request, $response, $session, $kernel);
         });
 
@@ -89,7 +89,7 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initProfile(Session $session, Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->get('profile', function(Request $request, Response $response) use ($controllers, $kernel) {
+        $server->get('getProfile', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["profile"]->getProfile($request, $response, $kernel);
         });
 
@@ -100,7 +100,7 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initMembers( Server $server, array $controllers, Kernel $kernel): void
     {
-        $server->get('members', function(Request $request, Response $response) use ($controllers, $kernel) {
+        $server->get('getMembers', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["members"]->getMembers($request, $response, $kernel);
         });
     }

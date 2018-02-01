@@ -23,16 +23,12 @@ use Pho\Lib\Graph\ID;
 /**
  * Takes care of Content
  * 
- * 10/10
- * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
 class ContentController extends AbstractController 
 {
     /**
      * Star 
-     *
-     * @score 10/10
      * 
      * @param Request $request
      * @param Response $response
