@@ -192,13 +192,15 @@ class MessagingController extends AbstractController
             return;
         }
         $msg = $kernel->gs()->edge($data["msgid"]);
-        $msg->setIsRead(true);
+        $recipient = (string) $msg->head()->id();
+        if($id==$recipient)
+            $msg->setIsRead(true);
         $this->succeed($response, [
                 "message" => array_merge(
                     $msg->attributes()->toArray(),
                     [
                         "from" => (string) $msg->tail()->id(),
-                        "to" => (string) $msg->head()->id()
+                        "to" => $recipient
                     ]
                 )
             ]
