@@ -1,1 +1,1 @@
-# graphpress-server
+# GraphJS-Server
