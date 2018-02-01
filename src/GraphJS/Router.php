@@ -38,7 +38,7 @@ class Router extends \Pho\Server\Rest\Router
         
     }
 
-    protected function initSession(Server $server, array $controllers, Kernel $kernel): void
+    protected static function initSession(Server $server, array $controllers, Kernel $kernel): void
     {
         if(!isset(self::$session))
             self::$session = new Session(__DIR__ . "/../../sessions");
