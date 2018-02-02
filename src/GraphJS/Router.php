@@ -35,6 +35,8 @@ class Router extends \Pho\Server\Rest\Router
         self::initProfile(self::$session, ...\func_get_args());
         self::initMembers(...\func_get_args());
         self::initContent(self::$session, ...\func_get_args());
+        self::initForum(self::$session, ...\func_get_args());
+        self::initGroup(self::$session, ...\func_get_args());
         
     }
 
@@ -117,6 +119,44 @@ class Router extends \Pho\Server\Rest\Router
 
         $server->get('getStarredContent', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["content"]->fetchStarredContent($request, $response, $kernel);
+        });
+    }
+
+    protected static function initForum(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->get('startThread', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["forum"]->startThread($request, $response, $session, $kernel);
+        });
+
+        $server->get('reply', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["forum"]->replyThread($request, $response, $session, $kernel);
+        });
+
+        $server->get('getThreads', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["forum"]->getThreads($request, $response, $kernel);
+        });
+
+        $server->get('getThread', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["forum"]->getThread($request, $response, $kernel);
+        });
+    }
+
+    protected static function initGroup(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    {
+        $server->get('createGroup', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["group"]->createGroup($request, $response, $session, $kernel);
+        });
+
+        $server->get('join', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["group"]->joinGroup($request, $response, $session, $kernel);
+        });
+
+        $server->get('listGroups', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["group"]->listGroups($request, $response, $kernel);
+        });
+
+        $server->get('listMembers', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["group"]->listMembers($request, $response, $kernel);
         });
     }
 } 
