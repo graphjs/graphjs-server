@@ -112,7 +112,11 @@ class Router extends \Pho\Server\Rest\Router
     protected static function initContent(Session $session,  Server $server, array $controllers, Kernel $kernel): void
     {
         $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
-            $controllers["content"]->star($request, $response, $session, $kernel, $id);
+            $controllers["content"]->star($request, $response, $session, $kernel);
+        });
+
+        $server->get('getStarredContent', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["content"]->fetchStarredContent($request, $response, $kernel);
         });
     }
 } 
