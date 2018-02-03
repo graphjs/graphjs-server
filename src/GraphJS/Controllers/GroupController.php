@@ -53,6 +53,7 @@ class GroupController extends AbstractController
             $this->fail($response, "Title (up to 80 chars) and Description are required.");
             return;
         }
+        $i = $kernel->gs()->node($id);
         $group = $i->create($data["title"], $data["description"]);
         $this->succeed($response,[
             "id" => (string) $group->id()
@@ -71,7 +72,7 @@ class GroupController extends AbstractController
      * 
      * @return void
      */
-    public function joinGroup(Request $request, Response $response, Kernel $kernel)
+    public function joinGroup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id=$this->dependOnSession(...\func_get_args())))
             return;
@@ -84,10 +85,12 @@ class GroupController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $group = $kernel->gs()->node($data["id"]);
-        if(!$group instanceof Group::class) {
+
+        if(!($group instanceof Group)) {
             $this->fail($response, "Given ID is not associated with a Group");
             return;
         }
+
         $i->join($group);
         $this->succeed($response);
     }
@@ -108,7 +111,7 @@ class GroupController extends AbstractController
         $groups = [];
         $everything = $kernel->graph()->members();
         foreach($everything as $thing) {
-            if($thing instanceof Group::class) {
+            if($thing instanceof Group) {
                 $groups[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
@@ -143,7 +146,7 @@ class GroupController extends AbstractController
             return;
         }
         $group = $kernel->gs()->node($data["id"]);
-        if(!$group instanceof Group::class) {
+        if(!$group instanceof Group) {
             $this->fail($response, "Given ID is not associated with a Group");
             return;
         }
@@ -151,11 +154,11 @@ class GroupController extends AbstractController
             $group->members(),
             function(/*mixed*/ $value): bool
                 {
-                    return ($value instanceof User::class);
+                    return ($value instanceof User);
                 }
         );
         $this->succeed($response, [
-            "members" => $members
+            "members" => array_keys($members)
         ]);
     }
 }

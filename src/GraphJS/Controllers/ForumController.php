@@ -73,7 +73,7 @@ class ForumController extends AbstractController
      * 
      * @return void
      */
-    public function replyThread(Request $request, Response $response, Kernel $kernel)
+    public function replyThread(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id=$this->dependOnSession(...\func_get_args())))
             return;
@@ -85,7 +85,12 @@ class ForumController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
-        $reply = $i->reply($data["id"], $data["message"]);
+        $thread = $kernel->gs()->node($data["id"]);
+        if(!$thread instanceof Thread) {
+            $this->fail($response, "Given  ID is not associated with a forum thread.");
+            return;
+        }
+        $reply = $i->reply($thread, $data["message"]);
         $this->succeed($response, [
             "id" => (string) $reply->id()
         ]);
@@ -109,7 +114,7 @@ class ForumController extends AbstractController
         $threads = [];
         $everything = $kernel->graph()->members();
         foreach($everything as $thing) {
-            if($thing instanceof Thread::class) {
+            if($thing instanceof Thread) {
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
@@ -144,17 +149,17 @@ class ForumController extends AbstractController
             return;
         }
         $thread = $kernel->gs()->node($data["id"]);
-        if(!$thread instanceof Thread::class) {
+        if(!$thread instanceof Thread) {
             $this->fail($response, "Not a Thread");
         }
         $replies = $thread->getReplies();
         $this->succeed($response, [
             "title" => $thread->getTitle(),
             "messages" => array_merge(
-                [
+                [[
                     "author" => (string) $thread->getAuthor()->id(),
                     "content" => $thread->getContent()
-                ],
+                ]],
                 array_map(
                     function($obj): array {
                         return [
