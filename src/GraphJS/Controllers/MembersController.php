@@ -65,8 +65,28 @@ class MembersController extends AbstractController
     {
       if(is_null($id=$this->dependOnSession(...\func_get_args())))
             $this->fail($response, "Session required");
+       $data = $request->getQueryParams();
+        $v = new Validator($data);
+     $v->rule('required', ['id']);
+     if(!$v->validate()) {
+            $this->fail($response, "Valid user ID required.");
+            return;
+        }
+        if(!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
+            $this->fail($response, "Invalid ID");
+            return;
+        }
        $i = $kernel->gs()->node($id);
-       $i->follow($data["id"]);
+       $followee = $kernel->gs()->node($data["id"]);
+       if(!$i instanceof User) {
+          $this->fail($response, "Session owner not a User");
+          return;
+       }
+       if(!$followee instanceof User) {
+          $this->fail($response, "Followee not a User");
+          return;
+       }
+       $i->follow($followee);
        $this->succeed($response);
     }
 
