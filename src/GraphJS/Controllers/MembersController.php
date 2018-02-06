@@ -49,5 +49,19 @@ class MembersController extends AbstractController
         }
         $this->succeed($response, ["members" => $members]);
     }
+ 
+   /**
+     * Follow someone
+     *
+     * @param Request $request
+     * @param Response $response
+     * @param Kernel $kernel
+     * 
+     * @return void
+     */
+    public function follow(Request $request, Response $response, Kernel $kernel, Session $session)
+    {
+     
+    }
 
 }
