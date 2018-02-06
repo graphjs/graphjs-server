@@ -30,13 +30,13 @@ class Router extends \Pho\Server\Rest\Router
     {
         
         self::initSession(...\func_get_args());
-        self::initAuthentication(self::$session, ...\func_get_args());
-        self::initMessaging(self::$session, ...\func_get_args());
-        self::initProfile(self::$session, ...\func_get_args());
+        self::initAuthentication(...\func_get_args());
+        self::initMessaging(...\func_get_args());
+        self::initProfile(...\func_get_args());
         self::initMembers(...\func_get_args());
-        self::initContent(self::$session, ...\func_get_args());
-        self::initForum(self::$session, ...\func_get_args());
-        self::initGroup(self::$session, ...\func_get_args());
+        self::initContent(...\func_get_args());
+        self::initForum(...\func_get_args());
+        self::initGroup(...\func_get_args());
         
     }
 
@@ -53,8 +53,9 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    protected static function initAuthentication(Session $session, Server $server, array $controllers, Kernel $kernel): void
+    protected static function initAuthentication(Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('signup', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["authentication"]->signup($request, $response, $session, $kernel);
         });
@@ -69,8 +70,9 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    protected static function initMessaging(Session $session, Server $server, array $controllers, Kernel $kernel): void
+    protected static function initMessaging(Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('sendMessage', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->message($request, $response, $session, $kernel);
         });
@@ -93,8 +95,9 @@ class Router extends \Pho\Server\Rest\Router
         
     }
 
-    protected static function initProfile(Session $session, Server $server, array $controllers, Kernel $kernel): void
+    protected static function initProfile(Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('getProfile', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["profile"]->getProfile($request, $response, $kernel);
         });
@@ -106,13 +109,18 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initMembers( Server $server, array $controllers, Kernel $kernel): void
     {
+
         $server->get('getMembers', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["members"]->getMembers($request, $response, $kernel);
         });
+        $server->get('follow', function(Request $request, Response $response) use ($controllers, $session, $kernel) {
+            $controllers["members"]->follow($request, $response, $session, $kernel);
+        });
     }
 
-    protected static function initContent(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    protected static function initContent(Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('star', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
             $controllers["content"]->star($request, $response, $session, $kernel);
         });
@@ -122,8 +130,9 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    protected static function initForum(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    protected static function initForum( Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('startThread', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
             $controllers["forum"]->startThread($request, $response, $session, $kernel);
         });
@@ -141,8 +150,9 @@ class Router extends \Pho\Server\Rest\Router
         });
     }
 
-    protected static function initGroup(Session $session,  Server $server, array $controllers, Kernel $kernel): void
+    protected static function initGroup(Server $server, array $controllers, Kernel $kernel): void
     {
+        $session = self::$session;
         $server->get('createGroup', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
             $controllers["group"]->createGroup($request, $response, $session, $kernel);
         });
