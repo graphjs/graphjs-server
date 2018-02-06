@@ -53,6 +53,8 @@ class MembersController extends AbstractController
    /**
      * Follow someone
      *
+     * id
+     *
      * @param Request $request
      * @param Response $response
      * @param Kernel $kernel
@@ -61,7 +63,11 @@ class MembersController extends AbstractController
      */
     public function follow(Request $request, Response $response, Kernel $kernel, Session $session)
     {
-     
+      if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            $this->fail($response, "Session required");
+       $i = $kernel->gs()->node($id);
+       $i->follow($data["id"]);
+       $this->succeed($response);
     }
 
 }
