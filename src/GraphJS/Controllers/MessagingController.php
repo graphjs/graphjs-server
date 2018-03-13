@@ -232,9 +232,10 @@ class MessagingController extends AbstractController
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $results = $ret->results();
+        error_log(print_r($results, true));
         $return = [];
         foreach($results as $res) {
-            error_log(print_r($res, true));
+            
             $return[] = [
                 "id" => $res->r["udid"],
                 "from" => $res->t["udid"] == $id ? $id  : $data["with"],
