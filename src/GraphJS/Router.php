@@ -92,6 +92,10 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('getConversations', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->fetchConversations($request, $response, $session, $kernel);
         });
+        
+        $server->get('getConversation', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
+            $controllers["messaging"]->fetchConversation($request, $response, $session, $kernel);
+        });
 
         $server->get('getMessage', function(Request $request, Response $response) use ($session, $controllers, $kernel) {
             $controllers["messaging"]->fetchMessage($request, $response, $session, $kernel);
