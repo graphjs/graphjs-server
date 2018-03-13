@@ -27,7 +27,7 @@ class Daemon extends \Pho\Server\Rest\Daemon
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
         $this->initKernel();
-        $this->initControllers(__DIR__, false);
+        $this->initControllers(__DIR__, true);
         Router::init2($this->server, $this->controllers, $this->kernel);
     }
 
