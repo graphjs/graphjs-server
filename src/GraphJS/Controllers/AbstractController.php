@@ -28,7 +28,8 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 {
     protected function succeed(Response $response, array $data = []): void
     {
-        $response->addHeader("Access-Control-Allow-Credentials", "true")->writeJson(
+        $method = $this->getWriteMethod();
+        $response->addHeader("Access-Control-Allow-Credentials", "true")->$method(
             array_merge(
                 ["success"=>true], 
                 $data
