@@ -228,7 +228,7 @@ class MessagingController extends AbstractController
                 return;
             }
         $ret = $kernel->index()->client()->run(
-            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true return startNode(r).udid as t, r",
+            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN startNode(r).udid as t, r ORDER BY r.SentTime DESC",
             //"MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
