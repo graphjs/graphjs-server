@@ -228,9 +228,21 @@ class MessagingController extends AbstractController
                 return;
             }
         $ret = $kernel->index()->query(
-            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
+            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return startNode(r).udid as t, r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
+        $results = $ret->results();
+        $return = [];
+        foreach($results as $res) {
+            $return[] = [
+                "id" => $res["r"]["udid"],
+                "from" => $t == $id ? $id  : $data["with"],
+                "to" => $t == $id ? $data["with"]  : $id,
+                "message" => $res["r"]["Content"],
+                "is_read" => (bool) $res["r"]["IsRead"],
+                "timestamp" => $res["r"]["SentTime"]
+            ];
+        }
         $this->succeed($response, $ret->results());
     }
 
