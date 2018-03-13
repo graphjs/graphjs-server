@@ -231,18 +231,19 @@ class MessagingController extends AbstractController
             "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return startNode(r) as t, r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
-        $results = $ret->results();
+        $results = $ret->results("r");
+        $froms = $ret->results("t");
         error_log(print_r($results, true));
         $return = [];
-        foreach($results as $res) {
+        foreach($results as $i=>$res) {
             
             $return[] = [
-                "id" => $res->r["udid"],
-                "from" => $res->t["udid"] == $id ? $id  : $data["with"],
-                "to" => $res->t["udid"] == $id ? $data["with"]  : $id,
-                "message" => $res->r["Content"],
-                "is_read" => (bool) $res->r["IsRead"],
-                "timestamp" => $res->r["SentTime"]
+                "id" => $res["udid"],
+                "from" => $froms[$i]["udid"] == $id ? $id  : $data["with"],
+                "to" => $froms[$i]["udid"] == $id ? $data["with"]  : $id,
+                "message" => $res["Content"],
+                "is_read" => (bool) $res["IsRead"],
+                "timestamp" => $res["SentTime"]
             ];
         }
         $this->succeed($response, $return);
