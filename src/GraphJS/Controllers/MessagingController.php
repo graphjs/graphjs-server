@@ -228,22 +228,23 @@ class MessagingController extends AbstractController
                 return;
             }
         $ret = $kernel->index()->query(
-            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return startNode(r) as t, r",
+            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return startNode(r).udid as t, r",
+            //"MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
-        $results = $ret->results("r");
-        $froms = $ret->results("t");
-        error_log(print_r($results, true));
+        $records = $ret->records();
+        //error_log(print_r($records, true));
         $return = [];
-        foreach($results as $i=>$res) {
-            
+        foreach($records as $i=>$res) {
+            $m = $res->get("r");
+            $sender = $res->get("t");
             $return[] = [
-                "id" => $res["udid"],
-                "from" => $froms[$i]["udid"] == $id ? $id  : $data["with"],
-                "to" => $froms[$i]["udid"] == $id ? $data["with"]  : $id,
-                "message" => $res["Content"],
-                "is_read" => (bool) $res["IsRead"],
-                "timestamp" => $res["SentTime"]
+                "id" => $m->value("udid"),
+                "from" => $sender == $id ? $id  : $data["with"],
+                "to" => $sender == $id ? $data["with"]  : $id,
+                "message" => $m->value("Content"),
+                "is_read" => (bool) $m->value("IsRead"),
+                "timestamp" => $m->value("SentTime")
             ];
         }
         $this->succeed($response, $return);
