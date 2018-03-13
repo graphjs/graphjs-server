@@ -159,6 +159,59 @@ class MessagingController extends AbstractController
         );
     }
 
+
+    public function fetchConversations(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+            return;
+        $i = $kernel->gs()->node($id);
+        $sent_messages = $i->getSentMessages();
+        $incoming_messages = $i->getIncomingMessages();
+        $ret = [];
+        $mem = [];
+        foreach($sent_messages as $m) 
+        {
+            if(
+                array_key_exists(($op=$m->head()->id()->toString()), $mem)
+                &&
+                $mem[$op] > ($ts = $m->getSentTime())
+                )
+                continue;
+            $ret[(string) $m->id()] = [
+                "from" => $id,
+                "to" => $op,
+                "message" => substr($m->getContent(), 0, 70),
+                "is_read" => $m->getIsRead() ? true : false,
+                "timestamp" => $ts
+            ];
+            $mem[$op] = $ts;
+        }
+        foreach($incoming_messages as $m) 
+        {
+            if(
+                array_key_exists(($op=$m->tail()->id()->toString()), $mem)
+                &&
+                $mem[$op] > ($ts = $m->getSentTime())
+                )
+                continue;
+            $ret[(string) $m->id()] = [
+                "from" => $m->tail()->id()->toString(),
+                "to" => $id,
+                "message" => substr($m->getContent(), 0, 70),
+                "is_read" => $m->getIsRead() ? true : false,
+                "timestamp" => $ts
+            ];
+            $mem[$op] = $ts;
+        }
+        uasort($ret, function($a,$b) {
+            return $a['timestamp']>$b['timestamp'];
+        });
+        $this->succeed($response, [
+                "messages" => $ret
+            ]
+        );
+    }
+
     /**
      * Fetch Message
      * 
