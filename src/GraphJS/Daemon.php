@@ -25,7 +25,7 @@ class Daemon extends \Pho\Server\Rest\Daemon
     public function __construct()
     {
         $this->server = new Server();
-        $this->server->setAccessControlAllowOrigin("*");
+//        $this->server->setAccessControlAllowOrigin("*");
         $this->initKernel();
         $this->initControllers(__DIR__);
         Router::init2($this->server, $this->controllers, $this->kernel);
