@@ -234,6 +234,7 @@ class MessagingController extends AbstractController
         $results = $ret->results();
         $return = [];
         foreach($results as $res) {
+            error_log(print_r($res, true));
             $return[] = [
                 "id" => $res->r["udid"],
                 "from" => $res->t["udid"] == $id ? $id  : $data["with"],
