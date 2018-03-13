@@ -228,7 +228,7 @@ class MessagingController extends AbstractController
                 return;
             }
         $ret = $kernel->index()->client()->run(
-            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return startNode(r).udid as t, r",
+            "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true return startNode(r).udid as t, r",
             //"MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
@@ -243,7 +243,7 @@ class MessagingController extends AbstractController
                 "from" => $sender == $id ? $id  : $data["with"],
                 "to" => $sender == $id ? $data["with"]  : $id,
                 "message" => $m->value("Content"),
-                "is_read" => (bool) $m->value("IsRead"),
+                "is_read" => true,
                 "timestamp" => $m->value("SentTime")
             ];
         }
