@@ -243,7 +243,7 @@ class MessagingController extends AbstractController
                 "timestamp" => $res["r"]["SentTime"]
             ];
         }
-        $this->succeed($response, $ret->results());
+        $this->succeed($response, $return);
     }
 
     /**
