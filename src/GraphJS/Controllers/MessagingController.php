@@ -115,7 +115,8 @@ class MessagingController extends AbstractController
             $ret[(string) $m->id()] = [
                 "from" => $m->tail()->id()->toString(),
                 "message" => substr($m->getContent(), 0, 70),
-                "is_read" => $m->getIsRead() ? true : false
+                "is_read" => $m->getIsRead() ? true : false,
+                "timestamp" => $m->getSentTime()
             ];
         }
         $this->succeed($response, [
@@ -148,7 +149,8 @@ class MessagingController extends AbstractController
             $ret[(string) $m->id()] = [
                 "to" => $m->head()->id()->toString(),
                 "message" => substr($m->getContent(), 0, 70),
-                "is_read" => $m->getIsRead() ? true : false
+                "is_read" => $m->getIsRead() ? true : false,
+                "timestamp" => $m->getSentTime()
             ];
         }
         $this->succeed($response, [
