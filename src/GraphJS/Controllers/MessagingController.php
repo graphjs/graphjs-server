@@ -231,10 +231,7 @@ class MessagingController extends AbstractController
             "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
-        $this->succeed($response, [
-            $ret
-        ]
-        );
+        $this->succeed($response, $ret->results());
     }
 
     /**
