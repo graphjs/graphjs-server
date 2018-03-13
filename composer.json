@@ -2,7 +2,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "phonetworks/pho-server-rest": "^1.1",
+        "phonetworks/pho-server-rest": "^2.1",
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
         "vlucas/phpdotenv": "^2.4"
