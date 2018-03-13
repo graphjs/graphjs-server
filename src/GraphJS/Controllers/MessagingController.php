@@ -236,8 +236,8 @@ class MessagingController extends AbstractController
         foreach($results as $res) {
             $return[] = [
                 "id" => $res["r"]["udid"],
-                "from" => $t == $id ? $id  : $data["with"],
-                "to" => $t == $id ? $data["with"]  : $id,
+                "from" => $t["udid"] == $id ? $id  : $data["with"],
+                "to" => $t["udid"] == $id ? $data["with"]  : $id,
                 "message" => $res["r"]["Content"],
                 "is_read" => (bool) $res["r"]["IsRead"],
                 "timestamp" => $res["r"]["SentTime"]
