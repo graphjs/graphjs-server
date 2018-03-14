@@ -47,7 +47,7 @@ class Router extends \Pho\Server\Rest\Router
         $session = self::$session;
         $server->use(function(Request $request, Response $response, $next) use($session, $kernel) {
             $session->start($request, $response);
-            $response->addHeader("Access-Control-Allow-Origin", "*");   // cors
+            //$response->addHeader("Access-Control-Allow-Origin", "*");   // cors
             //eval(\Psy\sh());
             $next();
         });
