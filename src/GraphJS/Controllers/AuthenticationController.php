@@ -120,9 +120,7 @@ class AuthenticationController extends AbstractController
     public function logout(Request $request, Response $response, Session $session) 
     {
         $session->set($request, "id", null);
-        $response->writeJson([
-            "success"=> true
-        ])->end();
+        $this->succeed($response);
     }
 
     /**
