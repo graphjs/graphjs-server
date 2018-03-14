@@ -51,7 +51,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
     {
         $id = $session->get($request, "id");
         if(is_null($id)) {
-            $this->addHeader("Access-Control-Allow-Credentials", "true")->fail($response, "No active session");
+            $this->fail($response->addHeader("Access-Control-Allow-Credentials", "true"), "No active session");
             return null;
         }
         return $id;
