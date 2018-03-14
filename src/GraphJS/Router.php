@@ -29,6 +29,14 @@ class Router extends \Pho\Server\Rest\Router
     public static function init2(Server $server, array $controllers, Kernel $kernel): void
     {
         
+        $server->use(function(Request $request, Response $response, $next) use($kernel) {
+            $data = $request->getQueryParams();
+            if(isset($data["public_id"])&&!empty($data["public_id"])) {
+                error_log("Public ID is: ".$data["public_id"]);
+            }
+            $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
+            $next();
+        });
         self::initSession(...\func_get_args());
         self::initAuthentication(...\func_get_args());
         self::initMessaging(...\func_get_args());
