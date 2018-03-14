@@ -238,8 +238,7 @@ class MessagingController extends AbstractController
         foreach($records as $i=>$res) {
             $m = $res->get("r");
             $sender = $res->get("t");
-            $return[] = [
-                "id" => $m->value("udid"),
+            $return[$m->value("udid")] = [
                 "from" => $sender == $id ? $id  : $data["with"],
                 "to" => $sender == $id ? $data["with"]  : $id,
                 "message" => $m->value("Content"),
@@ -247,7 +246,7 @@ class MessagingController extends AbstractController
                 "timestamp" => $m->value("SentTime")
             ];
         }
-        $this->succeed($response, $return);
+        $this->succeed($response, [ "messages" => $return ]);
     }
 
     /**
