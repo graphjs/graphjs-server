@@ -37,6 +37,14 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         )->end();
     }
 
+    protected function fail(Response $response, string $message = ""): void
+    {
+        parent::fail(
+            $response->addHeader("Access-Control-Allow-Credentials", "true"), 
+            $message
+        );
+    }
+    
     /**
      * Makes sure the method is dependent on session availability
      *
