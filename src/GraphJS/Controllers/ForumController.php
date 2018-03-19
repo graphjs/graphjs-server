@@ -118,8 +118,7 @@ class ForumController extends AbstractController
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
-                    "author" => (string) $thing->getAuthor()->id()
-
+                    "author" => (string) ($thing->getAuthors()[0])->id()
                 ];
             }
         }
@@ -157,7 +156,7 @@ class ForumController extends AbstractController
             "title" => $thread->getTitle(),
             "messages" => array_merge(
                 [[
-                    "author" => (string) $thread->getAuthor()->id(),
+                    "author" => (string) ($thread->getAuthors()[0])->id(),
                     "content" => $thread->getContent()
                 ]],
                 array_map(
