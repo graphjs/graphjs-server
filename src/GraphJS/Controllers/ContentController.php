@@ -104,7 +104,7 @@ class ContentController extends AbstractController
         }
         $i = $kernel->gs()->node($id);  
         $page = $this->_fromUrlToNode($kernel, $data["url"]);
-        $stars = iterator_to_array($i->between($page->id(), Star::class));
+        $stars = iterator_to_array($i->edges()->between($page->id(), Star::class));
         foreach($stars as $star) 
            $star->destroy();
         $this->succeed($response);
