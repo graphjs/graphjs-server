@@ -83,7 +83,7 @@ class ContentController extends AbstractController
        $me=$this->dependOnSession(...\func_get_args());
        $this->succeed($response, [
         "count"=>count($starrers), 
-        "starred"=>is_null($me) ? false : $page->hasStarrer($me)]
+        "starred"=>is_null($me) ? false : $page->hasStarrer(ID::fromString($me))]
       );
  }
 
