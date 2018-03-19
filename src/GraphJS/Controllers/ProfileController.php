@@ -57,13 +57,14 @@ class ProfileController extends AbstractController
             return;
         }
         $this->succeed($response, [
-            "profile" => array_filter(
+            "profile" => array_change_key_case(
+              array_filter(
                 $user->attributes()->toArray(), 
                 function(string $key): bool {
                     return strtolower($key) != "password";
                 },
                 ARRAY_FILTER_USE_KEY
-            )
+             ), CASE_LOWER) 
         ]);
     }
 
