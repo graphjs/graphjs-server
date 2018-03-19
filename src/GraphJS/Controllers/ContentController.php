@@ -55,7 +55,9 @@ class ContentController extends AbstractController
         $i = $kernel->gs()->node($id);  
         $page = $this->_fromUrlToNode($kernel, $data["url"]);
         $i->star($page);    
-        $this->succeed($response);
+        $this->succeed($response, [
+         "count" => count($page->getStarrers())
+        ]);
     }
  
  protected function _fromUrlToNode(Kernel $kernel, string $url) 
