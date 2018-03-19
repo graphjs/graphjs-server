@@ -68,7 +68,7 @@ class ContentController extends AbstractController
         return $kernel->gs()->node($res->results()[0]["udid"]);
  }
  
- public function isStarred(Request $request, Response $response, Kernel $kernel)
+ public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
  {
         $data = $request->getQueryParams();
         $v = new Validator($data);
