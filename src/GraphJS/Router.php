@@ -145,6 +145,10 @@ class Router extends \Pho\Server\Rest\Router
             $controllers["content"]->isStarred($request, $response, $session, $kernel);
         });
 
+        $server->get('removeStar', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["content"]->removeStar($request, $response, $session, $kernel);
+        });
+        
         $server->get('getStarredContent', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["content"]->fetchStarredContent($request, $response, $kernel);
         });
