@@ -52,19 +52,40 @@ class ContentController extends AbstractController
             $this->fail($response, "Url required.");
             return;
         }
-        $url = $data["url"];
-        $i = $kernel->gs()->node($id);
-        // query if such page exists
-        $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
-        if(count($res->results())==0) {
-            $page = $kernel->founder()->post($url);
-        }
-        else {
-            $page = $kernel->gs()->node($res->results()[0]["udid"]);
-        }
+        $i = $kernel->gs()->node($id);  
+        $page = $this->_fromUrlToNode($kernel, $data["url"]);
         $i->star($page);    
         $this->succeed($response);
     }
+ 
+ protected function _fromUrlToNode(Kernel $kernel, string $url) 
+ {
+        $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
+        if(count($res->results())==0) 
+        {
+            return $kernel->founder()->post($url);
+        }
+        return $kernel->gs()->node($res->results()[0]["udid"]);
+ }
+ 
+ public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
+ {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['url']);
+        $v->rule('url', ['url']);
+        if(!$v->validate()) {
+            $this->fail($response, "Url required.");
+            return;
+        }
+       $page = $this->_fromUrlToNode($kernel, $data["url"]);
+       $starrers = $page->getStarrers();
+       $me=$this->dependOnSession(...\func_get_args());
+       $this->succeed($response, [
+        "count"=>count($starrers), 
+        "starred"=>is_null($me) ? false : $page->hasStarrer($me)]
+      );
+ }
 
     /**
      * Fetch starred content
