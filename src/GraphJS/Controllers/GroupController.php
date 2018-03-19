@@ -116,7 +116,8 @@ class GroupController extends AbstractController
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
                     "description" => $thing->getDescription(),
-                    "creator" => (string) $thing->getCreator()->id()
+                    "creator" => (string) $thing->getCreator()->id(),
+                    "count" => (string) count($thing->members())
                 ];
             }
         }
