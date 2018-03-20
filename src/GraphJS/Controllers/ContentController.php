@@ -91,7 +91,7 @@ class ContentController extends AbstractController
  }
 
  
- public function removeStar(Request $request, Response $response, Session $session, Kernel $kernel)
+ public function unstar(Request $request, Response $response, Session $session, Kernel $kernel)
  {
         if(is_null($id=$this->dependOnSession(...\func_get_args())))
             return;
