@@ -148,6 +148,14 @@ class Router extends \Pho\Server\Rest\Router
         $server->get('unstar', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
             $controllers["content"]->unstar($request, $response, $session, $kernel);
         });
+
+        $server->get('addComment', function(Request $request, Response $response) use ($controllers, $kernel, $session) {
+            $controllers["content"]->comment($request, $response, $session, $kernel);
+        });
+
+        $server->get('getComments', function(Request $request, Response $response) use ($controllers, $kernel) {
+            $controllers["content"]->fetchComments($request, $response, $kernel);
+        });
         
         $server->get('getStarredContent', function(Request $request, Response $response) use ($controllers, $kernel) {
             $controllers["content"]->fetchStarredContent($request, $response, $kernel);

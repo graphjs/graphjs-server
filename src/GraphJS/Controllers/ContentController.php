@@ -90,6 +90,46 @@ class ContentController extends AbstractController
       );
  }
 
+
+ public function comment(Request $request, Response $response, Session $session, Kernel $kernel)
+ {
+    if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        return;
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['url', 'content']);
+        $v->rule('url', ['url']);
+        if(!$v->validate()) {
+            $this->fail($response, "Url and content fields are required.");
+            return;
+        }
+        $i = $kernel->gs()->node($id);  
+      $page = $this->_fromUrlToNode($kernel, $data["url"]);
+      $comment = $i->comment($page, $data["content"]);
+      $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
+ }
+
+ public function fetchComments(Request $request, Response $response, Kernel $kernel)
+ {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['url']);
+        $v->rule('url', ['url']);
+        if(!$v->validate()) {
+            $this->fail($response, "Url field is required.");
+            return;
+        }
+      $page = $this->_fromUrlToNode($kernel, $data["url"]);
+      $this->succeed($response, [
+          "comments"=>array_map(
+        function($val) { 
+          return $val->toArray(); 
+        }, 
+      $page->getComments()
+        )
+        ]
+    );
+ }
  
  public function unstar(Request $request, Response $response, Session $session, Kernel $kernel)
  {
