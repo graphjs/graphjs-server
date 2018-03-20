@@ -156,11 +156,11 @@ class ContentController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);  
-        if(!$i->hasComment($data["comment_id"])) {
+        if(!$i->hasComment(ID::fromString($data["comment_id"]))) {
             $this->fail($response, "Comment_id does not belong to you.");
             return;
         }
-        $comment = $kernel->gs()->edge("comment_id");
+        $comment = $kernel->gs()->edge($data["comment_id"]);
         $comment->destroy();
         $this->succeed($response);
     }
