@@ -26,25 +26,26 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class ContentController extends AbstractController 
+class ContentController extends AbstractController
 {
     /**
      * Star 
      * 
      * [url]
      * 
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function star(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url']);
@@ -56,23 +57,24 @@ class ContentController extends AbstractController
         $i = $kernel->gs()->node($id);  
         $page = $this->_fromUrlToNode($kernel, $data["url"]);
         $i->star($page);    
-        $this->succeed($response, [
-         "count" => count($page->getStarrers())
-        ]);
+        $this->succeed(
+            $response, [
+            "count" => count($page->getStarrers())
+            ]
+        );
     }
  
- protected function _fromUrlToNode(Kernel $kernel, string $url) 
- {
+    protected function _fromUrlToNode(Kernel $kernel, string $url) 
+    {
         $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
-        if(count($res->results())==0) 
-        {
+        if(count($res->results())==0) {
             return $kernel->founder()->post($url);
         }
         return $kernel->gs()->node($res->results()[0]["udid"]);
- }
+    }
  
- public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
- {
+    public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url']);
@@ -81,20 +83,22 @@ class ContentController extends AbstractController
             $this->fail($response, "Url required.");
             return;
         }
-       $page = $this->_fromUrlToNode($kernel, $data["url"]);
-       $starrers = $page->getStarrers();
-       $me=$this->dependOnSession(...\func_get_args());
-       $this->succeed($response, [
-        "count"=>count($starrers), 
-        "starred"=>is_null($me) ? false : $page->hasStarrer(ID::fromString($me))]
-      );
- }
+          $page = $this->_fromUrlToNode($kernel, $data["url"]);
+          $starrers = $page->getStarrers();
+          $me=$this->dependOnSession(...\func_get_args());
+          $this->succeed(
+              $response, [
+              "count"=>count($starrers), 
+              "starred"=>is_null($me) ? false : $page->hasStarrer(ID::fromString($me))]
+          );
+    }
 
 
- public function comment(Request $request, Response $response, Session $session, Kernel $kernel)
- {
-    if(is_null($id=$this->dependOnSession(...\func_get_args())))
-        return;
+    public function comment(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url', 'content']);
@@ -104,13 +108,13 @@ class ContentController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);  
-      $page = $this->_fromUrlToNode($kernel, $data["url"]);
-      $comment = $i->comment($page, $data["content"]);
-      $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
- }
+         $page = $this->_fromUrlToNode($kernel, $data["url"]);
+         $comment = $i->comment($page, $data["content"]);
+         $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
+    }
 
- public function fetchComments(Request $request, Response $response, Kernel $kernel)
- {
+    public function fetchComments(Request $request, Response $response, Kernel $kernel)
+    {
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url']);
@@ -119,22 +123,25 @@ class ContentController extends AbstractController
             $this->fail($response, "Url field is required.");
             return;
         }
-      $page = $this->_fromUrlToNode($kernel, $data["url"]);
-      $this->succeed($response, [
-          "comments"=>array_map(
-        function($val) { 
-          return $val->toArray(); 
-        }, 
-      $page->getComments()
-        )
-        ]
-    );
- }
+         $page = $this->_fromUrlToNode($kernel, $data["url"]);
+         $comments = array_map(
+                function ($val) { 
+                    return $val->toArray(); 
+}, 
+             $page->getComments()
+         );
+         $this->succeed(
+             $response, [
+             "comments"=>$comments
+             ]
+         );
+    }
  
- public function unstar(Request $request, Response $response, Session $session, Kernel $kernel)
- {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+    public function unstar(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['url']);
@@ -148,19 +155,19 @@ class ContentController extends AbstractController
         $stars = iterator_to_array($i->edges()->between($page->id(), Star::class));
         error_log("Total star count: ".count($stars));
         foreach($stars as $star) {
-           error_log("Star ID: ".$star->id()->toString());
-           $star->destroy();
+            error_log("Star ID: ".$star->id()->toString());
+            $star->destroy();
         }
         $this->succeed($response);
- }
+    }
  
     /**
      * Fetch starred content
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
+     * @param Session  $session
+     * @param Kernel   $kernel
      * 
      * @return void
      */

@@ -25,25 +25,26 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class MessagingController extends AbstractController 
+class MessagingController extends AbstractController
 {
     /**
      * Send a Message
      * 
      * [to, message]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function message(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['to', 'message']);
@@ -63,7 +64,8 @@ class MessagingController extends AbstractController
         $i = $kernel->gs()->node($id);
         $recipient = $kernel->gs()->node($data["to"]);
         $msg = $i->message($recipient, $data["message"]);
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
                 "id" => (string) $msg->id()
             ]
         );
@@ -72,21 +74,23 @@ class MessagingController extends AbstractController
     /**
      * Fetch Unread Message Count
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function fetchUnreadMessageCount(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
                 "count" => (string) count($incoming_messages)
             ]
         );
@@ -95,18 +99,19 @@ class MessagingController extends AbstractController
     /**
      * Fetch Inbox
      * 
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function fetchInbox(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $i = $kernel->gs()->node($id);
         $incoming_messages = $i->getIncomingMessages();
         $ret = [];
@@ -119,7 +124,8 @@ class MessagingController extends AbstractController
                 "timestamp" => $m->getSentTime()
             ];
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
                 "messages" => $ret
             ]
         );
@@ -129,18 +135,19 @@ class MessagingController extends AbstractController
     /**
      * Fetch Inbox
      * 
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function fetchOutbox(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $i = $kernel->gs()->node($id);
         $sent_messages = $i->getSentMessages();
         $ret = [];
@@ -153,7 +160,8 @@ class MessagingController extends AbstractController
                 "timestamp" => $m->getSentTime()
             ];
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
                 "messages" => $ret
             ]
         );
@@ -162,20 +170,20 @@ class MessagingController extends AbstractController
 
     public function fetchConversations(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $i = $kernel->gs()->node($id);
         $sent_messages = $i->getSentMessages();
         $incoming_messages = $i->getIncomingMessages();
         $ret = [];
         foreach($sent_messages as $m) 
         {
-            if(
-                array_key_exists(($op=$m->head()->id()->toString()), $ret)
-                &&
-                $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
-                )
+            if(array_key_exists(($op=$m->head()->id()->toString()), $ret)
+                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+            ) {
                 continue;
+            }
             $ret[$op] = [
                 "id" => (string) $m->id(),
                 "from" => $id,
@@ -188,12 +196,11 @@ class MessagingController extends AbstractController
         }
         foreach($incoming_messages as $m) 
         {
-            if(
-                array_key_exists(($op=$m->tail()->id()->toString()), $ret)
-                &&
-                $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
-                )
+            if(array_key_exists(($op=$m->tail()->id()->toString()), $ret)
+                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+            ) {
                 continue;
+            }
             $ret[$op] = [
                 "id" => (string) $m->id(),
                 "from" => $op,
@@ -203,10 +210,13 @@ class MessagingController extends AbstractController
                 "timestamp" => $ts
             ];
         }
-        uasort($ret, function($a,$b) {
-            return $a['timestamp']>$b['timestamp'];
-        });
-        $this->succeed($response, [
+        uasort(
+            $ret, function ($a,$b) {
+                return $a['timestamp']>$b['timestamp'];
+            }
+        );
+        $this->succeed(
+            $response, [
                 "messages" => $ret
             ]
         );
@@ -214,19 +224,20 @@ class MessagingController extends AbstractController
 
     public function fetchConversation(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
             $data = $request->getQueryParams();
             $v = new Validator($data);
             $v->rule('required', ['with']);
-            if(!$v->validate()) {
-                $this->fail($response, "Valid user Id (with) required.");
-                return;
-            }
-            if(!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["with"])) {
-                $this->fail($response, "Invalid User ID");
-                return;
-            }
+        if(!$v->validate()) {
+            $this->fail($response, "Valid user Id (with) required.");
+            return;
+        }
+        if(!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["with"])) {
+            $this->fail($response, "Invalid User ID");
+            return;
+        }
         $ret = $kernel->index()->client()->run(
             "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN startNode(r).udid as t, r ORDER BY r.SentTime DESC",
             //"MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
@@ -254,18 +265,19 @@ class MessagingController extends AbstractController
      * 
      * [msgid]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function fetchMessage(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['msgid']);
@@ -279,15 +291,17 @@ class MessagingController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $msgid = ID::fromString($data["msgid"]);
-        if( !$i->hasIncomingMessage($msgid) && !$i->hasSentMessage($msgid) ) {
+        if(!$i->hasIncomingMessage($msgid) && !$i->hasSentMessage($msgid) ) {
             $this->fail($response, "Message ID is not associated with the logged in user.");
             return;
         }
         $msg = $kernel->gs()->edge($data["msgid"]);
         $recipient = (string) $msg->head()->id();
-        if($id==$recipient)
+        if($id==$recipient) {
             $msg->setIsRead(true);
-        $this->succeed($response, [
+        }
+        $this->succeed(
+            $response, [
                 "message" => array_merge(
                     $msg->attributes()->toArray(),
                     [

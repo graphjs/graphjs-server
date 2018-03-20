@@ -27,25 +27,26 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class ForumController extends AbstractController 
+class ForumController extends AbstractController
 {
     /**
      * Start Forum Thread 
      * 
      * [title, message]
      * 
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function startThread(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['title', 'message']);
@@ -56,9 +57,11 @@ class ForumController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $thread = $i->start($data["title"], $data["message"]);
-        $this->succeed($response,[
+        $this->succeed(
+            $response, [
             "id" => (string) $thread->id()
-        ]);
+            ]
+        );
     }
 
     /**
@@ -66,17 +69,18 @@ class ForumController extends AbstractController
      * 
      * [id, message]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
+     * @param Session  $session
+     * @param Kernel   $kernel
      * 
      * @return void
      */
     public function replyThread(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['id', 'message']);
@@ -91,9 +95,11 @@ class ForumController extends AbstractController
             return;
         }
         $reply = $i->reply($thread, $data["message"]);
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "id" => (string) $reply->id()
-        ]);
+            ]
+        );
     }
 
 
@@ -102,10 +108,10 @@ class ForumController extends AbstractController
      * 
      * with number of replies
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
+     * @param Session  $session
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -122,9 +128,11 @@ class ForumController extends AbstractController
                 ];
             }
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "threads" => $threads
-        ]);
+            ]
+        );
     }
 
     /**
@@ -132,9 +140,9 @@ class ForumController extends AbstractController
      * 
      * [id]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Kernel $kernel
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -152,7 +160,8 @@ class ForumController extends AbstractController
             $this->fail($response, "Not a Thread");
         }
         $replies = $thread->getReplies();
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "title" => $thread->getTitle(),
             "messages" => array_merge(
                 [[
@@ -160,7 +169,7 @@ class ForumController extends AbstractController
                     "content" => $thread->getContent()
                 ]],
                 array_map(
-                    function($obj): array {
+                    function ($obj): array {
                         return [
                             "author" => (string) $obj->tail()->id(),
                             "content" => $obj->getContent()
@@ -169,6 +178,7 @@ class ForumController extends AbstractController
                     $replies
                 )
             )
-        ]);
+            ]
+        );
     }
 }

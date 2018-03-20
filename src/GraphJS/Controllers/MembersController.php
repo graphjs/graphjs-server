@@ -25,14 +25,14 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class MembersController extends AbstractController 
+class MembersController extends AbstractController
 {
     /**
      * Get Members
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Kernel $kernel
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -41,34 +41,36 @@ class MembersController extends AbstractController
         $nodes = $kernel->graph()->members();
         $members = [];
         foreach($nodes as $node) {
-            if($node instanceof User)
+            if($node instanceof User) {
                 $members[(string) $node->id()] = [
                     "username" => (string) $node->getUsername(),
                     "avatar" => (string) $node->getAvatar()
                 ];
+            }
         }
         $this->succeed($response, ["members" => $members]);
     }
  
-   /**
+    /**
      * Follow someone
      *
      * id
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Kernel $kernel
+     * @param Kernel   $kernel
      * 
      * @return void
      */
     public function follow(Request $request, Response $response, Kernel $kernel, Session $session)
     {
-      if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             $this->fail($response, "Session required");
-       $data = $request->getQueryParams();
+        }
+        $data = $request->getQueryParams();
         $v = new Validator($data);
-     $v->rule('required', ['id']);
-     if(!$v->validate()) {
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
             $this->fail($response, "Valid user ID required.");
             return;
         }
@@ -76,18 +78,18 @@ class MembersController extends AbstractController
             $this->fail($response, "Invalid ID");
             return;
         }
-       $i = $kernel->gs()->node($id);
-       $followee = $kernel->gs()->node($data["id"]);
-       if(!$i instanceof User) {
-          $this->fail($response, "Session owner not a User");
-          return;
-       }
-       if(!$followee instanceof User) {
-          $this->fail($response, "Followee not a User");
-          return;
-       }
-       $i->follow($followee);
-       $this->succeed($response);
+        $i = $kernel->gs()->node($id);
+        $followee = $kernel->gs()->node($data["id"]);
+        if(!$i instanceof User) {
+            $this->fail($response, "Session owner not a User");
+            return;
+        }
+        if(!$followee instanceof User) {
+            $this->fail($response, "Followee not a User");
+            return;
+        }
+        $i->follow($followee);
+        $this->succeed($response);
     }
 
 }

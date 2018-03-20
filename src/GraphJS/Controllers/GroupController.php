@@ -26,25 +26,26 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class GroupController extends AbstractController 
+class GroupController extends AbstractController
 {
     /**
      * Create a new Group
      * 
      * [title, description]
      * 
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function createGroup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['title', 'description']);
@@ -55,9 +56,11 @@ class GroupController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $group = $i->create($data["title"], $data["description"]);
-        $this->succeed($response,[
+        $this->succeed(
+            $response, [
             "id" => (string) $group->id()
-        ]);
+            ]
+        );
     }
 
     /**
@@ -65,17 +68,18 @@ class GroupController extends AbstractController
      * 
      * [id]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
+     * @param Session  $session
+     * @param Kernel   $kernel
      * 
      * @return void
      */
     public function joinGroup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['id']);
@@ -99,10 +103,10 @@ class GroupController extends AbstractController
     /**
      * List Groups
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
+     * @param Session  $session
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -121,9 +125,11 @@ class GroupController extends AbstractController
                 ];
             }
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "groups" => $groups
-        ]);
+            ]
+        );
     }
 
     /**
@@ -131,9 +137,9 @@ class GroupController extends AbstractController
      * 
      * [id]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Kernel $kernel
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -153,13 +159,14 @@ class GroupController extends AbstractController
         }
         $members = array_filter(
             $group->members(),
-            function(/*mixed*/ $value): bool
-                {
+            function (/*mixed*/ $value): bool {
                     return ($value instanceof User);
-                }
+            }
         );
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "members" => array_keys($members)
-        ]);
+            ]
+        );
     }
 }

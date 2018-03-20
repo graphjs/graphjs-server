@@ -25,16 +25,16 @@ use Pho\Lib\Graph\ID;
  * 
  * @author Emre Sokullu <emre@phonetworks.org>
  */
-class ProfileController extends AbstractController 
+class ProfileController extends AbstractController
 {
     /**
      * Get Profile
      * 
      * [id]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Kernel $kernel
+     * @param Kernel   $kernel
      * 
      * @return void
      */
@@ -56,16 +56,19 @@ class ProfileController extends AbstractController
             $this->fail($response, "Invalid user ID");
             return;
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "profile" => array_change_key_case(
-              array_filter(
-                $user->attributes()->toArray(), 
-                function(string $key): bool {
-                    return strtolower($key) != "password";
-                },
-                ARRAY_FILTER_USE_KEY
-             ), CASE_LOWER) 
-        ]);
+                array_filter(
+                    $user->attributes()->toArray(), 
+                    function (string $key): bool {
+                        return strtolower($key) != "password";
+                    },
+                    ARRAY_FILTER_USE_KEY
+                ), CASE_LOWER
+            ) 
+            ]
+        );
     }
 
     /**
@@ -73,18 +76,19 @@ class ProfileController extends AbstractController
      * 
      * [avatar, birthday, about, username]
      *
-     * @param Request $request
+     * @param Request  $request
      * @param Response $response
-     * @param Session $session
-     * @param Kernel $kernel
-     * @param string $id
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
      * 
      * @return void
      */
     public function setProfile(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id=$this->dependOnSession(...\func_get_args())))
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
+        }
         // Avatar, Birthday, About, Username
         $data = $request->getQueryParams();
         $v = new Validator($data);
@@ -130,11 +134,13 @@ class ProfileController extends AbstractController
             $this->fail($response, "No field to set");
             return;
         }
-        $this->succeed($response, [
+        $this->succeed(
+            $response, [
             "message" => sprintf(
-                    "Following fields set successfully: %s", 
-                    implode(", ", $sets)
-                )
-        ]);
+                "Following fields set successfully: %s", 
+                implode(", ", $sets)
+            )
+            ]
+        );
     }
 }
