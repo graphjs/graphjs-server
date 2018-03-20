@@ -62,7 +62,7 @@ class MembersController extends AbstractController
      * 
      * @return void
      */
-    public function follow(Request $request, Response $response, Kernel $kernel, Session $session)
+    public function follow(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             $this->fail($response, "Session required");
