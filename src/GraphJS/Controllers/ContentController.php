@@ -126,9 +126,11 @@ class ContentController extends AbstractController
          $page = $this->_fromUrlToNode($kernel, $data["url"]);
          $comments = array_map(
                 function ($val) { 
-                    return $val->toArray(); 
-}, 
-             $page->getComments()
+                    $attributes = \array_change_key_case($val->attributes()->toArray(), CASE_LOWER);
+                    $attributes["id"] = $val->id()->toString();
+                    return $attributes;
+                }, 
+                $page->getComments()
          );
          $this->succeed(
              $response, [
