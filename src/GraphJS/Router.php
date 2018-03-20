@@ -156,7 +156,7 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initMembers( Server $server, array $controllers, Kernel $kernel): void
     {
-
+        $session = self::$session;
         $server->get(
             'getMembers', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["members"]->getMembers($request, $response, $kernel);
