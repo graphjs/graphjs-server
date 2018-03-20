@@ -142,6 +142,28 @@ class ContentController extends AbstractController
              ]
          );
     }
+
+    public function delComment(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['comment_id']);
+        if(!$v->validate()) {
+            $this->fail($response, "Comment_id field is required.");
+            return;
+        }
+        $i = $kernel->gs()->node($id);  
+        if(!$i->hasComment($data["comment_id"])) {
+            $this->fail($response, "Comment_id does not belong to you.");
+            return;
+        }
+        $comment = $kernel->gs()->edge("comment_id");
+        $comment->destroy();
+        $this->succeed($response);
+    }
  
     public function unstar(Request $request, Response $response, Session $session, Kernel $kernel)
     {

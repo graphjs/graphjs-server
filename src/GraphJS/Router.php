@@ -197,6 +197,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'removeComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->delComment($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
             'getComments', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["content"]->fetchComments($request, $response, $kernel);
             }
