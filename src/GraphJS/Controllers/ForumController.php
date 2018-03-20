@@ -119,6 +119,7 @@ class ForumController extends AbstractController
     {
         $threads = [];
         $everything = $kernel->graph()->members();
+        eval(\Psy\sh());
         foreach($everything as $thing) {
             if($thing instanceof Thread) {
                 $threads[] = [
