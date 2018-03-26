@@ -101,37 +101,40 @@ class GroupController extends AbstractController
 
 
     /**
-     * List My Groups
+     * List Memberships
      * 
-     * Returns session-owner's groups
+     * Returns group memberships
      *
      * @param Request  $request
      * @param Response $response
-     * @param Session  $session
      * @param Kernel   $kernel
      * 
      * @return void
      */
-    public function listMyGroups(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function listMemberships(Request $request, Response $response, Kernel $kernel)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
+            $this->fail($response, "User ID  required.");
             return;
         }
-        $i = $kernel->gs()->node($id);
+        $them = $kernel->gs()->node($data["id"]);
         $q = $this->listGroups($request, $response, $kernel);
         if(!$q[0]) {
             $this->fail($response, "Problem fetching groups");
         }
         $groups = $q[1];
-        $my_groups = [];
+        $their_groups = [];
         foreach($groups as $group) {
-            $group_obj = $kernel->gs()->node($group[id]);
-            if($group_obj->contains($i->id()))
-                $my_groups[] = $group;
+            $group_obj = $kernel->gs()->node($group["id"]);
+            if($group_obj->contains($them->id()))
+                $their_groups[] = $group;
         }
         $this->succeed(
             $response, [
-            "groups" => $groups
+            "groups" => $their_groups
             ]
         );
     }
