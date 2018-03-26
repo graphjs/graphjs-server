@@ -101,6 +101,43 @@ class GroupController extends AbstractController
 
 
     /**
+     * List My Groups
+     * 
+     * Returns session-owner's groups
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * 
+     * @return void
+     */
+    public function listMyGroups(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $i = $kernel->gs()->node($id);
+        $q = $this->listGroups($request, $response, $kernel);
+        if(!$q[0]) {
+            $this->fail($response, "Problem fetching groups");
+        }
+        $groups = $q[1];
+        $my_groups = [];
+        foreach($groups as $group) {
+            $group_obj = $kernel->gs()->node($group[id]);
+            if($group_obj->contains($i->id()))
+                $my_groups[] = $group;
+        }
+        $this->succeed(
+            $response, [
+            "groups" => $groups
+            ]
+        );
+    }
+
+
+    /**
      * List Groups
      *
      * @param Request  $request

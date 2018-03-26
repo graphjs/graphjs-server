@@ -265,6 +265,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'listMyGroups', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["group"]->listMyGroups($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
             'listMembers', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["group"]->listMembers($request, $response, $kernel);
             }
