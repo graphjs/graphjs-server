@@ -128,7 +128,7 @@ class ForumController extends AbstractController
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
                     "author" => (string) $thing->edges()->in(Start::class)->current()->id(),
-                    "timestamp" => (string) $this->getCreateTime(),
+                    "timestamp" => (string) $thing->getCreateTime(),
                     "contributors" => 
                     array_map(
                         function(Reply $v): string 
