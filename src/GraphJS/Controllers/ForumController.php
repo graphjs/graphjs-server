@@ -186,7 +186,7 @@ class ForumController extends AbstractController
             "title" => $thread->getTitle(),
             "messages" => array_merge(
                 [[
-                    "author" => (string) ($thread->getAuthors()[0])->id(),
+                    "author" => (string) $thread->edges()->in()->current()->getAuthor()->id(),
                     "content" => $thread->getContent()
                 ]],
                 array_map(
