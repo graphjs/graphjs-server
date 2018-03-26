@@ -131,8 +131,10 @@ class ForumController extends AbstractController
                     "timestamp" => (string) $thing->getCreateTime(),
                     "contributors" => 
                     array_map(
-                        function(Reply $v): string 
+                        function(Reply $v): array 
                     {
+                        if($v->tail()!=null && $v->tail() instanceof User) {
+                            error_log(">>>>>".$v->tail()->id()->toString());
                             return array_merge(
                                 ["id"=>$v->tail()->id()->toString()],
                                 array_change_key_case(
@@ -145,6 +147,8 @@ class ForumController extends AbstractController
                                     ), CASE_LOWER
                                 )
                                 );
+                            }
+                                else return [];
                     }, $thing->getReplies())
                 ];
             }
