@@ -119,11 +119,13 @@ class ForumController extends AbstractController
      */
     public function getThreads(Request $request, Response $response, Kernel $kernel)
     {
+        $contributors = [];
         $threads = [];
         $everything = $kernel->graph()->members();
         
         foreach($everything as $thing) {
             if($thing instanceof Thread) {
+                $contributors = [];
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
@@ -131,10 +133,12 @@ class ForumController extends AbstractController
                     "timestamp" => (string) $thing->getCreateTime(),
                     "contributors" => 
                     array_map(
-                        function(Reply $v): array 
+                        function(Reply $v) use ($contributors): array 
                     {
-                        if($v->tail()!=null && $v->tail() instanceof User) {
-                            error_log(">>>>>".$v->tail()->id()->toString());
+                        //error_log(">>>>>" . $v->tail()->label());
+                        if($v->tail()!=null && $v->tail() instanceof User && !in_array($v->tail()->id()->toString(), $contributors)) {
+                            //error_log(">>>>>".$v->tail()->id()->toString());
+                            $contributors[] = $v->tail()->id()->toString();
                             return array_merge(
                                 ["id"=>$v->tail()->id()->toString()],
                                 array_change_key_case(
