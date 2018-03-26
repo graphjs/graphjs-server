@@ -89,40 +89,51 @@ class ProfileController extends AbstractController
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
         }
-        // Avatar, Birthday, About, Username
+        // Avatar, Birthday, About, Username, Email
         $data = $request->getQueryParams();
         $v = new Validator($data);
-        $v->rule('url', ['avatar']);
-        if(!$v->validate()) {
-            $this->fail($response, "Avatar URL invalid.");
-            return;
-        }
-        $v->rule('dateBefore', ['birthday'], "13 years ago");
-        if(!$v->validate()) {
-            $this->fail($response, "Birthday invalid.");
-            return;
-        }
-        if(isset($data["username"]) && !preg_match("/^[a-zA-Z0-9_]{1,12}$/", $data["username"])) {
-            $this->fail($response, "Invalid username");
-            return;
-        }
+        
 
         $i = $kernel->gs()->node($id);
         $sets = [];
 
         if(isset($data["username"])) {
+             if(!preg_match("/^[a-zA-Z0-9_]{1,12}$/", $data["username"])) {
+                $this->fail($response, "Invalid username");
+                return;
+            }
             $sets[] = "username";
             $i->setUsername($data["username"]);
         }
 
         if(isset($data["birthday"])) {
+            $v->rule('dateBefore', ['birthday'], "13 years ago");
+            if(!$v->validate()) {
+                $this->fail($response, "Birthday invalid.");
+                return;
+            }
             $sets[] = "birthday";
             $i->setBirthday($data["birthday"]);
         }
 
         if(isset($data["avatar"])) {
+            $v->rule('url', ['avatar']);
+            if(!$v->validate()) {
+                $this->fail($response, "Avatar URL invalid.");
+                return;
+            }
             $sets[] = "avatar";
             $i->setAvatar($data["avatar"]);
+        }
+     
+     if(isset($data["email"])) {
+            $v->rule('email', ['email']);
+            if(!$v->validate()) {
+                $this->fail($response, "Email is invalid.");
+                return;
+            }
+            $sets[] = "email";
+            $i->setEmail($data["email"]);
         }
 
         if(isset($data["about"])) {
