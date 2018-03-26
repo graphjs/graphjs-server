@@ -120,48 +120,42 @@ class ForumController extends AbstractController
      */
     public function getThreads(Request $request, Response $response, Kernel $kernel)
     {
-            $unique = function(array $a): array
-            {
-                $flagged = [];
-                return array_filter(array_keys($a), function($k) use ($flagged) {
-                    if(!in_array($k, $flagged)) {
-                        $flagged[] = $k;
-                        return true;
-                    }
-                    return false;
-                });
-            };
+            
         $threads = [];
         $everything = $kernel->graph()->members();
         
         foreach($everything as $thing) {
             if($thing instanceof Thread) {
-                $contributors = [];
+                $contributors_x = [];
+                $contributors = array_map(
+                    function(TailNode /* actually User */ $u) : array 
+                {
+                        return [ 
+                            $u->id()->toString() =>
+                                array_change_key_case(
+                                    array_filter(
+                                        $u->attributes()->toArray(), 
+                                        function (string $key): bool {
+                                            return strtolower($key) != "password";
+                                        },
+                                        ARRAY_FILTER_USE_KEY
+                                    ), CASE_LOWER
+                                )
+                            ];
+                },array_map( function(Reply $r): TailNode {
+                    return $r->tail();
+                }, $thing->getReplies()));
+                foreach($contributors as $k=>$contributor) {
+                    if(!isset($contributors_x[$k]))
+                        $contributors_x[$k] = $contributor;
+                }
+                unset($contributors);
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
                     "author" => (string) $thing->edges()->in(Start::class)->current()->tail()->id(),
                     "timestamp" => (string) $thing->getCreateTime(),
-                    "contributors" => array_filter(
-                            array_map(
-                                function(TailNode /* actually User */ $u) : array 
-                            {
-                                    return [ 
-                                        $u->id()->toString() =>
-                                            array_change_key_case(
-                                                array_filter(
-                                                    $u->attributes()->toArray(), 
-                                                    function (string $key): bool {
-                                                        return strtolower($key) != "password";
-                                                    },
-                                                    ARRAY_FILTER_USE_KEY
-                                                ), CASE_LOWER
-                                            )
-                                        ];
-                            },array_map( function(Reply $r): TailNode {
-                                return $r->tail();
-                            }, $thing->getReplies()))
-                    , $unique)
+                    "contributors" => $contributors_x
                 ];
             }
         }
