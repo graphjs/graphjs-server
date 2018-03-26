@@ -131,7 +131,7 @@ class ContentController extends AbstractController
                     foreach($attributes as $k=>$v) {
                         $ret[\lcfirst($k)] = $v;
                     }
-                    $ret['author'] = $val->tail()->id();
+                    $ret['author'] = (string) $val->tail()->id();
                     
                     return [$val->id()->toString() => $ret];
                 }, 
