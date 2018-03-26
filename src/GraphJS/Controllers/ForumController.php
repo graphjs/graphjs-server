@@ -136,7 +136,7 @@ class ForumController extends AbstractController
                         function(Reply $v) use ($contributors): array 
                     {
                         //error_log(">>>>>" . $v->tail()->label());
-                        if($v->tail()!=null && $v->tail() instanceof User && !in_array($v->tail()->id()->toString(), $contributors)) {
+                        if($v->tail()!=null && $v->tail()->label()=="user" && !in_array($v->tail()->id()->toString(), $contributors)) {
                             //error_log(">>>>>".$v->tail()->id()->toString());
                             $contributors[] = $v->tail()->id()->toString();
                             return array_merge(
