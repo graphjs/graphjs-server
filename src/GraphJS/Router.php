@@ -163,15 +163,16 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'follow', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["members"]->follow($request, $response, $session, $kernel);
-            }
-        );
-        $server->get(
             'unfollow', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
                 $controllers["members"]->unfollow($request, $response, $session, $kernel);
             }
         );
+        $server->get(
+            'follow', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["members"]->follow($request, $response, $session, $kernel);
+            }
+        );
+        
     }
 
     protected static function initContent(Server $server, array $controllers, Kernel $kernel): void
