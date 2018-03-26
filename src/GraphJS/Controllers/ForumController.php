@@ -134,10 +134,10 @@ class ForumController extends AbstractController
                         function(Reply $v): string 
                     {
                             return array_merge(
-                                ["id"=>$v->getAuthor()->id()->toString()],
+                                ["id"=>$v->tail()->id()->toString()],
                                 array_change_key_case(
                                     array_filter(
-                                        $v->getAuthor()->attributes()->toArray(), 
+                                        $v->tail()->attributes()->toArray(), 
                                         function (string $key): bool {
                                             return strtolower($key) != "password";
                                         },
