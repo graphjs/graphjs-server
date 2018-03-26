@@ -120,6 +120,10 @@ class ForumController extends AbstractController
      */
     public function getThreads(Request $request, Response $response, Kernel $kernel)
     {
+        $unique = function(array $a): array
+        {
+            return array_flip(array_unique(array_flip($a)));
+        };
         $threads = [];
         $everything = $kernel->graph()->members();
         
@@ -131,25 +135,26 @@ class ForumController extends AbstractController
                     "title" => $thing->getTitle(),
                     "author" => (string) $thing->edges()->in(Start::class)->current()->tail()->id(),
                     "timestamp" => (string) $thing->getCreateTime(),
-                    "contributors" => 
-                    array_map(
-                        function(TailNode /* actually User */ $u) : array 
-                    {
-                            return [ 
-                                $u->id()->toString() =>
-                                    array_change_key_case(
-                                        array_filter(
-                                            $u->attributes()->toArray(), 
-                                            function (string $key): bool {
-                                                return strtolower($key) != "password";
-                                            },
-                                            ARRAY_FILTER_USE_KEY
-                                        ), CASE_LOWER
-                                    )
-                                ];
-                    },array_map( function(Reply $r): TailNode {
-                        return $r->tail();
-                    }, $thing->getReplies()))
+                    "contributors" => $unique(
+                            array_map(
+                                function(TailNode /* actually User */ $u) : array 
+                            {
+                                    return [ 
+                                        $u->id()->toString() =>
+                                            array_change_key_case(
+                                                array_filter(
+                                                    $u->attributes()->toArray(), 
+                                                    function (string $key): bool {
+                                                        return strtolower($key) != "password";
+                                                    },
+                                                    ARRAY_FILTER_USE_KEY
+                                                ), CASE_LOWER
+                                            )
+                                        ];
+                            },array_map( function(Reply $r): TailNode {
+                                return $r->tail();
+                            }, $thing->getReplies()))
+                    )
                 ];
             }
         }
