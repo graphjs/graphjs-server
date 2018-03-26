@@ -64,6 +64,47 @@ class GroupController extends AbstractController
     }
 
     /**
+     * Leave Group
+     * 
+     * [id]
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * 
+     * @return void
+     */
+    public function leaveGroup(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
+            $this->fail($response, "Group ID  required.");
+            return;
+        }
+        $i = $kernel->gs()->node($id);
+        $group = $kernel->gs()->node($data["id"]);
+
+        if(!($group instanceof Group)) {
+            $this->fail($response, "Given ID is not associated with a Group");
+            return;
+        }
+
+        if(!$group->contains($i->id())) {
+            $this->fail($response, "User is not a member of given Group");
+            return;
+        }
+
+        $i->leave($group);
+        $this->succeed($response);
+    }
+
+    /**
      * Join Group
      * 
      * [id]

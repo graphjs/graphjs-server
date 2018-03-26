@@ -265,6 +265,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'leave', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["group"]->leaveGroup($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
             'listGroups', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["group"]->listGroups($request, $response, $kernel);
             }
