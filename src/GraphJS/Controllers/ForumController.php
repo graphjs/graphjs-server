@@ -145,7 +145,7 @@ class ForumController extends AbstractController
                                     ), CASE_LOWER
                                 )
                                 );
-                    }, $this->getReplies())
+                    }, $thing->getReplies())
                 ];
             }
         }
