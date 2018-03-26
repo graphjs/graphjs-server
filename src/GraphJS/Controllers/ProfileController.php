@@ -106,6 +106,15 @@ class ProfileController extends AbstractController
             $i->setUsername($data["username"]);
         }
 
+        if(isset($data["password"])) {
+            if(!preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $data["password"])) {
+               $this->fail($response, "Invalid password");
+               return;
+           }
+           $sets[] = "password";
+           $i->setPassword($data["password"]);
+       }
+
         if(isset($data["birthday"])) {
             $v->rule('dateBefore', ['birthday'], "13 years ago");
             if(!$v->validate()) {
