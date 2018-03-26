@@ -187,13 +187,15 @@ class ForumController extends AbstractController
             "messages" => array_merge(
                 [[
                     "author" => (string) $thread->edges()->in()->current()->tail()->id(),
-                    "content" => $thread->getContent()
+                    "content" => $thread->getContent(),
+                    "timestamp" => (string) $thread->getCreateTime()
                 ]],
                 array_map(
                     function ($obj): array {
                         return [
                             "author" => (string) $obj->tail()->id(),
-                            "content" => $obj->getContent()
+                            "content" => $obj->getContent(),
+                            "timestamp" => (string) $obj->getReplyTime()
                         ];
                     },
                     $replies
