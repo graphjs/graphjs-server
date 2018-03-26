@@ -145,9 +145,11 @@ class ForumController extends AbstractController
                 },array_map( function(Reply $r): TailNode {
                     return $r->tail();
                 }, $thing->getReplies()));
-                foreach($contributors as $k=>$contributor) {
-                    if(!isset($contributors_x[$k]))
-                        $contributors_x[$k] = $contributor;
+                foreach($contributors as $contributor) {
+                    foreach($contributor as $k=>$v) {
+                        if(!isset($contributors_x[$k]))
+                            $contributors_x[$k] = $v;
+                    }
                 }
                 unset($contributors);
                 $threads[] = [
