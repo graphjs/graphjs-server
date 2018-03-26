@@ -135,7 +135,7 @@ class MembersController extends AbstractController
             $this->fail($response, "No follow edge found");
             return;
         }
-        eval(\Psy\sh());
+        //eval(\Psy\sh());
         $follow_edges->current()->destroy();
         $this->succeed($response);
     }
