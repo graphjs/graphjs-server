@@ -203,7 +203,7 @@ class ContentController extends AbstractController
     public function fetchStarredContent(Request $request, Response $response, Kernel $kernel)
     {
         $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
-        eval(\Psy\sh());
+        //eval(\Psy\sh());
         $array = $res->records();
         $ret = [];
         foreach($array as $a) {
