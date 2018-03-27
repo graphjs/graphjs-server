@@ -204,11 +204,15 @@ class ContentController extends AbstractController
     {
         $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
         eval(\Psy\sh());
-        $array = $res->results();
+        $array = $res->records();
+        $ret = [];
+        foreach($array as $a) {
+            $ret[$a->value("content")] = $a->value("star_count");
+        }
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
         } 
-        $this->succeed($response, $array);
+        $this->succeed($response, $ret);
     }
 
 }
