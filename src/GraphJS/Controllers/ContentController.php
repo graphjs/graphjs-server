@@ -212,7 +212,7 @@ class ContentController extends AbstractController
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
         } 
-        $this->succeed($response, $ret);
+        $this->succeed($response, ["pages"=>$ret]);
     }
 
 }
