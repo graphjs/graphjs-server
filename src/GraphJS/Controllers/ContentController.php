@@ -202,7 +202,8 @@ class ContentController extends AbstractController
      */
     public function fetchStarredContent(Request $request, Response $response, Kernel $kernel)
     {
-        $res = $kernel->index()->query("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
+        $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
+        eval(\Psy\sh());
         $array = $res->results();
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
