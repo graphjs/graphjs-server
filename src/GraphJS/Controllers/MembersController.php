@@ -58,7 +58,7 @@ class MembersController extends AbstractController
             $this->fail($response, "Session required");
         }
         $i = $kernel->gs()->node($id);
-        $incoming_follows = $i->edges()->in(Follow::class);
+        $incoming_follows = \iterator_to_array($i->edges()->in(Follow::class));
         $followers = [];
         foreach($incoming_follows as $follow) {
             $follower = $follow->tail();
@@ -81,7 +81,7 @@ class MembersController extends AbstractController
             $this->fail($response, "Session required");
         }
         $i = $kernel->gs()->node($id);
-        $outgoing_follows = $i->edges()->out(Follow::class);
+        $outgoing_follows = \iterator_to_array($i->edges()->out(Follow::class));
         $following = [];
         foreach($incoming_follows as $follow) {
             $f = $follow->head();
