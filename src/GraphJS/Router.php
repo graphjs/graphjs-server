@@ -225,6 +225,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["content"]->fetchComments($request, $response, $kernel);
             }
         );
+
+        $server->get(
+            'getMyStarredContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->fetchMyStars($request, $response, $session, $kernel);
+            }
+        );
         
         $server->get(
             'getStarredContent', function (Request $request, Response $response) use ($controllers, $kernel) {

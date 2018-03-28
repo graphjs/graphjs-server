@@ -228,4 +228,30 @@ class ContentController extends AbstractController
         $this->succeed($response, ["pages"=>$ret]);
     }
 
+    public function fetchMyStars(Request $request, Response $response, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $res = $kernel->index()->client()->run(
+            "MATCH (:user {udid: {me}})-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
+            array($id)
+        );
+        //$res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
+        //eval(\Psy\sh());
+        $array = $res->records();
+        $ret = [];
+        foreach($array as $a) {
+            //$ret[$a->value("content")] = $a->value("star_count");
+            $ret[$a->value("content")] = [
+                "title" => $a->value("the_title"), 
+                "star_count" => $a->value("star_count")
+            ];
+        }
+        if(count($array)==0) {
+            $this->fail($response, "No content starred yet");
+        } 
+        $this->succeed($response, ["pages"=>$ret]);
+    }
+
 }
