@@ -213,6 +213,38 @@ class GroupController extends AbstractController
         );
     }
 
+    function fetchGroup()
+    {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
+            $this->fail($response, "Group ID  required.");
+            return;
+        }
+        $group = $kernel->gs()->node($data["id"]);
+        if($group instanceof Group) {
+            $info = [
+                    "id" => (string) $group->id(),
+                    "title" => $group->getTitle(),
+                    "description" => $group->getDescription(),
+                    "creator" => (string) $group->getCreator()->id(),
+                    "count" => (string) count($group->members())
+            ];
+        }
+        $info["members"] = array_keys(array_filter(
+            $group->members(),
+            function (/*mixed*/ $value): bool {
+                    return ($value instanceof User);
+            }
+        ));
+        $this->succeed(
+            $response, [
+            "group" => $info
+            ]
+        );
+    }
+
     /**
      * List Group Members
      * 
