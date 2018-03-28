@@ -66,9 +66,17 @@ class ContentController extends AbstractController
  
     protected function _fromUrlToNode(Kernel $kernel, string $url) 
     {
+        $get_title = function(string $url){ // via https://stackoverflow.com/questions/4348912/get-title-of-website-via-link
+            $str = file_get_contents($url);
+            if(strlen($str)>0){
+              $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+              preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
+              return $title[1];
+            }
+        };
         $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
         if(count($res->results())==0) {
-            return $kernel->founder()->post($url);
+            return $kernel->founder()->post($url, $get_title($url));
         }
         return $kernel->gs()->node($res->results()[0]["udid"]);
     }
@@ -202,12 +210,17 @@ class ContentController extends AbstractController
      */
     public function fetchStarredContent(Request $request, Response $response, Kernel $kernel)
     {
-        $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
+        $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count");
+        //$res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
         //eval(\Psy\sh());
         $array = $res->records();
         $ret = [];
         foreach($array as $a) {
-            $ret[$a->value("content")] = $a->value("star_count");
+            //$ret[$a->value("content")] = $a->value("star_count");
+            $ret[$a->value("content")] = [
+                "title" => $a->value("the_title"), 
+                "star_count" => $a->value("star_count")
+            ];
         }
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
