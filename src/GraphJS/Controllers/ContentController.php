@@ -235,7 +235,7 @@ class ContentController extends AbstractController
         }
         $res = $kernel->index()->client()->run(
             "MATCH (:user {udid: {me}})-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
-            array($id)
+            array("me"=>$id)
         );
         //$res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
         //eval(\Psy\sh());
