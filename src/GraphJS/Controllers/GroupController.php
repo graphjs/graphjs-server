@@ -213,7 +213,7 @@ class GroupController extends AbstractController
         );
     }
 
-    function fetchGroup()
+    function fetchGroup(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
         $v = new Validator($data);
