@@ -52,6 +52,52 @@ class MembersController extends AbstractController
         $this->succeed($response, ["members" => $members]);
     }
  
+    public function getFollowers(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            $this->fail($response, "Session required");
+        }
+        $i = $kernel->gs()->node($id);
+        $incoming_follows = $i->edges()->in(Follow::class);
+        $followers = [];
+        foreach($incoming_follows as $follow) {
+            $follower = $follow->tail();
+            $followers[(string) $follower->id()] = array_change_key_case(
+                array_filter(
+                    $follower->attributes()->toArray(), 
+                    function (string $key): bool {
+                        return strtolower($key) != "password";
+                    },
+                    ARRAY_FILTER_USE_KEY
+                ), CASE_LOWER
+            );
+        }
+        $this->succeed($response, ["followers"=>$followers]);
+    }
+
+    public function getFollowing(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            $this->fail($response, "Session required");
+        }
+        $i = $kernel->gs()->node($id);
+        $outgoing_follows = $i->edges()->out(Follow::class);
+        $following = [];
+        foreach($incoming_follows as $follow) {
+            $f = $follow->head();
+            $following[(string) $f->id()] = array_change_key_case(
+                array_filter(
+                    $f->attributes()->toArray(), 
+                    function (string $key): bool {
+                        return strtolower($key) != "password";
+                    },
+                    ARRAY_FILTER_USE_KEY
+                ), CASE_LOWER
+            );
+        }
+        $this->succeed($response, ["following"=>$following]);
+    }
+
     /**
      * Follow someone
      *
