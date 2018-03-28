@@ -223,15 +223,16 @@ class GroupController extends AbstractController
             return;
         }
         $group = $kernel->gs()->node($data["id"]);
-        if($group instanceof Group) {
-            $info = [
-                    "id" => (string) $group->id(),
-                    "title" => $group->getTitle(),
-                    "description" => $group->getDescription(),
-                    "creator" => (string) $group->getCreator()->id(),
-                    "count" => (string) count($group->members())
-            ];
+        if(!$group instanceof Group) {
+            $this->fail($response, sprintf("The object with ID %s is not a Group", $data["id"]));
         }
+        $info = [
+                "id" => (string) $group->id(),
+                "title" => $group->getTitle(),
+                "description" => $group->getDescription(),
+                "creator" => (string) $group->getCreator()->id(),
+                "count" => (string) count($group->members())
+        ];
         $info["members"] = array_keys(array_filter(
             $group->members(),
             function (/*mixed*/ $value): bool {
