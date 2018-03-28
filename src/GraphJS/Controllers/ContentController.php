@@ -228,7 +228,7 @@ class ContentController extends AbstractController
         $this->succeed($response, ["pages"=>$ret]);
     }
 
-    public function fetchMyStars(Request $request, Response $response, Kernel $kernel)
+    public function fetchMyStars(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
