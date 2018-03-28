@@ -83,7 +83,7 @@ class MembersController extends AbstractController
         $i = $kernel->gs()->node($id);
         $outgoing_follows = \iterator_to_array($i->edges()->out(Follow::class));
         $following = [];
-        foreach($incoming_follows as $follow) {
+        foreach($outgoing_follows as $follow) {
             $f = $follow->head();
             $following[(string) $f->id()] = array_change_key_case(
                 array_filter(
