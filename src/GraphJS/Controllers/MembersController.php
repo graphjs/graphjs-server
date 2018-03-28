@@ -125,6 +125,10 @@ class MembersController extends AbstractController
             $this->fail($response, "Invalid ID");
             return;
         }
+        if($data["id"]==$id) {
+            $this->fail($response, "Follower and followee can't be the same");
+            return;
+        }
         $i = $kernel->gs()->node($id);
         $followee = $kernel->gs()->node($data["id"]);
         if(!$i instanceof User) {
