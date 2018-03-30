@@ -244,10 +244,12 @@ class MessagingController extends AbstractController
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $records = $ret->records();
-        error_log(print_r($records, true));
+//        error_log(print_r($records, true));
         $return = [];
         foreach($records as $i=>$res) {
             $m = $res->get("r");
+            $obj = $kernel->gs()->edge($m->value("udid"));
+            $obj->setIsRead(true);
             $sender = $res->get("t");
             $return[$m->value("udid")] = [
                 "from" => $sender == $id ? $id  : $data["with"],
