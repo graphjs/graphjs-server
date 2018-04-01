@@ -35,7 +35,8 @@ class Router extends \Pho\Server\Rest\Router
                 if(isset($data["public_id"])&&!empty($data["public_id"])) {
                     error_log("Public ID is: ".$data["public_id"]);
                 }
-                $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
+                //$response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
+                $response->addHeader("Access-Control-Allow-Origin", "http://docs.graphjs.com");   // cors
                 @set_exception_handler(function(\Exception $e) use ($response) {
                     $this->handleException($response, $e);
                 });
