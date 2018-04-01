@@ -14,3 +14,7 @@ WORKDIR /opt/graphjs-server
 COPY . /opt/graphjs-server
  
 CMD [ "composer", "install" ]
+
+EXPOSE 8080
+
+CMD [ "php7.1", "run.php" ]
