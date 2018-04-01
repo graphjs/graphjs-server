@@ -69,7 +69,7 @@ class Router extends \Pho\Server\Rest\Router
         $server->use(
             function (Request $request, Response $response, $next) use ($session, $kernel) {
                 $session->start($request, $response);
-                $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
+                //$response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 //eval(\Psy\sh());
                 $next();
             }
