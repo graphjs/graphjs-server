@@ -39,10 +39,14 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     protected function fail(Response $response, string $message = ""): void
     {
-        parent::fail(
-            $response->addHeader("Access-Control-Allow-Credentials", "true"), 
-            $message
-        );
+        $method = $this->getWriteMethod();
+        $response
+                    ->addHeader("Access-Control-Allow-Credentials", "true")
+                    ->$method([
+                        "success" => false,
+                        "reason"   => $message
+                    ])
+                    ->end();
     }
     
     /**
