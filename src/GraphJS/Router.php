@@ -43,9 +43,10 @@ class Router extends \Pho\Server\Rest\Router
                     error_log("debug 2");
                     $response->addHeader("Access-Control-Allow-Origin", "http://docs.graphjs.com");   // cors
                 }
-                @set_exception_handler(function(/*\Exception|\Error*/ $e)  {
-                    $next();
+                @set_exception_handler(function(\Exception $e) use ($response) {
+                    $this->handleException($response, $e);
                 });
+                $next();
             }
         );
         self::initSession(...\func_get_args());
