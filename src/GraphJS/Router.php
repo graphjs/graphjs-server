@@ -44,7 +44,13 @@ class Router extends \Pho\Server\Rest\Router
                     $response->addHeader("Access-Control-Allow-Origin", "http://docs.graphjs.com");   // cors
                 }
                 @set_exception_handler(function(/*\Exception|\Error*/ $e) use ($response) {
-                    $this->handleException($response, $e);
+                    $response
+                    ->addHeader("Access-Control-Allow-Credentials", "true")
+                    ->write([
+                        "success" => false,
+                        "reason"   => $e->getMessage()
+                    ])
+                    ->end();
                 });
                 $next();
             }
