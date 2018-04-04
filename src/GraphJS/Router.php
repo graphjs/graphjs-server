@@ -52,8 +52,6 @@ class Router extends \Pho\Server\Rest\Router
                     ])
                     ->end();
                 });
-                return;
-                $next();
             }
         );
         self::initSession(...\func_get_args());
