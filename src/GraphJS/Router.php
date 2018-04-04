@@ -43,9 +43,6 @@ class Router extends \Pho\Server\Rest\Router
                     error_log("debug 2");
                     $response->addHeader("Access-Control-Allow-Origin", "http://docs.graphjs.com");   // cors
                 }
-                @set_exception_handler(function(\Exception $e) use ($response) {
-                    $this->handleException($response, $e);
-                });
                 $next();
             }
         );
@@ -174,7 +171,7 @@ class Router extends \Pho\Server\Rest\Router
         );
         $server->get(
             'getFollowers', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["members"]->getFollowers($request, $response, $session, $kernel);
+                $controllers["members"]->setExceptionHandler($response)->getFollowers($request, $response, $session, $kernel);
             }
         );
         $server->get(

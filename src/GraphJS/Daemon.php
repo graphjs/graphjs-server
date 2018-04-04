@@ -29,25 +29,6 @@ class Daemon extends \Pho\Server\Rest\Daemon
         $this->initKernel();
         $this->initControllers(__DIR__, false);
         Router::init2($this->server, $this->controllers, $this->kernel);
-        $this->setExceptionHandler();
-    }
-
-    function setExceptionHandler(): void
-    {
-        /*
-        @set_exception_handler(function(\ $e) {
-            echo json_encode();
-            exit;
-            $response
-            ->addHeader("Access-Control-Allow-Credentials", "true")
-            ->writeJson([
-                "success" => false,
-                "reason"   => $e->getMessage()
-            ])
-            ->end();
-            $next();
-        });
-        */
     }
 
     protected function initKernel(): void
