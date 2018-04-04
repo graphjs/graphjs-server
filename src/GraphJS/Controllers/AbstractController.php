@@ -77,7 +77,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         ));
     }
 
-    protected function setExceptionHandler(Response $response): self
+    public function setExceptionHandler(Response $response): self
     {
         @set_exception_handler(function(\Exception $e) use ($response) {
             $this->handleException($response, $e);
