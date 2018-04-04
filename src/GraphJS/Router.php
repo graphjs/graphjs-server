@@ -51,6 +51,7 @@ class Router extends \Pho\Server\Rest\Router
                         "reason"   => $e->getMessage()
                     ])
                     ->end();
+                    $next();
                 });
             }
         );
