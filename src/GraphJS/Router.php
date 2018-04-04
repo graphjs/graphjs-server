@@ -46,7 +46,7 @@ class Router extends \Pho\Server\Rest\Router
                 @set_exception_handler(function(/*\Exception|\Error*/ $e) use ($response) {
                     $response
                     ->addHeader("Access-Control-Allow-Credentials", "true")
-                    ->write([
+                    ->writeJson([
                         "success" => false,
                         "reason"   => $e->getMessage()
                     ])
