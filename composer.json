@@ -2,10 +2,12 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "php": ">=7.0",
         "phonetworks/pho-server-rest": "^2.1",
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
-        "vlucas/phpdotenv": "^2.4"
+        "vlucas/phpdotenv": "^2.4",
+        "vanilla/garden-cli": "~2.0"
     },
     "require-dev": {
         "psy/psysh": "*",

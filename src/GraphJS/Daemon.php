@@ -22,7 +22,7 @@ use CapMousse\ReactRestify\Http\Session;
  */
 class Daemon extends \Pho\Server\Rest\Daemon
 {
-    public function __construct()
+    public function __construct(string $configs = "")
     {
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
@@ -31,9 +31,12 @@ class Daemon extends \Pho\Server\Rest\Daemon
         Router::init2($this->server, $this->controllers, $this->kernel);
     }
 
-    protected function initKernel(): void
+    protected function initKernel(string $configs_file = ""): void
     {
-        $dotenv = new \Dotenv\Dotenv(__DIR__ . '/../../');
+        if(empty($configs_file)) {
+            $configs_file = __DIR__ . '/../../';
+        }
+        $dotenv = new \Dotenv\Dotenv($configs_file);
         $dotenv->load();
         $configs = array(
             "services"=>array(
