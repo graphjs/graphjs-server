@@ -55,7 +55,7 @@ class MembersController extends AbstractController
     public function getFollowers(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            $this->fail($response, "Session required");
+            return $this->fail($response, "Session required");
         }
         $i = $kernel->gs()->node($id);
         $incoming_follows = \iterator_to_array($i->edges()->in(Follow::class));
@@ -78,7 +78,7 @@ class MembersController extends AbstractController
     public function getFollowing(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            $this->fail($response, "Session required");
+            return $this->fail($response, "Session required");
         }
         $i = $kernel->gs()->node($id);
         $outgoing_follows = \iterator_to_array($i->edges()->out(Follow::class));
@@ -112,7 +112,7 @@ class MembersController extends AbstractController
     public function follow(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            $this->fail($response, "Session required");
+            return $this->fail($response, "Session required");
         }
         $data = $request->getQueryParams();
         $v = new Validator($data);
@@ -157,7 +157,7 @@ class MembersController extends AbstractController
     public function unfollow(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            $this->fail($response, "Session required");
+            return $this->fail($response, "Session required");
         }
         $data = $request->getQueryParams();
         $v = new Validator($data);
