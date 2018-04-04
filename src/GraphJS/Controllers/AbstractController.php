@@ -65,7 +65,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         return $id;
     }
 
-    protected function handleException(Response $response, \Exception $e): void
+    protected function handleException(Response $response, /*\Exception|\Error*/ $e): void
     {
         $this->fail($response, sprintf(
             "An exception occurred: %s",
