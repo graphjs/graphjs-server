@@ -49,12 +49,8 @@ class ForumController extends AbstractController
         $deleted = [];
         if($entity instanceof Thread) {
             if($entity->edges()->in(Start::class)->current()->tail()->id()->toString()==$id) {
-                $replies = $entity->getReplies();
-                foreach($replies as $reply) {
-                    $deleted[] = (string) $reply->id();
-                    $reply->destroy();
-                }
                 $deleted[] = (string) $entity->id();
+                // replies automatically deleted
                 $entity->destroy();
                 return $this->succeed($response, [
                     "deleted" => $deleted
