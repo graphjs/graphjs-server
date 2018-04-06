@@ -48,7 +48,7 @@ class ForumController extends AbstractController
         $entity = $kernel->gs()->entity($data["id"]);
         $deleted = [];
         if($entity instanceof Thread) {
-            if($entity->edges()->in(Start::class)->getAuthor()->id()->toString()==$id) {
+            if($entity->edges()->in(Start::class)->current()->tail()->id()->toString()==$id) {
                 $replies = $entity->getReplies();
                 foreach($replies as $reply) {
                     $deleted[] = (string) $reply->id();
