@@ -46,15 +46,29 @@ class ForumController extends AbstractController
             return;
         }
         $entity = $kernel->gs()->entity($data["id"]);
-        if($thread instanceof Thread) {
+        $deleted = [];
+        if($entity instanceof Thread) {
             if($entity->edges()->in(Start::class)->getAuthor()->id()->toString()==$id) {
-                return $this->succeed($response);
+                $replies = $entity->getReplies();
+                foreach($replies as $reply) {
+                    $deleted[] = (string) $reply->id();
+                    $reply->destroy();
+                }
+                $deleted[] = (string) $entity->id();
+                $entity->destroy();
+                return $this->succeed($response, [
+                    "deleted" => $deleted
+                ]);
             }
             return $this->fail($response, "You are not the owner of this thread.");
         }
-        elseif($thread instanceof Reply) {
+        elseif($entity instanceof Reply) {
             if($entity->tail()->id()->toString()==$id) {
-                return $this->succeed($response);
+                $deleted[] = (string) $entity->id();
+                $entity->destroy();
+                return $this->succeed($response, [
+                    "deleted" => $deleted
+                ]);
             }
             return $this->fail($response, "You are not the owner of this reply.");
         }
