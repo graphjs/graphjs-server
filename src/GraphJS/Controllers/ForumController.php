@@ -32,6 +32,36 @@ use Pho\Lib\Graph\TailNode;
  */
 class ForumController extends AbstractController
 {
+
+    public function delete(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
+            $this->fail($response, "Entity ID unavailable.");
+            return;
+        }
+        $entity = $kernel->gs()->entity($data["id"]);
+        if($thread instanceof Thread) {
+            if($entity->edges()->in(Start::class)->getAuthor()->id()->toString()==$id) {
+                return $this->succeed($response);
+            }
+            return $this->fail($response, "You are not the owner of this thread.");
+        }
+        elseif($thread instanceof Reply) {
+            if($entity->tail()->id()->toString()==$id) {
+                return $this->succeed($response);
+            }
+            return $this->fail($response, "You are not the owner of this reply.");
+        }
+        
+        $this->fail($response, "The ID does not belong to a thread or reply.");
+    }
+
     /**
      * Start Forum Thread 
      * 
