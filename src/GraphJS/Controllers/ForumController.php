@@ -238,6 +238,7 @@ class ForumController extends AbstractController
             "title" => $thread->getTitle(),
             "messages" => array_merge(
                 [[
+                    "id" => (string) $thread->id(),
                     "author" => (string) $thread->edges()->in()->current()->tail()->id(),
                     "content" => $thread->getContent(),
                     "timestamp" => (string) $thread->getCreateTime()
@@ -245,6 +246,7 @@ class ForumController extends AbstractController
                 array_map(
                     function ($obj): array {
                         return [
+                            "id" => (string) $obj->id(),
                             "author" => (string) $obj->tail()->id(),
                             "content" => $obj->getContent(),
                             "timestamp" => (string) $obj->getReplyTime()
