@@ -72,7 +72,7 @@ class GroupController extends AbstractController
         // Avatar, Birthday, About, Username, Email
         $data = $request->getQueryParams();
         $v = new Validator($data);
-        $v->rule('required', ['group_id']);
+        $v->rule('required', ['id']);
         if(!$v->validate()) {
             $this->fail($response, "Group ID is required.");
             return;
@@ -81,11 +81,12 @@ class GroupController extends AbstractController
         $i = $kernel->gs()->node($id);
         $sets = [];
 
-        $group = $kernel->gs()->node($data["group_id"]);
+        $group = $kernel->gs()->node($data["id"]);
         if(!$group instanceof Group) {
             return $this->fail($response, "Valid Group ID is required.");
         }
-        $group_owner = $group->edges()->in(Create::class)->current()->id()->toString();
+
+        $group_owner = $group->edges()->in(Create::class)->current()->tail()->id()->toString();
         if($group_owner!=$id) {
             return $this->fail($response, "You do not have privileges to edit this group.");
         }
