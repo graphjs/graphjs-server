@@ -291,6 +291,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'setGroup', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["group"]->setGroup($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
             'join', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["group"]->joinGroup($request, $response, $session, $kernel);
             }
