@@ -106,6 +106,16 @@ class GroupController extends AbstractController
             $group->setDescription($data["description"]);
         }
 
+        if(isset($data["cover"])) {
+            $v->rule('url', ['cover']);
+            if(!$v->validate()) {
+                $this->fail($response, "Cover field should point to a URL.");
+                return;
+            }
+            $sets[] = "cover";
+            $group->setCover($data["cover"]);
+        }
+
         if(count($sets)==0) {
             $this->fail($response, "No field to set");
             return;
