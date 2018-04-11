@@ -299,7 +299,7 @@ class GroupController extends AbstractController
                 "title" => $group->getTitle(),
                 "description" => $group->getDescription(),
                 "creator" => (string) $group->getCreator()->id(),
-                "cover" => (string) $this->getCover(),
+                "cover" => (string) $group->getCover(),
                 "count" => (string) count($group->members())
         ];
         $info["members"] = array_keys(array_filter(
