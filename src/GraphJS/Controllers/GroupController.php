@@ -98,12 +98,12 @@ class GroupController extends AbstractController
                 return;
             }
             $sets[] = "title";
-            $i->setTitle($data["title"]);
+            $group->setTitle($data["title"]);
         }
 
         if(isset($data["description"])) {
             $sets[] = "description";
-            $i->setDescription($data["description"]);
+            $group->setDescription($data["description"]);
         }
 
         if(count($sets)==0) {
