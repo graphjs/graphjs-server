@@ -1,0 +1,6 @@
+[program:graphjs]
+command=/opt/graphjs-server/run.php
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/long.err.log
+stdout_logfile=/var/log/long.out.log

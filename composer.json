@@ -11,7 +11,8 @@
     },
     "require-dev": {
         "psy/psysh": "*",
-        "squizlabs/php_codesniffer": "^2.5"
+        "squizlabs/php_codesniffer": "^2.5",
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
 	     "psr-4": {
