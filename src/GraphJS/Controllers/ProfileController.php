@@ -72,8 +72,8 @@ class ProfileController extends AbstractController
                     ),
                     [
                         "follower_count" => \count(\iterator_to_array($user->edges()->in(Follow::class))),
-                        "following_count" => \count(\iterator_to_array($user->edges()->out(Follow::class)))//,
-                        //"membership_count" =>,
+                        "following_count" => \count(\iterator_to_array($user->edges()->out(Follow::class))),
+                        "membership_count" => isset($user->toArray()["memberships"]) ? \count($user->toArray()["memberships"]) : 0,
                     ] 
                 )
             ]
