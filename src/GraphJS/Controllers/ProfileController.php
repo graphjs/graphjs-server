@@ -58,15 +58,23 @@ class ProfileController extends AbstractController
         }
         $this->succeed(
             $response, [
-            "profile" => array_change_key_case(
-                array_filter(
-                    $user->attributes()->toArray(), 
-                    function (string $key): bool {
-                        return strtolower($key) != "password";
-                    },
-                    ARRAY_FILTER_USE_KEY
-                ), CASE_LOWER
-            ) 
+            "profile" => 
+                array_merge(
+                    array_change_key_case(
+                        array_filter(
+                            $user->attributes()->toArray(), 
+                            function (string $key): bool {
+                                return strtolower($key) != "password";
+                            },
+                            ARRAY_FILTER_USE_KEY
+                        ), CASE_LOWER
+                    ),
+                    [
+                        "follower_count" => \count(\iterator_to_array($user->edges()->in(Follow::class))),
+                        "following_count" => \count(\iterator_to_array($user->edges()->out(Follow::class)))//,
+                        //"membership_count" =>,
+                    ] 
+                )
             ]
         );
     }
