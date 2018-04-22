@@ -7,7 +7,8 @@
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
         "vlucas/phpdotenv": "^2.4",
-        "vanilla/garden-cli": "~2.0"
+        "vanilla/garden-cli": "~2.0",
+        "phonetworks/pho-plugins-feeds": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "*",
