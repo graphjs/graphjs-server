@@ -54,8 +54,11 @@ class Router extends \Pho\Server\Rest\Router
         self::initContent(...\func_get_args());
         self::initForum(...\func_get_args());
         self::initGroup(...\func_get_args());
+        self::initFeed(...\func_get_args());
         
     }
+
+    
 
     protected static function initSession(Server $server, array $controllers, Kernel $kernel): void
     {
@@ -69,6 +72,16 @@ class Router extends \Pho\Server\Rest\Router
                 //$response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 //eval(\Psy\sh());
                 $next();
+            }
+        );
+    }
+
+    protected static function initFeed(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'generateFeedToken', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["feed"]->generate($request, $response, $kernel);
             }
         );
     }

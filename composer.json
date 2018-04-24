@@ -8,7 +8,8 @@
         "phonetworks/pho-kernel": "dev-master",
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
-        "phonetworks/pho-plugins-feeds": "dev-master"
+        "phonetworks/pho-plugins-feeds": "dev-master",
+        "get-stream/stream": "~2.1.0"
     },
     "require-dev": {
         "psy/psysh": "*",
