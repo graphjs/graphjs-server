@@ -168,7 +168,7 @@ class ForumController extends AbstractController
             if($thing instanceof Thread) {
                 $contributors_x = [];
                 $contributors = array_map(
-                    function(TailNode /* actually User */ $u) : array 
+                    function(User $u) : array 
                 {
                         return [ 
                             $u->id()->toString() =>
@@ -182,8 +182,8 @@ class ForumController extends AbstractController
                                     ), CASE_LOWER
                                 )
                             ];
-                },array_map( function(Reply $r): TailNode {
-                    return $r->tail();
+                },array_map( function(Reply $r): User {
+                    return $r->tail()->node();
                 }, $thing->getReplies()));
                 foreach($contributors as $contributor) {
                     foreach($contributor as $k=>$v) {
