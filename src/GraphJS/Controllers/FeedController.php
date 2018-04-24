@@ -53,5 +53,4 @@ class FeedController extends AbstractController
             "token" => $token
         ]);
     }
-*/
 }
