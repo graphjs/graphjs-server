@@ -46,7 +46,7 @@ class FeedController extends AbstractController
             $this->fail($response, "Invalid type.");
             return;
         }
-        $client = new GetStream\Stream\Client(getenv("STREAM_KEY"), getenv("STREAM_SECRET"));
+        $client = new \GetStream\Stream\Client(getenv("STREAM_KEY"), getenv("STREAM_SECRET"));
         $feed = $client->feed($data["type"], $data["id"]);
         $token = $feed->getToken();
         return $this->succeed($response, [
