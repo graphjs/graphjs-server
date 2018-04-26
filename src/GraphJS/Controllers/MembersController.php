@@ -57,7 +57,7 @@ class MembersController extends AbstractController
      $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['id']);
-     if(!isset($data["id"]||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
+     if(!isset($data["id"])||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return $this->fail($response, "Either session required or a valid ID must be entered.");
         }
@@ -89,7 +89,7 @@ class MembersController extends AbstractController
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['id']);
-     if(!isset($data["id"]||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
+     if(!isset($data["id"])||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return $this->fail($response, "Either session required or a valid ID must be entered.");
         }
