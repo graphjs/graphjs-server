@@ -153,7 +153,7 @@ class AuthenticationController extends AbstractController
         }
         // check if email exists ?
         $pin = mt_rand(100000, 999999);
-        file_put_contents(getenv("PASSWORD_REMINDER"), md5($data["email"]).":{$pin}:".time()."\n", FILE_APPEND|LOCK_EX);
+        file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
         $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
         $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
           array('from'    => 'GraphJS <postmaster@mg.graphjs.com>',
@@ -174,8 +174,8 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Valid email and code required.");
             return;
         }
-        $pins = file_get_contents(getenv("PASSWORD_REMINDER"));
-        if(preg_match("/".md5($data["email"]).":".$data["code"].":([0-9]+)/", $pins, $matches)) {
+        $pins = file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]));
+        if(preg_match("/".$data["code"].":([0-9]+)/", $pins, $matches)) {
             if((int)$matches[1]<time()-7*60) {
                 $this->fail($response, "Expired.");
                 return;
