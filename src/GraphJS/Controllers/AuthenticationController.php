@@ -174,9 +174,9 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Valid email and code required.");
             return;
         }
-        $pins = file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]));
-        if(preg_match("/".$data["code"].":([0-9]+)/", $pins, $matches)) {
-            if((int)$matches[1]<time()-7*60) {
+        $pins = explode(":", trim(file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]))));
+        if($pins[0]==$data["code"]) {
+            if((int) $pins[1]<time()-7*60) {
                 $this->fail($response, "Expired.");
                 return;
             }
