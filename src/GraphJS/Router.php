@@ -109,6 +109,16 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["authentication"]->whoami($request, $response, $session);
             }
         );
+        $server->get(
+            'resetPassword', function (Request $request, Response $response) use ($session, $controllers) {
+                $controllers["authentication"]->reset($request, $response, $session);
+            }
+        );
+        $server->get(
+            'verifyReset', function (Request $request, Response $response) use ($session, $controllers) {
+                $controllers["authentication"]->verify($request, $response, $session);
+            }
+        );
     }
 
     protected static function initMessaging(Server $server, array $controllers, Kernel $kernel): void
