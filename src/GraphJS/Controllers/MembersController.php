@@ -54,9 +54,18 @@ class MembersController extends AbstractController
  
     public function getFollowers(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return $this->fail($response, "Session required");
+     $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+     if(!isset($data["id"])||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
+       if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return $this->fail($response, "Either session required or a valid ID must be entered.");
         }
+     }
+        else {
+         $id = $data["id"];
+        }
+        
         $i = $kernel->gs()->node($id);
         $incoming_follows = \iterator_to_array($i->edges()->in(Follow::class));
         $followers = [];
@@ -77,8 +86,16 @@ class MembersController extends AbstractController
 
     public function getFollowing(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return $this->fail($response, "Session required");
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+     if(!isset($data["id"])||!preg_match("/^[0-9a-fA-F][0-9a-fA-F]{30}[0-9a-fA-F]$/", $data["id"])) {
+       if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return $this->fail($response, "Either session required or a valid ID must be entered.");
+        }
+     }
+        else {
+         $id = $data["id"];
         }
         $i = $kernel->gs()->node($id);
         $outgoing_follows = \iterator_to_array($i->edges()->out(Follow::class));
