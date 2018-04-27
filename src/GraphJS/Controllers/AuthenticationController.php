@@ -158,7 +158,7 @@ class AuthenticationController extends AbstractController
         $pin = mt_rand(100000, 999999);
         file_put_contents(getenv("PASSWORD_REMINDER"), md5($data["email"]).":{$pin}:".time()."\n", FILE_APPEND|LOCK_EX);
         $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
-        $mgClient->sendMessage("",
+        $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
           array('from'    => 'GraphJS',
                 'to'      => $data["email"],
                 'subject' => 'Password Reminder',
