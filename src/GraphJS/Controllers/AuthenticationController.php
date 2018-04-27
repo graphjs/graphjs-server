@@ -175,14 +175,15 @@ class AuthenticationController extends AbstractController
             return;
         }
         $pins = explode(":", trim(file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]))));
-        error_log(print_r($pins, true));
+        //error_log(print_r($pins, true));
         if($pins[0]==$data["code"]) {
             if((int) $pins[1]<time()-7*60) {
                 $this->fail($response, "Expired.");
                 return;
             }
+            $this->succeed($response);
         }
-        $this->succeed($response);
+        $this->fail($response, "Code does not match.");
     }
 
 }
