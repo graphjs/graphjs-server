@@ -170,7 +170,7 @@ class AuthenticationController extends AbstractController
         $v = new Validator($data);
         $v->rule('required', ['email', 'code']);
         $v->rule('email', 'email');
-        if(!$v->validate()||preg_match("/^[0-9]{6}$/", $data["code"])) {
+        if(!$v->validate()||!preg_match("/^[0-9]{6}$/", $data["code"])) {
             $this->fail($response, "Valid email and code required.");
             return;
         }
