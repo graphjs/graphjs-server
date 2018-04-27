@@ -9,7 +9,8 @@
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
         "phonetworks/pho-plugins-feeds": "dev-master",
-        "get-stream/stream": "~2.7"
+        "get-stream/stream": "~2.7",
+        "mailgun/mailgun-php": "^2.5.0"
     },
     "require-dev": {
         "psy/psysh": "*",
