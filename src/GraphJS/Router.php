@@ -110,13 +110,13 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'resetPassword', function (Request $request, Response $response) use ($session, $controllers) {
-                $controllers["authentication"]->reset($request, $response, $session);
+            'resetPassword', function (Request $request, Response $response) use ($controllers) {
+                $controllers["authentication"]->reset($request, $response);
             }
         );
         $server->get(
-            'verifyReset', function (Request $request, Response $response) use ($session, $controllers) {
-                $controllers["authentication"]->verify($request, $response, $session);
+            'verifyReset', function (Request $request, Response $response) use ($controllers) {
+                $controllers["authentication"]->verify($request, $response);
             }
         );
     }

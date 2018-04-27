@@ -141,11 +141,8 @@ class AuthenticationController extends AbstractController
         }
     }
 
-    public function reset(Request $request, Response $response, Session $session)
+    public function reset(Request $request, Response $response)
     {
-        if(!is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return $this->fail($response, "Already logged in");
-        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['email']);
@@ -167,11 +164,8 @@ class AuthenticationController extends AbstractController
         $this->succeed($response);
     }
 
-    public function verify(Request $request, Response $response, Session $session)
+    public function verify(Request $request, Response $response)
     {
-        if(!is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return $this->fail($response, "Already logged in");
-        }
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['email', 'code']);
