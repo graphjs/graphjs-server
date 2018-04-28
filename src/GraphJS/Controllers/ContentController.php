@@ -93,7 +93,7 @@ class ContentController extends AbstractController
         }
           $page = $this->_fromUrlToNode($kernel, $data["url"]);
           $starrers = $page->getStarrers();
-          $me=$this->dependOnSession(...\func_get_args());
+          $me= $session->get($request, "id");
           $this->succeed(
               $response, [
               "count"=>count($starrers), 
