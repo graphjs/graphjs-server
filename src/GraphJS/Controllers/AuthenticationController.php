@@ -57,9 +57,13 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Invalid password");
             return;
         }
+        try {
         $new_user = new User(
             $kernel, $kernel->graph(), $data["username"], $data["email"], $data["password"]
         );
+        } catch(\Exception $e) {
+            return $this->fail($response, $e->getMessage());
+        }
         $session->set($request, "id", (string) $new_user->id());
         
         $this->succeed(
