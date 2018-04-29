@@ -115,8 +115,8 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'verifyReset', function (Request $request, Response $response) use ($controllers) {
-                $controllers["authentication"]->verify($request, $response);
+            'verifyReset', function (Request $request, Response $response) use ($session, $kernel, $controllers) {
+                $controllers["authentication"]->verify($request, $response, $session, $kernel);
             }
         );
     }

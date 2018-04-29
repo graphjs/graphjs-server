@@ -164,7 +164,7 @@ class AuthenticationController extends AbstractController
         $this->succeed($response);
     }
 
-    public function verify(Request $request, Response $response)
+    public function verify(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
         $v = new Validator($data);
