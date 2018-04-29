@@ -185,6 +185,23 @@ class AuthenticationController extends AbstractController
                 $this->fail($response, "Expired.");
                 return;
             }
+ 
+         
+         $result = $kernel->index()->query(
+            "MATCH (n:user {Email: {email}}) RETURN n",
+            [ 
+                "email" => $data["email"]
+            ]
+        );
+        $success = (count($result->results()) == 1);
+        if(!$success) {
+            $this->fail($response, "This user is not registered");
+            return;
+        }
+        $user = $result->results()[0];
+        $session->set($request, "id", $user["udid"]);
+         
+         
             $this->succeed($response);
         }
         $this->fail($response, "Code does not match.");
