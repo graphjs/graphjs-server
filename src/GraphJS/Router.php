@@ -274,7 +274,7 @@ class Router extends \Pho\Server\Rest\Router
         $session = self::$session;
 
         $server->get(
-            'editForumMessage', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+            'editForumPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["forum"]->edit($request, $response, $session, $kernel);
             }
         );
