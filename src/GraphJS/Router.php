@@ -249,6 +249,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["content"]->delComment($request, $response, $session, $kernel);
             }
         );
+        
+        $server->get(
+            'editComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->edit($request, $response, $session, $kernel);
+            }
+        );
 
         $server->get(
             'getComments', function (Request $request, Response $response) use ($controllers, $kernel) {
