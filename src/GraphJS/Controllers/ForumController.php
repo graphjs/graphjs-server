@@ -160,7 +160,7 @@ class ForumController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $entity = $kernel->gs()->entity($data["id"]);
-        if(!$entity instancoef Thread && $entity instanceof Reply) {
+        if(!$entity instanceof Thread && $entity instanceof Reply) {
             $this->fail($response, "Incompatible entity type.");
             return;
         }
