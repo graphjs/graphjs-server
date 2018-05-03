@@ -117,7 +117,7 @@ class ContentController extends AbstractController
         }
         $i = $kernel->gs()->node($id);
         $entity = $kernel->gs()->entity($data["id"]);
-        if(!$entity instancoef Comment) {
+        if(!$entity instanceof Comment) {
             $this->fail($response, "Given ID is not a Comment.");
             return;
         }
