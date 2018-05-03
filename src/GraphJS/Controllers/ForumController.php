@@ -145,6 +145,34 @@ class ForumController extends AbstractController
         );
     }
 
+ 
+    public function edit(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id', 'content']);
+        if(!$v->validate()) {
+            $this->fail($response, "Message ID and Content are required.");
+            return;
+        }
+        $i = $kernel->gs()->node($id);
+        $entity = $kernel->gs()->entity($data["id"]);
+        if(!$entity instancoef Thread && $entity instanceof Reply) {
+            $this->fail($response, "Incompatible entity type.");
+            return;
+        }
+        try {
+        $i->edit($entity)->setContent($data["content"]);
+        }
+     catch(\Exception $e) {
+        $this->fail($response, $e->getMessage());
+            return;
+     }
+     $this->succeed($response);
+    }
 
     /**
      * Get Threads
