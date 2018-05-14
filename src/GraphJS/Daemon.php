@@ -23,8 +23,11 @@ use Pho\Plugins\FeedPlugin;
  */
 class Daemon extends \Pho\Server\Rest\Daemon
 {
+    protected $configs_file = "";
+    
     public function __construct(string $configs = "")
     {
+        $this->configs_file = $configs;
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
         $this->initKernel();
@@ -32,9 +35,10 @@ class Daemon extends \Pho\Server\Rest\Daemon
         Router::init2($this->server, $this->controllers, $this->kernel);
     }
 
-    protected function initKernel(string $configs_file = ""): void
+    protected function initKernel(): void
     {
-        if(empty($configs_file)) {
+        $configs_file = $this->configs_file;
+        if(empty($this->configs_file)) {
             $configs_file = __DIR__ . '/../../';
         }
         $dotenv = new \Dotenv\Dotenv($configs_file);
