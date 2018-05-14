@@ -14,4 +14,5 @@ $configs = $args->getOpt('conf', "");
 $server = new \GraphJS\Daemon($configs);
 $server->setPort($port); 
 ob_end_flush();
+error_log(sprintf("Serving through port %s with the config file %s", (string) $port, $configs));
 $server->serve();
