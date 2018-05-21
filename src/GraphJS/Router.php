@@ -35,11 +35,11 @@ class Router extends \Pho\Server\Rest\Router
                 if(isset($data["public_id"])&&!empty($data["public_id"])) {
                     error_log("Public ID is: ".$data["public_id"]);
                 }
-                if($data["public_id"]=="07660876-c7e1-44a4-86c3-754799733ff0") {
+                if(strtolower($data["public_id"])=="07660876-c7e1-44a4-86c3-754799733ff0") {
                     error_log("debug 0");
-                    $response->addHeader("Access-Control-Allow-Origin", "http://emresokullu.com");   // cors
+                    $response->addHeader("Access-Control-Allow-Origin", "http://www.emresokullu.com");   // cors
                 }
-                elseif($data["public_id"]!="16D58CF2-FD88-4A49-972B-6F60054BF023") {
+                elseif(strtoupper($data["public_id"])!="16D58CF2-FD88-4A49-972B-6F60054BF023") {
                     error_log("debug 1");
                     $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 }
