@@ -63,9 +63,9 @@ class MessagingController extends AbstractController
             $this->fail($response, "Message can't be empty");
             return;
         }
+        $recipient = $kernel->gs()->node($data["to"]);
         if(!is_null($id)) {
             $i = $kernel->gs()->node($id);
-            $recipient = $kernel->gs()->node($data["to"]);
             $msg = $i->message($recipient, $data["message"]);
         }
         $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
