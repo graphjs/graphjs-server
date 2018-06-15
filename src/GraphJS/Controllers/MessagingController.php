@@ -80,11 +80,14 @@ class MessagingController extends AbstractController
                 'subject' => 'Private Message',
                 'text'    => $data["message"] . PHP_EOL . (string) $msg->id())
         );
-        $this->succeed(
-            $response, [
-                "id" => (string) $msg->id()
-            ]
-        );
+        if(!is_null($id))
+            $this->succeed(
+                $response, [
+                    "id" => (string) $msg->id()
+                ]
+            );
+        else
+        $this->succeed($response);
     }
 
     /**
