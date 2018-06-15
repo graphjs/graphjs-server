@@ -42,8 +42,9 @@ class MessagingController extends AbstractController
      */
     public function message(Request $request, Response $response, Session $session, Kernel $kernel, bool $anonymous = false)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args())) && !$anonymous) {
-            return;
+        $id = $session->get($request, "id");
+        if(!$anonymous) {
+            $this->dependOnSession(...\func_get_args());
         }
         $data = $request->getQueryParams();
         $v = new Validator($data);
