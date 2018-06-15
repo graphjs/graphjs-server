@@ -135,6 +135,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'sendAnonymousMessage', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["messaging"]->message($request, $response, $session, $kernel, true);
+            }
+        );
+
+        $server->get(
             'countUnreadMessages', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
                 $controllers["messaging"]->fetchUnreadMessageCount($request, $response, $session, $kernel);
             }

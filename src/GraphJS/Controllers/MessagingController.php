@@ -40,14 +40,17 @@ class MessagingController extends AbstractController
      * 
      * @return void
      */
-    public function message(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function message(Request $request, Response $response, Session $session, Kernel $kernel, bool $anonymous = false)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+        if(is_null($id = $this->dependOnSession(...\func_get_args())) && !$anonymous) {
             return;
         }
         $data = $request->getQueryParams();
         $v = new Validator($data);
-        $v->rule('required', ['to', 'message']);
+        if($anonymous && is_null($id))
+            $v->rule('required', ['sender', 'to', 'message']);
+        else
+            $v->rule('required', ['to', 'message']);
         if(!$v->validate()) {
             $this->fail($response, "Valid recipient and message are required.");
             return;
@@ -60,13 +63,14 @@ class MessagingController extends AbstractController
             $this->fail($response, "Message can't be empty");
             return;
         }
-
-        $i = $kernel->gs()->node($id);
-        $recipient = $kernel->gs()->node($data["to"]);
-        $msg = $i->message($recipient, $data["message"]);
+        if(!is_null($id)) {
+            $i = $kernel->gs()->node($id);
+            $recipient = $kernel->gs()->node($data["to"]);
+            $msg = $i->message($recipient, $data["message"]);
+        }
         $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
         $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
-          array('from'    => $i->getUsername() . ' <postmaster@mg.graphjs.com>',
+          array('from'    => ($anonymous && is_null($id)) ? $data["sender"] : $i->getUsername() . ' <postmaster@mg.graphjs.com>',
                 'to'      => $recipient->getEmail(),
                 'subject' => 'Private Message',
                 'text'    => $data["message"] . PHP_EOL . (string) $msg->id())
