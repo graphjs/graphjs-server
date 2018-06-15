@@ -64,6 +64,10 @@ class MessagingController extends AbstractController
             $this->fail($response, "Message can't be empty");
             return;
         }
+        if($data["to"]==$id) {
+            $this->fail($response, "Can't send a message to self");
+            return;
+        }
         $recipient = $kernel->gs()->node($data["to"]);
         if(!is_null($id)) {
             $i = $kernel->gs()->node($id);
