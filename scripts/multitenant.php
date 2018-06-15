@@ -8,6 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+require '../vendor/autoload.php';
+
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
  
  /**
  * This class contains functions needed to generate a 
@@ -23,31 +28,87 @@
  final class MT {
 
      private $root;
+     private $num;
+     private $defaults;
+     private $uuid;
 
      public function __construct() {
-         $this->root = dirname(__DIR__ . "/../envs");
+         $this->root = glob(__DIR__ . "/../envs")[0];
+         $this->num = $this->findConfigNum();
+         try { 
+             $uuid = Uuid::uuid4();
+             $this->uuid = strtoupper($uuid->toString());
+         } 
+         catch (UnsatisfiedDependencyException $e) {
+            // Some dependency was not met. Either the method cannot be called on a
+            // 32-bit system, or it can, but it relies on Moontoast\Math to be present.
+            die('Caught exception: ' . $e->getMessage());
+        }
      }
 
-     public function findConfigNum() {
+     private function findConfigNum(): int 
+     {
          $list = array_diff(scandir($this->root), array(".", ".."));
          rsort($list, SORT_NUMERIC);
-         return (int) $list[0];
+         return ((int) $list[0])+1;
      }
  
-  public static function makeEnvFile() {
-  
+    /**
+     * Forms Env file
+     *
+     * Env file constitutes the main settings of the 
+     * GraphJS application. It contains database host
+     * configurations and all external resources needed
+     * to run the application.
+     * 
+     * @param string $stream_key Stream is a service used for feeds
+     * @param string $stream_secret Stream is a service used for feeds
+     * @param string $mailgun_key Mailgun is a cloud service for SMTP
+     * @param string $mailgun_domain Mailgun is a cloud service for SMTP
+     * @return void
+     */
+  public function makeEnvFile(
+      string $stream_key, 
+      string $stream_secret, 
+      string $mailgun_key = "", 
+      string $mailgun_domain = ""
+      ): void 
+  {
+      $template = file_get_contents(__DIR__ . "/templates/env.txt");
+    $file_contents = sprintf(
+        $template, 
+        (string) (6378+$this->num),
+        (string) (7686+$this->num),
+        $mailgun_key, $mailgun_domain,
+        $stream_key, $stream_secret
+    );
+    $env_file = sprintf("%s/%s/.env", $this->root, $this->num);
+    file_put_contents($env_file, $file_contents);
   }
   
-  public static function setupNginxConf() {
-  
+  public function setupNginxConf() {
+      $conf_file = "/etc/nginx/sites-enabled/default";
+    $nginx = file_get_contents($conf_file);
+    $seek = "location / {";
+    $template = file_get_contents(__DIR__ . "/templates/nginx.txt");
+    $replace = sprintf($template, $this->uuid, (string) ( 1337 + $this->num ) );
+    $nginx = str_replace($seek, $replace, $nginx);
+    file_put_contents($conf_file, $nginx, LOCK_EX);
   }
   
-  public static function reloadServers() {
-  
+  public function reloadServers() {
+      exec("docker volume create vol-redis-%s")
+      exec("docker volume create vol-neo4j-%s")
+    exec(); // supervisor
+    exec(); // docker neo4j
+    exec("docker run -d -p %s:6379 --name redis-% -v vol-redis-%s c5355f8853e4"); // docker redis
   }
   
-  public static function setupSupervisorConf() {
-  
+  public function setupSupervisorConf() {
+    $filename = sprintf("/etc/supervisor/conf.d/gjs-%s.conf", (string) $this->num);
+    $template = file_get_contents(__DIR__ . "/templates/supervisor.txt");
+    $conf = sprintf($template, (string) $this->num, (string) $this->num, (string) (1337+$this->num));
+    file_put_contents($conf_file, $nginx, LOCK_EX);
   }
  
  }
