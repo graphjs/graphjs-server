@@ -78,7 +78,7 @@ class MessagingController extends AbstractController
           array('from'    => ($anonymous && is_null($id)) ? $data["sender"] : $i->getUsername() . ' <postmaster@mg.graphjs.com>',
                 'to'      => $recipient->getEmail(),
                 'subject' => 'Private Message',
-                'text'    => $data["message"] . PHP_EOL . !is_null($id) ? (string) $msg->id() : "")
+                'text'    => $data["message"] . PHP_EOL . (!is_null($id) ? (string) $msg->id() : "") )
         );
         if(!is_null($id))
             $this->succeed(
