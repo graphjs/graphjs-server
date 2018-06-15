@@ -128,15 +128,17 @@ class Router extends \Pho\Server\Rest\Router
     protected static function initMessaging(Server $server, array $controllers, Kernel $kernel): void
     {
         $session = self::$session;
-        $server->get(
-            'sendMessage', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
-                $controllers["messaging"]->message($request, $response, $session, $kernel);
-            }
-        );
+        
 
         $server->get(
             'sendAnonymousMessage', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
                 $controllers["messaging"]->message($request, $response, $session, $kernel, true);
+            }
+        );
+
+        $server->get(
+            'sendMessage', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["messaging"]->message($request, $response, $session, $kernel);
             }
         );
 
