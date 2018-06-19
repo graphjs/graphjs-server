@@ -29,7 +29,6 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 
      private $root;
      private $num;
-     private $defaults;
      private $uuid;
 
      public function __construct() {
@@ -97,11 +96,10 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
   }
   
   public function reloadServers() {
-      exec("docker volume create vol-redis-%s")
-      exec("docker volume create vol-neo4j-%s")
-    exec(); // supervisor
-    exec(); // docker neo4j
-    exec("docker run -d -p %s:6379 --name redis-% -v vol-redis-%s c5355f8853e4"); // docker redis
+      exec("docker volume create vol-redis-%s");
+      exec("docker volume create vol-neo4j-%s");
+        exec("docker run -d -p %s:7687 --name neo4j-%s -v vol-neo4j-%s "); // docker neo4j
+        exec("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s c5355f8853e4"); // docker redis
   }
   
   public function setupSupervisorConf() {
