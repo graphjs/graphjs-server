@@ -1,0 +1,6 @@
+[program:gjs-%s]
+command=/opt/graphjs-server/run.php --conf /opt/graphjs-server/envs/%s --port %s
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/long.err.log
+stdout_logfile=/var/log/long.out.log
