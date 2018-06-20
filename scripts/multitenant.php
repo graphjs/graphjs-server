@@ -89,8 +89,9 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         $stream_key, $stream_secret,
         $founder_nickname, $founder_email, $founder_password
     );
-    $env_file = sprintf("%s/%s/.env", $this->root, $this->num);
-    file_put_contents($env_file, $file_contents);
+    $env_dir = sprintf("%s/%s", $this->root, $this->num);
+    mkdir($env_dir);
+    file_put_contents($env_dir."/.env", $file_contents);
   }
   
   public function setupNginxConf() {
@@ -127,9 +128,9 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
     file_put_contents($filename, $conf, LOCK_EX);
   }
 
-  public function run() {
+  public function run(string $domain) {
       $this->setupNginxConf(); // ok
-
+    $this->setupSupervisorConf($domain); // ok
   }
  
  }
