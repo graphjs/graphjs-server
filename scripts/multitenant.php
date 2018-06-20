@@ -120,7 +120,12 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         (string) (1337+$this->num),
         $domain
     );
-    file_put_contents($conf_file, $nginx, LOCK_EX);
+    file_put_contents($filename, $conf, LOCK_EX);
+  }
+
+  public function run() {
+      $this->setupNginxConf(); // ok
+
   }
  
  }
