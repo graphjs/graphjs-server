@@ -1,5 +1,5 @@
 location / {
 
-    if (\$arg_public_id ~* ^%s$) {
+    if ($arg_public_id ~* ^%s$) {
         proxy_pass http://127.0.0.1:%s;
     }
