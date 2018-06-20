@@ -102,10 +102,15 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         exec("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s c5355f8853e4"); // docker redis
   }
   
-  public function setupSupervisorConf() {
+  public function setupSupervisorConf(string $domain) {
     $filename = sprintf("/etc/supervisor/conf.d/gjs-%s.conf", (string) $this->num);
     $template = file_get_contents(__DIR__ . "/templates/supervisor.txt");
-    $conf = sprintf($template, (string) $this->num, (string) $this->num, (string) (1337+$this->num));
+    $conf = sprintf($template, 
+        (string) $this->num, 
+        (string) $this->num, 
+        (string) (1337+$this->num),
+        $domain
+    );
     file_put_contents($conf_file, $nginx, LOCK_EX);
   }
  

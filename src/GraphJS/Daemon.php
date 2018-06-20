@@ -25,14 +25,14 @@ class Daemon extends \Pho\Server\Rest\Daemon
 {
     protected $configs_file = "";
     
-    public function __construct(string $configs = "")
+    public function __construct(string $configs = "", string $cors = "")
     {
         $this->configs_file = $configs;
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
         $this->initKernel();
         $this->initControllers(__DIR__, false);
-        Router::init2($this->server, $this->controllers, $this->kernel);
+        Router::init2($this->server, $this->controllers, $this->kernel, $cors);
     }
 
     protected function initKernel(): void
