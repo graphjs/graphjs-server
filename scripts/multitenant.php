@@ -104,6 +104,11 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
       exec("docker volume create vol-neo4j-%s");
         exec("docker run -d -p %s:7687 --name neo4j-%s -v vol-neo4j-%s "); // docker neo4j
         exec("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s c5355f8853e4"); // docker redis
+        // supervisorctl reread
+        //supervisorctl update
+        // supervisorctl start
+        // service nginx reload
+        
   }
   
   public function setupSupervisorConf(string $domain) {
