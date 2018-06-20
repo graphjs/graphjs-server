@@ -70,7 +70,10 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
       string $stream_key, 
       string $stream_secret, 
       string $mailgun_key = "", 
-      string $mailgun_domain = ""
+      string $mailgun_domain = "",
+      string $founder_nickname,
+      string $founder_email,
+      string $founder_password
       ): void 
   {
       $template = file_get_contents(__DIR__ . "/templates/env.txt");
@@ -79,7 +82,8 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         (string) (6378+$this->num),
         (string) (7686+$this->num),
         $mailgun_key, $mailgun_domain,
-        $stream_key, $stream_secret
+        $stream_key, $stream_secret,
+        $founder_nickname, $founder_email, $founder_password
     );
     $env_file = sprintf("%s/%s/.env", $this->root, $this->num);
     file_put_contents($env_file, $file_contents);
