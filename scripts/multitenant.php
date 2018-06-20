@@ -105,15 +105,11 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
   }
   
   public function reloadServers() {
-      exec("docker volume create vol-redis-%s");
-      exec("docker volume create vol-neo4j-%s");
-        exec("docker run -d -p %s:7687 --name neo4j-%s -v vol-neo4j-%s "); // docker neo4j
-        exec("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s c5355f8853e4"); // docker redis
-        // supervisorctl reread
-        //supervisorctl update
-        // supervisorctl start
-        // service nginx reload
-        
+      exec(sprintf("docker volume create vol-redis-%s", $this->num));
+      exec(sprintf("docker volume create vol-neo4j-%s", $this->num));
+        exec(sprintf("docker run -d -p %s:7687 --name neo4j-%s -v vol-neo4j-%s 75ae85cc12a7", (string) (7687+$this->num), $this->num, $this->num)); // docker neo4j
+        exec(sprintf("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s c5355f8853e4",(string) (6379+$this->num), $this->num, $this->num)); // docker redis
+        exec("supervisorctl reread && supervisorctl update && service nginx reload");
   }
   
   public function setupSupervisorConf(string $domain) {
@@ -131,6 +127,9 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
   public function run(string $domain) {
       $this->setupNginxConf(); // ok
     $this->setupSupervisorConf($domain); // ok
+    // 
+    $this->reloadServers(); 
+
   }
  
  }
