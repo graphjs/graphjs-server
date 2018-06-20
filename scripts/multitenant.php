@@ -83,8 +83,8 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
       $template = file_get_contents(__DIR__ . "/templates/env.txt");
     $file_contents = sprintf(
         $template, 
-        (string) (6378+$this->num),
-        (string) (7686+$this->num),
+        (string) (6379+$this->num),
+        (string) (7687+$this->num),
         $mailgun_key, $mailgun_domain,
         $stream_key, $stream_secret,
         $founder_nickname, $founder_email, $founder_password
@@ -109,6 +109,23 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
       exec(sprintf("docker volume create vol-neo4j-%s", $this->num));
         exec(sprintf("docker run -d -p %s:7474 -p %s:7687 --name neo4j-%s -v vol-neo4j-%s:/var/lib/neo4j 75ae85cc12a7",  (string) (7474+$this->num), (string) (7687+$this->num), $this->num, $this->num)); // docker neo4j
         exec(sprintf("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s:/var/lib/redis c5355f8853e4",(string) (6379+$this->num), $this->num, $this->num)); // docker redis
+       
+        // curl -H "Content-Type: application/json" -X POST -d '{"password":"password"}' -u neo4j:neo4j http://localhost:7477/user/neo4j/password
+        // https://lornajane.net/posts/2011/posting-json-data-with-php-curl
+        $data = array("password" => "password");                                                                    
+        $data_string = json_encode($data);                                                                                   
+                                                                                                                     
+        $ch = curl_init(sprintf('http://localhost:%s/user/neo4j/password', (string) (7474+$this->num)));                                                                      
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
+            'Content-Type: application/json',                                                                                
+            'Content-Length: ' . strlen($data_string))                                                                       
+        );                                                                                                                   
+                                                                                                                            
+        $result = curl_exec($ch);
+
         exec("supervisorctl reread && supervisorctl update && service nginx reload");
   }
   
