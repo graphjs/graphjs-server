@@ -31,8 +31,8 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
      private $num;
      private $uuid;
 
-     public function __construct() {
-         $this->root = glob(__DIR__ . "/../envs")[0];
+     public function __construct(string $dir = "/etc/graphjs-server") {
+         $this->root = $dir;
          $this->num = $this->findConfigNum();
          try { 
              $uuid = Uuid::uuid4();
