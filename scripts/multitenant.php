@@ -28,7 +28,7 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
  final class MT {
 
      private $root;
-     private $num;
+     public $num;
      private $uuid;
 
      public function __construct(string $uuid = "", string $dir = "/etc/graphjs-server") {
@@ -139,14 +139,6 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         $domain
     );
     file_put_contents($filename, $conf, LOCK_EX);
-  }
-
-  public function run(string $domain) {
-      $this->setupNginxConf(); // ok
-    $this->setupSupervisorConf($domain); // ok
-    //
-    $this->reloadServers(); 
-
   }
  
  }
