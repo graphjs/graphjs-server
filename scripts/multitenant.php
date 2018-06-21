@@ -111,7 +111,9 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         exec(sprintf("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s:/var/lib/redis c5355f8853e4",(string) (6379+$this->num), $this->num, $this->num)); // docker redis
        
         // curl -H "Content-Type: application/json" -X POST -d '{"password":"password"}' -u neo4j:neo4j http://localhost:7477/user/neo4j/password
+        sleep(5);
         exec('curl -H "Content-Type: application/json" -X POST -d \'{"password":"password"}\' -u neo4j:neo4j http://localhost:'.(string) (7474+$this->num).'/user/neo4j/password');
+        //exec('curl -H "Content-Type: application/json" -X POST -d \'{"password":"password"}\' -u neo4j:neo4j http://localhost:7479/user/neo4j/password');
         // https://lornajane.net/posts/2011/posting-json-data-with-php-curl
        /* $data = array("password" => "password");                                                                    
         $data_string = json_encode($data);                                                                                   
