@@ -111,21 +111,27 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
         exec(sprintf("docker run -d -p %s:6379 --name redis-%s -v vol-redis-%s:/var/lib/redis c5355f8853e4",(string) (6379+$this->num), $this->num, $this->num)); // docker redis
        
         // curl -H "Content-Type: application/json" -X POST -d '{"password":"password"}' -u neo4j:neo4j http://localhost:7477/user/neo4j/password
+        exec('curl -H "Content-Type: application/json" -X POST -d \'{"password":"password"}\' -u neo4j:neo4j http://localhost:'.(string) (7474+$this->num).'/user/neo4j/password');
         // https://lornajane.net/posts/2011/posting-json-data-with-php-curl
-        $data = array("password" => "password");                                                                    
+       /* $data = array("password" => "password");                                                                    
         $data_string = json_encode($data);                                                                                   
                                                                                                                      
-        $ch = curl_init(sprintf('http://localhost:%s/user/neo4j/password', (string) (7474+$this->num)));                                                                      
+        $ch = curl_init();                                                                      
+        curl_setopt($ch, CURLOPT_URL, sprintf('http://localhost:%s/user/neo4j/password', (string) (7474+$this->num)));
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);    
+        //curl_setopt($ch, CURLOPT_HTTPHEADER, [ "Authorization: Basic ".base64_encode("neo4j:neo4j"), ]);                                                              
+        curl_setopt($ch, CURLOPT_USERPWD, "neo4j:neo4j");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(                                                                          
             'Content-Type: application/json',                                                                                
-            'Content-Length: ' . strlen($data_string))                                                                       
+            'Content-Length: ' . strlen($data_string)
+            )                                                                       
         );                                                                                                                   
-                                                                                                                            
         $result = curl_exec($ch);
-
+        $status_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);   //get status code
+        curl_close ($ch);
+*/
         exec("supervisorctl reread && supervisorctl update && service nginx reload");
   }
   
