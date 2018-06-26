@@ -68,7 +68,11 @@ class ContentController extends AbstractController
     protected function _fromUrlToNode(Kernel $kernel, string $url) 
     {
         $get_title = function(string $url){ // via https://stackoverflow.com/questions/4348912/get-title-of-website-via-link
-            $str = file_get_contents($url);
+            //$str = file_get_contents($url);
+            $ch =  curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+            $str = curl_exec($ch);
             if(strlen($str)>0){
               $str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
               preg_match("/\<title\>(.*?)\<\/title\>/i",$str,$title); // ignore case
