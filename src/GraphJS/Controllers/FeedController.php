@@ -53,4 +53,34 @@ class FeedController extends AbstractController
             "token" => $token
         ]);
     }
+
+    public function addFeedItem(Request $request, Response $response, Kernel $kernel)
+    {
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+
+        $requiredRuleInputs = [];
+        $isMediaProvided = ! empty($data['photo'])
+            || ! empty($data['album'])
+            || ! empty($data['video']);
+        if (! $isMediaProvided) {
+            $requiredRuleInputs[] = 'text';
+        }
+
+        $urlRuleInputs = [
+            'photo',
+            'album.*',
+            'video',
+        ];
+        $v->rule('required', $requiredRuleInputs);
+        $v->rule('url', $urlRuleInputs);
+
+        if (! $v->validate()) {
+            $this->fail($response, "Type and/or id fields unavailable.");
+            return;
+        }
+
+        return $this->succeed($response, [
+        ]);
+    }
 }
