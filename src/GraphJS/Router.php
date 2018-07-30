@@ -80,8 +80,8 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'addFeedItem', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["feed"]->addFeedItem($request, $response, $kernel);
+            'addFeedItem', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["feed"]->addFeedItem($request, $response, $session, $kernel);
             }
         );
     }
