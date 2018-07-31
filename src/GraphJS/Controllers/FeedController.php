@@ -92,11 +92,13 @@ class FeedController extends AbstractController
         $data = [
             "actor" => (string) $userId,
             "verb" => "_construct",
-            "object" => "",
-            "txt" => null,//NodeFeedGenerator::process($feed),
+            "object" => "feed",
+            "txt" => $data["text"] ?? null,
+            "photo" => $data["photo"] ?? null,
+            "album" => $data["album"] ?? [],
+            "video" => $data["video"] ?? null,
         ];
-        $feed->addActivity($data);
-        return $this->succeed($response, [
-        ]);
+        $ret = $feed->addActivity($data);
+        return $this->succeed($response, $ret);
     }
 }
