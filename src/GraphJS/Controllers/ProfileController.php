@@ -52,7 +52,13 @@ class ProfileController extends AbstractController
             $this->fail($response, "Invalid user ID");
             return;
         }
-        $user = $kernel->gs()->node($data["id"]);
+        try {
+            $user = $kernel->gs()->node($data["id"]);
+        }
+        catch(\Exception $e) {
+            $this->fail($response, "Invalid ID");
+            return;
+        }
         if(!$user instanceof User) {
             $this->fail($response, "Invalid user ID");
             return;
