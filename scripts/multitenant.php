@@ -104,7 +104,15 @@ use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
     file_put_contents($conf_file, $nginx, LOCK_EX);
   }
   
-  public function reloadServers() {
+  /** 
+   * this should be deprecated because neo4j password change does not work as intended.
+   * instead, we will create these docker instances a priori
+   */
+    public function reloadServers() {
+     exec("supervisorctl reread && supervisorctl update && service nginx reload");
+    }
+  
+  public function _reloadServers() {
       exec(sprintf("docker volume create vol-redis-%s", $this->num));
       exec(sprintf("docker volume create vol-neo4j-%s", $this->num));
         exec(sprintf("docker run -d -p %s:7474 -p %s:7687 --name neo4j-%s -v vol-neo4j-%s:/var/lib/neo4j 75ae85cc12a7",  (string) (7474+$this->num), (string) (7687+$this->num), $this->num, $this->num)); // docker neo4j
