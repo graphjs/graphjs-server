@@ -36,7 +36,17 @@ class Router extends \Pho\Server\Rest\Router
                     $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 }
                 else { 
-                    $response->addHeader("Access-Control-Allow-Origin", $cors);   // cors
+                    if(strpos($cors, ";")===false)
+                        $response->addHeader("Access-Control-Allow-Origin", $cors);   // cors
+                    else {
+                        $cors = explode(";",$cors);
+                        $origin = $request->getHeader("origin");
+                        if(is_array($origin)&&count($origin)==1&&in_array($origin[0], $cors))
+                            $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
+                        else
+                            $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
+                    }
+
                 }
                 $next();
             }
