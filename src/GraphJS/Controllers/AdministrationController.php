@@ -45,7 +45,7 @@ class AdministrationController extends AbstractController
 
     public function fetchAllPendingComments(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(!$this->requireAdministrativeRights())
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
             return;
         $is_moderated = ($kernel->graph()->getCommentsModerated() === true);
         if(!$is_moderated)
@@ -71,7 +71,7 @@ class AdministrationController extends AbstractController
      */
     public function approvePendingComment(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(!$this->requireAdministrativeRights())
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
             return;
         $data = $request->getQueryParams();
         $v = new Validator($data);
@@ -95,7 +95,7 @@ class AdministrationController extends AbstractController
 
     public function setCommentModeration(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(!$this->requireAdministrativeRights())
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
             return;
         $data = $request->getQueryParams();
         $v = new Validator($data);
@@ -112,7 +112,7 @@ class AdministrationController extends AbstractController
 
     public function getCommentModeration(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        if(!$this->requireAdministrativeRights())
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
             return;
         $is_moderated = (bool) $kernel->graph()->getCommentsModerated();
         $this->succeed($response, ["is_moderated"=>$is_moderated]);
