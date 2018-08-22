@@ -11,7 +11,8 @@
         "phonetworks/pho-plugins-feeds": "dev-master",
         "get-stream/stream": "~2.7",
         "mailgun/mailgun-php": "^2.5.0",
-        "ramsey/uuid": "^3.0"
+        "ramsey/uuid": "^3.0",
+        "superbalist/php-pubsub-redis": "^2.0"
     },
     "require-dev": {
         "psy/psysh": "*",
