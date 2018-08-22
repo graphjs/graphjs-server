@@ -170,7 +170,17 @@ class ContentController extends AbstractController
         $pending_comments = [];
         // index'ten cekecegiz
         $res = $kernel->index()->client()->run("MATCH ()-[e:comment]-(n:page) RETURN n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
-        $this->succeed($response, $res);
+        $array = $res->records();
+        $ret = [];
+        foreach($array as $a) {
+            $ret[$a->value("comment_id")] = [
+                "page_id" => $a->value("page_id"), 
+                "page_url" => $a->value("page_url"),
+                "page_title" => $a->value("page_title"),
+                "comment" => $a->value("comment"),
+            ];
+        }
+        $this->succeed($response, $ret);
     }
 
     /**
