@@ -60,7 +60,8 @@ class Router extends \Pho\Server\Rest\Router
         self::initForum(...\func_get_args());
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
-        
+        self::initAdministration(...\func_get_args());
+
     }
 
     
@@ -77,6 +78,29 @@ class Router extends \Pho\Server\Rest\Router
                 //$response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 //eval(\Psy\sh());
                 $next();
+            }
+        );
+    }
+
+    protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+
+        $server->get(
+            'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["administration"]->fetchAllPendingComments($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["administration"]->approvePendingComment($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'setCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["administration"]->setCommentModeration($request, $response, $session, $kernel);
             }
         );
     }
@@ -248,18 +272,6 @@ class Router extends \Pho\Server\Rest\Router
         $server->get(
             'star', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["content"]->star($request, $response, $session, $kernel);
-            }
-        );
-
-        $server->get(
-            'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["content"]->fetchAllPendingComments($request, $response, $session, $kernel);
-            }
-        );
-
-        $server->get(
-            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["content"]->approvePendingComment($request, $response, $session, $kernel);
             }
         );
 
