@@ -63,8 +63,9 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return;
         $is_moderated = ($kernel->graph()->getCommentsModerated() === true);
-        if(!$is_moderated)
+        /*if(!$is_moderated)
             return $this->fail($response);
+        */
         $pending_comments = $this->_getPendingComments($kernel);
         $this->succeed($response, ["pending_comments"=>$pending_comments]);
     }
