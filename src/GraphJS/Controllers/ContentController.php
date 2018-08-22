@@ -67,7 +67,8 @@ class ContentController extends AbstractController
  
     protected function _fromUrlToNode(Kernel $kernel, string $url) 
     {
-        $get_title = function(string $url){ // via https://stackoverflow.com/questions/4348912/get-title-of-website-via-link
+        $get_title = function(string $url): string 
+        { // via https://stackoverflow.com/questions/4348912/get-title-of-website-via-link
             if(!function_exists("curl_init")) {
                 $str = file_get_contents($url);
             }
@@ -82,6 +83,7 @@ class ContentController extends AbstractController
               preg_match("/\<title\>(.*?)\<\/title\>/i",$str,$title); // ignore case
               return html_entity_decode($title[1]);
             }
+            return "-";
         };
         $res = $kernel->index()->query("MATCH (n:page {Url: {url}}) RETURN n", ["url"=>$url]);
         if(count($res->results())==0) {
@@ -153,9 +155,17 @@ class ContentController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);  
-         $page = $this->_fromUrlToNode($kernel, $data["url"]);
-         $comment = $i->comment($page, $data["content"]);
-         $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
+        $page = $this->_fromUrlToNode($kernel, $data["url"]);
+        $comment = $i->comment(
+                            $page, 
+                            $data["content"], 
+                            (
+                                $id != $kernel->founder()->id()->toString()  // it's not the founder
+                                && 
+                                $kernel->graph()->getCommentsModerated() === true // it's not moderated
+                            )
+                    );
+        $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
     }
 
     public function fetchComments(Request $request, Response $response, Kernel $kernel)
@@ -180,7 +190,11 @@ class ContentController extends AbstractController
                     
                     return [$val->id()->toString() => $ret];
                 }, 
-                $page->getComments()
+                $kernel->graph()->getCommentsModerated() === true ? 
+                    array_filter($page->getComments(), function(Comment $comm) {
+                        return $comm->getPending() !== true;
+                    })
+                    : $page->getComments()
          );
          $this->succeed(
              $response, [
