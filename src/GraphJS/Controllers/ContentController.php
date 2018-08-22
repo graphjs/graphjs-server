@@ -159,7 +159,11 @@ class ContentController extends AbstractController
         $comment = $i->comment(
                             $page, 
                             $data["content"], 
-                            ($kernel->graph()->getCommentsModerated() === true)
+                            (
+                                $id != $kernel->founder()->id()->toString()  // it's not the founder
+                                && 
+                                $kernel->graph()->getCommentsModerated() === true // it's not moderated
+                            )
                     );
         $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
     }
