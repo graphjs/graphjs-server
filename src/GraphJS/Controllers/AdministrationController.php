@@ -103,7 +103,7 @@ class AdministrationController extends AbstractController
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['moderated']);
-        $v->rule('boolean', ['moderated']);
+        //$v->rule('boolean', ['moderated']);
         if(!$v->validate()) {
             return $this->fail($response, "A boolean 'moderated' field is required");
         }
