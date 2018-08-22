@@ -252,6 +252,18 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->fetchAllPendingComments($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->approvePendingComment($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
             'addComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["content"]->comment($request, $response, $session, $kernel);
             }
