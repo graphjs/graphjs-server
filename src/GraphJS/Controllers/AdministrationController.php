@@ -110,4 +110,12 @@ class AdministrationController extends AbstractController
         $this->succeed($response);
     }
 
+    public function getCommentModeration(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(!$this->requireAdministrativeRights())
+            return;
+        $is_moderated = (bool) $kernel->graph()->getCommentsModerated();
+        $this->succeed($response, ["is_moderated"=>$is_moderated]);
+    }
+
 }

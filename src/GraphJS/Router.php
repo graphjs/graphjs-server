@@ -103,6 +103,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["administration"]->setCommentModeration($request, $response, $session, $kernel);
             }
         );
+
+        $server->get(
+            'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["administration"]->setCommentModeration($request, $response, $session, $kernel);
+            }
+        );
     }
 
     protected static function initFeed(Server $server, array $controllers, Kernel $kernel): void
