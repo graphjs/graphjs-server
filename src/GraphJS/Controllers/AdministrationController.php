@@ -42,6 +42,21 @@ class AdministrationController extends AbstractController
         return true;
     }
 
+    protected function _getPendingComments(Kernel $kernel): array
+    {
+        $pending_comments = [];
+        $res = $kernel->index()->client()->run("MATCH ()-[e:comment {Pending: true}]-(n:page) RETURN n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
+        $array = $res->records();
+        foreach($array as $a) {
+            $pending_comments[$a->value("comment_id")] = [
+                "page_id" => $a->value("page_id"), 
+                "page_url" => $a->value("page_url"),
+                "page_title" => $a->value("page_title"),
+                "comment" => $a->value("comment"),
+            ];
+        }
+        return $pending_comments;
+    }
 
     public function fetchAllPendingComments(Request $request, Response $response, Session $session, Kernel $kernel)
     {
@@ -50,20 +65,8 @@ class AdministrationController extends AbstractController
         $is_moderated = ($kernel->graph()->getCommentsModerated() === true);
         if(!$is_moderated)
             return $this->fail($response);
-        $pending_comments = [];
-        // index'ten cekecegiz
-        $res = $kernel->index()->client()->run("MATCH ()-[e:comment {Pending: true}]-(n:page) RETURN n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
-        $array = $res->records();
-        $ret = [];
-        foreach($array as $a) {
-            $ret[$a->value("comment_id")] = [
-                "page_id" => $a->value("page_id"), 
-                "page_url" => $a->value("page_url"),
-                "page_title" => $a->value("page_title"),
-                "comment" => $a->value("comment"),
-            ];
-        }
-        $this->succeed($response, ["pending_comments"=>$ret]);
+        $pending_comments = $this->_getPendingComments($kernel);
+        $this->succeed($response, ["pending_comments"=>$pending_comments]);
     }
 
     /**
@@ -105,6 +108,18 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "A boolean 'moderated' field is required");
         }
         $is_moderated = (bool) $data["moderated"];
+        if(!$is_moderated) {
+            $pending_comments = $this->_getPendingComments($kernel);
+            foreach($pending_comments as $c_id=>$c) {
+                try {
+                    $comment = $kernel->gs()->edge($c_id);
+                    $comment->setPending(false);
+                }
+                catch (\Exception $e) {
+                    error_log("a-oh can't fetch comment id ".$c_id);
+                }
+            }
+        }
         $kernel->graph()->setCommentsModerated($is_moderated);
         $kernel->graph()->persist();
         $this->succeed($response);
