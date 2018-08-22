@@ -180,7 +180,7 @@ class ContentController extends AbstractController
                 "comment" => $a->value("comment"),
             ];
         }
-        $this->succeed($response, $ret);
+        $this->succeed($response, ["pending_comments"=>$ret]);
     }
 
     /**
