@@ -85,25 +85,25 @@ class Router extends \Pho\Server\Rest\Router
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
 
-        $server->post(
+        $server->get(
             'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->fetchAllPendingComments($request, $response, $kernel);
             }
         );
 
-        $server->post(
+        $server->get(
             'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->approvePendingComment($request, $response, $kernel);
             }
         );
 
-        $server->post(
+        $server->get(
             'setCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->setCommentModeration($request, $response, $kernel);
             }
         );
 
-        $server->post(
+        $server->get(
             'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
             }
