@@ -30,13 +30,15 @@ use Pho\Lib\Graph\ID;
 class AdministrationController extends AbstractController
 {
 
-    protected function requireAdministrativeRights(Request $request, Response $response, Session $session, Kernel $kernel): bool
+    protected function requireAdministrativeRights(Request $request, Response $response, Kernel $kernel): bool
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return false;
-        }
-        if($id!=$kernel->founder()->id()->toString()) {
-            $this->fail($response, "You need administrative privileges to run this call.");
+        $founder = $kernel->founder();
+        $hash = md5(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword()));
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['hash']);
+        $v->rule('length', [['hash', 32]]);
+        if(!$v->validate()||$data["hash"]!=$hash) {
             return false;
         }
         return true;
@@ -58,10 +60,10 @@ class AdministrationController extends AbstractController
         return $pending_comments;
     }
 
-    public function fetchAllPendingComments(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function fetchAllPendingComments(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
-            return;
+            return $this->fail($response, "Invalid hash");
         $is_moderated = ($kernel->graph()->getCommentsModerated() === true);
         /*if(!$is_moderated)
             return $this->fail($response);
@@ -73,10 +75,10 @@ class AdministrationController extends AbstractController
     /**
      * @todo Check for admin capabilities
      */
-    public function approvePendingComment(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function approvePendingComment(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
-            return;
+            return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['comment_id']);
@@ -97,10 +99,10 @@ class AdministrationController extends AbstractController
         $this->succeed($response);
     }
 
-    public function setCommentModeration(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function setCommentModeration(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
-            return;
+            return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['moderated']);
@@ -129,7 +131,7 @@ class AdministrationController extends AbstractController
     public function getCommentModeration(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
-            return;
+            return $this->fail($response, "Invalid hash");
         $is_moderated = (bool) $kernel->graph()->getCommentsModerated();
         $this->succeed($response, ["is_moderated"=>$is_moderated]);
     }

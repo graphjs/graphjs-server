@@ -84,29 +84,28 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
-        $session = self::$session;
 
         $server->get(
-            'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["administration"]->fetchAllPendingComments($request, $response, $session, $kernel);
+            'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchAllPendingComments($request, $response, $kernel);
             }
         );
 
         $server->get(
-            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["administration"]->approvePendingComment($request, $response, $session, $kernel);
+            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->approvePendingComment($request, $response, $kernel);
             }
         );
 
         $server->get(
-            'setCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["administration"]->setCommentModeration($request, $response, $session, $kernel);
+            'setCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setCommentModeration($request, $response, $kernel);
             }
         );
 
         $server->get(
-            'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["administration"]->getCommentModeration($request, $response, $session, $kernel);
+            'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getCommentModeration($request, $response, $kernel);
             }
         );
     }
