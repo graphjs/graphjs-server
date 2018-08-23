@@ -32,7 +32,7 @@ class AdministrationController extends AbstractController
     protected function requireAdministrativeRights(Request $request, Response $response, Kernel $kernel): bool
     {
         $founder = $kernel->founder();
-        $hash = md5(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword()));
+        $hash = md5(strtolower(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword())));
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['hash']);
