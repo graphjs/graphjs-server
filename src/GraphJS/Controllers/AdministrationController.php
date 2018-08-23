@@ -36,7 +36,7 @@ class AdministrationController extends AbstractController
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['hash']);
-        $v->rule('length', [['hash', 32]]);
+        //$v->rule('length', [['hash', 32]]);
         if(!$v->validate()||$data["hash"]!=$hash) {
             return false;
         }
