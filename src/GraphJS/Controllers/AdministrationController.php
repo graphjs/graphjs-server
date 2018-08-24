@@ -138,4 +138,27 @@ class AdministrationController extends AbstractController
         $this->succeed($response, ["is_moderated"=>$is_moderated]);
     }
 
+    public function disapprovePendingComment(Request $request, Response $response,Kernel $kernel)
+    {
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
+            return $this->fail($response, "Invalid hash");
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['comment_id']);
+        if(!$v->validate()) {
+            $this->fail($response, "comment_id required");
+            return;
+        }
+        try {
+            $comment = $kernel->gs()->edge($data["comment_id"]);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "Invalid Comment ID.");
+        }
+        if(!$comment instanceof Comment)
+            return $this->fail($response, "Invalid Comment.");
+        $comment->destroy();
+        $this->succeed($response);
+    }
+
 }
