@@ -161,4 +161,23 @@ class AdministrationController extends AbstractController
         $this->succeed($response);
     }
 
+    public function setFounderPassword(Request $request, Response $response,Kernel $kernel)
+    {
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
+            return $this->fail($response, "Invalid hash");
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['password']);
+        if(!$v->validate()) {
+            $this->fail($response, "password required");
+            return;
+        }
+        if(!$this->checkPasswordFormat($data["password"])) {
+            $this->fail($response, "password format not good");
+            return;
+        }
+        $founder = $kernel->founder()->setPassword($data["password"]);
+        $this->succeed($response);
+    }
+
 }

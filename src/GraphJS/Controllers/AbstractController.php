@@ -84,4 +84,9 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         });
         return $this;
     }
+
+    protected function checkPasswordFormat(string $password): bool
+    {
+        return preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $password);
+    }
 }

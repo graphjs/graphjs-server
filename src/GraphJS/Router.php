@@ -110,6 +110,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'setFounderPassword', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setFounderPassword($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
             }
