@@ -115,13 +115,13 @@ class AdministrationController extends AbstractController
         $is_moderated = (bool) $data["moderated"];
         if(!$is_moderated) {
             $pending_comments = $this->_getPendingComments($kernel);
-            foreach($pending_comments as $c_id=>$c) {
+            foreach($pending_comments as $c) {
                 try {
-                    $comment = $kernel->gs()->edge($c_id);
+                    $comment = $kernel->gs()->edge($c["comment_id"]);
                     $comment->setPending(false);
                 }
                 catch (\Exception $e) {
-                    error_log("a-oh can't fetch comment id ".$c_id);
+                    error_log("a-oh can't fetch comment id ".$c["comment_id"]);
                 }
             }
         }
