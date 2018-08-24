@@ -92,7 +92,7 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'disapprovePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
+            'deletePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->disapprovePendingComment($request, $response, $kernel);
             }
         );
