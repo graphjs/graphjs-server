@@ -275,14 +275,20 @@ class MessagingController extends AbstractController
                 error_log("no message with id: ".$m->value("udid"));
                 continue;
             }
-            $sender = $res->get("t");
-            $return[$m->value("udid")] = [
-                "from" => $sender == $id ? $id  : $data["with"],
-                "to" => $sender == $id ? $data["with"]  : $id,
-                "message" => $m->value("Content"),
-                "is_read" => true,
-                "timestamp" => $m->value("SentTime")
-            ];
+            try {
+                $sender = $res->get("t");
+                $return[$m->value("udid")] = [
+                    "from" => $sender == $id ? $id  : $data["with"],
+                    "to" => $sender == $id ? $data["with"]  : $id,
+                    "message" => $m->value("Content"),
+                    "is_read" => true,
+                    "timestamp" => $m->value("SentTime")
+                ];
+            }
+            catch(\Exception $e) {
+                error_log($e->getMessage());
+                continue;
+            }
         }
         $this->succeed($response, [ "messages" => $return ]);
     }
