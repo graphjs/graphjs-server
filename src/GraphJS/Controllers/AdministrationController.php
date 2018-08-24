@@ -176,7 +176,9 @@ class AdministrationController extends AbstractController
             $this->fail($response, "password format not good");
             return;
         }
-        $founder = $kernel->founder()->setPassword($data["password"]);
+        $founder = $kernel->founder();
+        $founder->setPassword($data["password"]);
+        $founder->persist();
         $this->succeed($response);
     }
 
