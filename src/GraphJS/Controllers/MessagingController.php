@@ -267,8 +267,14 @@ class MessagingController extends AbstractController
         $return = [];
         foreach($records as $i=>$res) {
             $m = $res->get("r");
-            $obj = $kernel->gs()->edge($m->value("udid"));
-            $obj->setIsRead(true);
+            try {
+                $obj = $kernel->gs()->edge($m->value("udid"));
+                $obj->setIsRead(true);
+            }
+            catch(\Exception $e) {
+                error_log("no message with id: ".$m->value("udid"));
+                continue;
+            }
             $sender = $res->get("t");
             $return[$m->value("udid")] = [
                 "from" => $sender == $id ? $id  : $data["with"],
