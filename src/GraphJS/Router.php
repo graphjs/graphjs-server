@@ -327,6 +327,30 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["content"]->fetchStarredContent($request, $response, $kernel);
             }
         );
+
+        $server->get(
+            'getPrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->getPrivateContent($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'addPrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->addPrivateContent($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'editPrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->editPrivateContent($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'deletePrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->delPrivateContent($request, $response, $session, $kernel);
+            }
+        )
     }
 
     protected static function initForum( Server $server, array $controllers, Kernel $kernel): void
