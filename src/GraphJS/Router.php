@@ -350,7 +350,7 @@ class Router extends \Pho\Server\Rest\Router
             'deletePrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["content"]->delPrivateContent($request, $response, $session, $kernel);
             }
-        )
+        );
     }
 
     protected static function initForum( Server $server, array $controllers, Kernel $kernel): void
