@@ -31,6 +31,22 @@ class Router extends \Pho\Server\Rest\Router
         
         $server->use(
             function (Request $request, Response $response, $next) use ($kernel, $cors) {
+                $response->addHeader('Access-Control-Allow-Methods', join(',', [
+                    'GET',
+                    'POST',
+                    'PUT',
+                    'DELETE',
+                    'OPTIONS',
+                    'PATCH',
+                    'HEAD',
+                ]));
+                $response->addHeader('Access-Control-Allow-Headers', join(',', [
+                    'Origin',
+                    'X-Requested-With',
+                    'Content-Type',
+                    'Accept',
+                    'Authorization',
+                ]));
                 $data = $request->getQueryParams();
                 if(strtolower($data["public_id"])=="79982844-6a27-4b3b-b77f-419a79be0e10") {
                     $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
