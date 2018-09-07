@@ -16,16 +16,16 @@
  * @author Emre Sokullu <emre@phonetworks.org>
  */
 
-setenv("DATABASE_TYPE", "redis");
-setenv("DATABASE_URI", getenv('REDISCLOUD_URL'));
+putenv("DATABASE_TYPE=redis");
+putenv("DATABASE_URI=".getenv('REDISCLOUD_URL'));
 
 
-setenv("INDEX_TYPE", "neo4j");
-setenv("INDEX_URI", getenv('GRAPHENEDB_URL'));
+putenv("INDEX_TYPE=neo4j");
+putenv("INDEX_URI=".getenv('GRAPHENEDB_URL'));
 
 preg_match("/^https:\/\/(cloud-cube((-eu)?)).+$/", getenv('CLOUDCUBE_URL'), $matches); // // https://cloud-cube.s3.amazonaws.com
-setenv("STORAGE_TYPE", "s3");
-setenv("STORAGE_URI", json_encode(
+putenv("STORAGE_TYPE=s3");
+putenv("STORAGE_URI=".json_encode(
     array(
         "client" => array(
             "credentials" => array(
@@ -40,7 +40,7 @@ setenv("STORAGE_URI", json_encode(
     )
 ));
 
-setenv("MAILGUN_KEY", getenv("MAILGUN_API_KEY"));
+putenv("MAILGUN_KEY=".getenv("MAILGUN_API_KEY"));
 
-setenv("STREAM_KEY", parse_url(getenv("STREAM_URL"), PHP_URL_USER));
-setenv("STREAM_SECRET", parse_url(getenv("STREAM_URL"), PHP_URL_PASS));
+putenv("STREAM_KEY=".parse_url(getenv("STREAM_URL"), PHP_URL_USER));
+putenv("STREAM_SECRET=".parse_url(getenv("STREAM_URL"), PHP_URL_PASS));
