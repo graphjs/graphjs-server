@@ -44,3 +44,10 @@ putenv("MAILGUN_KEY=".getenv("MAILGUN_API_KEY"));
 
 putenv("STREAM_KEY=".parse_url(getenv("STREAM_URL"), PHP_URL_USER));
 putenv("STREAM_SECRET=".parse_url(getenv("STREAM_URL"), PHP_URL_PASS));
+
+error_log("redis uri: ".getenv("DATABASE_URI"));
+error_log("neo4j uri: ".getenv("INDEX_URI"));
+error_log("s3 uri: ".getenv("STORAGE_URI"));
+error_log("MAILGUN_KEY: ".getenv("MAILGUN_KEY"));
+error_log("STREAM_KEY: ".getenv("STREAM_KEY"));
+error_log("STREAM_SECRET: ".getenv("STREAM_SECRET"));
