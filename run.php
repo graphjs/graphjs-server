@@ -12,7 +12,7 @@ $cli->description('GraphJS Server')
 $args = $cli->parse($argv, true);
 $port = $args->getOpt(
     'port', 
-    (getenv("process.env.PORT") ?  getenv("process.env.PORT") : 1338) // default
+    (getenv('PORT') ?  getenv('PORT') : 1338) // default
 );
 $configs = $args->getOpt('conf', "");
 $cors = $args->getOpt('domain', "http://localhost:8080");

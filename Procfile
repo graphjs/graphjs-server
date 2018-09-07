@@ -1,1 +1,1 @@
-web: run.php
+web: php run.php

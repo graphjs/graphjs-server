@@ -15,6 +15,7 @@
         "superbalist/php-pubsub-redis": "^2.0"
     },
     "require-dev": {
+        "heroku/heroku-buildpack-php": "*",
         "psy/psysh": "*",
         "squizlabs/php_codesniffer": "^2.5",
         "roave/security-advisories": "dev-master"
