@@ -1,1 +1,1 @@
-web: php run.php
+web: php run.php --heroku yes
