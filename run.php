@@ -10,7 +10,10 @@ $cli->description('GraphJS Server')
     ->opt('port:P', 'Port number to serve requests.', false, 'integer')
     ->opt('domain:D', 'CORS domain(s) to serve. Separate by semicolon, if multiple.', false);
 $args = $cli->parse($argv, true);
-$port = $args->getOpt('port', 1338);
+$port = $args->getOpt(
+    'port', 
+    (getenv("process.env.PORT") ?  getenv("process.env.PORT") : 1338) // default
+);
 $configs = $args->getOpt('conf', "");
 $cors = $args->getOpt('domain', "http://localhost:8080");
 $server = new \GraphJS\Daemon($configs, $cors);
