@@ -1,6 +1,5 @@
 composer.phar
 /vendor/
-composer.lock
 scripts/multitenant_runner.php
 .env
 
