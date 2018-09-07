@@ -2,5 +2,5 @@
     "name": "GraphJS-Server",
     "description": "Serving GraphJS",
     "repository": "https://github.com/phonetworks/graphjs-server",
-    "addons": []
+    "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun", "stream"]
   }

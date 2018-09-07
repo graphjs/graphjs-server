@@ -24,9 +24,11 @@ use Pho\Plugins\FeedPlugin;
 class Daemon extends \Pho\Server\Rest\Daemon
 {
     protected $configs_file = "";
+    protected $heroku = false;
     
-    public function __construct(string $configs = "", string $cors = "")
+    public function __construct(string $configs = "", string $cors = "", bool $heroku = false)
     {
+        $this->heroku = $heroku;
         $this->configs_file = $configs;
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
@@ -43,6 +45,9 @@ class Daemon extends \Pho\Server\Rest\Daemon
         }
         $dotenv = new \Dotenv\Dotenv($configs_file);
         $dotenv->load();
+        if($this->heroku) {
+            include __DIR__ . '/../../inc/heroku.php';
+        }
         $configs = array(
             "services"=>array(
                 "database" => ["type" => getenv('DATABASE_TYPE'), "uri" => getenv('DATABASE_URI')],
