@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c57ff2d08c0f5bca651674202eca8b9b",
+    "content-hash": "7bc54684374f783357acf8c21218a5b8",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -1381,21 +1381,21 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "10.0.1",
+            "version": "11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "ac96b08d4970dd7f43adf6361a229e0e0d2e3fc9"
+                "reference": "d276007be450cc68d75d8b812188d8c40c9cd82d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/ac96b08d4970dd7f43adf6361a229e0e0d2e3fc9",
-                "reference": "ac96b08d4970dd7f43adf6361a229e0e0d2e3fc9",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/d276007be450cc68d75d8b812188d8c40c9cd82d",
+                "reference": "d276007be450cc68d75d8b812188d8c40c9cd82d",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
-                "phonetworks/pho-lib-graph": "^7.1",
+                "phonetworks/pho-lib-graph": "^8.0",
                 "php": ">=5.3.0",
                 "psr/log": "^1.0",
                 "vlucas/valitron": "^1.4",
@@ -1435,7 +1435,7 @@
                 "network",
                 "social"
             ],
-            "time": "2018-04-26T12:48:21+00:00"
+            "time": "2018-09-08T07:20:19+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1478,16 +1478,16 @@
         },
         {
             "name": "phonetworks/pho-lib-graph",
-            "version": "7.3.0",
+            "version": "8.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-graph.git",
-                "reference": "e824c3a9a00c58954be71394126f4f7e5e4fef12"
+                "reference": "0e027798e7934c62f197bcfddef11e8c0273648c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/e824c3a9a00c58954be71394126f4f7e5e4fef12",
-                "reference": "e824c3a9a00c58954be71394126f4f7e5e4fef12",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/0e027798e7934c62f197bcfddef11e8c0273648c",
+                "reference": "0e027798e7934c62f197bcfddef11e8c0273648c",
                 "shasum": ""
             },
             "require": {
@@ -1530,27 +1530,26 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2018-08-29T23:28:41+00:00"
+            "time": "2018-09-08T07:02:24+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",
-            "version": "2.4.1",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "108d77c5dd2f6bdcc25ceb6fcb5fbb3697d26933"
+                "reference": "e251eddc30c977ed27879940e70a7ecf1a69f2da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/108d77c5dd2f6bdcc25ceb6fcb5fbb3697d26933",
-                "reference": "108d77c5dd2f6bdcc25ceb6fcb5fbb3697d26933",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/e251eddc30c977ed27879940e70a7ecf1a69f2da",
+                "reference": "e251eddc30c977ed27879940e70a7ecf1a69f2da",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
                 "monolog/monolog": "^1.22",
-                "phonetworks/pho-framework": "^10.0",
-                "phonetworks/pho-lib-graph": "^7.3",
+                "phonetworks/pho-framework": "^11.0",
                 "php": "^7.1",
                 "pimple/pimple": "^1.1",
                 "psr/log": "^1.0",
@@ -1588,7 +1587,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-07T06:08:34+00:00"
+            "time": "2018-09-08T07:40:12+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -4194,7 +4193,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "~7.1.0"
+        "php": "^7.1.0"
     },
     "platform-dev": []
 }
