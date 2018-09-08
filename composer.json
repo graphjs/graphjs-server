@@ -9,7 +9,7 @@
         "pho-adapters/storage-aws-s3": "dev-master",
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
-        "phonetworks/pho-plugins-feeds": "dev-master",
+        "phonetworks/pho-plugins-feeds": "^0.1",
         "get-stream/stream": "~2.7",
         "mailgun/mailgun-php": "^2.5.0",
         "ramsey/uuid": "^3.0",
