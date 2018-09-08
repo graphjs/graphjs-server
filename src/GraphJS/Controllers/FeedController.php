@@ -42,7 +42,7 @@ class FeedController extends AbstractController
             $this->fail($response, "Type and/or id fields unavailable.");
             return;
         }
-        if($data["type"]!="wall"&&$data["type"]!="timeline") {
+        if($data["type"]!="wall"&&$data["type"]!="user"&&$data["type"]!="timeline") {
             $this->fail($response, "Invalid type.");
             return;
         }
