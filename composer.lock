@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.67.7",
+            "version": "3.67.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "002577f67703af64a1be35d65edd6a74842c1e65"
+                "reference": "b74a9e68b44f25215093b3fd480ee6cf3657e9df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/002577f67703af64a1be35d65edd6a74842c1e65",
-                "reference": "002577f67703af64a1be35d65edd6a74842c1e65",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b74a9e68b44f25215093b3fd480ee6cf3657e9df",
+                "reference": "b74a9e68b44f25215093b3fd480ee6cf3657e9df",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-09-06T22:05:51+00:00"
+            "time": "2018-09-07T20:09:11+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1596,12 +1596,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-plugin-feeds.git",
-                "reference": "5caac532dd40b1784aebf269a6481d1b0c1186de"
+                "reference": "30d4a340113252a814758556caa5607b9f0e24df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-plugin-feeds/zipball/5caac532dd40b1784aebf269a6481d1b0c1186de",
-                "reference": "5caac532dd40b1784aebf269a6481d1b0c1186de",
+                "url": "https://api.github.com/repos/phonetworks/pho-plugin-feeds/zipball/30d4a340113252a814758556caa5607b9f0e24df",
+                "reference": "30d4a340113252a814758556caa5607b9f0e24df",
                 "shasum": ""
             },
             "require": {
@@ -1632,7 +1632,7 @@
                 }
             ],
             "homepage": "https://phonetworks.org",
-            "time": "2018-05-01T18:28:10+00:00"
+            "time": "2018-09-08T04:49:02+00:00"
         },
         {
             "name": "phonetworks/pho-server-rest",
