@@ -1,1 +1,1 @@
-web: php run.php --heroku yes
+web: sleep 30 && php run.php --heroku yes
