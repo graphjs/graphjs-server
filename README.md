@@ -45,8 +45,7 @@ In case, heroku installation is not an option for you, here are the steps to ins
         ```
         bolt://neo4j_username:neo4j_password@localhost:7687
         ```
-    2. Set values of **FOUNDER_NICKNAME**, **FOUNDER_EMAIL** (Optional), **FOUNDER_PASSWORD**.
-        (Hint: You may use dummy values.)
+    2. Set values of **FOUNDER_NICKNAME**, **FOUNDER_EMAIL**, **FOUNDER_PASSWORD**.
 
     3. Set values of **MAILGUN_KEY**, **MAILGUN_DOMAIN**. (Optional)
 
