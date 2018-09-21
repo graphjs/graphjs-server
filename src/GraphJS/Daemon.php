@@ -39,14 +39,16 @@ class Daemon extends \Pho\Server\Rest\Daemon
 
     protected function initKernel(): void
     {
-        $configs_file = $this->configs_file;
-        if(empty($this->configs_file)) {
-            $configs_file = __DIR__ . '/../../';
-        }
-        $dotenv = new \Dotenv\Dotenv($configs_file);
-        $dotenv->load();
         if($this->heroku) {
             include __DIR__ . '/../../inc/heroku.php';
+        }
+        else {
+            $configs_file = $this->configs_file;
+            if(empty($this->configs_file)) {
+                $configs_file = __DIR__ . '/../../';
+            }
+            $dotenv = new \Dotenv\Dotenv($configs_file);
+            $dotenv->load();
         }
         $configs = array(
             "services"=>array(
