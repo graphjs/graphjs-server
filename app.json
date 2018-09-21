@@ -5,6 +5,7 @@
     "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun", "stream"],
     "overrides": {
         "env": {
+          "PASSWORD_REMINDER": "/tmp/pins/",
           "FOUNDER_EMAIL": "%s",
           "FOUNDER_NICKNAME": "admin",
           "FOUNDER_PASSWORD": "%s",
