@@ -15,6 +15,6 @@
           },
           "FOUNDER_PASSWORD": {
               "generator": "secret"
-          },
+          }
    }
 }
