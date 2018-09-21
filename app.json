@@ -2,5 +2,12 @@
     "name": "GraphJS-Server",
     "description": "Serving GraphJS",
     "repository": "https://github.com/phonetworks/graphjs-server",
-    "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun", "stream"]
-  }
+    "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun", "stream"],
+    "overrides": {
+        "env": {
+          "FOUNDER_EMAIL": "%s",
+          "FOUNDER_NICKNAME": "admin",
+          "FOUNDER_PASSWORD": "%s",
+        }
+    }
+}
