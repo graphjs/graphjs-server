@@ -18,6 +18,9 @@ $port = $args->getOpt(
 $configs = $args->getOpt('conf', "");
 $cors = $args->getOpt('domain', "http://localhost:8080");
 $heroku = ($args->getOpt('heroku', false) === "yes");
+if($heroku) {
+    $cors = getenv("CORS_DOMAIN");
+}
 $server = new \GraphJS\Daemon($configs, $cors, $heroku);
 $server->setPort($port); 
 ob_end_flush();
