@@ -26,6 +26,37 @@ class Router extends \Pho\Server\Rest\Router
 
     private static $session;
 
+    /**
+     * Expands CORS Urls
+     *
+     * The input is taken from the command line and expanded into 
+     * an array with all HTTP scheme combinations, as well as
+     * cleaned format.
+     * 
+     * @param string $url
+     * @return array
+     */
+    protected static function expandCorsUrl(string $url): array
+    {
+        $final = [];
+        $urls = explode(";",$cors);
+        foreach($urls as $url) {
+            $parsed = parse_url($url);
+            if(count($parsed)==1&&isset($parsed["path"])) {
+                $final[] = "http://".$parsed["path"];
+                $final[] = "https://".$parsed["path"];
+            }
+            elseif(count($parsed)>=2&&isset($parsed["host"])) {
+                $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+            }
+            else {
+                error_log("skipping unknown format: ".$url." - parsed as: ".print_r($parsed, true));
+            }
+        }
+        return array_unique($final);
+    }
+
     public static function init2(Server $server, array $controllers, Kernel $kernel, string $cors): void
     {
         
@@ -55,9 +86,9 @@ class Router extends \Pho\Server\Rest\Router
                     if(strpos($cors, ";")===false)
                         $response->addHeader("Access-Control-Allow-Origin", $cors);   // cors
                     else {
-                        $cors = explode(";",$cors);
+                        $cors = self::expandCorsUrl($cors);
                         $origin = $request->getHeader("origin");
-                        error_log(print_r($origin, true));
+                        //error_log(print_r($origin, true));
                         if(is_array($origin)&&count($origin)==1&&in_array($origin[0], $cors))
                             $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
                         else
