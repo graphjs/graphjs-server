@@ -33,10 +33,10 @@ class Router extends \Pho\Server\Rest\Router
      * an array with all HTTP scheme combinations, as well as
      * cleaned format.
      * 
-     * @param string $url
+     * @param string $cors
      * @return array
      */
-    protected static function expandCorsUrl(string $url): array
+    protected static function expandCorsUrl(string $cors): array
     {
         $final = [];
         if(strpos($cors, ";")===false) {
