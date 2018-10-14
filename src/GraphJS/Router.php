@@ -40,7 +40,7 @@ class Router extends \Pho\Server\Rest\Router
     {
         $final = [];
         if(strpos($cors, ";")===false) {
-            $urls = $cors;
+            $urls = [0=>$cors];
         }
         else {
             $urls = explode(";",$cors);
