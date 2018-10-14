@@ -39,7 +39,12 @@ class Router extends \Pho\Server\Rest\Router
     protected static function expandCorsUrl(string $url): array
     {
         $final = [];
-        $urls = explode(";",$cors);
+        if(strpos($cors, ";")===false) {
+            $urls = $cors;
+        }
+        else {
+            $urls = explode(";",$cors);
+        }
         foreach($urls as $url) {
             $parsed = parse_url($url);
             if(count($parsed)==1&&isset($parsed["path"])) {
@@ -83,18 +88,13 @@ class Router extends \Pho\Server\Rest\Router
                     $response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 }
                 else { 
-                    if(strpos($cors, ";")===false)
-                        $response->addHeader("Access-Control-Allow-Origin", $cors);   // cors
-                    else {
-                        $cors = self::expandCorsUrl($cors);
-                        $origin = $request->getHeader("origin");
-                        //error_log(print_r($origin, true));
-                        if(is_array($origin)&&count($origin)==1&&in_array($origin[0], $cors))
-                            $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
-                        else
-                            $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
-                    }
-
+                    $cors = self::expandCorsUrl($cors);
+                    $origin = $request->getHeader("origin");
+                    //error_log(print_r($origin, true));
+                    if(is_array($origin)&&count($origin)==1&&in_array($origin[0], $cors))
+                        $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
+                    else
+                        $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
                 }
                 $next();
             }
