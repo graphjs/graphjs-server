@@ -181,5 +181,29 @@ class AdministrationController extends AbstractController
         $founder->persist();
         $this->succeed($response);
     }
+ 
+         public function deleteMember(Request $request, Response $response, Kernel $kernel)
+      {
+        if(!$this->requireAdministrativeRights(...\func_get_args())) {
+            return $this->fail($response, "Invalid hash");
+        }
+        $data = $request->getQueryParams();
+        $v = new Validator($data);
+        $v->rule('required', ['id']);
+        if(!$v->validate()) {
+            $this->fail($response, "User ID unavailable.");
+            return;
+        }
+        $entity = $kernel->gs()->entity($data["id"]);
+        if($entity instanceof User) {
+            $entity->destroy();
+            return $this->succeed($response, [
+                    "deleted" => $deleted
+                ]);
+        }
+        
+        $this->fail($response, "The ID does not belong to a User.");
+    }
+ 
 
 }

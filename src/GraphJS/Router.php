@@ -102,6 +102,12 @@ class Router extends \Pho\Server\Rest\Router
     {
 
         $server->get(
+            'deleteMember', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->deleteMember($request, $response, $kernel);
+            }
+        );
+        
+        $server->get(
             'getPendingComments', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->fetchAllPendingComments($request, $response, $kernel);
             }
