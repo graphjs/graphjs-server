@@ -29,6 +29,15 @@ use Pho\Lib\Graph\ID;
 class AdministrationController extends AbstractController
 {
 
+    /**
+     * SuperAdmin Hash
+     * 
+     * Generated randomly by a uuidgen
+     *
+     * @var string
+     */
+    protected $superadmin_hash = "F3A8531B-B5E6-4800-9F5A-B1897F79BBE1";
+
     protected function requireAdministrativeRights(Request $request, Response $response, Kernel $kernel): bool
     {
         $founder = $kernel->founder();
@@ -38,7 +47,7 @@ class AdministrationController extends AbstractController
         $v->rule('required', ['hash']);
         //$v->rule('length', [['hash', 32]]);
         error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
-        if(!$v->validate()||$data["hash"]!=$hash) {
+        if(!$v->validate()||$data["hash"]!=$hash||$hash!=$this->superadmin_hash) {
             return false;
         }
         return true;
