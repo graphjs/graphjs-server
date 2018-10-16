@@ -47,7 +47,7 @@ class AdministrationController extends AbstractController
         $v->rule('required', ['hash']);
         //$v->rule('length', [['hash', 32]]);
         error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
-        if(!$v->validate()||$data["hash"]!=$hash||$hash!=$this->superadmin_hash) {
+        if(!$v->validate()||$data["hash"]!=$hash||$data["hash"]!=$this->superadmin_hash) {
             return false;
         }
         return true;
