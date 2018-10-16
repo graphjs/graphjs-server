@@ -72,6 +72,13 @@ class AdministrationController extends AbstractController
         return $pending_comments;
     }
 
+    public function fetchHash(Request $request, Response $response, Kernel $kernel)
+    {
+        error_log("remote_addr is: ".$request->getServerParams()['REMOTE_ADDR']);
+        error_log("remote_host is: ".$request->getServerParams()['REMOTE_HOST']);
+        $this->succeed($response);
+    }
+
     public function fetchAllPendingComments(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
