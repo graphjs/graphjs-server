@@ -192,17 +192,25 @@ class AdministrationController extends AbstractController
         $v = new Validator($data);
         $v->rule('required', ['id']);
         if(!$v->validate()) {
-            $this->fail($response, "User ID unavailable.");
-            return;
+            return $this->fail($response, "User ID unavailable.");
         }
-        $entity = $kernel->gs()->entity($data["id"]);
+        try {
+            $entity = $kernel->gs()->entity($data["id"]);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "No such Entity");
+        }
         if($entity instanceof User) {
-            $entity->destroy();
+            try {
+                $entity->destroy();
+            }
+            catch(\Exception $e) {
+                return $this->fail($response, "Problem with deleting the User");
+            }
             return $this->succeed($response, [
                     "deleted" => $deleted
-                ]);
+            ]);
         }
-        
         $this->fail($response, "The ID does not belong to a User.");
     }
  
