@@ -74,8 +74,8 @@ class AdministrationController extends AbstractController
 
     public function fetchHash(Request $request, Response $response, Kernel $kernel)
     {
-        error_log("remote_addr is: ".$request->getServerParams()['REMOTE_ADDR']);
-        error_log("remote_host is: ".$request->getServerParams()['REMOTE_HOST']);
+        error_log("remote_addr is: ".$request->remoteAddress);
+        error_log("headers is: ".print_r($request->headers,true));
         $this->succeed($response);
     }
 
