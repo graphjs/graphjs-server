@@ -16,7 +16,7 @@ $port = $args->getOpt(
     (getenv('PORT') ?  getenv('PORT') : 1338) // default
 );
 $configs = $args->getOpt('conf', "");
-$cors = $args->getOpt('domain', "http://localhost:8080");
+$cors = $args->getOpt('domain', "http://localhost");
 $heroku = ($args->getOpt('heroku', false) === "yes");
 if($heroku) {
     $cors = getenv("CORS_DOMAIN");
