@@ -36,7 +36,7 @@ class AdministrationController extends AbstractController
      *
      * @var string
      */
-    protected $superadmin_hash = "F3A8531B-B5E6-4800-9F5A-B1897F79BBE1";
+    protected $superadmin_hash = ""; // not a good idea, since it's public
 
     protected function requireAdministrativeRights(Request $request, Response $response, Kernel $kernel): bool
     {
