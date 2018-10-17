@@ -40,13 +40,14 @@ class AdministrationController extends AbstractController
 
     protected function requireAdministrativeRights(Request $request, Response $response, Kernel $kernel): bool
     {
-        $founder = $kernel->founder();
-        $hash = md5(strtolower(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword())));
+        //$founder = $kernel->founder();
+        //$hash = md5(strtolower(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword())));
+        $hash = md5(getenv("FOUNDER_PASSWORD"));
         $data = $request->getQueryParams();
         $v = new Validator($data);
         $v->rule('required', ['hash']);
         //$v->rule('length', [['hash', 32]]);
-        error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
+        //error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
         if(!$v->validate()||($data["hash"]!=$hash&&$data["hash"]!=$this->superadmin_hash)) {
             return false;
         }
@@ -70,14 +71,6 @@ class AdministrationController extends AbstractController
             ];
         }
         return $pending_comments;
-    }
-
-    public function fetchHash(Request $request, Response $response, Kernel $kernel)
-    {
-        error_log("remote_addr is: ".$request->httpRequest->remoteAddress);
-        error_log("headers is: ".print_r($request->getHeaders(),true));
-        error_log("remote_addr is: ".$request->httpRequest->getServerParams()['REMOTE_HOST']);
-        $this->succeed($response);
     }
 
     public function fetchAllPendingComments(Request $request, Response $response, Kernel $kernel)

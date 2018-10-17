@@ -132,12 +132,6 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
-        
-        $server->get(
-            'getHash', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->fetchHash($request, $response, $kernel);
-            }
-        );
 
         $server->get(
             'deleteMember', function (Request $request, Response $response) use ($controllers, $kernel) {
