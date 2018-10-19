@@ -91,7 +91,12 @@ class Router extends \Pho\Server\Rest\Router
                     $cors = self::expandCorsUrl($cors);
                     $origin = $request->getHeader("origin");
                     //error_log(print_r($origin, true));
-                    if(is_array($origin)&&count($origin)==1&&in_array($origin[0], $cors))
+                    $is_production = (bool) getenv("IS_PRODUCTION");
+                    if(
+                        (is_array($origin)&&count($origin)==1) 
+                        &&
+                        (!$is_production || in_array($origin[0], $cors))
+                    )
                         $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
                     else
                         $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
