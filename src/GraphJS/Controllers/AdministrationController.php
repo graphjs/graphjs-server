@@ -43,6 +43,7 @@ class AdministrationController extends AbstractController
         //$founder = $kernel->founder();
         //$hash = md5(strtolower(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword())));
         $hash = md5(getenv("FOUNDER_PASSWORD"));
+        error_log("founder password is: ".getenv("FOUNDER_PASSWORD"));
         error_log("hash is: ".$hash);
         $data = $request->getQueryParams();
         
