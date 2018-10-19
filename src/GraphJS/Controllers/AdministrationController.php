@@ -43,11 +43,14 @@ class AdministrationController extends AbstractController
         //$founder = $kernel->founder();
         //$hash = md5(strtolower(sprintf("%s:%s", $founder->getEmail(), $founder->getPassword())));
         $hash = md5(getenv("FOUNDER_PASSWORD"));
+        error_log("hash is: ".$hash);
         $data = $request->getQueryParams();
+        
         $v = new Validator($data);
         $v->rule('required', ['hash']);
         //$v->rule('length', [['hash', 32]]);
         //error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
+        error_log("data hash is: ".$data["hash"]);
         if(!$v->validate()||($data["hash"]!=$hash&&$data["hash"]!=$this->superadmin_hash)) {
             return false;
         }
