@@ -114,7 +114,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
         self::initAdministration(...\func_get_args());
-
+        self::initStripe(...\func_get_args());
     }
 
     
@@ -501,6 +501,15 @@ class Router extends \Pho\Server\Rest\Router
         $server->get(
             'listMembers', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["group"]->listMembers($request, $response, $kernel);
+            }
+        );
+    }
+    protected static function initStripe(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'checkSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["stripe"]->checkSubscription($request, $response, $kernel);
             }
         );
     }
