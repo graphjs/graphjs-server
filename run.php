@@ -15,14 +15,14 @@ $port = $args->getOpt(
     'port', 
     (getenv('PORT') ?  getenv('PORT') : 1338) // default
 );
-$configs = $args->getOpt('conf', "/home/ubuntu/workspace/graphjs/graphjs-server");
+$configs = $args->getOpt('conf', "");
 $cors = $args->getOpt('domain', "http://localhost");
 $heroku = ($args->getOpt('heroku', false) === "yes");
 if($heroku) {
     $cors = getenv("CORS_DOMAIN");
 }
 $server = new \GraphJS\Daemon($configs, $cors, $heroku);
-$server->setPort("8081"); 
+$server->setPort($port); 
 ob_end_flush();
 error_log(sprintf("Serving through port %s with the config file %s", (string) $port, $configs));
 $server->serve();
