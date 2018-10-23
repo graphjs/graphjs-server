@@ -512,5 +512,10 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["stripe"]->checkSubscription($request, $response, $kernel);
             }
         );
+        $server->get(
+            'createSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["stripe"]->createSubscription($request, $response, $kernel);
+            }
+        );
     }
 } 

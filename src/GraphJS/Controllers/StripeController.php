@@ -20,6 +20,7 @@ use Valitron\Validator;
 use Stripe\Stripe;
 use Stripe\Subscription;
 use Stripe\Customer;
+use Stripe\Plan;
 
 /**
  * Takes care of Members
@@ -65,6 +66,57 @@ class StripeController extends AbstractController
             }
             
             $this->succeed($response, ["subscribed" => $subscribedOrNot,"customerData" => $customerData]);
+        }
+        catch(\Exception $e) {
+            $this->fail($response, "Invalid Details");
+            return;
+        }
+
+    }
+    /**
+     * Check Subscription
+     *
+     * @param Request  $request
+     * @param Response $response
+     * @param Kernel   $kernel
+     * 
+     * @return void
+     */
+    public function createSubscription(Request $request, Response $response, Kernel $kernel)
+    {   
+        $data = $request->getQueryParams();
+        if(!$data["public_id"] || strtolower($data["public_id"])!=getenv('STRIPE_FUNCTION_AVAILABLE')) {
+            $this->fail($response, "Not allowed.");
+            return;
+        }
+        $v = new Validator($data);
+        $v->rule('required', ['email']);
+        $v->rule('required', ['plan']);
+        $v->rule('required', ['source']);
+        
+        if(!$v->validate()) {
+            $this->fail($response, "Valid email,plan,source required.");
+            return;
+        }
+        try {
+            $email = $data['email'];
+            $plan = $data['plan'];
+            $source = $data['source'];
+            
+            $stripe = new Stripe();
+            $Subscription = new Subscription();
+            $customer = new Customer();
+            $stripe ->setApiKey(getenv('STRIPE_KEY'));
+            $customerData = $customer->create([
+                'email' => $email,
+                'source' => $source,
+            ]);
+            $subscription = $Subscription::create([
+                'customer' => $customerData->id,
+                'items' => [['plan' => $plan ]],
+            ]);
+            
+            $this->succeed($response, ["subscription" => $subscription]);
         }
         catch(\Exception $e) {
             $this->fail($response, "Invalid Details");
