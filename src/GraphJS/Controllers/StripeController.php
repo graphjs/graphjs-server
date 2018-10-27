@@ -46,17 +46,31 @@ class StripeController extends AbstractController
             return;
         }
         $v = new Validator($data);
-        $v->rule('required', ['email']);
+        $v->rule('required', ['username']);
         if(!$v->validate()) {
-            $this->fail($response, "Valid Email required.");
+            $this->fail($response, "Valid username required.");
             return;
         }
         try {
+            $result = $kernel->index()->query(
+                "MATCH (n:user {Username: {username}}) RETURN n",
+                [ 
+                    "username" => $data["username"]
+                ]
+            );
+            $success = (count($result->results()) == 1);
+            if(!$success) {
+                $this->fail($response, "Information don't match records");
+                return;
+            }
+            $user = $result->results()[0];
+            
+            
             $stripe = new Stripe();
             $Subscription = new Subscription();
             $customer = new Customer();
             $stripe ->setApiKey(getenv('STRIPE_KEY'));
-            $customerData = $customer->all(array('email'=>$data["email"]));
+            $customerData = $customer->all(array('email'=>$user['Email']));
             $subscriptions = $customerData->data[0]->subscriptions->data;
             $subscribedOrNot = false;
             foreach ($subscriptions as $value) {
@@ -68,7 +82,7 @@ class StripeController extends AbstractController
             $this->succeed($response, ["subscribed" => $subscribedOrNot,"customerData" => $customerData]);
         }
         catch(\Exception $e) {
-            $this->fail($response, "Invalid Details");
+            $this->fail($response, $e);
             return;
         }
 
