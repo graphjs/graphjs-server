@@ -114,7 +114,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
         self::initAdministration(...\func_get_args());
-        self::initStripe(...\func_get_args());
+        self::initSubscription(...\func_get_args());
     }
 
     
@@ -504,7 +504,8 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
     }
-    protected static function initStripe(Server $server, array $controllers, Kernel $kernel): void
+
+    protected static function initSubscription(Server $server, array $controllers, Kernel $kernel): void
     {
         $session = self::$session;
         $server->get(
