@@ -92,15 +92,28 @@ class Router extends \Pho\Server\Rest\Router
                     $origin = $request->getHeader("origin");
                     //error_log(print_r($origin, true));
                     $is_production = (bool) getenv("IS_PRODUCTION");
-                    error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . print_r($cors));
+                    //error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . print_r($cors));
                     if(
-                        (is_array($origin)&&count($origin)==1) 
-                        &&
-                        (!$is_production || in_array($origin[0], $cors))
-                    )
+                        (is_array($origin)&&count($origin)==1) )
+                        {
+                            error_log("origin problem");
+                            error_log(print_r($origin, true));
+                        }
+                    if($is_production) {
+                        if(in_array($origin[0], $cors)) {
+                            // $response->addHeader("Access-Control-Allow-Origin", $cors[0]);
+                            $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
+                        }
+                        else {
+                            error_log("cors problem");
+                            error_log("cors: ".print_r($cors, true));
+                            error_log("origin: ".print_r($origin, true));
+                            $response->addHeader("Access-Control-Allow-Origin", $cors[0]);
+                        }
+                    }
+                    else {
                         $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
-                    else
-                        $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
+                    }
                 }
                 $next();
             }
