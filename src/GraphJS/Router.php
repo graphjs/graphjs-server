@@ -92,7 +92,7 @@ class Router extends \Pho\Server\Rest\Router
                     $origin = $request->getHeader("origin");
                     //error_log(print_r($origin, true));
                     $is_production = (bool) getenv("IS_PRODUCTION");
-                    error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . $cors);
+                    error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . print_r($cors));
                     if(
                         (is_array($origin)&&count($origin)==1) 
                         &&
