@@ -179,6 +179,7 @@ class AuthenticationController extends AbstractController
         }
         $username = Crypto::decrypt($data["token"], $token_key);
         $password = substr($data["token"], -8);
+        error_log("username is: ".$username."\npassword is: ".$password);
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
