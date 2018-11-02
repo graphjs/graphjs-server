@@ -91,7 +91,7 @@ class Router extends \Pho\Server\Rest\Router
                     $cors = self::expandCorsUrl($cors);
                     $origin = $request->getHeader("origin");
                     //error_log(print_r($origin, true));
-                    $is_production = (bool) getenv("IS_PRODUCTION");
+                    $is_production = (null==getenv("IS_PRODUCTION") || getenv("IS_PRODUCTION") === "false") ? false : (bool) getenv("IS_PRODUCTION");
                     //error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . print_r($cors));
                     if(
                         (is_array($origin)&&count($origin)==1) )
