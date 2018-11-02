@@ -54,7 +54,7 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "Invalid token");
         }
         $password = substr($data["token"], -8); 
-        $this->actualSignup($kernel, $response, $session, $username, $data["email"], $password);
+        $this->actualSignup($request,  $response,  $session,  $kernel, $username, $data["email"], $password);
     }
 
     /**
@@ -87,10 +87,10 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Invalid password");
             return;
         }
-        $this->actualSignup($kernel, $response, $session, $data["username"], $data["email"], $data["password"]);
+        $this->actualSignup( $request,  $response,  $session,  $kernel, $data["username"], $data["email"], $data["password"]);
     }
 
-    protected function actualSignup(Kernel $kernel, Response $response, Session $session, string $username, string $email, string $password): void
+    protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
     {
         try {
             $new_user = new User(
