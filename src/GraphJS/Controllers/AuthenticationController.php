@@ -49,7 +49,12 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Invalid username");
             return;
         }
-        $username = Crypto::decrypt($data["token"], $token_key);
+        try {
+            $username = Crypto::decrypt($data["token"], $token_key);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "Invalid token");
+        }
         if($username!=$data["username"]) {
             return $this->fail($response, "Invalid token");
         }
@@ -180,7 +185,12 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Token field is required.");
             return;
         }
-        $username = Crypto::decrypt($data["token"], $token_key);
+        try {
+            $username = Crypto::decrypt($data["token"], $token_key);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "Invalid token");
+        }
         $password = substr($data["token"], -8);
         error_log("username is: ".$username."\npassword is: ".$password);
         $result = $kernel->index()->query(
