@@ -39,7 +39,7 @@ class AuthenticationController extends AbstractController
         $token_key = Key::loadFromAsciiSafeString($token_key);
         $data = $request->getQueryParams();
         $v = new Validator($data);
-        $v->rule('required', ['username', 'email']);
+        $v->rule('required', ['username', 'token', 'email']);
         $v->rule('email', 'email');
         if(!$v->validate()) {
             $this->fail($response, "Valid username, email are required.");
@@ -49,9 +49,12 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Invalid username");
             return;
         }
-        
-        $password = substr(Crypto::encrypt($data["username"], $token_key), -8); 
-        $this->actualSignup($kernel, $response, $data["username"], $data["password"], $password);
+        $username = Crypto::decrypt($data["token"]);
+        if($username!=$data["username"]) {
+            return $this->fail($response, "Invalid token");
+        }
+        $password = substr($data["token"], -8); 
+        $this->actualSignup($kernel, $response, $username, $data["email"], $password);
     }
 
     /**
