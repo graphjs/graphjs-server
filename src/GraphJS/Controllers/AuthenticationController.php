@@ -49,7 +49,7 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Invalid username");
             return;
         }
-        $username = Crypto::decrypt($data["token"]);
+        $username = Crypto::decrypt($data["token"], $token_key);
         if($username!=$data["username"]) {
             return $this->fail($response, "Invalid token");
         }
