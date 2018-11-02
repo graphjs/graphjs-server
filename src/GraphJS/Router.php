@@ -200,6 +200,11 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
+            'tokenLogin', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->loginViaToken($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
             'login', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
                 $controllers["authentication"]->login($request, $response, $session, $kernel);
             }
