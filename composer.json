@@ -14,7 +14,8 @@
         "mailgun/mailgun-php": "^2.5.0",
         "ramsey/uuid": "^3.0",
         "superbalist/php-pubsub-redis": "^2.0",
-        "defuse/php-encryption": "^2.2"
+        "defuse/php-encryption": "^2.2",
+        "rakit/validation": "^0.22.2"
     },
     "require-dev": {
         "psy/psysh": "*",

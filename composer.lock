@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5b9dd024486f0fd42d25085fbc74fa5",
+    "content-hash": "759db576c47c020667c79e5f79a3e33d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2462,6 +2462,46 @@
                 "psr-3"
             ],
             "time": "2016-10-10T12:19:37+00:00"
+        },
+        {
+            "name": "rakit/validation",
+            "version": "v0.22.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rakit/validation.git",
+                "reference": "b989676dd26bb785a17754634bc485e811578221"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rakit/validation/zipball/b989676dd26bb785a17754634bc485e811578221",
+                "reference": "b989676dd26bb785a17754634bc485e811578221",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rakit\\Validation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Muhammad Syifa",
+                    "email": "emsifa@gmail.com"
+                }
+            ],
+            "description": "PHP Laravel like standalone validation library",
+            "time": "2018-11-03T08:30:19+00:00"
         },
         {
             "name": "ramsey/uuid",
