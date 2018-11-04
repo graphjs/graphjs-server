@@ -45,13 +45,13 @@ class AdministrationController extends AbstractController
         error_log("founder password is: ".getenv("FOUNDER_PASSWORD"));
         error_log("hash is: ".$hash);
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "hash" => "required"
         ]);
         //$v->rule('length', [['hash', 32]]);
         //error_log($founder->getEmail().":".$founder->getPassword().":".$hash);
         error_log("data hash is: ".$data["hash"]);
-        if(!$this->validator->validate()||($data["hash"]!=$hash&&$data["hash"]!=$this->superadmin_hash)) {
+        if($validation->fails()||($data["hash"]!=$hash&&$data["hash"]!=$this->superadmin_hash)) {
             return false;
         }
         return true;
@@ -96,10 +96,10 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "comment_id" => "required"
         ]);
-        if(!$this->validator->validate()) {
+        if($validation->fails()) {
             $this->fail($response, "comment_id required");
             return;
         }
@@ -121,11 +121,11 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "moderator" => "required"
         ]);
         //$v->rule('boolean', ['moderated']);
-        if(!$this->validator->validate()) {
+        if($validation->fails()) {
             return $this->fail($response, "A boolean 'moderated' field is required");
         }
         $is_moderated = (bool) $data["moderated"];
@@ -159,10 +159,10 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "comment_id" => "required"
         ]);
-        if(!$this->validator->validate()) {
+        if($validation->fails()) {
             $this->fail($response, "comment_id required");
             return;
         }
@@ -183,10 +183,10 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "password" => "required"
         ]);
-        if(!$this->validator->validate()) {
+        if($validation->fails()) {
             $this->fail($response, "password required");
             return;
         }
@@ -206,10 +206,10 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "Invalid hash");
         }
         $data = $request->getQueryParams();
-        $this->validator->make($data, [
+        $validation = $this->validator->make($data, [
             "id" => "required"
         ]);
-        if(!$this->validator->validate()) {
+        if($validation->fails()) {
             return $this->fail($response, "User ID unavailable.");
         }
         try {
