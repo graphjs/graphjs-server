@@ -47,7 +47,7 @@ class GroupController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'title' => 'required|max:80',
             'description' => 'required',
         ]);
@@ -71,7 +71,7 @@ class GroupController extends AbstractController
         }
         // Avatar, Birthday, About, Username, Email
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -149,7 +149,7 @@ class GroupController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -191,7 +191,7 @@ class GroupController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -225,7 +225,7 @@ class GroupController extends AbstractController
     public function listMemberships(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -288,7 +288,7 @@ class GroupController extends AbstractController
     function fetchGroup(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -334,7 +334,7 @@ class GroupController extends AbstractController
     public function listMembers(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {

@@ -37,7 +37,7 @@ class AuthenticationController extends AbstractController
         }
         $token_key = Key::loadFromAsciiSafeString($token_key);
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'username' => 'required',
             'email' => 'required|email',
             'token' => 'required',
@@ -78,7 +78,7 @@ class AuthenticationController extends AbstractController
     public function signup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'username' => 'required',
             'email' => 'required|email',
             'password' => 'required',
@@ -131,7 +131,7 @@ class AuthenticationController extends AbstractController
     public function login(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -183,7 +183,7 @@ class AuthenticationController extends AbstractController
         }
         $token_key = Key::loadFromAsciiSafeString($token_key);
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'token' => 'required',
         ]);
         if($validation->fails()) {
@@ -253,7 +253,7 @@ class AuthenticationController extends AbstractController
     public function reset(Request $request, Response $response)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'email' => 'required|email',
         ]);
         if($validation->fails()) {
@@ -276,7 +276,7 @@ class AuthenticationController extends AbstractController
     public function verify(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'email' => 'required|email',
             'code' => 'required',
         ]);

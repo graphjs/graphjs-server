@@ -52,7 +52,7 @@ class MessagingController extends AbstractController
         ];
         if($anonymous && is_null($id))
             $rules += [ 'sender' => 'required' ];
-        $validation = $this->validator->make($data, $rules);
+        $validation = $this->validator->validate($data, $rules);
         if($validation->fails()) {
             $this->fail($response, "Valid recipient and message are required.");
             return;
@@ -248,7 +248,7 @@ class MessagingController extends AbstractController
             return;
         }
             $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'with' => 'required',
         ]);
         if($validation->fails()) {
@@ -314,7 +314,7 @@ class MessagingController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'msgid' => 'required',
         ]);
         if($validation->fails()) {

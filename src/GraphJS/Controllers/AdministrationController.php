@@ -45,7 +45,7 @@ class AdministrationController extends AbstractController
         error_log("founder password is: ".getenv("FOUNDER_PASSWORD"));
         error_log("hash is: ".$hash);
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "hash" => "required"
         ]);
         //$v->rule('length', [['hash', 32]]);
@@ -96,7 +96,7 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "comment_id" => "required"
         ]);
         if($validation->fails()) {
@@ -121,7 +121,7 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "moderator" => "required"
         ]);
         //$v->rule('boolean', ['moderated']);
@@ -159,7 +159,7 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "comment_id" => "required"
         ]);
         if($validation->fails()) {
@@ -183,7 +183,7 @@ class AdministrationController extends AbstractController
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "password" => "required"
         ]);
         if($validation->fails()) {
@@ -206,7 +206,7 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "Invalid hash");
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             "id" => "required"
         ]);
         if($validation->fails()) {

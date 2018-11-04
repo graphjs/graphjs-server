@@ -48,7 +48,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'url' => 'required|url',
         ]);
         if($validation->fails()) {
@@ -95,7 +95,7 @@ class ContentController extends AbstractController
     public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'url' => 'required|url',
         ]);
         if($validation->fails()) {
@@ -119,7 +119,7 @@ class ContentController extends AbstractController
             return;
         }
      $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
             'content' => 'required',
         ]);
@@ -149,7 +149,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'url' => 'required|url',
             'content' => 'required',
         ]);
@@ -174,7 +174,7 @@ class ContentController extends AbstractController
     public function fetchComments(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'url' => 'required|url',
         ]);
         if($validation->fails()) {
@@ -212,7 +212,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'comment_id' => 'required',
         ]);
         if($validation->fails()) {
@@ -235,7 +235,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'url' => 'required|url',
         ]);
         if($validation->fails()) {
@@ -279,7 +279,7 @@ class ContentController extends AbstractController
         }
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
-        } 
+        }
         $this->succeed($response, ["pages"=>$ret]);
     }
 
@@ -305,7 +305,7 @@ class ContentController extends AbstractController
         }
         if(count($array)==0) {
             $this->fail($response, "No content starred yet");
-        } 
+        }
         $this->succeed($response, ["pages"=>$ret]);
     }
 
@@ -315,7 +315,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'data' => 'required',
         ]);
         if($validation->fails()) {
@@ -326,7 +326,7 @@ class ContentController extends AbstractController
         try {
             $private_content = $i->post("http://private/?".bin2hex(random_bytes(16)), $data["data"]);        ;
             return $this->succeed($response, ["id"=>(string) $private_content->id()]);
-        } 
+        }
         catch (\Exception $e) {
             return $this->fail($response, "Unknown error creating private content. Try again later.");
         }
@@ -338,7 +338,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
             'data' => 'required',
         ]);
@@ -363,7 +363,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -387,7 +387,7 @@ class ContentController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {

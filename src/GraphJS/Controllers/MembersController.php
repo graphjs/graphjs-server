@@ -127,7 +127,7 @@ class MembersController extends AbstractController
             return $this->fail($response, "Session required");
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -173,7 +173,7 @@ class MembersController extends AbstractController
             return $this->fail($response, "Session required");
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {

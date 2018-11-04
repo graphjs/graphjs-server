@@ -38,7 +38,7 @@ class ForumController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
@@ -91,7 +91,7 @@ class ForumController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'title' => 'required|max:80',
             'message' => 'required',
         ]);
@@ -126,7 +126,7 @@ class ForumController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
             'message' => 'required',
         ]);
@@ -155,7 +155,7 @@ class ForumController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
             'content' => 'required',
         ]);
@@ -255,7 +255,7 @@ class ForumController extends AbstractController
     public function getThread(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {

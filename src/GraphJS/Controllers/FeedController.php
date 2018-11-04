@@ -35,7 +35,7 @@ class FeedController extends AbstractController
     public function generate(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->make($data, [
+        $validation = $this->validator->validate($data, [
             'id' => 'required',
             'type' => 'required',
         ]);
