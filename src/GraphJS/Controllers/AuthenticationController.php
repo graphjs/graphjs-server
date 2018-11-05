@@ -28,41 +28,6 @@ use Defuse\Crypto\Key;
  */
 class AuthenticationController extends AbstractController
 {
-
-    public function signupViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
-    {
-        $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
-        if(empty($token_key)) {
-            return $this->fail($response, "Single sign-on not allowed");
-        }
-        $token_key = Key::loadFromAsciiSafeString($token_key);
-        $data = $request->getQueryParams();
-        $validation = $this->validator->validate($data, [
-            'username' => 'required',
-            'email' => 'required|email',
-            'token' => 'required',
-        ]);
-        if($validation->fails()) {
-            $this->fail($response, "Valid username, email are required.");
-            return;
-        }
-        if(!preg_match("/^[a-zA-Z0-9_]{1,12}$/", $data["username"])) {
-            $this->fail($response, "Invalid username");
-            return;
-        }
-        try {
-            $username = Crypto::decrypt($data["token"], $token_key);
-        }
-        catch(\Exception $e) {
-            return $this->fail($response, "Invalid token");
-        }
-        if($username!=$data["username"]) {
-            return $this->fail($response, "Invalid token");
-        }
-        $password = substr($data["token"], -8); 
-        $this->actualSignup($request,  $response,  $session,  $kernel, $username, $data["email"], $password);
-    }
-
     /**
      * Sign Up
      * 
@@ -81,21 +46,44 @@ class AuthenticationController extends AbstractController
         $validation = $this->validator->validate($data, [
             'username' => 'required',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required_without:token',
+            'token' => 'required_without:password',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Valid username, email and password required.");
+            $this->fail($response, "Valid username, email and password or token required.");
             return;
         }
         if(!preg_match("/^[a-zA-Z0-9_]{1,12}$/", $data["username"])) {
             $this->fail($response, "Invalid username");
             return;
         }
-        if(!preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $data["password"])) {
-            $this->fail($response, "Invalid password");
-            return;
+        if (isset($data['token'])) {
+            $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
+            if(empty($token_key)) {
+                return $this->fail($response, "Single sign-on not allowed");
+            }
+            $token_key = Key::loadFromAsciiSafeString($token_key);
+
+            try {
+                $username = Crypto::decrypt($data["token"], $token_key);
+            }
+            catch(\Exception $e) {
+                return $this->fail($response, "Invalid token");
+            }
+            if($username!=$data["username"]) {
+                return $this->fail($response, "Invalid token");
+            }
+            $password = substr($data["token"], -8);
         }
-        $this->actualSignup( $request,  $response,  $session,  $kernel, $data["username"], $data["email"], $data["password"]);
+        else {
+            if(!preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $data["password"])) {
+                $this->fail($response, "Invalid password");
+                return;
+            }
+            $username = $data['username'];
+            $password = $data['password'];
+        }
+        $this->actualSignup( $request,  $response,  $session,  $kernel, $username, $data["email"], $password);
     }
 
     protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
@@ -132,81 +120,43 @@ class AuthenticationController extends AbstractController
     {
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
-            'username' => 'required',
-            'password' => 'required',
+            'username' => 'required_without:token',
+            'password' => 'required_without:token',
+            'token' => 'required_without:username,password',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Username and password fields are required.");
+            $this->fail($response, "Either Username and password fields or Token field is required.");
             return;
         }
 
-        $result = $kernel->index()->query(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
-            [ 
-                "username" => $data["username"],
-                "password" => md5($data["password"])
-            ]
-        );
+        if (isset($data['token'])) {
+            $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
+            if(empty($token_key)) {
+                return $this->fail($response, "Single sign-on not allowed");
+            }
+            $token_key = Key::loadFromAsciiSafeString($token_key);
 
-        error_log(print_r($result, true));
-        $success = (count($result->results()) == 1);
-        if(!$success) {
-            $this->fail($response, "Information don't match records");
-            return;
+            try {
+                $username = Crypto::decrypt($data["token"], $token_key);
+            }
+            catch (\Exception $e) {
+                return $this->fail($response, "Invalid token");
+            }
+            $password = substr($data["token"], -8);
         }
-        $user = $result->results()[0];
-        $session->set($request, "id", $user["udid"]);
-        $this->succeed(
-            $response, [
-            "id" => $user["udid"]
-            ]
-        );
-    }
+        else {
+            $username = $data["username"];
+            $password = $data['password'];
+        }
 
-    /**
-     * Log In Via Token
-     * 
-     * [token]
-     *
-     * @param Request  $request
-     * @param Response $response
-     * @param Session  $session
-     * @param Kernel   $kernel
-     * 
-     * @return void
-     */
-    public function loginViatoken(Request $request, Response $response, Session $session, Kernel $kernel)
-    {
-        $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
-        if(empty($token_key)) {
-            return $this->fail($response, "Single sign-on not allowed");
-        }
-        $token_key = Key::loadFromAsciiSafeString($token_key);
-        $data = $request->getQueryParams();
-        $validation = $this->validator->validate($data, [
-            'token' => 'required',
-        ]);
-        if($validation->fails()) {
-            $this->fail($response, "Token field is required.");
-            return;
-        }
-        try {
-            $username = Crypto::decrypt($data["token"], $token_key);
-        }
-        catch(\Exception $e) {
-            return $this->fail($response, "Invalid token");
-        }
-        $password = substr($data["token"], -8);
-        error_log("username is: ".$username."\npassword is: ".$password);
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
                 "username" => $username,
-                "password" => md5($password)
+                "password" => md5($password),
             ]
         );
 
-        error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
         if(!$success) {
             $this->fail($response, "Information don't match records");
