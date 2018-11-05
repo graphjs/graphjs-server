@@ -43,12 +43,21 @@ class AuthenticationController extends AbstractController
     public function signup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->validate($data, [
+        $rules = [
             'username' => 'required',
             'email' => 'required|email',
-            'password' => 'required_without:token',
-            'token' => 'required_without:password',
-        ]);
+        ];
+        if (isset($data['token'])) {
+            $rules += [
+                'token' => 'required',
+            ];
+        }
+        else {
+            $rules += [
+                'password' => 'required',
+            ];
+        }
+        $validation = $this->validator->validate($data, $rules);
         if($validation->fails()) {
             $this->fail($response, "Valid username, email and password or token required.");
             return;
@@ -119,11 +128,18 @@ class AuthenticationController extends AbstractController
     public function login(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $validation = $this->validator->validate($data, [
-            'username' => 'required_without:token',
-            'password' => 'required_without:token',
-            'token' => 'required_without:username,password',
-        ]);
+        if (isset($data['token'])) {
+            $rules = [
+                'token' => 'required',
+            ];
+        }
+        else {
+            $rules = [
+                'username' => 'required',
+                'password' => 'required',
+            ];
+        }
+        $validation = $this->validator->validate($data, $rules);
         if($validation->fails()) {
             $this->fail($response, "Either Username and password fields or Token field is required.");
             return;
