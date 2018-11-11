@@ -27,6 +27,7 @@ use Rakit\Validation\Validator;
  */
 abstract class AbstractController extends   \Pho\Server\Rest\Controllers\AbstractController
 {
+    protected $validator;
 
     public function __construct()
     {
