@@ -209,8 +209,18 @@ class Router extends \Pho\Server\Rest\Router
     {
         $session = self::$session;
         $server->get(
+            'tokenSignup', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->signupViaToken($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
             'signup', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
                 $controllers["authentication"]->signup($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'tokenLogin', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->loginViaToken($request, $response, $session, $kernel);
             }
         );
         $server->get(
