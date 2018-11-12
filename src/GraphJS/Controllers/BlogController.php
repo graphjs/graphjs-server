@@ -41,7 +41,10 @@ class BlogController extends AbstractController
         $everything = $kernel->graph()->members();
         
         foreach($everything as $thing) {
+
             if($thing instanceof Blog) {
+                error_log("blog id: ".$thing->id()->toString());
+                //eval(\Psy\sh());
                 $blogs[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
@@ -177,6 +180,10 @@ class BlogController extends AbstractController
         }
         try {
             $i = $kernel->gs()->node($id);
+        }
+        catch (\Exception $e) {
+            return $this->fail($response, "Invalid ID");
+        }
             try {
             $blog = $kernel->gs()->node($data["id"]);
             }
@@ -194,12 +201,19 @@ class BlogController extends AbstractController
             ) {
                 return $this->fail($response, "No privileges to delete this content");
             }
-            $blog->destroy();
+            try {
+             //   eval(\Psy\sh());  
+              $blog->destroy();
+              
+            }
+            // HACK!!! CHECK!!
+            catch(\Pho\Framework\Exceptions\InvalidParticleMethodException $e) {
+                $kernel->graph()->remove($blog->id());
+                return $this->succeed($response);
+                //return $this->fail($response, "Problem destroying the node");
+            }
             return $this->succeed($response);
-        }
-        catch (\Exception $e) {
-            return $this->fail($response, "Invalid ID");
-        }
+        
     }
 
 
