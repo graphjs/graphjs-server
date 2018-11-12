@@ -32,7 +32,7 @@ class AuthenticationController extends AbstractController
     public function signupViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
-        if(empty($token_key)) {
+        if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
         $token_key = Key::loadFromAsciiSafeString($key);
@@ -178,7 +178,7 @@ class AuthenticationController extends AbstractController
     public function loginViatoken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
-        if(empty($token_key)) {
+        if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
         $token_key = Key::loadFromAsciiSafeString($key);
