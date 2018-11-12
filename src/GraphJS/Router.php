@@ -127,6 +127,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initForum(...\func_get_args());
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
+        self::initBlog(...\func_get_args());
         self::initAdministration(...\func_get_args());
 
     }
@@ -191,6 +192,46 @@ class Router extends \Pho\Server\Rest\Router
         $server->get(
             'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
+            }
+        );
+    }
+
+    protected static function initBlog(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'getBlogPosts', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->fetchAll($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'getBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->fetch($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->post($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'editBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->edit($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'removeBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->delete($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'publishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->publish($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'unpublishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->unpublish($request, $response, $session, $kernel);
             }
         );
     }
