@@ -223,7 +223,7 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Information don't match records");
             return;
         }
-        $user = $result->results()[0];
+        $user = $result->records()[0];
         $session->set($request, "id", $user["udid"]);
         $this->succeed(
             $response, [
