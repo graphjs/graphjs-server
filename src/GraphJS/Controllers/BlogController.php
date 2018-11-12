@@ -183,7 +183,7 @@ class BlogController extends AbstractController
             catch(\Exception $e) {
                 return $this->fail($response, "Invalid ID");
             }
-            if(!$private_content instanceof Blog) {
+            if(!$blog instanceof Blog) {
                 return $this->fail($response, "Invalid ID");
             }
             // check author
