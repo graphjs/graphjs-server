@@ -209,7 +209,7 @@ class AuthenticationController extends AbstractController
         );
         */
         $result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid",
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
                 "username" => $username,
                 "password" => md5($password)
