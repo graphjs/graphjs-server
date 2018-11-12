@@ -199,7 +199,16 @@ class AuthenticationController extends AbstractController
         }
         $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8)); // substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         error_log("username is: ".$username."\npassword is: ".$password);
+        /*
         $result = $kernel->index()->query(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
+            [ 
+                "username" => $username,
+                "password" => md5($password)
+            ]
+        );
+        */
+        $result = $kernel->index()->client()->run(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
                 "username" => $username,
@@ -208,7 +217,8 @@ class AuthenticationController extends AbstractController
         );
 
         error_log(print_r($result, true));
-        $success = (count($result->results()) == 1);
+        //$success = (count($result->results()) == 1);
+        $success = (count($result->records()) == 1);
         if(!$success) {
             $this->fail($response, "Information don't match records");
             return;
