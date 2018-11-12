@@ -59,7 +59,7 @@ class AuthenticationController extends AbstractController
         if($username!=$data["username"]) {
             return $this->fail($response, "Invalid token");
         }
-        $password = substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
+        $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8));
         error_log("sign up password is ".$password);
         $this->actualSignup($request,  $response,  $session,  $kernel, $username, $data["email"], $password);
     }
@@ -176,7 +176,7 @@ class AuthenticationController extends AbstractController
      * 
      * @return void
      */
-    public function loginViatoken(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function loginViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
         if(empty($key)) {
@@ -197,7 +197,7 @@ class AuthenticationController extends AbstractController
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
         }
-        $password = substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
+        $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8)); // substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         error_log("username is: ".$username."\npassword is: ".$password);
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
