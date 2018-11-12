@@ -60,6 +60,7 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "Invalid token");
         }
         $password = substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
+        error_log("sign up password is ".$password);
         $this->actualSignup($request,  $response,  $session,  $kernel, $username, $data["email"], $password);
     }
 
