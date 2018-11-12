@@ -31,11 +31,11 @@ class AuthenticationController extends AbstractController
 
     public function signupViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
+        $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
         if(empty($token_key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = Key::loadFromAsciiSafeString($token_key);
+        $token_key = Key::loadFromAsciiSafeString($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'username' => 'required',
@@ -59,7 +59,7 @@ class AuthenticationController extends AbstractController
         if($username!=$data["username"]) {
             return $this->fail($response, "Invalid token");
         }
-        $password = substr($data["token"], -8); 
+        $password = substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         $this->actualSignup($request,  $response,  $session,  $kernel, $username, $data["email"], $password);
     }
 
@@ -177,11 +177,11 @@ class AuthenticationController extends AbstractController
      */
     public function loginViatoken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        $token_key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
+        $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
         if(empty($token_key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = Key::loadFromAsciiSafeString($token_key);
+        $token_key = Key::loadFromAsciiSafeString($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'token' => 'required',
@@ -196,7 +196,7 @@ class AuthenticationController extends AbstractController
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
         }
-        $password = substr($data["token"], -8);
+        $password = substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         error_log("username is: ".$username."\npassword is: ".$password);
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
