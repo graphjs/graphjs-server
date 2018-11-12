@@ -224,14 +224,15 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["blog"]->delete($request, $response, $session, $kernel);
             }
         );
-        $server->get(
-            'publishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["blog"]->publish($request, $response, $session, $kernel);
-            }
-        );
+        
         $server->get(
             'unpublishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["blog"]->unpublish($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'publishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->publish($request, $response, $session, $kernel);
             }
         );
     }

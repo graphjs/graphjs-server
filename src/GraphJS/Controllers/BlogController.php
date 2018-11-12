@@ -46,8 +46,12 @@ class BlogController extends AbstractController
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
                     "summary" => $thing->getContent(),
-                    "author" => (string) $thing->edges()->in(Post::class)->current()->tail()->id(),
+                    "author" => [
+                        "id" => (string) $thing->getAuthor()->id(),
+                       "username" => (string) $thing->getAuthor()->getUsername()
+                    ],
                     "timestamp" => (string) $thing->getCreateTime(),
+                    "is_draft" => $thing->getIsDraft() ? 1: 0
                 ];
             }
         }
@@ -82,8 +86,12 @@ class BlogController extends AbstractController
                     "id" => (string) $blog->id(),
                     "title" => $blog->getTitle(),
                     "summary" => $blog->getContent(),
-                    "author" => (string) $blog->edges()->in(Post::class)->current()->tail()->id(),
+                    "author" => [
+                        "id" => (string) $blog->getAuthor()->id(),
+                       "username" => (string) $blog->getAuthor()->getUsername()
+                    ],
                     "timestamp" => (string) $blog->getCreateTime(),
+                    "is_draft" => $blog->getIsDraft() ? 1: 0
                 ]
             ]
         );
@@ -106,7 +114,7 @@ class BlogController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
-        $blog = $i->postBlog($data["title"], $data["message"]);
+        $blog = $i->postBlog($data["title"], $data["content"]);
         $this->succeed(
             $response, [
                 "id" => (string) $blog->id()
