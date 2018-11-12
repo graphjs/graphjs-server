@@ -224,10 +224,10 @@ class AuthenticationController extends AbstractController
             return;
         }
         $user = $result->records()[0]->values();
-        $session->set($request, "id", $user["udid"]);
+        $session->set($request, "id", $user[0]);
         $this->succeed(
             $response, [
-            "id" => $user["udid"]
+            "id" => $user[0]
             ]
         );
     }
