@@ -194,7 +194,7 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-        //error_log(print_r($result, true));
+        error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
         if(!$success) {
             $this->fail($response, "Information don't match records");
@@ -204,9 +204,10 @@ class AuthenticationController extends AbstractController
         $session->set($request, "id", $user["udid"]);
         $this->succeed(
             $response, [
-            "id" => $user["udid"]
+                "id" => $user["udid"]
             ]
         );
+        error_log("must be success");
     }
 
     /**
