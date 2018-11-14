@@ -185,7 +185,7 @@ class AuthenticationController extends AbstractController
         
     }
 
-    protected function actualLogin(Request $request, Response &$response, Session $session, Kernel $kernel, string $username, string $password): void
+    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
     {
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
@@ -197,17 +197,20 @@ class AuthenticationController extends AbstractController
         error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
         if(!$success) {
+            error_log("failing!!! ");
             $this->fail($response, "Information don't match records");
             return;
         }
+        error_log("is a  success");
         $user = $result->records()[0]->values();
+        error_log(print_r($user));
         $session->set($request, "id", $user["udid"]);
         $this->succeed(
             $response, [
                 "id" => $user["udid"]
             ]
         );
-        error_log("must be success");
+        error_log("is a  success");
     }
 
     /**
