@@ -202,7 +202,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         error_log("is a  success");
-        $user = $result->records()[0]->values();
+        $user = $result->results()[0];
         error_log(print_r($user));
         $session->set($request, "id", $user["udid"]);
         $this->succeed(
