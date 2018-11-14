@@ -143,7 +143,6 @@ class AuthenticationController extends AbstractController
 
         $this->actualLogin($request, $response, $session, $kernel, $data["username"], $data["password"]);
 
-
     }
 
     /**
