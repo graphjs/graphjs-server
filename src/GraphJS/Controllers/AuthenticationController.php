@@ -235,10 +235,14 @@ class AuthenticationController extends AbstractController
      * @param  Session  $session
      * @return void
      */
-    public function whoami(Request $request, Response $response, Session $session)
+    public function whoami(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(!is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            $this->succeed($response, ["id" => $id]);
+            $this->succeed($response, [
+                    "id" => $id, 
+                    "admin" => ($id==$kernel->founder()->id()->toString())
+                ]
+            );
         }
     }
 
