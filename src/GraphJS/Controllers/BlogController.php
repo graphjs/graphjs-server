@@ -55,7 +55,7 @@ class BlogController extends AbstractController
                        "username" => (string) $thing->getAuthor()->getUsername()
                     ],
                     "start_time" => (string) $thing->getCreateTime(),
-                    "is_draft" => (($publish_time == 0) ? 1: 0),
+                    "is_draft" => ($publish_time == 0),
                     "last_edit" => (string) $thing->getLastEditTime(),
                     "publish_time" => (string) $publish_time
                 ];
@@ -98,7 +98,7 @@ class BlogController extends AbstractController
                        "username" => (string) $blog->getAuthor()->getUsername()
                     ],
                     "start_time" => (string) $blog->getCreateTime(),
-                    "is_draft" => (($publish_time == 0) ? 1: 0),
+                    "is_draft" => ($publish_time == 0),
                     "last_edit" => (string) $blog->getLastEditTime(),
                     "publish_time" => (string) $publish_time
                 ]
