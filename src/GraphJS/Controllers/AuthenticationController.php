@@ -141,7 +141,7 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        $result = $kernel->index()-query(
+        $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
                 "username" => $username,
