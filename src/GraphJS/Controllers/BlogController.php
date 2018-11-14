@@ -202,15 +202,11 @@ class BlogController extends AbstractController
                 return $this->fail($response, "No privileges to delete this content");
             }
             try {
-             //   eval(\Psy\sh());  
-              $blog->destroy();
-              
+              $blog->destroy(); 
             }
-            // HACK!!! CHECK!!
             catch(\Pho\Framework\Exceptions\InvalidParticleMethodException $e) {
-                $kernel->graph()->remove($blog->id());
-                return $this->succeed($response);
-                //return $this->fail($response, "Problem destroying the node");
+                error_log($e->getMessage());
+                return $this->fail($response, "Problem destroying the node");
             }
             return $this->succeed($response);
         

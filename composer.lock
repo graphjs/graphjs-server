@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.71.3",
+            "version": "3.71.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "fa7f498cb41c7eb47e952355b8be2061816a9a60"
+                "reference": "18f0f1c2224610b473c80690f0df0bac116da957"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fa7f498cb41c7eb47e952355b8be2061816a9a60",
-                "reference": "fa7f498cb41c7eb47e952355b8be2061816a9a60",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/18f0f1c2224610b473c80690f0df0bac116da957",
+                "reference": "18f0f1c2224610b473c80690f0df0bac116da957",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-11-09T21:57:53+00:00"
+            "time": "2018-11-12T22:58:19+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -794,41 +794,6 @@
             "time": "2017-03-20T17:10:46+00:00"
         },
         {
-            "name": "kjdev/redis-graph",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kjdev/php-redis-graph.git",
-                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/kjdev/php-redis-graph/zipball/143725c63f5a9ea51953048f00e2825f0ab376a1",
-                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1",
-                "shasum": ""
-            },
-            "suggest": {
-                "ext-redis": "If you want to use redis extension.",
-                "predis/predis": "If you want to use predis."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Redis\\": "src/Redis/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHP RedisGraph client",
-            "homepage": "https://github.com/kjdev/php-redis-graph",
-            "keywords": [
-                "redis"
-            ],
-            "time": "2018-10-24T22:59:55+00:00"
-        },
-        {
             "name": "league/flysystem",
             "version": "1.0.48",
             "source": {
@@ -1323,12 +1288,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-adapters/index-neo4j.git",
-                "reference": "893f1ec94cd25e81b72c0556fd43aa7d94fa0981"
+                "reference": "5ef6bcea44b965899a6ea15923379ee1d30bdd29"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-adapters/index-neo4j/zipball/893f1ec94cd25e81b72c0556fd43aa7d94fa0981",
-                "reference": "893f1ec94cd25e81b72c0556fd43aa7d94fa0981",
+                "url": "https://api.github.com/repos/pho-adapters/index-neo4j/zipball/5ef6bcea44b965899a6ea15923379ee1d30bdd29",
+                "reference": "5ef6bcea44b965899a6ea15923379ee1d30bdd29",
                 "shasum": ""
             },
             "require": {
@@ -1357,50 +1322,7 @@
             ],
             "description": "Neo4J adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-06-06T03:50:21+00:00"
-        },
-        {
-            "name": "pho-adapters/index-redis",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pho-adapters/index-redis.git",
-                "reference": "4ed2f826e8ea16a7d7675e0cc95e35654ae47ed8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pho-adapters/index-redis/zipball/4ed2f826e8ea16a7d7675e0cc95e35654ae47ed8",
-                "reference": "4ed2f826e8ea16a7d7675e0cc95e35654ae47ed8",
-                "shasum": ""
-            },
-            "require": {
-                "kjdev/redis-graph": "^1.0",
-                "php": "^7.1",
-                "predis/predis": "^1.1"
-            },
-            "provide": {
-                "phonetworks/service-index-implementation": "1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Pho\\Kernel\\Services\\Index\\Adapters\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Emre Sokullu",
-                    "email": "emre@phonetworks.org",
-                    "homepage": "http://www.emresokullu.com"
-                }
-            ],
-            "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
-            "homepage": "https://phonetworks.org",
-            "time": "2018-10-26T23:26:10+00:00"
+            "time": "2018-11-12T05:36:57+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
@@ -1525,21 +1447,21 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.2.0",
+            "version": "11.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "b6bb3c0cfe312504466bf3737eea77bfc7db1cbd"
+                "reference": "3f5ed52b48190dda40333c450e16c765c33743ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/b6bb3c0cfe312504466bf3737eea77bfc7db1cbd",
-                "reference": "b6bb3c0cfe312504466bf3737eea77bfc7db1cbd",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/3f5ed52b48190dda40333c450e16c765c33743ee",
+                "reference": "3f5ed52b48190dda40333c450e16c765c33743ee",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
-                "phonetworks/pho-lib-graph": "^8.0",
+                "phonetworks/pho-lib-graph": "^8.1",
                 "php": ">=5.3.0",
                 "psr/log": "^1.0",
                 "vlucas/valitron": "^1.4",
@@ -1579,7 +1501,7 @@
                 "network",
                 "social"
             ],
-            "time": "2018-11-11T07:57:18+00:00"
+            "time": "2018-11-13T10:13:13+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1587,19 +1509,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-kernel.git",
-                "reference": "87ecfe8200e8a714d0b2e35afc2fdd3579de294c"
+                "reference": "08985c96c413b84ee70b961dcb95ca8ac820fd4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-kernel/zipball/87ecfe8200e8a714d0b2e35afc2fdd3579de294c",
-                "reference": "87ecfe8200e8a714d0b2e35afc2fdd3579de294c",
+                "url": "https://api.github.com/repos/phonetworks/pho-kernel/zipball/08985c96c413b84ee70b961dcb95ca8ac820fd4e",
+                "reference": "08985c96c413b84ee70b961dcb95ca8ac820fd4e",
                 "shasum": ""
             },
             "require": {
                 "pho-adapters/database-redis": "dev-master",
                 "pho-adapters/events-local": "dev-master",
                 "pho-adapters/index-neo4j": "dev-master",
-                "pho-adapters/index-redis": "dev-master",
                 "pho-adapters/storage-filesystem": "dev-master",
                 "phonetworks/pho-microkernel": "dev-master",
                 "php": "^7.1",
@@ -1619,20 +1540,20 @@
             ],
             "description": "A simple microkernel implementation with Twitter-like functionality.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-11T08:41:08+00:00"
+            "time": "2018-11-12T12:38:48+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
-            "version": "8.0.3",
+            "version": "8.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-graph.git",
-                "reference": "0e027798e7934c62f197bcfddef11e8c0273648c"
+                "reference": "634d382a09f6e0580a48eea9188143d1d88371de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/0e027798e7934c62f197bcfddef11e8c0273648c",
-                "reference": "0e027798e7934c62f197bcfddef11e8c0273648c",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/634d382a09f6e0580a48eea9188143d1d88371de",
+                "reference": "634d382a09f6e0580a48eea9188143d1d88371de",
                 "shasum": ""
             },
             "require": {
@@ -1675,7 +1596,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2018-09-08T07:02:24+00:00"
+            "time": "2018-11-13T11:20:19+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",
@@ -1683,12 +1604,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "6030c925b02b99670fc5edfa48da47e9c2772ec7"
+                "reference": "ea03ba9f03b26148ae5f9cca93edc6e1738be2f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/6030c925b02b99670fc5edfa48da47e9c2772ec7",
-                "reference": "6030c925b02b99670fc5edfa48da47e9c2772ec7",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/ea03ba9f03b26148ae5f9cca93edc6e1738be2f0",
+                "reference": "ea03ba9f03b26148ae5f9cca93edc6e1738be2f0",
                 "shasum": ""
             },
             "require": {
@@ -1732,7 +1653,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-11T11:16:10+00:00"
+            "time": "2018-11-13T11:14:58+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",

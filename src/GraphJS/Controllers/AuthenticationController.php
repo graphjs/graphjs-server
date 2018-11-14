@@ -141,11 +141,11 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        $result = $kernel->index()->query(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
+        $result = $kernel->index()->client()->run(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
-                "username" => $data["username"],
-                "password" => md5($data["password"])
+                "username" => $username,
+                "password" => md5($password)
             ]
         );
 
@@ -199,7 +199,7 @@ class AuthenticationController extends AbstractController
         }
         $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8)); // substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         error_log("username is: ".$username."\npassword is: ".$password);
-        /*
+        
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
@@ -207,7 +207,7 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-        */
+        /*
         $result = $kernel->index()->client()->run(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
@@ -215,10 +215,10 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-
+*/
         error_log(print_r($result, true));
-        //$success = (count($result->results()) == 1);
-        $success = (count($result->records()) == 1);
+        $success = (count($result->results()) == 1);
+        //$success = (count($result->records()) == 1);
         if(!$success) {
             $this->fail($response, "Information don't match records");
             return;

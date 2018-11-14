@@ -436,4 +436,14 @@ class ContentController extends AbstractController
         }
     }
 
+    public function addRating()
+    {
+
+    }
+
+    public function delRating()
+    {
+        
+    }
+
 }
