@@ -157,11 +157,6 @@ class AuthenticationController extends AbstractController
         }
         $user = $result->results()[0];
         $session->set($request, "id", $user["udid"]);
-        $this->succeed(
-            $response, [
-            "id" => $user["udid"]
-            ]
-        );
 
 
 
@@ -174,6 +169,16 @@ class AuthenticationController extends AbstractController
             ]
         );
         error_log(print_r($result, true));
+
+
+        $this->succeed(
+            $response, [
+            "id" => $user["udid"]
+            ]
+        );
+
+
+
     }
 
     /**
