@@ -151,6 +151,19 @@ class AuthenticationController extends AbstractController
 
         error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
+
+
+        error_log("trying something else");
+        $_result = $kernel->index()->client()->run(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
+            [ 
+                "username" => $username,
+                "password" => md5($password)
+            ]
+        );
+        error_log(print_r($_result, true));
+
+
         if(!$success) {
             $this->fail($response, "Information don't match records");
             return;
@@ -160,15 +173,7 @@ class AuthenticationController extends AbstractController
 
 
 
-        error_log("trying something else");
-        $result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
-            [ 
-                "username" => $username,
-                "password" => md5($password)
-            ]
-        );
-        error_log(print_r($result, true));
+        
 
 
         $this->succeed(
