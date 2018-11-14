@@ -141,7 +141,7 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        $result = $kernel->index()->query(
+        $result = $kernel->index()->client()->run(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
                 "username" => $username,
@@ -230,6 +230,17 @@ class AuthenticationController extends AbstractController
             "id" => $user[0]
             ]
         );
+
+
+        error_log("trying something else");
+        $result = $kernel->index()->client()->run(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
+            [ 
+                "username" => $username,
+                "password" => md5($password)
+            ]
+        );
+        error_log(print_r($result, true));
     }
 
     /**
