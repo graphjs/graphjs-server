@@ -185,7 +185,7 @@ class AuthenticationController extends AbstractController
         
     }
 
-    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
+    protected function actualLogin(Request $request, Response &$response, Session $session, Kernel $kernel, string $username, string $password): void
     {
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
