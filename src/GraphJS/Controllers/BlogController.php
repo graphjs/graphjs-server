@@ -53,8 +53,10 @@ class BlogController extends AbstractController
                         "id" => (string) $thing->getAuthor()->id(),
                        "username" => (string) $thing->getAuthor()->getUsername()
                     ],
-                    "timestamp" => (string) $thing->getCreateTime(),
-                    "is_draft" => $thing->getIsDraft() ? 1: 0
+                    "start_time" => (string) $thing->getCreateTime(),
+                    "is_draft" => (($thing->getPublishTime() == 0) ? 1: 0),
+                    "last_edit" => (string) $thing->getLastEditTime(),
+                    "publish_time" => $thing->getPublishTime()
                 ];
             }
         }
@@ -93,8 +95,10 @@ class BlogController extends AbstractController
                         "id" => (string) $blog->getAuthor()->id(),
                        "username" => (string) $blog->getAuthor()->getUsername()
                     ],
-                    "timestamp" => (string) $blog->getCreateTime(),
-                    "is_draft" => $blog->getIsDraft() ? 1: 0
+                    "start_time" => (string) $blog->getCreateTime(),
+                    "is_draft" => (($blog->getPublishTime() == 0) ? 1: 0),
+                    "last_edit" => (string) $blog->getLastEditTime(),
+                    "publish_time" => $blog->getPublishTime()
                 ]
             ]
         );
@@ -156,6 +160,7 @@ class BlogController extends AbstractController
         try {
         $i->edit($entity)->setTitle($data["title"]);
         $i->edit($entity)->setContent($data["content"]);
+        $i->edit($entity)->setLastEditTime(time());
         }
      catch(\Exception $e) {
         $this->fail($response, $e->getMessage());
@@ -242,7 +247,7 @@ class BlogController extends AbstractController
         return;
     }
     try {
-    $i->edit($entity)->setIsDraft(false);
+    $i->edit($entity)->setPublishTime(time());
     }
  catch(\Exception $e) {
     $this->fail($response, $e->getMessage());
@@ -278,7 +283,7 @@ class BlogController extends AbstractController
         return;
     }
     try {
-        $i->edit($entity)->setIsDraft(true);
+        $i->edit($entity)->setPublishTime(0);
     }
  catch(\Exception $e) {
     $this->fail($response, $e->getMessage());
