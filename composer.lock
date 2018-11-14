@@ -1586,12 +1586,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Web.git",
-                "reference": "6ced2b5ca8593e748c114b6d525702d76713c425"
+                "reference": "a123abc2f5e5d41d8e954ca553b921704cc3dc3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/6ced2b5ca8593e748c114b6d525702d76713c425",
-                "reference": "6ced2b5ca8593e748c114b6d525702d76713c425",
+                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/a123abc2f5e5d41d8e954ca553b921704cc3dc3e",
+                "reference": "a123abc2f5e5d41d8e954ca553b921704cc3dc3e",
                 "shasum": ""
             },
             "require": {
@@ -1616,7 +1616,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14T05:27:20+00:00"
+            "time": "2018-11-14T05:36:01+00:00"
         },
         {
             "name": "phonetworks/pho-framework",

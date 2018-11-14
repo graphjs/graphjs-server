@@ -44,6 +44,7 @@ class BlogController extends AbstractController
 
             if($thing instanceof Blog) {
                 error_log("blog id: ".$thing->id()->toString());
+                $publish_time =  intval($thing->getPublishTime());
                 //eval(\Psy\sh());
                 $blogs[] = [
                     "id" => (string) $thing->id(),
@@ -54,9 +55,9 @@ class BlogController extends AbstractController
                        "username" => (string) $thing->getAuthor()->getUsername()
                     ],
                     "start_time" => (string) $thing->getCreateTime(),
-                    "is_draft" => (($thing->getPublishTime() == 0) ? 1: 0),
+                    "is_draft" => (($publish_time == 0) ? 1: 0),
                     "last_edit" => (string) $thing->getLastEditTime(),
-                    "publish_time" => $thing->getPublishTime()
+                    "publish_time" => (string) $publish_time
                 ];
             }
         }
@@ -85,6 +86,7 @@ class BlogController extends AbstractController
         if(!$blog instanceof Blog) {
             return $this->fail($response, "Given id is not a blog post");
         }
+        $publish_time =  intval($blog->getPublishTime());
         $this->succeed(
             $response, [
                 "blog" => [
@@ -96,9 +98,9 @@ class BlogController extends AbstractController
                        "username" => (string) $blog->getAuthor()->getUsername()
                     ],
                     "start_time" => (string) $blog->getCreateTime(),
-                    "is_draft" => (($blog->getPublishTime() == 0) ? 1: 0),
+                    "is_draft" => (($publish_time == 0) ? 1: 0),
                     "last_edit" => (string) $blog->getLastEditTime(),
-                    "publish_time" => $blog->getPublishTime()
+                    "publish_time" => (string) $publish_time
                 ]
             ]
         );
