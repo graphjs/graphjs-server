@@ -1460,12 +1460,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-adapters/index-neo4j.git",
-                "reference": "c95c86418af248616751a838a89598d72fb01250"
+                "reference": "fb0dd62439e0e4bcf306c7af6bd0f82ad55f9f94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-adapters/index-neo4j/zipball/c95c86418af248616751a838a89598d72fb01250",
-                "reference": "c95c86418af248616751a838a89598d72fb01250",
+                "url": "https://api.github.com/repos/pho-adapters/index-neo4j/zipball/fb0dd62439e0e4bcf306c7af6bd0f82ad55f9f94",
+                "reference": "fb0dd62439e0e4bcf306c7af6bd0f82ad55f9f94",
                 "shasum": ""
             },
             "require": {
@@ -1495,7 +1495,7 @@
             ],
             "description": "Neo4J adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14T04:05:25+00:00"
+            "time": "2018-11-14T04:12:20+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
