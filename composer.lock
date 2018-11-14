@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.71.4",
+            "version": "3.71.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "18f0f1c2224610b473c80690f0df0bac116da957"
+                "reference": "ce91558fe7ab0368792c088a573fecf328319deb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/18f0f1c2224610b473c80690f0df0bac116da957",
-                "reference": "18f0f1c2224610b473c80690f0df0bac116da957",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce91558fe7ab0368792c088a573fecf328319deb",
+                "reference": "ce91558fe7ab0368792c088a573fecf328319deb",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-11-12T22:58:19+00:00"
+            "time": "2018-11-13T21:55:30+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1604,12 +1604,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "ea03ba9f03b26148ae5f9cca93edc6e1738be2f0"
+                "reference": "b3e81a6836423b46b444694720fc75858e9251f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/ea03ba9f03b26148ae5f9cca93edc6e1738be2f0",
-                "reference": "ea03ba9f03b26148ae5f9cca93edc6e1738be2f0",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/b3e81a6836423b46b444694720fc75858e9251f9",
+                "reference": "b3e81a6836423b46b444694720fc75858e9251f9",
                 "shasum": ""
             },
             "require": {
@@ -1653,7 +1653,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-13T11:14:58+00:00"
+            "time": "2018-11-13T23:15:07+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
