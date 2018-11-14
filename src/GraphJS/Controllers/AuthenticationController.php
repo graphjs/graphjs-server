@@ -141,8 +141,8 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        $result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
+        $result = $kernel->index()->query(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
                 "username" => $username,
                 "password" => md5($password)
@@ -162,6 +162,18 @@ class AuthenticationController extends AbstractController
             "id" => $user["udid"]
             ]
         );
+
+
+
+        error_log("trying something else");
+        $result = $kernel->index()->client()->run(
+            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
+            [ 
+                "username" => $username,
+                "password" => md5($password)
+            ]
+        );
+        error_log(print_r($result, true));
     }
 
     /**
@@ -207,15 +219,6 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-        /*
-        $result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
-            [ 
-                "username" => $username,
-                "password" => md5($password)
-            ]
-        );
-*/
         error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
         //$success = (count($result->records()) == 1);
@@ -224,23 +227,12 @@ class AuthenticationController extends AbstractController
             return;
         }
         $user = $result->records()[0]->values();
-        $session->set($request, "id", $user[0]);
+        $session->set($request, "id", $user["udid"]);
         $this->succeed(
             $response, [
-            "id" => $user[0]
+            "id" => $user["udid"]
             ]
         );
-
-
-        error_log("trying something else");
-        $result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
-            [ 
-                "username" => $username,
-                "password" => md5($password)
-            ]
-        );
-        error_log(print_r($result, true));
     }
 
     /**
