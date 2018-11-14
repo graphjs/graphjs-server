@@ -145,7 +145,7 @@ class AuthenticationController extends AbstractController
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
                 "username" => $data["username"],
-                "password" => md5($password)
+                "password" => md5($data["password"])
             ]
         );
 
@@ -158,7 +158,7 @@ class AuthenticationController extends AbstractController
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
             [ 
                 "username" => $data["username"],
-                "password" => md5($password)
+                "password" => md5($data["password"])
             ]
         );
         error_log(print_r($_result, true));
