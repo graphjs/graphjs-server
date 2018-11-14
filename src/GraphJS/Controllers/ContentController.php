@@ -90,7 +90,7 @@ class ContentController extends AbstractController
         if(count($res->results())==0) {
             return $kernel->founder()->post($url, $get_title($url));
         }
-        return $kernel->gs()->node($res->results()[0]["udid"]);
+        return $kernel->gs()->node($res->results()[0]["n.udid"]);
     }
  
     public function isStarred(Request $request, Response $response, Session $session, Kernel $kernel)
@@ -285,16 +285,14 @@ class ContentController extends AbstractController
      */
     public function fetchStarredContent(Request $request, Response $response, Kernel $kernel)
     {
-        $res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count");
-        //$res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
-        //eval(\Psy\sh());
-        $array = $res->records();
+        $res = $kernel->index()->query("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count");
+        $array = $res->results();
         $ret = [];
         foreach($array as $a) {
             //$ret[$a->value("content")] = $a->value("star_count");
-            $ret[$a->value("content")] = [
-                "title" => $a->value("the_title"), 
-                "star_count" => $a->value("star_count")
+            $ret[$a["content"]] = [
+                "title" => $a["the_title"], 
+                "star_count" => $a["star_count"]
             ];
         }
         if(count($array)==0) {
@@ -308,19 +306,16 @@ class ContentController extends AbstractController
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
         }
-        $res = $kernel->index()->client()->run(
+        $res = $kernel->index()->query(
             "MATCH (:user {udid: {me}})-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
             array("me"=>$id)
         );
-        //$res = $kernel->index()->client()->run("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, count(e) AS star_count RETURN content, star_count ORDER BY star_count");
-        //eval(\Psy\sh());
-        $array = $res->records();
+        $array = $res->results();
         $ret = [];
         foreach($array as $a) {
-            //$ret[$a->value("content")] = $a->value("star_count");
-            $ret[$a->value("content")] = [
-                "title" => $a->value("the_title"), 
-                "star_count" => $a->value("star_count")
+            $ret[$a["content"]] = [
+                "title" => $a["the_title"], 
+                "star_count" => $a["star_count"]
             ];
         }
         if(count($array)==0) {

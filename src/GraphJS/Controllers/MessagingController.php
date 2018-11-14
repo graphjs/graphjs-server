@@ -259,32 +259,29 @@ class MessagingController extends AbstractController
             $this->fail($response, "Invalid User ID");
             return;
         }
-        $ret = $kernel->index()->client()->run(
+        $ret = $kernel->index()->query(
             "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN startNode(r).udid as t, r ORDER BY r.SentTime DESC",
-            //"MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) return r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
-        $records = $ret->records();
-//        error_log(print_r($records, true));
+        $records = $ret->results();
         $return = [];
         foreach($records as $i=>$res) {
-            $m = $res->get("r");
             try {
-                $obj = $kernel->gs()->edge($m->value("udid"));
+                $obj = $kernel->gs()->edge($res["r.udid"]);
                 $obj->setIsRead(true);
             }
             catch(\Exception $e) {
-                error_log("no message with id: ".$m->value("udid"));
+                error_log("no message with id: ".$res["r.udid"]);
                 continue;
             }
             try {
-                $sender = $res->get("t");
-                $return[$m->value("udid")] = [
-                    "from" => $sender == $id ? $id  : $data["with"],
-                    "to" => $sender == $id ? $data["with"]  : $id,
-                    "message" => $m->value("Content"),
+                $sender = $res["t"];
+                $return[$res["r.udid"]] = [
+                    "from" => ($sender == $id) ? $id  : $data["with"],
+                    "to" => ($sender == $id) ? $data["with"]  : $id,
+                    "message" => $res["r.Content"],
                     "is_read" => true,
-                    "timestamp" => $m->value("SentTime")
+                    "timestamp" => $res["r.SentTime"]
                 ];
             }
             catch(\Exception $e) {

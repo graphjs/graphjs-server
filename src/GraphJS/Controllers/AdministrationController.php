@@ -60,17 +60,17 @@ class AdministrationController extends AbstractController
     protected function _getPendingComments(Kernel $kernel): array
     {
         $pending_comments = [];
-        $res = $kernel->index()->client()->run("MATCH (a:user)-[e:comment {Pending: true}]-(n:page) RETURN a.udid AS author_id, a.Email AS author_email, n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
-        $array = $res->records();
+        $res = $kernel->index()->query("MATCH (a:user)-[e:comment {Pending: true}]-(n:page) RETURN a.udid AS author_id, a.Email AS author_email, n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
+        $array = $res->results();
         foreach($array as $a) {
             $pending_comments[] = [
-                "comment_id" => $a->value("comment_id"),
-                "author_id" => $a->value("author_id"), 
-                "author_email" => $a->value("author_email"), 
-                "page_id" => $a->value("page_id"), 
-                "page_url" => $a->value("page_url"),
-                "page_title" => $a->value("page_title"),
-                "comment" => $a->value("comment"),
+                "comment_id" => $a["comment_id"],
+                "author_id" => $a["author_id"], 
+                "author_email" => $a["author_email"], 
+                "page_id" => $a["page_id"], 
+                "page_url" => $a["page_url"],
+                "page_title" => $a["page_title"],
+                "comment" => $a["comment"]
             ];
         }
         return $pending_comments;

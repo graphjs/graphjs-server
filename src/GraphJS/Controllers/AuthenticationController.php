@@ -195,7 +195,7 @@ class AuthenticationController extends AbstractController
             ]
         );
         error_log(print_r($result, true));
-        $success = (count($result->results()) == 1);
+        $success = (count($result->results()) >= 1);
         if(!$success) {
             error_log("failing!!! ");
             $this->fail($response, "Information don't match records");
@@ -204,10 +204,10 @@ class AuthenticationController extends AbstractController
         error_log("is a  success");
         $user = $result->results()[0];
         error_log(print_r($user));
-        $session->set($request, "id", $user["udid"]);
+        $session->set($request, "id", $user["n.udid"]);
         $this->succeed(
             $response, [
-                "id" => $user["udid"]
+                "id" => $user["n.udid"]
             ]
         );
         error_log("is a  success");
@@ -291,13 +291,13 @@ class AuthenticationController extends AbstractController
                 "email" => $data["email"]
             ]
         );
-        $success = (count($result->results()) == 1);
+        $success = (count($result->results()) >= 1);
         if(!$success) {
             $this->fail($response, "This user is not registered");
             return;
         }
         $user = $result->results()[0];
-        $session->set($request, "id", $user["udid"]);
+        $session->set($request, "id", $user["n.udid"]);
          
          
             $this->succeed($response);
