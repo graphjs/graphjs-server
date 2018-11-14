@@ -141,47 +141,7 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        $result = $kernel->index()->query(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
-            [ 
-                "username" => $data["username"],
-                "password" => md5($data["password"])
-            ]
-        );
-
-        error_log(print_r($result, true));
-        $success = (count($result->results()) == 1);
-
-
-        error_log("trying something else");
-        $_result = $kernel->index()->client()->run(
-            "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n.udid as udid",
-            [ 
-                "username" => $data["username"],
-                "password" => md5($data["password"])
-            ]
-        );
-        error_log(print_r($_result, true));
-
-
-        if(!$success) {
-            $this->fail($response, "Information don't match records");
-            return;
-        }
-        $user = $result->results()[0];
-        $session->set($request, "id", $user["udid"]);
-
-
-
-        
-
-
-        $this->succeed(
-            $response, [
-            "id" => $user["udid"]
-            ]
-        );
-
+        $this->actualLogin($request, $response, $session, $kernel, $data["username"], $data["password"]);
 
 
     }
@@ -222,6 +182,12 @@ class AuthenticationController extends AbstractController
         $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8)); // substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
         error_log("username is: ".$username."\npassword is: ".$password);
         
+        $this->actualLogin($request, $response, $session, $kernel, $username, $password);
+        
+    }
+
+    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
+    {
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
@@ -229,9 +195,8 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-        error_log(print_r($result, true));
+        //error_log(print_r($result, true));
         $success = (count($result->results()) == 1);
-        //$success = (count($result->records()) == 1);
         if(!$success) {
             $this->fail($response, "Information don't match records");
             return;
