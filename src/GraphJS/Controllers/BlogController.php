@@ -39,12 +39,18 @@ class BlogController extends AbstractController
         
         $blogs = [];
         $everything = $kernel->graph()->members();
-        
+        $is_moderated = $kernel->graph()->getCommentsModerated();
         foreach($everything as $thing) {
 
             if($thing instanceof Blog) {
                 error_log("blog id: ".$thing->id()->toString());
                 $publish_time =  intval($thing->getPublishTime());
+                $comments = $is_moderated ?
+                    array_filter($thing->getComments(), function(Comment $comm) {
+                        return $comm->getPending() !== true;
+                    })
+                    : $thing->getComments();
+                $comment_count = (string) count($comments);
                 //eval(\Psy\sh());
                 $blogs[] = [
                     "id" => (string) $thing->id(),
@@ -57,7 +63,8 @@ class BlogController extends AbstractController
                     "start_time" => (string) $thing->getCreateTime(),
                     "is_draft" => ($publish_time == 0),
                     "last_edit" => (string) $thing->getLastEditTime(),
-                    "publish_time" => (string) $publish_time
+                    "publish_time" => (string) $publish_time,
+                    "comment_count" => $comment_count
                 ];
             }
         }
