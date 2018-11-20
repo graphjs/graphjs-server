@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.71.5",
+            "version": "3.73.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ce91558fe7ab0368792c088a573fecf328319deb"
+                "reference": "3b6ebec911d85503f107f2b748acacb2e8485ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce91558fe7ab0368792c088a573fecf328319deb",
-                "reference": "ce91558fe7ab0368792c088a573fecf328319deb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3b6ebec911d85503f107f2b748acacb2e8485ebb",
+                "reference": "3b6ebec911d85503f107f2b748acacb2e8485ebb",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2018-11-13T21:55:30+00:00"
+            "time": "2018-11-20T00:09:45+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -4123,7 +4123,7 @@
                 "pagarme/pagarme-php": ">=0,<3",
                 "paragonie/random_compat": "<2",
                 "paypal/merchant-sdk-php": "<3.12",
-                "phpmailer/phpmailer": ">=5,<5.2.24",
+                "phpmailer/phpmailer": ">=5,<5.2.27|>=6,<6.0.6",
                 "phpunit/phpunit": ">=4.8.19,<4.8.28|>=5.0.10,<5.6.3",
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
@@ -4175,7 +4175,7 @@
                 "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
                 "tecnickcom/tcpdf": "<6.2.22",
                 "thelia/backoffice-default-template": ">=2.1,<2.1.2",
-                "thelia/thelia": ">=2.1.0-beta1,<2.1.3|>=2.1,<2.1.2",
+                "thelia/thelia": ">=2.1,<2.1.2|>=2.1.0-beta1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "titon/framework": ">=0,<9.9.99",
                 "truckersmp/phpwhois": "<=4.3.1",
@@ -4232,7 +4232,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2018-11-01T18:39:28+00:00"
+            "time": "2018-11-16T03:31:38+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
