@@ -130,7 +130,7 @@ class BlogController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
-        $can_edit = (bool) $i->getIsEditor();
+        $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
@@ -159,7 +159,7 @@ class BlogController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
-        $can_edit = (bool) $i->getIsEditor();
+        $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
@@ -235,6 +235,10 @@ class BlogController extends AbstractController
     }
 
 
+    protected function canEdit($actor)
+    {
+        return isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor;
+    }
 
 
     public function publish(Request $request, Response $response, Session $session, Kernel $kernel)
@@ -263,7 +267,7 @@ class BlogController extends AbstractController
         $this->fail($response, "Given ID is not a Blog.");
         return;
     }
-    $can_edit = (bool) $i->getIsEditor();
+    $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
@@ -299,7 +303,7 @@ class BlogController extends AbstractController
     {
         return $this->fail($response, "Invalid ID");
     }
-    $can_edit = (bool) $i->getIsEditor();
+    $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
