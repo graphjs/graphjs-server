@@ -184,8 +184,8 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'setEditor', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->setEditor($request, $response, $kernel);
+            'setBlogEditor', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setBlogEditor($request, $response, $kernel);
             }
         );
 
