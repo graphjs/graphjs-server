@@ -135,7 +135,7 @@ class AdministrationController extends AbstractController
             catch(\Exception $e) {
                 return $this->fail($response, "Invalid user id");
             }
-            $user->setIsEditor($is_editor);
+            $user->attributes()->is_editor = (bool) ($is_editor);
             $this->succeed($response);
     }
 
