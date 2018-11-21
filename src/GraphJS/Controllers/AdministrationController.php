@@ -116,6 +116,29 @@ class AdministrationController extends AbstractController
         $this->succeed($response);
     }
 
+    public function setBlogEditor(Request $request, Response $response, Kernel $kernel)
+    {
+        if(!$this->requireAdministrativeRights(...\func_get_args()))
+            return $this->fail($response, "Invalid hash");
+
+            $data = $request->getQueryParams();
+            $validation = $this->validator->validate($data, [
+                "user_id" => "required",
+            ]);
+            if($validation->fails()) {
+                return $this->fail($response, "A user id  is required");
+            }
+            $is_editor = isset($data["is_editor"]) && (bool) $data["is_editor"];
+            try {
+                $user = $kernel->gs()->node($data["user_id"]);
+            }
+            catch(\Exception $e) {
+                return $this->fail($response, "Invalid user id");
+            }
+            $user->setIsEditor($is_editor);
+            $this->succeed($response);
+    }
+
     public function setCommentModeration(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))

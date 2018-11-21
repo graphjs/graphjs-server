@@ -184,6 +184,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'setEditor', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setEditor($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'setFounderPassword', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->setFounderPassword($request, $response, $kernel);
             }
