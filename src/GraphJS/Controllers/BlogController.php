@@ -130,6 +130,10 @@ class BlogController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
+        $can_edit = (bool) $i->getIsEditor();
+        if(!$can_edit) {
+            return $this->fail($response, "No privileges for blog posts");
+        }
         $blog = $i->postBlog($data["title"], $data["content"]);
         $this->succeed(
             $response, [
@@ -155,8 +159,12 @@ class BlogController extends AbstractController
             return;
         }
         $i = $kernel->gs()->node($id);
+        $can_edit = (bool) $i->getIsEditor();
+        if(!$can_edit) {
+            return $this->fail($response, "No privileges for blog posts");
+        }
         try {
-        $entity = $kernel->gs()->entity($data["id"]);
+            $entity = $kernel->gs()->entity($data["id"]);
         }
         catch(\Exception $e) 
         {
@@ -255,6 +263,10 @@ class BlogController extends AbstractController
         $this->fail($response, "Given ID is not a Blog.");
         return;
     }
+    $can_edit = (bool) $i->getIsEditor();
+        if(!$can_edit) {
+            return $this->fail($response, "No privileges for blog posts");
+        }
     try {
     $i->edit($entity)->setPublishTime(time());
     }
@@ -287,6 +299,10 @@ class BlogController extends AbstractController
     {
         return $this->fail($response, "Invalid ID");
     }
+    $can_edit = (bool) $i->getIsEditor();
+        if(!$can_edit) {
+            return $this->fail($response, "No privileges for blog posts");
+        }
     if(!$entity instanceof Blog) {
         $this->fail($response, "Given ID is not a Blog.");
         return;

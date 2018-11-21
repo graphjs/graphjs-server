@@ -238,9 +238,15 @@ class AuthenticationController extends AbstractController
     public function whoami(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(!is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            try {
+                $i = $kernel->gs()->node($id);
+            }
+            catch(\Exception $e) {
+                return $this->fail($response, "Invalid user");
+            }
             $this->succeed($response, [
                     "id" => $id, 
-                    "admin" => ($id==$kernel->founder()->id()->toString())
+                    "editor" => (bool) $i->hasIsEditor()
                 ]
             );
         }
