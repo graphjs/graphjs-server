@@ -249,7 +249,7 @@ class AuthenticationController extends AbstractController
                     "editor" => ( 
                         (($id==$kernel->founder()->id()->toString())) 
                         || 
-                        (isset($i->attributes()->is_editor) && (bool) $i->getIsEditor())
+                        (isset($i->attributes()->is_editor) && (bool) $i->attributes()->is_editor)
                     )
                 ]
             );
