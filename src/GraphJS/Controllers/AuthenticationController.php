@@ -246,7 +246,7 @@ class AuthenticationController extends AbstractController
             }
             $this->succeed($response, [
                     "id" => $id, 
-                    "editor" => (bool) $i->hasIsEditor()
+                    "editor" => (bool) $i->getIsEditor()
                 ]
             );
         }
