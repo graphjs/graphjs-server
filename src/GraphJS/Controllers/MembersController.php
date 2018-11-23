@@ -42,9 +42,11 @@ class MembersController extends AbstractController
         $members = [];
         foreach($nodes as $node) {
             if($node instanceof User) {
+                $is_editor = (isset($node->attributes()->is_editor) && (bool) $node->attributes()->is_editor);
                 $members[(string) $node->id()] = [
                     "username" => (string) $node->getUsername(),
-                    "avatar" => (string) $node->getAvatar()
+                    "avatar" => (string) $node->getAvatar(),
+                    "is_editor" => intval($is_editor)
                 ];
             }
         }
