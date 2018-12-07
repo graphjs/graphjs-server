@@ -20,8 +20,8 @@ putenv("DATABASE_TYPE=redis");
 putenv("DATABASE_URI=".getenv('REDISCLOUD_URL'));
 
 
-putenv("INDEX_TYPE=neo4j");
-putenv("INDEX_URI=".getenv('GRAPHENEDB_URL'));
+putenv("INDEX_TYPE=redis");
+putenv("INDEX_URI=".getenv('DATABASE_URI'));
 
 preg_match("/^https:\/\/(cloud-cube((-eu)?)).+$/", getenv('CLOUDCUBE_URL'), $matches); // // https://cloud-cube.s3.amazonaws.com
 putenv("STORAGE_TYPE=s3");
