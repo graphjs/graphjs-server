@@ -1125,12 +1125,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-adapters/index-redis.git",
-                "reference": "43f9d803e53e7b2ca2428d48a3300e69171487aa"
+                "reference": "2fe27beea6888f6914ddc0fb2dc19f6e90d9544f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-adapters/index-redis/zipball/43f9d803e53e7b2ca2428d48a3300e69171487aa",
-                "reference": "43f9d803e53e7b2ca2428d48a3300e69171487aa",
+                "url": "https://api.github.com/repos/pho-adapters/index-redis/zipball/2fe27beea6888f6914ddc0fb2dc19f6e90d9544f",
+                "reference": "2fe27beea6888f6914ddc0fb2dc19f6e90d9544f",
                 "shasum": ""
             },
             "require": {
@@ -1160,7 +1160,7 @@
             ],
             "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-12-08T02:43:16+00:00"
+            "time": "2018-12-08T02:46:55+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
