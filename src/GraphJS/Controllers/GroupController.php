@@ -93,8 +93,7 @@ class GroupController extends AbstractController
         }
 
         if(isset($data["title"])) {
-            $v->rule('lengthMax', ['title'], 80);
-            if(!$v->validate()) {
+            if(strlen($data["title"])>80) {
                 $this->fail($response, "Title must be 80 chars or less.");
                 return;
             }
@@ -108,8 +107,7 @@ class GroupController extends AbstractController
         }
 
         if(isset($data["cover"])) {
-            $v->rule('url', ['cover']);
-            if(!$v->validate()) {
+            if(!preg_match('/^https?\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
                 $this->fail($response, "Cover field should point to a URL.");
                 return;
             }
