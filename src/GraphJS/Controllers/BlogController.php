@@ -122,6 +122,10 @@ class BlogController extends AbstractController
             return;
         }
         $data = $request->getQueryParams();
+        if(isset($_POST["title"]))
+            $data["title"]  = $_POST["title"];
+        if(isset($_POST["content"]))
+            $data["content"]  = $_POST["content"];
         $validation = $this->validator->validate($data, [
             'title' => 'required|max:255',
             'content' => 'required',
