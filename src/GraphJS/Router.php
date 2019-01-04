@@ -56,7 +56,7 @@ class Router extends \Pho\Server\Rest\Router
                 $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
             }
             else {
-                error_log("skipping unknown format: ".$url." - parsed as: ".print_r($parsed, true));
+                error_log("skipping unknown format: ".$url." - parsed as    : ".print_r($parsed, true));
             }
         }
         return array_unique($final);
@@ -67,6 +67,9 @@ class Router extends \Pho\Server\Rest\Router
         
         $server->use(
             function (Request $request, Response $response, $next) use ($kernel, $cors) {
+                if("options"==strtolower($request->getMethod())) {
+                    return $response->setStatus(200)->end();
+                }
                 $response->addHeader('Access-Control-Allow-Methods', join(',', [
                     'GET',
                     'POST',
