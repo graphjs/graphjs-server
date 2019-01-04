@@ -220,16 +220,17 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["blog"]->fetch($request, $response, $session, $kernel);
             }
         );
+        $server->post(
+            'startBlogPostByPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->post($request, $response, $session, $kernel);
+            }
+        );
         $server->get(
             'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["blog"]->post($request, $response, $session, $kernel);
             }
         );
-        $server->post(
-            'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
-                $controllers["blog"]->post($request, $response, $session, $kernel);
-            }
-        );
+        
         $server->get(
             'editBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["blog"]->edit($request, $response, $session, $kernel);
