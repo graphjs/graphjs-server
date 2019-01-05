@@ -66,7 +66,7 @@ class Router extends \Pho\Server\Rest\Router
     {
         
         $server->use(
-            function (Request $request, Response $response, $next) use ($kernel, $cors) {
+            function (Request $request, Response $response, $next) use ($kernel, $cors,$server) {
                 
                 $response->addHeader('Access-Control-Allow-Methods', join(',', [
                     'GET',
