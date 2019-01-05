@@ -137,8 +137,9 @@ class Router extends \Pho\Server\Rest\Router
                             'Accept',
                             'Authorization',
                         ]));
+                        $origin = $request->getHeader("origin");
                         $response
-                            ->addHeader("Access-Control-Allow-Origin", "*")
+                            ->addHeader("Access-Control-Allow-Origin", $origin[0])
                             ->setStatus(200)
                             ->end();
                     }
