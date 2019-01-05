@@ -66,7 +66,7 @@ class Router extends \Pho\Server\Rest\Router
     {
         
         $server->use(
-            function (Request $request, Response $response, $next) use ($kernel, $cors,$server) {
+            function (Request $request, Response $response, $next) use ($kernel, $cors) {
                 
                 $response->addHeader('Access-Control-Allow-Methods', join(',', [
                     'GET',
@@ -118,7 +118,7 @@ class Router extends \Pho\Server\Rest\Router
                 }
                 error_log("request method: ". $request->getMethod());
                 
-                $server->on('NotFound', function($request, $response) {
+                $this->on('NotFound', function($request, $response) {
                     if("options"==strtolower($request->getMethod())) {
                         error_log("options request");
                         $response
