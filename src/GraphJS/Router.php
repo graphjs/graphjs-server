@@ -139,7 +139,8 @@ class Router extends \Pho\Server\Rest\Router
                         ]));
                         $response
                             ->addHeader("Access-Control-Allow-Origin", "*")
-                            ->setStatus(200);
+                            ->setStatus(200)
+                            ->end();
                     }
                     else {
                         $response
@@ -249,7 +250,7 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->post(
-            'startBlogPostByPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+            'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["blog"]->post($request, $response, $session, $kernel);
             }
         );
