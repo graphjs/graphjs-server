@@ -125,7 +125,7 @@ class BlogController extends AbstractController
         $_data = $request->getData();
         if(is_array($_data)&&count($_data)>1) {
             $_data = array_keys($_data);
-            $_data = $_data[0];
+            $_data = json_decode($_data[0], true);
         }
         error_log(print_r($_data, true));
         if(isset($_data["title"]))
