@@ -117,10 +117,21 @@ class Router extends \Pho\Server\Rest\Router
                     }
                 }
                 error_log("request method: ". $request->getMethod());
-                if("options"==strtolower($request->getMethod())) {
-                    error_log("options request");
-                    return $response->setStatus(200)->end();
-                }
+                
+                $server->on('NotFound', function($request, $response) {
+                    if("options"==strtolower($request->getMethod())) {
+                        error_log("options request");
+                        $response
+                            ->setStatus(200)
+                            ->end();
+                    }
+                    else {
+                        $response
+                            ->setStatus(404)
+                            ->write('Not found')
+                            ->end();
+                    }
+                });
                 $next();
             }
         );
