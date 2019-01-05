@@ -121,6 +121,22 @@ class Router extends \Pho\Server\Rest\Router
                 $server->on('NotFound', function($request, $response) {
                     if("options"==strtolower($request->getMethod())) {
                         error_log("options request");
+                        $response->addHeader('Access-Control-Allow-Methods', join(',', [
+                            'GET',
+                            'POST',
+                            'PUT',
+                            'DELETE',
+                            'OPTIONS',
+                            'PATCH',
+                            'HEAD',
+                        ]));
+                        $response->addHeader('Access-Control-Allow-Headers', join(',', [
+                            'Origin',
+                            'X-Requested-With',
+                            'Content-Type',
+                            'Accept',
+                            'Authorization',
+                        ]));
                         $response
                             ->addHeader("Access-Control-Allow-Origin", "*")
                             ->setStatus(200)
