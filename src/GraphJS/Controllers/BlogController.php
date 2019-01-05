@@ -123,6 +123,7 @@ class BlogController extends AbstractController
         }
         $data = $request->getQueryParams();
         $_data = $request->getData();
+        error_log(print_r($_data, true));
         if(is_array($_data)&&count($_data)>1) {
             $_data = array_keys($_data);
             $_data = json_decode($_data[0], true);
