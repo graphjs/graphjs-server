@@ -123,6 +123,7 @@ class BlogController extends AbstractController
         }
         $data = $request->getQueryParams();
         $_data = $request->getData();
+        error_log(print_r($_data, true));
         if(isset($_data["title"]))
             $data["title"]  = $_data["title"];
         if(isset($_data["content"]))
