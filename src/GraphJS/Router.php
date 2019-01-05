@@ -67,11 +67,7 @@ class Router extends \Pho\Server\Rest\Router
         
         $server->use(
             function (Request $request, Response $response, $next) use ($kernel, $cors) {
-                error_log("request method: ". $request->getMethod());
-                if("options"==strtolower($request->getMethod())) {
-                    error_log("options request");
-                    return $response->setStatus(200)->end();
-                }
+                
                 $response->addHeader('Access-Control-Allow-Methods', join(',', [
                     'GET',
                     'POST',
@@ -119,6 +115,11 @@ class Router extends \Pho\Server\Rest\Router
                     else {
                         $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
                     }
+                }
+                error_log("request method: ". $request->getMethod());
+                if("options"==strtolower($request->getMethod())) {
+                    error_log("options request");
+                    return $response->setStatus(200)->end();
                 }
                 $next();
             }
