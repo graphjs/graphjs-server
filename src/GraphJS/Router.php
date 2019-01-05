@@ -122,6 +122,7 @@ class Router extends \Pho\Server\Rest\Router
                     if("options"==strtolower($request->getMethod())) {
                         error_log("options request");
                         $response
+                            ->addHeader("Access-Control-Allow-Origin", "*")
                             ->setStatus(200)
                             ->end();
                     }
