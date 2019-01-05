@@ -139,8 +139,7 @@ class Router extends \Pho\Server\Rest\Router
                         ]));
                         $response
                             ->addHeader("Access-Control-Allow-Origin", "*")
-                            ->setStatus(200)
-                            ->end();
+                            ->setStatus(200);
                     }
                     else {
                         $response
