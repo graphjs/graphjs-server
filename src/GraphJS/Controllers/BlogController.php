@@ -169,6 +169,8 @@ class BlogController extends AbstractController
             $data["title"]  = $_data["title"];
         if(isset($_data["content"]))
             $data["content"]  = $_data["content"];
+        if(isset($_data["id"]))
+            $data["id"]  = $_data["id"];
         $validation = $this->validator->validate($data, [
             'id' => 'required',
             'title'=>'required',
