@@ -225,6 +225,8 @@ class ForumController extends AbstractController
                     }
                 }
                 unset($contributors);
+                if(is_null($thing->edges()->in(Start::class)->current())) 
+                    continue;
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
