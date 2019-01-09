@@ -3,6 +3,12 @@
     "description": "Serving GraphJS",
     "repository": "https://github.com/phonetworks/graphjs-server",
     "addons": ["cloudcube", "mailgun"],
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "hobby"
+          }
+    },
     "env": {
           "PASSWORD_REMINDER": {
               "value": "/tmp/pins/"
