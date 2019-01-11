@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "759db576c47c020667c79e5f79a3e33d",
+    "content-hash": "a47c4a2e82283ea536ca421ab824b31f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -640,6 +640,41 @@
             "time": "2018-12-04T20:46:45+00:00"
         },
         {
+            "name": "kjdev/redis-graph",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kjdev/php-redis-graph.git",
+                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kjdev/php-redis-graph/zipball/143725c63f5a9ea51953048f00e2825f0ab376a1",
+                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1",
+                "shasum": ""
+            },
+            "suggest": {
+                "ext-redis": "If you want to use redis extension.",
+                "predis/predis": "If you want to use predis."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Redis\\": "src/Redis/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP RedisGraph client",
+            "homepage": "https://github.com/kjdev/php-redis-graph",
+            "keywords": [
+                "redis"
+            ],
+            "time": "2018-10-24T22:59:55+00:00"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.49",
             "source": {
@@ -1083,6 +1118,49 @@
             "description": "A development-only implementation of events adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
             "time": "2018-01-07T11:50:53+00:00"
+        },
+        {
+            "name": "pho-adapters/index-redis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pho-adapters/index-redis.git",
+                "reference": "272f3d8bc949e0aad2731d31901b653183665287"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pho-adapters/index-redis/zipball/272f3d8bc949e0aad2731d31901b653183665287",
+                "reference": "272f3d8bc949e0aad2731d31901b653183665287",
+                "shasum": ""
+            },
+            "require": {
+                "kjdev/redis-graph": "^1.0",
+                "php": "^7.1",
+                "predis/predis": "^1.1"
+            },
+            "provide": {
+                "phonetworks/service-index-implementation": "1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pho\\Kernel\\Services\\Index\\Adapters\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
+            "homepage": "https://phonetworks.org",
+            "time": "2018-12-18T04:12:07+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
@@ -4071,6 +4149,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "pho-adapters/index-redis": 20,
         "pho-recipes/web": 20,
         "phonetworks/pho-kernel": 20,
         "pho-adapters/storage-aws-s3": 20,
