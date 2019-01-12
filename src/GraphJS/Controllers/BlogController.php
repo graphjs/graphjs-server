@@ -52,6 +52,14 @@ class BlogController extends AbstractController
                     })
                     : $thing->getComments();
                 $comment_count = (string) count($comments);
+                $author = $thing->getAuthor();
+                if(!($author instanceof User)) {
+                    continue;
+                    if(!is_array($author)) {
+                        continue;
+                    }
+                    $author = $author[0];
+                }
                 //eval(\Psy\sh());
                 $blogs[] = [
                     "id" => (string) $thing->id(),
@@ -150,13 +158,6 @@ class BlogController extends AbstractController
             return;
         }
      $data = $request->getQueryParams();
-     $_data = $request->getData();
-        if(isset($_data["title"]))
-            $data["title"]  = $_data["title"];
-        if(isset($_data["content"]))
-            $data["content"]  = $_data["content"];
-        if(isset($_data["id"]))
-            $data["id"]  = $_data["id"];
         $validation = $this->validator->validate($data, [
             'id' => 'required',
             'title'=>'required',
@@ -247,7 +248,7 @@ class BlogController extends AbstractController
     {
         return (
             $kernel->founder()->id()->equals($actor->id()) ||
-            isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor
+            isset($actor->attributes()->IsEditor) && (bool) $actor->attributes()->IsEditor
         );
     }
 
