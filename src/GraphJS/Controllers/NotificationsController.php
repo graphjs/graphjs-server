@@ -37,13 +37,13 @@ class NotificationsController extends AbstractController
             return;
         }
         $ret = [];
-        $i=0;
+        $c=0;
         $notifications = $i->notifications()->read(5);
         foreach($notifications as $notification) {
-            $ret[$i]["username"] =  $notification->edge()->tail()->getUsername();
-            $ret[$i]["avatar"] =  $notification->edge()->tail()->getAvatar();
-            $ret[$i]["label"] =  $notification->label();
-            $i+=1;
+            $ret[$c]["username"] =  $notification->edge()->tail()->getUsername();
+            $ret[$c]["avatar"] =  $notification->edge()->tail()->getAvatar();
+            $ret[$c]["label"] =  $notification->label();
+            $c+=1;
         }
         $this->succeed($response, $ret);
     }
