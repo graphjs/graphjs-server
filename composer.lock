@@ -1285,16 +1285,16 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.2.3",
+            "version": "11.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "3f5ed52b48190dda40333c450e16c765c33743ee"
+                "reference": "2342a4b729930e7dab99e1c194aef44a2e083bd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/3f5ed52b48190dda40333c450e16c765c33743ee",
-                "reference": "3f5ed52b48190dda40333c450e16c765c33743ee",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/2342a4b729930e7dab99e1c194aef44a2e083bd9",
+                "reference": "2342a4b729930e7dab99e1c194aef44a2e083bd9",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1339,7 @@
                 "network",
                 "social"
             ],
-            "time": "2018-11-13T10:13:13+00:00"
+            "time": "2019-01-14T09:47:41+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
