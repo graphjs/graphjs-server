@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.85.1",
+            "version": "3.85.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e232d117d0124ccb7059cd6db90f45dd23cda3f3"
+                "reference": "c113c8008dedb257d1f47770aab1963acf4be092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e232d117d0124ccb7059cd6db90f45dd23cda3f3",
-                "reference": "e232d117d0124ccb7059cd6db90f45dd23cda3f3",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c113c8008dedb257d1f47770aab1963acf4be092",
+                "reference": "c113c8008dedb257d1f47770aab1963acf4be092",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-01-11T19:22:05+00:00"
+            "time": "2019-01-14T23:06:17+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1251,12 +1251,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Web.git",
-                "reference": "8e507da3be6154c11fe6d034c26bd8e7dd2c2935"
+                "reference": "aad11b18d6992a49314a57345adaabb549c22acd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/8e507da3be6154c11fe6d034c26bd8e7dd2c2935",
-                "reference": "8e507da3be6154c11fe6d034c26bd8e7dd2c2935",
+                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/aad11b18d6992a49314a57345adaabb549c22acd",
+                "reference": "aad11b18d6992a49314a57345adaabb549c22acd",
                 "shasum": ""
             },
             "require": {
@@ -1281,20 +1281,20 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-13T01:25:23+00:00"
+            "time": "2019-01-15T07:33:49+00:00"
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.2.4",
+            "version": "11.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "2342a4b729930e7dab99e1c194aef44a2e083bd9"
+                "reference": "43b85076f120451e45b79692b352d4ee0d7dda32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/2342a4b729930e7dab99e1c194aef44a2e083bd9",
-                "reference": "2342a4b729930e7dab99e1c194aef44a2e083bd9",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/43b85076f120451e45b79692b352d4ee0d7dda32",
+                "reference": "43b85076f120451e45b79692b352d4ee0d7dda32",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1339,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-01-14T09:47:41+00:00"
+            "time": "2019-01-15T05:37:29+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1441,18 +1441,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "509e0f8722c10292c1c0d33bd2c64de01b3643bd"
+                "reference": "dc889a8ccba0890a7e90e1b1244bc28f5fb2e807"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/509e0f8722c10292c1c0d33bd2c64de01b3643bd",
-                "reference": "509e0f8722c10292c1c0d33bd2c64de01b3643bd",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/dc889a8ccba0890a7e90e1b1244bc28f5fb2e807",
+                "reference": "dc889a8ccba0890a7e90e1b1244bc28f5fb2e807",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
                 "monolog/monolog": "^1.22",
-                "phonetworks/pho-framework": "^11.0",
+                "phonetworks/pho-framework": "^11.3",
                 "php": "^7.1",
                 "pimple/pimple": "^1.1",
                 "psr/log": "^1.0",
@@ -1490,7 +1490,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14T03:55:39+00:00"
+            "time": "2019-01-15T07:00:58+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -3685,6 +3685,7 @@
                 "pagarme/pagarme-php": ">=0,<3",
                 "paragonie/random_compat": "<2",
                 "paypal/merchant-sdk-php": "<3.12",
+                "pear/archive_tar": "<1.4.4",
                 "phpmailer/phpmailer": ">=5,<5.2.27|>=6,<6.0.6",
                 "phpoffice/phpexcel": "<=1.8.1",
                 "phpoffice/phpspreadsheet": "<=1.5",
@@ -3739,7 +3740,7 @@
                 "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
                 "tecnickcom/tcpdf": "<6.2.22",
                 "thelia/backoffice-default-template": ">=2.1,<2.1.2",
-                "thelia/thelia": ">=2.1.0-beta1,<2.1.3|>=2.1,<2.1.2",
+                "thelia/thelia": ">=2.1,<2.1.2|>=2.1.0-beta1,<2.1.3",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "titon/framework": ">=0,<9.9.99",
                 "truckersmp/phpwhois": "<=4.3.1",
@@ -3797,7 +3798,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-01-11T12:28:42+00:00"
+            "time": "2019-01-15T04:15:58+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
