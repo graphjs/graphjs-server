@@ -164,6 +164,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
         self::initBlog(...\func_get_args());
+        self::initNotifications(...\func_get_args());
         self::initAdministration(...\func_get_args());
 
     }
@@ -182,6 +183,16 @@ class Router extends \Pho\Server\Rest\Router
                 //$response->addHeader("Access-Control-Allow-Origin", "http://localhost:8080");   // cors
                 //eval(\Psy\sh());
                 $next();
+            }
+        );
+    }
+
+    protected static function initNotifications(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'getNotifications', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["notifications"]->read($request, $response, $session, $kernel);
             }
         );
     }
