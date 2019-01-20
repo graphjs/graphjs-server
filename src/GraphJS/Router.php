@@ -191,6 +191,11 @@ class Router extends \Pho\Server\Rest\Router
     {
         $session = self::$session;
         $server->get(
+            'getNotificationsCount', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["notifications"]->count($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
             'getNotifications', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["notifications"]->read($request, $response, $session, $kernel);
             }

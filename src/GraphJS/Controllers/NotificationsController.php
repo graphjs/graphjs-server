@@ -26,7 +26,8 @@ use Pho\Lib\Graph\ID;
  */
 class NotificationsController extends AbstractController
 {
-    public function read(Request $request, Response $response, Session $session, Kernel $kernel)
+
+    public function count(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
@@ -39,7 +40,23 @@ class NotificationsController extends AbstractController
         $ret = [];
         $c=0;
         $ret["count"] = $i->notifications()->count();
-        error_log("Count is: ". $ret["count"]);
+        $this->succeed($response, $ret);
+    }
+
+    public function read(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $i = $kernel->gs()->node($id);
+        if(!$i instanceof User) {
+            $this->fail($response, "Session Problem");
+            return;
+        }
+        $ret = [];
+        $c=0;
+        //$ret["count"] = $i->notifications()->count();
+        //error_log("Count is: ". $ret["count"]);
         $notifications = $i->notifications()->read(5);
         //error_log(print_r($notifications, true));
         error_log("started");
