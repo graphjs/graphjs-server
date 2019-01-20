@@ -55,9 +55,9 @@ class NotificationsController extends AbstractController
         }
         $ret = [];
         $c=0;
-        //$ret["count"] = $i->notifications()->count();
+        $ret["count"] = $i->notifications()->count();
         //error_log("Count is: ". $ret["count"]);
-        $notifications = $i->notifications()->read(5);
+        $notifications = $i->notifications()->read(20);
         //error_log(print_r($notifications, true));
         error_log("started");
         foreach($notifications as $notification) {
