@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.85.2",
+            "version": "3.86.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c113c8008dedb257d1f47770aab1963acf4be092"
+                "reference": "50224232ac7a4e2a6fa4ebbe0281e5b7503acf76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c113c8008dedb257d1f47770aab1963acf4be092",
-                "reference": "c113c8008dedb257d1f47770aab1963acf4be092",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/50224232ac7a4e2a6fa4ebbe0281e5b7503acf76",
+                "reference": "50224232ac7a4e2a6fa4ebbe0281e5b7503acf76",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-01-14T23:06:17+00:00"
+            "time": "2019-01-18T21:10:44+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1285,16 +1285,16 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.3.0",
+            "version": "11.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "43b85076f120451e45b79692b352d4ee0d7dda32"
+                "reference": "796257a1d84e93d77a6451ec43ede487179ce0f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/43b85076f120451e45b79692b352d4ee0d7dda32",
-                "reference": "43b85076f120451e45b79692b352d4ee0d7dda32",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/796257a1d84e93d77a6451ec43ede487179ce0f3",
+                "reference": "796257a1d84e93d77a6451ec43ede487179ce0f3",
                 "shasum": ""
             },
             "require": {
@@ -1339,7 +1339,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-01-15T05:37:29+00:00"
+            "time": "2019-01-20T12:21:38+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1441,12 +1441,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "dc889a8ccba0890a7e90e1b1244bc28f5fb2e807"
+                "reference": "f3c714c4517a8ac28a24b8431f70f0bd4e196092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/dc889a8ccba0890a7e90e1b1244bc28f5fb2e807",
-                "reference": "dc889a8ccba0890a7e90e1b1244bc28f5fb2e807",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/f3c714c4517a8ac28a24b8431f70f0bd4e196092",
+                "reference": "f3c714c4517a8ac28a24b8431f70f0bd4e196092",
                 "shasum": ""
             },
             "require": {
@@ -1490,7 +1490,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-15T07:00:58+00:00"
+            "time": "2019-01-20T12:18:50+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -3617,6 +3617,7 @@
                 "alterphp/easyadmin-extension-bundle": ">=1.2,<1.2.11|>=1.3,<1.3.1",
                 "amphp/artax": "<1.0.6|>=2,<2.0.6",
                 "amphp/http": "<1.0.1",
+                "api-platform/core": ">=2.2,<2.2.10|>=2.3,<2.3.6",
                 "asymmetricrypt/asymmetricrypt": ">=0,<9.9.99",
                 "aws/aws-sdk-php": ">=3,<3.2.1",
                 "brightlocal/phpwhois": "<=4.2.5",
@@ -3740,7 +3741,7 @@
                 "symfony/yaml": ">=2,<2.0.22|>=2.1,<2.1.7",
                 "tecnickcom/tcpdf": "<6.2.22",
                 "thelia/backoffice-default-template": ">=2.1,<2.1.2",
-                "thelia/thelia": ">=2.1,<2.1.2|>=2.1.0-beta1,<2.1.3",
+                "thelia/thelia": ">=2.1.0-beta1,<2.1.3|>=2.1,<2.1.2",
                 "theonedemon/phpwhois": "<=4.2.5",
                 "titon/framework": ">=0,<9.9.99",
                 "truckersmp/phpwhois": "<=4.3.1",
@@ -3798,7 +3799,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-01-15T04:15:58+00:00"
+            "time": "2019-01-15T19:39:37+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
