@@ -65,6 +65,7 @@ class Router extends \Pho\Server\Rest\Router
     public static function init2(Server $server, array $controllers, Kernel $kernel, string $cors): void
     {
         
+
         $server->use(
             function (Request $request, Response $response, $next) use ($kernel, $cors, $server) {
                 
@@ -154,6 +155,20 @@ class Router extends \Pho\Server\Rest\Router
                 $next();
             }
         );
+        $server->use(function(Request $request, Response $response, $next) {
+            $is_inactive = (null==getenv("IS_INACTIVE") || intval(getenv("IS_INACTIVE")) != 1) ? false : true;
+            if(!$is_inactive) {
+                $next();
+            }
+            else {
+                $response
+                    ->writeJson([
+                        "success" => false,
+                        "reason"   => "Instance inactive"
+                    ])
+                    ->end();
+            }
+        });
         self::initSession(...\func_get_args());
         self::initAuthentication(...\func_get_args());
         self::initMessaging(...\func_get_args());
