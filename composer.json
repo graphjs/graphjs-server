@@ -4,7 +4,7 @@
     "require": {
         "php": "^7.1.0",
         "phonetworks/pho-server-rest": "^2.1.3",
-        "pho-adapters/index-redis": "dev-master",
+        "pho-adapters/index-neo4j": "dev-master",
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
         "pho-adapters/storage-aws-s3": "dev-master",
