@@ -16,7 +16,8 @@
         "ramsey/uuid": "^3.0",
         "superbalist/php-pubsub-redis": "^2.0",
         "defuse/php-encryption": "^2.2",
-        "rakit/validation": "^0.22.2"
+        "rakit/validation": "^0.22.2",
+        "php-http/guzzle6-adapter": "^1.0"
     },
     "require-dev": {
         "psy/psysh": "*",
