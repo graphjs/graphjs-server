@@ -266,6 +266,21 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Valid email required.");
             return;
         }
+
+
+        $result = $kernel->index()->query(
+            "MATCH (n:user {Email: {email}}) RETURN n",
+            [ 
+                "email" => $data["email"]
+            ]
+        );
+        $success = (count($result->results()) >= 1);
+        if(!$success) {
+            $this->succeed($response); // because we don't want to let them kniow our userbase
+            return;
+        }
+
+
         // check if email exists ?
         $pin = mt_rand(100000, 999999);
         file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
