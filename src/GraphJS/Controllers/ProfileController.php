@@ -138,7 +138,7 @@ class ProfileController extends AbstractController
                 return;
             }
             $sets[] = "birthday";
-            $i->setBirthday($data["birthday"]);
+            $i->setBirthday(strtotime($data["birthday"]));
         }
 
         if(isset($data["avatar"])) {
