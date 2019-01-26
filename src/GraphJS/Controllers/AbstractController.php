@@ -100,6 +100,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     public function kill() 
     {
+        $kernel->doSomethingItCannotDo();
         throw new \Exception("die");
     }
 }
