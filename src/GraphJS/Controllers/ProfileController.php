@@ -142,7 +142,7 @@ class ProfileController extends AbstractController
                 
             }
             catch(\Exception $e) {
-                return $this->fail($response, "Birthday invalid.");
+                return $this->fail($response, "Birthday invalid. - 2");
             }
             $i->setBirthday($dt->getTimestamp());
             $sets[] = "birthday";
