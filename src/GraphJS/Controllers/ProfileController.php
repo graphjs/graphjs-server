@@ -130,6 +130,7 @@ class ProfileController extends AbstractController
        }
 
         if(isset($data["birthday"])) {
+            /*
             $validation = $this->validator->validate($data, [
                 'birthday' => 'date|before:13 years ago',
             ]);
@@ -137,6 +138,7 @@ class ProfileController extends AbstractController
                 $this->fail($response, "Birthday invalid.");
                 return;
             }
+            */
             try {
                 $dt = \DateTime::createFromFormat('m/d/Y', $data["birthday"]);
                 
