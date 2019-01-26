@@ -137,8 +137,15 @@ class ProfileController extends AbstractController
                 $this->fail($response, "Birthday invalid.");
                 return;
             }
+            try {
+                $dt = \DateTime::createFromFormat('m/d/Y', $data["birthday"]);
+                
+            }
+            catch(\Exception $e) {
+                return $this->fail($response, "Birthday invalid.");
+            }
+            $i->setBirthday($dt->getTimestamp());
             $sets[] = "birthday";
-            $i->setBirthday(strtotime($data["birthday"]));
         }
 
         if(isset($data["avatar"])) {
