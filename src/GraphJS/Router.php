@@ -221,12 +221,6 @@ class Router extends \Pho\Server\Rest\Router
     {
 
         $server->get(
-            'dieBabyDieTillYouDieKisses09843', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
-                $controllers["authentication"]->kill();
-            }
-        );
-
-        $server->get(
             'deleteMember', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->deleteMember($request, $response, $kernel);
             }

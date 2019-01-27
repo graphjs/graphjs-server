@@ -97,10 +97,4 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
     {
         return preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $password);
     }
-
-    public function kill() 
-    {
-        $kernel->doSomethingItCannotDo();
-        throw new \Exception("die");
-    }
 }
