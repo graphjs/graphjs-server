@@ -182,6 +182,15 @@ class Router extends \Pho\Server\Rest\Router
         self::initNotifications(...\func_get_args());
         self::initAdministration(...\func_get_args());
 
+        $server->get('', function(Request $request, Response $response) {
+            $response
+                    ->addHeader("Access-Control-Allow-Credentials", "true")
+                    ->writeJson([
+                        "success" => false,
+                        "reason"   => "Path does not exist. Try /whoami"
+                    ])
+                    ->end();
+        }); 
     }
 
     
