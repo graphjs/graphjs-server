@@ -16,9 +16,15 @@ GraphJS-Server does not rely on a third party HTTP Server such as [NGINX](https:
 * Redis: [Install](https://redis.io/topics/quickstart)
 * Neo4j: [Install](https://neo4j.com/download/)
 
-## Installation
+## Heroku Installation
+
+Heroku is popular cloud provider by Salesforce. To install, just click the button below, and when asked, fill in the form with your email (you don't need to touch any other fields):
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/phonetworks/graphjs-server/tree/master)
+
+> **WARNING for Heroku installations**: Since GrapheneDB (the cloud Neo4J provider) provision takes longer than app's initial build and launch, you will need to reboot (re-deploy) the app once after it's built for the first time. Otherwise, there will be issues with the instance, and you won't be able to run the API calls properly. This is a common issue first-time Heroku installers are facing, please beware.
+
+## Manual Installation
 
 In case, heroku installation is not an option for you, here are the steps to install it manually:
 
