@@ -230,6 +230,12 @@ class Router extends \Pho\Server\Rest\Router
     {
 
         $server->get(
+            'getId', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchId($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'deleteMember', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->deleteMember($request, $response, $kernel);
             }

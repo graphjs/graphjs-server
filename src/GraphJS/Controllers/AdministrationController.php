@@ -255,5 +255,31 @@ class AdministrationController extends AbstractController
         $this->fail($response, "The ID does not belong to a User.");
     }
  
+    public function fetchId(Request $request, Response $response, Kernel $kernel)
+    {
+      $data = $request->getQueryParams();
+      $validation = $this->validator->validate($data, [
+          "ref" => "required"
+      ]);
+      if($validation->fails()) {
+          return $this->fail($response, "User ID unavailable.");
+      }
+      $clean_ref = \str_replace(['"',"'","\\"], "", $data["ref"]);
+      $res = $kernel->index()->query("MATCH (a:user {Username: \"".$clean_ref."\"}) RETURN a.udid AS author_id");
+        $array = $res->results();
+        if(count($array)==1)
+            return $this->succeed($response, ["id"=>$array[0]["author_id"]]);
+        $res = $kernel->index()->query("MATCH (a:group {Title: \"".$clean_ref."\"}) RETURN a.udid AS group_id");
+            $array = $res->results();
+            if(count($array)==1)
+                return $this->succeed($response, ["id"=>$array[0]["group_id"]]);
+        $res = $kernel->index()->query("MATCH (a:group {Title: \"".\str_replace("_"," ", $clean_ref)."\"}) RETURN a.udid AS group_id");
+                $array = $res->results();
+                if(count($array)==1)
+                    return $this->succeed($response, ["id"=>$array[0]["group_id"]]);
+
+        return $this->fail($response, "No such user or group");
+            
+  }
 
 }
