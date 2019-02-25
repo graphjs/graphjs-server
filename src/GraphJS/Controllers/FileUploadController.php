@@ -5,6 +5,7 @@ namespace GraphJS\Controllers;
 use Aws\S3\S3Client;
 use CapMousse\ReactRestify\Http\Request;
 use CapMousse\ReactRestify\Http\Response;
+use CapMousse\ReactRestify\Http\Session;
 use GraphJS\S3Uploader;
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
@@ -38,8 +39,11 @@ class FileUploadController extends AbstractController
         return $s3Client;
     }
 
-    public function upload(Request $request, Response $response, Kernel $kernel)
+    public function upload(Request $request, Response $response, Session $session, Kernel $kernel)
     {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
         $uuid = getenv('UUID');
         $httpRequest = $request->httpRequest;
         $contentType = $httpRequest->getHeader('content-type');

@@ -672,9 +672,10 @@ class Router extends \Pho\Server\Rest\Router
 
     protected function initFileUpload(Server $server, array $controllers, Kernel $kernel)
     {
+        $session = self::$session;
         $server->post(
             'uploadFile', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["fileupload"]->upload($request, $response, $kernel);
+                $controllers["fileupload"]->upload($request, $response, $session, $kernel);
         }
         );
     }
