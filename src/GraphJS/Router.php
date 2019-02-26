@@ -674,7 +674,7 @@ class Router extends \Pho\Server\Rest\Router
     {
         $session = self::$session;
         $server->post(
-            'uploadFile', function (Request $request, Response $response) use ($controllers, $kernel) {
+            'uploadFile', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
                 $controllers["fileupload"]->upload($request, $response, $session, $kernel);
         }
         );
