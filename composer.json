@@ -18,7 +18,9 @@
         "ramsey/uuid": "^3.0",
         "superbalist/php-pubsub-redis": "^2.0",
         "rakit/validation": "^0.22.2",
-        "php-http/guzzle6-adapter": "^1.0"
+        "php-http/guzzle6-adapter": "^1.0",
+        "riverline/multipart-parser": "^2.0",
+        "aws/aws-sdk-php": "^3.87"
     },
     "require-dev": {
         "psy/psysh": "*",
