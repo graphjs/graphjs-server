@@ -12,12 +12,22 @@ use Riverline\MultiPartParser\StreamedPart;
 
 class FileUploadController extends AbstractController
 {
-    private $s3Uploader;
+    private $s3Uploader = null;
 
     public function __construct()
     {
         parent::__construct();
-        $this->s3Uploader = new S3Uploader($this->getS3Client(), getenv('AWS_S3_BUCKET'));
+        if($this->isS3Active())
+            $this->s3Uploader = new S3Uploader($this->getS3Client(), getenv('AWS_S3_BUCKET'));
+    }
+
+    private function isS3Active(): bool
+    {
+        $key = getenv('AWS_KEY');
+        $secret = getenv('AWS_SECRET');
+        $region = getenv('AWS_REGION');
+        $version = getenv('AWS_VERSION');
+        return !(empty($key)||empty($secret)||empty($region)||empty($version));
     }
 
     public function getS3Client()
