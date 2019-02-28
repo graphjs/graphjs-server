@@ -54,18 +54,19 @@ class FileUploadController extends AbstractController
         rewind($stream);
 
         $document = new StreamedPart($stream);
-        $allowedContentTypes = [ 'image/jpeg', 'image/png', 'image/gif' ];
+        $allowedContentTypes = [ 'image/jpeg'=>"jpg", 'image/png'=>"png", 'image/gif'=>"gif" ];
         $urls = [];
         if ($document->isMultiPart()) {
             $parts = $document->getParts();
             foreach ($parts as $part) {
                 $mime = $part->getMimeType();
-                if (! ($part->isFile() && in_array($mime, $allowedContentTypes))) {
+                if (! ($part->isFile() && array_key_exists($mime, $allowedContentTypes))) {
                     continue;
                 }
 
                 $body = $part->getBody();
-                $filename = $part->getFileName();
+                //$filename = $part->getFileName();
+                $filename = sprintf("%s-%s.%s", $id, (string) time(), $allowedContentTypes[$mime]);
 
                 $key = "{$uuid}/{$filename}";
                 $url = $this->s3Uploader->upload($key, $body, $mime);
