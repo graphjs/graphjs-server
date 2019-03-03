@@ -145,7 +145,7 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "Invalid hash");
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
-            "moderator" => "required"
+            "moderated" => "required"
         ]);
         //$v->rule('boolean', ['moderated']);
         if($validation->fails()) {
