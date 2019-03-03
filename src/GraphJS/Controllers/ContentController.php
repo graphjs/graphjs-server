@@ -50,14 +50,25 @@ class ContentController extends AbstractController
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
-            'url' => 'required|url',
+                        'url' => 'required_without:id|url',
+                        'id' => 'required_without:url',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Url required.");
+            $this->fail($response, "Url or ID required.");
             return;
         }
         $i = $kernel->gs()->node($id);  
-        $page = $this->_fromUrlToNode($kernel, $data["url"]);
+        //$page = $this->_fromUrlToNode($kernel, $data["url"]);
+        if(isset($data["url"])&&!empty($data["url"]))  {
+                    $page = $this->_fromUrlToNode($kernel, $data["url"]);
+                }
+                else {
+                    error_log("in id");
+                    $page = $kernel->gs()->node($data["id"]);
+                    if(!$page instanceof Page && !$page instanceof Blog) {
+                        return $this->fail($response, "Can only star a Blog or Web Page.");
+                    }
+                }
         $i->star($page);    
         $this->succeed(
             $response, [
@@ -97,13 +108,23 @@ class ContentController extends AbstractController
     {
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
-            'url' => 'required|url',
+            'url' => 'required_without:id|url',
+            'id' => 'required_without:url',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Url required.");
+            $this->fail($response, "Url or ID required.");
             return;
         }
-          $page = $this->_fromUrlToNode($kernel, $data["url"]);
+        if(isset($data["url"])&&!empty($data["url"]))  {
+                        $page = $this->_fromUrlToNode($kernel, $data["url"]);
+                    }
+                    else {
+                        error_log("in id");
+                        $page = $kernel->gs()->node($data["id"]);
+                        if(!$page instanceof Page && !$page instanceof Blog) {
+                            return $this->fail($response, "Can only star a Blog or Web Page.");
+                        }
+                    }
           $starrers = $page->getStarrers();
           $me= $session->get($request, "id");
           $this->succeed(
@@ -256,14 +277,25 @@ class ContentController extends AbstractController
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
-            'url' => 'required|url',
+            'url' => 'required_without:id|url',
+            'id' => 'required_without:url',
         ]);
+
         if($validation->fails()) {
-            $this->fail($response, "Url required.");
+            $this->fail($response, "Url or ID required.");
             return;
         }
         $i = $kernel->gs()->node($id);  
-        $page = $this->_fromUrlToNode($kernel, $data["url"]);
+        if(isset($data["url"])&&!empty($data["url"]))  {
+            $page = $this->_fromUrlToNode($kernel, $data["url"]);
+        }
+        else {
+        error_log("in id");
+            $page = $kernel->gs()->node($data["id"]);
+            if(!$page instanceof Page && !$page instanceof Blog) {
+                return $this->fail($response, "Can only star a Blog or Web Page.");
+            }
+        }
         $stars = iterator_to_array($i->edges()->between($page->id(), Star::class));
         error_log("Total star count: ".count($stars));
         foreach($stars as $star) {

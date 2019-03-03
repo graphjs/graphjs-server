@@ -379,8 +379,8 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'resetPassword', function (Request $request, Response $response) use ($controllers) {
-                $controllers["authentication"]->reset($request, $response);
+            'resetPassword', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["authentication"]->reset($request, $response, $kernel);
             }
         );
         $server->get(
