@@ -107,7 +107,7 @@ class GroupController extends AbstractController
         }
 
         if(isset($data["cover"])) {
-            if(!preg_match('/^https?\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
+            if(!preg_match('/^https?:\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
                 $this->fail($response, "Cover field should point to a URL.");
                 return;
             }
