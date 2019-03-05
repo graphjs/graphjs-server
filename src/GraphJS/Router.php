@@ -282,6 +282,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
             }
         );
+
+        $server->get(
+            'getSingleSignonKey', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchSingleSignonKey($request, $response, $kernel);
+            }
+        );
     }
 
     protected static function initBlog(Server $server, array $controllers, Kernel $kernel): void

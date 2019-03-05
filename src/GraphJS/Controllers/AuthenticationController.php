@@ -33,7 +33,6 @@ class AuthenticationController extends AbstractController
         if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = base64_decode($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'username' => 'required',
@@ -49,7 +48,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         try {
-            $username = Crypto::decrypt($data["token"], $token_key);
+            $username = Crypto::decrypt($data["token"], $key);
         }
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
@@ -171,7 +170,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         try {
-            $username = Crypto::decrypt($data["token"], $token_key);
+            $username = Crypto::decrypt($data["token"], $key);
         }
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
