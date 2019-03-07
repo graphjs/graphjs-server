@@ -78,7 +78,7 @@ class FileUploadController extends AbstractController
                 //$filename = $part->getFileName();
                 $filename = sprintf("%s-%s.%s", $id, (string) time(), $allowedContentTypes[$mime]);
 
-                $key = "{$uuid}/{$filename}";
+                $key = strtolower("{$uuid}/{$filename}");
                 $url = $this->s3Uploader->upload($key, $body, $mime);
                 if ($url !== false) {
                     $urls[] = $url;
