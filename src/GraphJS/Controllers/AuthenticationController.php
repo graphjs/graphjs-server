@@ -160,7 +160,6 @@ class AuthenticationController extends AbstractController
         if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = base64_decode($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'token' => 'required',
