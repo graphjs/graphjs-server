@@ -33,5 +33,6 @@
 	     "psr-4": {
 		       "GraphJS\\": "src/GraphJS/"
 	     }
-    }
+    },
+    "config": { "optimize-autoloader": false }
 }
