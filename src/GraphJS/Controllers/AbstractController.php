@@ -36,6 +36,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     protected function succeed(Response $response, array $data = []): void
     {
+        error_log("will succeed with: ".print_r($data, true));
         $method = $this->getWriteMethod();
         $response->addHeader("Access-Control-Allow-Credentials", "true")->$method(
             array_merge(

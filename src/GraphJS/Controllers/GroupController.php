@@ -292,7 +292,7 @@ class GroupController extends AbstractController
             }
         }
         error_log("About to succeed! ".print_r($groups, true));
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "groups" => $groups
             ]
