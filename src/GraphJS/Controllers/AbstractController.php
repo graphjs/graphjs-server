@@ -34,7 +34,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         $this->validator = new Validator();
     }
 
-    private static function utf8ize(array $mixed) {
+    private static function utf8ize($mixed) {
         if (is_array($mixed)) {
             foreach ($mixed as $key => $value) {
                 $mixed[$key] = self::utf8ize($value);
