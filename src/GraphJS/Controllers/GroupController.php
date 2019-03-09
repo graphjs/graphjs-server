@@ -266,14 +266,19 @@ class GroupController extends AbstractController
         $everything = $kernel->graph()->members();
         foreach($everything as $thing) {
             if($thing instanceof Group) {
-                $groups[] = [
-                    "id" => (string) $thing->id(),
-                    "title" => $thing->getTitle(),
-                    "description" => $thing->getDescription(),
-                    "creator" => (string) $thing->getCreator()->id(),
-                    "cover" => (string) $thing->getCover(),
-                    "count" => (string) count($thing->members())
-                ];
+                try {
+                    $groups[] = [
+                        "id" => (string) $thing->id(),
+                        "title" => $thing->getTitle(),
+                        "description" => $thing->getDescription(),
+                        "creator" => (string) $thing->getCreator()->id(),
+                        "cover" => (string) $thing->getCover(),
+                        "count" => (string) count($thing->members())
+                    ];
+                }
+                catch(\Exception $e) {
+                    error_log("There was an error with one of the groups: ".$e->getMessage());
+                }
             }
         }
         $this->succeed(
