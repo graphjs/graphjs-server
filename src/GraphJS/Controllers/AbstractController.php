@@ -41,7 +41,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
             ["success"=>true], 
             $data
         );
-        $content_length = mb_strlen(json_encode($final_data));
+        $content_length = mb_strlen(json_encode($final_data),'UTF-8');
         error_log("content-length: ".$content_length);
         $method = $this->getWriteMethod();
         $response
