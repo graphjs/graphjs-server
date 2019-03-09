@@ -262,10 +262,14 @@ class GroupController extends AbstractController
      */
     public function listGroups(Request $request, Response $response, Kernel $kernel)
     {
+        error_log("listing groups");
         $groups = [];
         $everything = $kernel->graph()->members();
-        foreach($everything as $thing) {
+        error_log("member count is: ".count($everything));
+        foreach($everything as $i=>$thing) {
+            error_log("Counting: ".$i);
             if($thing instanceof Group) {
+                error_log("Counting with success: ".$i);
                 try {
                     $groups[] = [
                         "id" => (string) $thing->id(),
@@ -281,6 +285,7 @@ class GroupController extends AbstractController
                 }
             }
         }
+        error_log("About to succeed!");
         $this->succeed(
             $response, [
             "groups" => $groups
