@@ -36,14 +36,17 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     protected function succeed(Response $response, array $data = []): void
     {
-        error_log("will succeed with: ".print_r($data, true));
+        //error_log("will succeed with: ".print_r($data, true));
+        $final_data = array_merge(
+            ["success"=>true], 
+            $data
+        );
         $method = $this->getWriteMethod();
-        $response->addHeader("Access-Control-Allow-Credentials", "true")->$method(
-            array_merge(
-                ["success"=>true], 
-                $data
-            )
-        )->end();
+        $response
+            ->addHeader("Access-Control-Allow-Credentials", "true")
+            ->addHeader("Content-Length", mb_strlen($final_data))
+            ->$method($final_data)
+            ->end();
     }
 
     protected function fail(Response $response, string $message = ""): void
