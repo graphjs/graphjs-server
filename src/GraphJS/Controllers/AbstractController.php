@@ -53,9 +53,9 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
             ["success"=>true], 
             $data
         );
-        error_log("~~ json encoded output is: ".json_encode($final_data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_LINE_TERMINATORS));
+        error_log("~~ json encoded output is: ".json_encode($final_data));
         error_log("json error: ".json_last_error());
-        $content_length = mb_strlen(json_encode($final_data,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_LINE_TERMINATORS),'utf8');
+        $content_length = mb_strlen(json_encode($final_data),'utf8');
         error_log("~~ content-length: ".$content_length);
         $method = $this->getWriteMethod();
         $response
