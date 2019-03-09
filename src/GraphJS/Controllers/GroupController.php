@@ -270,6 +270,12 @@ class GroupController extends AbstractController
             error_log("Counting: ".$i);
             if($thing instanceof Group) {
                 error_log("Counting with success: ".$i);
+                error_log("ID: ".(string) $thing->id());
+                error_log("title: ".$thing->getTitle());
+                error_log("description: ".$thing->getDescription());
+                error_log("cover: ".$thing->getCover());
+                error_log("count: ".(string) count($thing->members()));
+                error_log("creator: ".(string) $thing->getCreator()->id());
                 try {
                     $groups[] = [
                         "id" => (string) $thing->id(),
