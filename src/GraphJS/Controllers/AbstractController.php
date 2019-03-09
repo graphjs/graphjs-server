@@ -48,15 +48,15 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
     protected function succeed(Response $response, array $data = []): void
     {
         $data = self::utf8ize($data);
-        error_log("will succeed with: ".print_r($data, true));
+        //error_log("will succeed with: ".print_r($data, true));
         $final_data = array_merge(
             ["success"=>true], 
             $data
         );
-        error_log("~~ json encoded output is: ".json_encode($final_data));
-        error_log("json error: ".json_last_error());
+        //error_log("~~ json encoded output is: ".json_encode($final_data));
+        //error_log("json error: ".json_last_error());
         $content_length = mb_strlen(json_encode($final_data),'utf8');
-        error_log("~~ content-length: ".$content_length);
+        //error_log("~~ content-length: ".$content_length);
         $method = $this->getWriteMethod();
         $response
             ->addHeader("Access-Control-Allow-Credentials", "true")
