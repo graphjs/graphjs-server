@@ -4,20 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+    "hash": "39f1e26e42fc5f6cc43788d1bfc47316",
     "content-hash": "e1e3172d0641f342081004cfbc4c472d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.87.20",
+            "version": "3.89.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6d313ff80b1b6084adc088e000dac1eefadd4f83"
+                "reference": "9b085dff6b07eac417caef8cb6d26b471cde9a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6d313ff80b1b6084adc088e000dac1eefadd4f83",
-                "reference": "6d313ff80b1b6084adc088e000dac1eefadd4f83",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9b085dff6b07eac417caef8cb6d26b471cde9a23",
+                "reference": "9b085dff6b07eac417caef8cb6d26b471cde9a23",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-02-27T19:20:03+00:00"
+            "time": "2019-03-08 19:15:34"
         },
         {
             "name": "clue/stream-filter",
@@ -138,7 +139,7 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2017-08-18T09:54:01+00:00"
+            "time": "2017-08-18 09:54:01"
         },
         {
             "name": "danielstjules/stringy",
@@ -194,7 +195,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2017-06-12T01:10:27+00:00"
+            "time": "2017-06-12 01:10:27"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -227,7 +228,7 @@
                 "MIT"
             ],
             "description": "implementation of xdg base directory specification for php",
-            "time": "2014-10-24T07:27:01+00:00"
+            "time": "2014-10-24 07:27:01"
         },
         {
             "name": "esokullu/react-restify",
@@ -235,12 +236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/esokullu/React-Restify.git",
-                "reference": "cec6b40e20a5a12c56ec27336afcf18a09e336a0"
+                "reference": "f0d99713182af1aff5e13f90fe095a4198e1dae4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/esokullu/React-Restify/zipball/cec6b40e20a5a12c56ec27336afcf18a09e336a0",
-                "reference": "cec6b40e20a5a12c56ec27336afcf18a09e336a0",
+                "url": "https://api.github.com/repos/esokullu/React-Restify/zipball/f0d99713182af1aff5e13f90fe095a4198e1dae4",
+                "reference": "f0d99713182af1aff5e13f90fe095a4198e1dae4",
                 "shasum": ""
             },
             "require": {
@@ -275,7 +276,7 @@
                 "rest",
                 "restify"
             ],
-            "time": "2018-09-02T20:57:16+00:00"
+            "time": "2019-03-09 20:28:01"
         },
         {
             "name": "evenement/evenement",
@@ -323,7 +324,7 @@
                 "event-dispatcher",
                 "event-emitter"
             ],
-            "time": "2017-07-17T17:39:19+00:00"
+            "time": "2017-07-17 17:39:19"
         },
         {
             "name": "firebase/php-jwt",
@@ -369,7 +370,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27T22:17:23+00:00"
+            "time": "2017-06-27 22:17:23"
         },
         {
             "name": "get-stream/stream",
@@ -423,7 +424,7 @@
                 "newsfeed",
                 "stream"
             ],
-            "time": "2018-12-03T16:28:06+00:00"
+            "time": "2018-12-03 16:28:06"
         },
         {
             "name": "graphaware/neo4j-bolt",
@@ -469,7 +470,7 @@
                 }
             ],
             "description": "Neo4j Bolt Binary Protocol PHP Driver",
-            "time": "2017-12-12T08:26:08+00:00"
+            "time": "2017-12-12 08:26:08"
         },
         {
             "name": "graphaware/neo4j-common",
@@ -515,7 +516,7 @@
                 "neo4j",
                 "statement"
             ],
-            "time": "2017-06-08T21:29:20+00:00"
+            "time": "2017-06-08 21:29:20"
         },
         {
             "name": "graphaware/neo4j-php-client",
@@ -579,7 +580,7 @@
                 "http",
                 "neo4j"
             ],
-            "time": "2018-11-21T12:08:48+00:00"
+            "time": "2018-11-21 12:08:48"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -644,7 +645,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22T15:46:56+00:00"
+            "time": "2018-04-22 15:46:56"
         },
         {
             "name": "guzzlehttp/promises",
@@ -695,7 +696,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20T10:07:11+00:00"
+            "time": "2016-12-20 10:07:11"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -762,7 +763,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04T20:46:45+00:00"
+            "time": "2018-12-04 20:46:45"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -804,7 +805,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
-            "time": "2018-09-29T17:23:10+00:00"
+            "time": "2018-09-29 17:23:10"
         },
         {
             "name": "jakub-onderka/php-console-highlighter",
@@ -850,7 +851,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
-            "time": "2018-09-29T18:48:56+00:00"
+            "time": "2018-09-29 18:48:56"
         },
         {
             "name": "kjdev/redis-graph",
@@ -885,7 +886,7 @@
             "keywords": [
                 "redis"
             ],
-            "time": "2018-10-24T22:59:55+00:00"
+            "time": "2018-10-24 22:59:55"
         },
         {
             "name": "league/flysystem",
@@ -969,7 +970,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-02-01T08:50:36+00:00"
+            "time": "2019-02-01 08:50:36"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1016,7 +1017,7 @@
                 }
             ],
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
-            "time": "2019-01-31T15:07:25+00:00"
+            "time": "2019-01-31 15:07:25"
         },
         {
             "name": "mailgun/mailgun-php",
@@ -1068,7 +1069,7 @@
                 }
             ],
             "description": "The Mailgun SDK provides methods for all API functions.",
-            "time": "2019-02-02T07:14:32+00:00"
+            "time": "2019-02-02 07:14:32"
         },
         {
             "name": "monolog/monolog",
@@ -1146,7 +1147,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05T09:00:11+00:00"
+            "time": "2018-11-05 09:00:11"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1201,7 +1202,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-12-03T22:08:25+00:00"
+            "time": "2016-12-03 22:08:25"
         },
         {
             "name": "myclabs/php-enum",
@@ -1246,7 +1247,7 @@
             "keywords": [
                 "enum"
             ],
-            "time": "2019-02-04T21:18:49+00:00"
+            "time": "2019-02-04 21:18:49"
         },
         {
             "name": "nikic/php-parser",
@@ -1297,7 +1298,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-02-16T20:54:15+00:00"
+            "time": "2019-02-16 20:54:15"
         },
         {
             "name": "paragonie/random_compat",
@@ -1342,7 +1343,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-07-02T15:55:56+00:00"
+            "time": "2018-07-02 15:55:56"
         },
         {
             "name": "pho-adapters/database-redis",
@@ -1384,7 +1385,7 @@
             ],
             "description": "A simple synchronous Redis database adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-10-26T23:21:45+00:00"
+            "time": "2018-10-26 23:21:45"
         },
         {
             "name": "pho-adapters/events-local",
@@ -1426,7 +1427,7 @@
             ],
             "description": "A development-only implementation of events adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07T11:50:53+00:00"
+            "time": "2018-01-07 11:50:53"
         },
         {
             "name": "pho-adapters/index-neo4j",
@@ -1469,7 +1470,7 @@
             ],
             "description": "Neo4J adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14T04:12:20+00:00"
+            "time": "2018-11-14 04:12:20"
         },
         {
             "name": "pho-adapters/index-redis",
@@ -1512,7 +1513,7 @@
             ],
             "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-02-12T03:39:24+00:00"
+            "time": "2019-02-12 03:39:24"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
@@ -1554,7 +1555,7 @@
             ],
             "description": "AWS S3 based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-07T06:17:03+00:00"
+            "time": "2018-09-07 06:17:03"
         },
         {
             "name": "pho-adapters/storage-filesystem",
@@ -1595,7 +1596,7 @@
             ],
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07T11:53:13+00:00"
+            "time": "2018-01-07 11:53:13"
         },
         {
             "name": "pho-recipes/network",
@@ -1633,7 +1634,7 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-15T07:33:54+00:00"
+            "time": "2019-01-15 07:33:54"
         },
         {
             "name": "pho-recipes/web",
@@ -1671,7 +1672,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-15T07:33:49+00:00"
+            "time": "2019-01-15 07:33:49"
         },
         {
             "name": "phonetworks/pho-framework",
@@ -1729,7 +1730,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-01-20T12:21:38+00:00"
+            "time": "2019-01-20 12:21:38"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1767,7 +1768,7 @@
             ],
             "description": "A simple microkernel implementation with Twitter-like functionality.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-12-08T00:46:04+00:00"
+            "time": "2018-12-08 00:46:04"
         },
         {
             "name": "phonetworks/pho-lib-graph",
@@ -1823,7 +1824,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2018-11-13T11:20:19+00:00"
+            "time": "2018-11-13 11:20:19"
         },
         {
             "name": "phonetworks/pho-microkernel",
@@ -1880,7 +1881,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-20T12:18:50+00:00"
+            "time": "2019-01-20 12:18:50"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -1924,7 +1925,7 @@
                 }
             ],
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-08T07:52:36+00:00"
+            "time": "2018-09-08 07:52:36"
         },
         {
             "name": "phonetworks/pho-server-rest",
@@ -1981,7 +1982,7 @@
                 "rest",
                 "server"
             ],
-            "time": "2018-03-13T15:27:16+00:00"
+            "time": "2018-03-13 15:27:16"
         },
         {
             "name": "php-http/client-common",
@@ -2042,7 +2043,7 @@
                 "http",
                 "httplug"
             ],
-            "time": "2019-02-02T07:03:15+00:00"
+            "time": "2019-02-02 07:03:15"
         },
         {
             "name": "php-http/discovery",
@@ -2106,7 +2107,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-02-23T07:42:53+00:00"
+            "time": "2019-02-23 07:42:53"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -2166,7 +2167,7 @@
                 "Guzzle",
                 "http"
             ],
-            "time": "2016-05-10T06:13:32+00:00"
+            "time": "2016-05-10 06:13:32"
         },
         {
             "name": "php-http/httplug",
@@ -2222,7 +2223,7 @@
                 "client",
                 "http"
             ],
-            "time": "2016-08-31T08:30:17+00:00"
+            "time": "2016-08-31 08:30:17"
         },
         {
             "name": "php-http/message",
@@ -2294,7 +2295,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2018-11-01T09:32:41+00:00"
+            "time": "2018-11-01 09:32:41"
         },
         {
             "name": "php-http/message-factory",
@@ -2344,7 +2345,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2015-12-19T14:08:53+00:00"
+            "time": "2015-12-19 14:08:53"
         },
         {
             "name": "php-http/multipart-stream-builder",
@@ -2401,7 +2402,7 @@
                 "multipart stream",
                 "stream"
             ],
-            "time": "2017-05-21T17:45:25+00:00"
+            "time": "2017-05-21 17:45:25"
         },
         {
             "name": "php-http/promise",
@@ -2451,7 +2452,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-01-26T13:27:02+00:00"
+            "time": "2016-01-26 13:27:02"
         },
         {
             "name": "pimple/pimple",
@@ -2497,7 +2498,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22T08:30:29+00:00"
+            "time": "2013-11-22 08:30:29"
         },
         {
             "name": "predis/predis",
@@ -2547,7 +2548,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16T16:22:20+00:00"
+            "time": "2016-06-16 16:22:20"
         },
         {
             "name": "psr/container",
@@ -2596,7 +2597,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14T16:28:37+00:00"
+            "time": "2017-02-14 16:28:37"
         },
         {
             "name": "psr/http-message",
@@ -2646,7 +2647,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2016-08-06 14:39:51"
         },
         {
             "name": "psr/log",
@@ -2693,7 +2694,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20T15:27:04+00:00"
+            "time": "2018-11-20 15:27:04"
         },
         {
             "name": "psy/psysh",
@@ -2767,7 +2768,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-10-13T15:16:03+00:00"
+            "time": "2018-10-13 15:16:03"
         },
         {
             "name": "rakit/validation",
@@ -2807,7 +2808,7 @@
                 }
             ],
             "description": "PHP Laravel like standalone validation library",
-            "time": "2018-11-10T03:57:56+00:00"
+            "time": "2018-11-10 03:57:56"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -2847,7 +2848,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2016-02-11T07:05:27+00:00"
+            "time": "2016-02-11 07:05:27"
         },
         {
             "name": "ramsey/uuid",
@@ -2929,7 +2930,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2018-07-19T23:38:55+00:00"
+            "time": "2018-07-19 23:38:55"
         },
         {
             "name": "react/event-loop",
@@ -2971,7 +2972,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2017-04-27T10:56:23+00:00"
+            "time": "2017-04-27 10:56:23"
         },
         {
             "name": "react/http",
@@ -3016,7 +3017,7 @@
                 "server",
                 "streaming"
             ],
-            "time": "2017-02-16T15:01:02+00:00"
+            "time": "2017-02-16 15:01:02"
         },
         {
             "name": "react/promise",
@@ -3062,7 +3063,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2019-01-07T21:25:54+00:00"
+            "time": "2019-01-07 21:25:54"
         },
         {
             "name": "react/socket",
@@ -3104,7 +3105,7 @@
             "keywords": [
                 "Socket"
             ],
-            "time": "2017-03-09T12:13:07+00:00"
+            "time": "2017-03-09 12:13:07"
         },
         {
             "name": "react/stream",
@@ -3148,7 +3149,7 @@
                 "pipe",
                 "stream"
             ],
-            "time": "2017-01-25T14:44:14+00:00"
+            "time": "2017-01-25 14:44:14"
         },
         {
             "name": "ringcentral/psr7",
@@ -3206,7 +3207,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2018-01-15T21:00:49+00:00"
+            "time": "2018-01-15 21:00:49"
         },
         {
             "name": "riverline/multipart-parser",
@@ -3258,7 +3259,7 @@
                 "multipart",
                 "parser"
             ],
-            "time": "2018-12-17T13:02:25+00:00"
+            "time": "2018-12-17 13:02:25"
         },
         {
             "name": "sabre/event",
@@ -3318,7 +3319,7 @@
                 "reactor",
                 "signal"
             ],
-            "time": "2018-03-05T13:55:47+00:00"
+            "time": "2018-03-05 13:55:47"
         },
         {
             "name": "superbalist/php-pubsub",
@@ -3364,7 +3365,7 @@
                 }
             ],
             "description": "An adapter based PubSub package for PHP",
-            "time": "2017-05-16T09:52:04+00:00"
+            "time": "2017-05-16 09:52:04"
         },
         {
             "name": "superbalist/php-pubsub-redis",
@@ -3412,20 +3413,20 @@
                 }
             ],
             "description": "A Redis adapter for the php-pubsub package",
-            "time": "2017-05-16T11:26:47+00:00"
+            "time": "2017-05-16 11:26:47"
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
                 "shasum": ""
             },
             "require": {
@@ -3484,7 +3485,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-25T14:35:16+00:00"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/contracts",
@@ -3552,20 +3553,20 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05T08:06:11+00:00"
+            "time": "2018-12-05 08:06:11"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1"
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
                 "shasum": ""
             },
             "require": {
@@ -3616,20 +3617,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16T20:35:37+00:00"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb"
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/831b272963a8aa5a0613a1a7f013322d8161bbbb",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
                 "shasum": ""
             },
             "require": {
@@ -3670,7 +3671,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-01-16T21:31:25+00:00"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3728,7 +3729,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-08-06T14:22:27+00:00"
+            "time": "2018-08-06 14:22:27"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3787,7 +3788,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21T13:07:52+00:00"
+            "time": "2018-09-21 13:07:52"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -3842,20 +3843,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21T13:07:52+00:00"
+            "time": "2018-09-21 13:07:52"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17"
+                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/223bda89f9be41cf7033eeaf11bc61a280489c17",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/9f87189ac10b42edf7fb8edc846f1937c6d157cf",
+                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf",
                 "shasum": ""
             },
             "require": {
@@ -3918,7 +3919,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-01-30T11:44:30+00:00"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "vanilla/garden-cli",
@@ -3955,7 +3956,7 @@
                 }
             ],
             "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
-            "time": "2018-06-26T14:29:46+00:00"
+            "time": "2018-06-26 14:29:46"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4006,7 +4007,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29T11:11:52+00:00"
+            "time": "2019-01-29 11:11:52"
         },
         {
             "name": "vlucas/valitron",
@@ -4055,7 +4056,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-12-14T21:15:14+00:00"
+            "time": "2018-12-14 21:15:14"
         },
         {
             "name": "webmozart/assert",
@@ -4106,7 +4107,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-12-25T11:19:39+00:00"
+            "time": "2018-12-25 11:19:39"
         },
         {
             "name": "zendframework/zend-config",
@@ -4166,7 +4167,7 @@
                 "config",
                 "zf"
             ],
-            "time": "2018-04-24T19:26:44+00:00"
+            "time": "2018-04-24 19:26:44"
         },
         {
             "name": "zendframework/zend-file",
@@ -4223,7 +4224,7 @@
                 "file",
                 "zf"
             ],
-            "time": "2019-02-06T16:53:31+00:00"
+            "time": "2019-02-06 16:53:31"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -4269,7 +4270,7 @@
                 "stdlib",
                 "zf"
             ],
-            "time": "2018-08-28T21:34:05+00:00"
+            "time": "2018-08-28 21:34:05"
         }
     ],
     "packages-dev": [
@@ -4475,7 +4476,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-02-26T21:14:50+00:00"
+            "time": "2019-02-26 21:14:50"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4553,7 +4554,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-11-07T22:31:41+00:00"
+            "time": "2018-11-07 22:31:41"
         }
     ],
     "aliases": [],

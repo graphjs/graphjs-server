@@ -44,7 +44,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         $method = $this->getWriteMethod();
         $response
             ->addHeader("Access-Control-Allow-Credentials", "true")
-            ->addHeader("Content-Length", mb_strlen($final_data))
+            //->addHeader("Content-Length", mb_strlen($final_data))
             ->$method($final_data)
             ->end();
     }
