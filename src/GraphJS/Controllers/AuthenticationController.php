@@ -98,6 +98,21 @@ class AuthenticationController extends AbstractController
 
     protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
     {
+        $result = $kernel->index()->query(
+            "MATCH (n:user) WHERE n.Username= {username} OR n.Email = {email} RETURN n",
+            [ 
+                "username" => $username,
+                "email"    => $email
+            ]
+        );
+        error_log(print_r($result, true));
+        $duplicate = (count($result->results()) >= 1);
+        if($duplicate) {
+            error_log("duplicate!!! ");
+            $this->fail($response, "Duplicate user");
+            return;
+        }
+
         try {
             $new_user = new User(
                 $kernel, $kernel->graph(), $username, $email, $password
