@@ -66,6 +66,7 @@ class FileUploadController extends AbstractController
         $document = new StreamedPart($stream);
         $allowedContentTypes = [ 'image/jpeg'=>"jpg", 'image/png'=>"png", 'image/gif'=>"gif" ];
         $urls = [];
+        $filetypes = [];
         if ($document->isMultiPart()) {
             $parts = $document->getParts();
             foreach ($parts as $part) {
@@ -82,11 +83,13 @@ class FileUploadController extends AbstractController
                 $url = $this->s3Uploader->upload($key, $body, $mime);
                 if ($url !== false) {
                     $urls[] = $url;
+                    $filetypes[] = $mime;
                 }
             }
 
             return $this->succeed($response, [
                 'urls' => $urls,
+                'filetypes' => $filetypes
             ]);
         }
         else {
