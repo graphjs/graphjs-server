@@ -78,7 +78,7 @@ class S3Uploader
             $this->bucket,
             $key,
             $source,
-            'private',
+            'public-read',
             [
                 'params' => [
                     'ContentType' => $mime,

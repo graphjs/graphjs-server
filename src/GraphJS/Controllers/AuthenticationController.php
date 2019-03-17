@@ -33,7 +33,6 @@ class AuthenticationController extends AbstractController
         if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = base64_decode($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'username' => 'required',
@@ -49,7 +48,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         try {
-            $username = Crypto::decrypt($data["token"], $token_key);
+            $username = Crypto::decrypt($data["token"], $key);
         }
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
@@ -99,6 +98,21 @@ class AuthenticationController extends AbstractController
 
     protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
     {
+        $result = $kernel->index()->query(
+            "MATCH (n:user) WHERE n.Username= {username} OR n.Email = {email} RETURN n",
+            [ 
+                "username" => $username,
+                "email"    => $email
+            ]
+        );
+        error_log(print_r($result, true));
+        $duplicate = (count($result->results()) >= 1);
+        if($duplicate) {
+            error_log("duplicate!!! ");
+            $this->fail($response, "Duplicate user");
+            return;
+        }
+
         try {
             $new_user = new User(
                 $kernel, $kernel->graph(), $username, $email, $password
@@ -161,7 +175,6 @@ class AuthenticationController extends AbstractController
         if(empty($key)) {
             return $this->fail($response, "Single sign-on not allowed");
         }
-        $token_key = base64_decode($key);
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'token' => 'required',
@@ -171,7 +184,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         try {
-            $username = Crypto::decrypt($data["token"], $token_key);
+            $username = Crypto::decrypt($data["token"], $key);
         }
         catch(\Exception $e) {
             return $this->fail($response, "Invalid token");
@@ -254,7 +267,7 @@ class AuthenticationController extends AbstractController
         }
     }
 
-    public function reset(Request $request, Response $response)
+    public function reset(Request $request, Response $response, Kernel $kernel)
     {
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -281,10 +294,17 @@ class AuthenticationController extends AbstractController
 
         // check if email exists ?
         $pin = mt_rand(100000, 999999);
-        file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
+        $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
+        if($redis_password_reminder===1) {
+            $kernel->database()->set("password-reminder-".md5($data["email"]), $pin);
+            $kernel->database()->expire("password-reminder-".md5($data["email"]), 60*60);
+        }
+        else{
+            file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
+        }
         $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
         $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
-          array('from'    => 'GraphJS <postmaster@mg.graphjs.com>',
+        array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
                 'to'      => $data["email"],
                 'subject' => 'Password Reminder',
                 'text'    => 'You may enter this 6 digit passcode: '.$pin)
@@ -304,9 +324,18 @@ class AuthenticationController extends AbstractController
             return;
         }
         $pins = explode(":", trim(file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]))));
+        $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
+        if($redis_password_reminder===1) {
+            $pins = [];
+            $pins[0] = $kernel->database()->get("password-reminder-".md5($data["email"]));
+        }
+        else{
+            $pins = explode(":", trim(file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]))));
+        }
         //error_log(print_r($pins, true));
         if($pins[0]==$data["code"]) {
-            if((int) $pins[1]<time()-7*60) {
+            //if((int) $pins[1]<time()-7*60) {
+            if($redis_password_reminder!=1 && (int) $pins[1]<time()-7*60) {
                 $this->fail($response, "Expired.");
                 return;
             }
@@ -327,7 +356,7 @@ class AuthenticationController extends AbstractController
         $session->set($request, "id", $user["n.udid"]);
          
          
-            $this->succeed($response);
+            return $this->succeed($response);
         }
         $this->fail($response, "Code does not match.");
     }

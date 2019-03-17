@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "885a01b1dc1da48656ff73f9a1274ca2",
-    "content-hash": "7e3cdf7f45d3dc98955ce2267bece448",
+    "hash": "39f1e26e42fc5f6cc43788d1bfc47316",
+    "content-hash": "e1e3172d0641f342081004cfbc4c472d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.87.20",
+            "version": "3.89.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6d313ff80b1b6084adc088e000dac1eefadd4f83"
+                "reference": "9b085dff6b07eac417caef8cb6d26b471cde9a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6d313ff80b1b6084adc088e000dac1eefadd4f83",
-                "reference": "6d313ff80b1b6084adc088e000dac1eefadd4f83",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9b085dff6b07eac417caef8cb6d26b471cde9a23",
+                "reference": "9b085dff6b07eac417caef8cb6d26b471cde9a23",
                 "shasum": ""
             },
             "require": {
@@ -87,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-02-27 19:20:03"
+            "time": "2019-03-08 19:15:34"
         },
         {
             "name": "clue/stream-filter",
@@ -236,12 +236,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/esokullu/React-Restify.git",
-                "reference": "cec6b40e20a5a12c56ec27336afcf18a09e336a0"
+                "reference": "f0d99713182af1aff5e13f90fe095a4198e1dae4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/esokullu/React-Restify/zipball/cec6b40e20a5a12c56ec27336afcf18a09e336a0",
-                "reference": "cec6b40e20a5a12c56ec27336afcf18a09e336a0",
+                "url": "https://api.github.com/repos/esokullu/React-Restify/zipball/f0d99713182af1aff5e13f90fe095a4198e1dae4",
+                "reference": "f0d99713182af1aff5e13f90fe095a4198e1dae4",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +276,7 @@
                 "rest",
                 "restify"
             ],
-            "time": "2018-09-02 20:57:16"
+            "time": "2019-03-09 20:28:01"
         },
         {
             "name": "evenement/evenement",
@@ -852,6 +852,41 @@
             ],
             "description": "Highlight PHP code in terminal",
             "time": "2018-09-29 18:48:56"
+        },
+        {
+            "name": "kjdev/redis-graph",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kjdev/php-redis-graph.git",
+                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kjdev/php-redis-graph/zipball/143725c63f5a9ea51953048f00e2825f0ab376a1",
+                "reference": "143725c63f5a9ea51953048f00e2825f0ab376a1",
+                "shasum": ""
+            },
+            "suggest": {
+                "ext-redis": "If you want to use redis extension.",
+                "predis/predis": "If you want to use predis."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Redis\\": "src/Redis/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP RedisGraph client",
+            "homepage": "https://github.com/kjdev/php-redis-graph",
+            "keywords": [
+                "redis"
+            ],
+            "time": "2018-10-24 22:59:55"
         },
         {
             "name": "league/flysystem",
@@ -1438,6 +1473,49 @@
             "time": "2018-11-14 04:12:20"
         },
         {
+            "name": "pho-adapters/index-redis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pho-adapters/index-redis.git",
+                "reference": "82c9c1cd75548e6a9f72a9600e6b1e71cbd4fb0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pho-adapters/index-redis/zipball/82c9c1cd75548e6a9f72a9600e6b1e71cbd4fb0c",
+                "reference": "82c9c1cd75548e6a9f72a9600e6b1e71cbd4fb0c",
+                "shasum": ""
+            },
+            "require": {
+                "kjdev/redis-graph": "^1.0",
+                "php": "^7.1",
+                "predis/predis": "^1.1"
+            },
+            "provide": {
+                "phonetworks/service-index-implementation": "1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pho\\Kernel\\Services\\Index\\Adapters\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
+            "homepage": "https://phonetworks.org",
+            "time": "2019-02-12 03:39:24"
+        },
+        {
             "name": "pho-adapters/storage-aws-s3",
             "version": "dev-master",
             "source": {
@@ -1519,6 +1597,44 @@
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
             "time": "2018-01-07 11:53:13"
+        },
+        {
+            "name": "pho-recipes/network",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pho-recipes/Network.git",
+                "reference": "7322039301efc819ce7272382e1529242e2ab869"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/7322039301efc819ce7272382e1529242e2ab869",
+                "reference": "7322039301efc819ce7272382e1529242e2ab869",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "PhoNetworksAutogenerated\\": ".compiled/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "A social network graph in Pho (made for Grou.ps v2)",
+            "homepage": "https://phonetworks.org",
+            "time": "2019-01-15 07:33:54"
         },
         {
             "name": "pho-recipes/web",
@@ -3301,16 +3417,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4"
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
-                "reference": "1f0ad51dfde4da8a6070f06adc58b4e37cbb37a4",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9dc2299a016497f9ee620be94524e6c0af0280a9",
+                "reference": "9dc2299a016497f9ee620be94524e6c0af0280a9",
                 "shasum": ""
             },
             "require": {
@@ -3369,7 +3485,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-25 14:35:16"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/contracts",
@@ -3441,16 +3557,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1"
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
-                "reference": "bd09ad265cd50b2b9d09d65ce6aba2d29bc81fe1",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
+                "reference": "3354d2e6af986dd71f68b4e5cf4a933ab58697fb",
                 "shasum": ""
             },
             "require": {
@@ -3501,20 +3617,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-01-16 20:35:37"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb"
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/831b272963a8aa5a0613a1a7f013322d8161bbbb",
-                "reference": "831b272963a8aa5a0613a1a7f013322d8161bbbb",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
+                "reference": "3896e5a7d06fd15fa4947694c8dcdd371ff147d1",
                 "shasum": ""
             },
             "require": {
@@ -3555,7 +3671,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-01-16 21:31:25"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3731,16 +3847,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17"
+                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/223bda89f9be41cf7033eeaf11bc61a280489c17",
-                "reference": "223bda89f9be41cf7033eeaf11bc61a280489c17",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/9f87189ac10b42edf7fb8edc846f1937c6d157cf",
+                "reference": "9f87189ac10b42edf7fb8edc846f1937c6d157cf",
                 "shasum": ""
             },
             "require": {
@@ -3803,7 +3919,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-01-30 11:44:30"
+            "time": "2019-02-23 15:17:42"
         },
         {
             "name": "vanilla/garden-cli",
@@ -4448,6 +4564,8 @@
         "pho-recipes/web": 20,
         "phonetworks/pho-kernel": 20,
         "pho-adapters/storage-aws-s3": 20,
+        "pho-adapters/index-redis": 20,
+        "pho-recipes/network": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

@@ -20,7 +20,9 @@
         "rakit/validation": "^0.22.2",
         "php-http/guzzle6-adapter": "^1.0",
         "riverline/multipart-parser": "^2.0",
-        "aws/aws-sdk-php": "^3.87"
+        "aws/aws-sdk-php": "^3.87",
+        "pho-adapters/index-redis": "dev-master",
+        "pho-recipes/network": "dev-master"
     },
     "require-dev": {
         "psy/psysh": "*",
@@ -31,5 +33,6 @@
 	     "psr-4": {
 		       "GraphJS\\": "src/GraphJS/"
 	     }
-    }
+    },
+    "config": { "optimize-autoloader": false }
 }

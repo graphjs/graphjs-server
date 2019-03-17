@@ -34,15 +34,35 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         $this->validator = new Validator();
     }
 
+    private static function utf8ize($mixed) {
+        if (is_array($mixed)) {
+            foreach ($mixed as $key => $value) {
+                $mixed[$key] = self::utf8ize($value);
+            }
+        } else if (is_string ($mixed)) {
+            return utf8_encode($mixed);
+        }
+        return $mixed;
+    }
+
     protected function succeed(Response $response, array $data = []): void
     {
+        $data = self::utf8ize($data);
+        //error_log("will succeed with: ".print_r($data, true));
+        $final_data = array_merge(
+            ["success"=>true], 
+            $data
+        );
+        //error_log("~~ json encoded output is: ".json_encode($final_data));
+        //error_log("json error: ".json_last_error());
+        $content_length = mb_strlen(json_encode($final_data),'utf8');
+        //error_log("~~ content-length: ".$content_length);
         $method = $this->getWriteMethod();
-        $response->addHeader("Access-Control-Allow-Credentials", "true")->$method(
-            array_merge(
-                ["success"=>true], 
-                $data
-            )
-        )->end();
+        $response
+            ->addHeader("Access-Control-Allow-Credentials", "true")
+            ->addHeader("Content-Length", $content_length)
+            ->$method($final_data)
+            ->end();
     }
 
     protected function fail(Response $response, string $message = ""): void

@@ -3,7 +3,8 @@
 @ob_end_clean();
 ob_start();
 use Garden\Cli\Cli;
-require "vendor/autoload.php";
+$composerClassLoader = require "vendor/autoload.php";
+define('APP_ROOT', __DIR__);
 $cli = new Cli();
 $cli->description('GraphJS Server')
     ->opt('conf:C', 'Config file.', false)

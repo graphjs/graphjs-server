@@ -107,7 +107,7 @@ class GroupController extends AbstractController
         }
 
         if(isset($data["cover"])) {
-            if(!preg_match('/^https?\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
+            if(!preg_match('/^https?:\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
                 $this->fail($response, "Cover field should point to a URL.");
                 return;
             }
@@ -262,21 +262,37 @@ class GroupController extends AbstractController
      */
     public function listGroups(Request $request, Response $response, Kernel $kernel)
     {
+        error_log("listing groups");
         $groups = [];
         $everything = $kernel->graph()->members();
-        foreach($everything as $thing) {
+        error_log("member count is: ".count($everything));
+        foreach($everything as $i=>$thing) {
+            error_log("Counting: ".$i);
             if($thing instanceof Group) {
-                $groups[] = [
-                    "id" => (string) $thing->id(),
-                    "title" => $thing->getTitle(),
-                    "description" => $thing->getDescription(),
-                    "creator" => (string) $thing->getCreator()->id(),
-                    "cover" => (string) $thing->getCover(),
-                    "count" => (string) count($thing->members())
-                ];
+                error_log("Counting with success: ".$i);
+                error_log("ID: ".(string) $thing->id());
+                error_log("title: ".$thing->getTitle());
+                error_log("description: ".$thing->getDescription());
+                error_log("cover: ".$thing->getCover());
+                error_log("count: ".(string) count($thing->members()));
+                error_log("creator: ".(string) $thing->getCreator()->id());
+                try {
+                    $groups[] = [
+                        "id" => (string) $thing->id(),
+                        "title" => $thing->getTitle(),
+                        "description" => $thing->getDescription(),
+                        "creator" => (string) $thing->getCreator()->id(),
+                        "cover" => (string) $thing->getCover(),
+                        "count" => (string) count($thing->members())
+                    ];
+                }
+                catch(\Exception $e) {
+                    error_log("There was an error with one of the groups: ".$e->getMessage());
+                }
             }
         }
-        $this->succeed(
+        error_log("About to succeed! ".print_r($groups, true));
+        return $this->succeed(
             $response, [
             "groups" => $groups
             ]

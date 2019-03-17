@@ -50,10 +50,18 @@ class Router extends \Pho\Server\Rest\Router
             if(count($parsed)==1&&isset($parsed["path"])) {
                 $final[] = "http://".$parsed["path"];
                 $final[] = "https://".$parsed["path"];
+                if(strpos($parsed["path"], "www.")===0) {
+                    $final[] = "http://".str_replace("www.", "", $parsed["path"], 1);
+                    $final[] = "https://".str_replace("www.", "", $parsed["path"], 1);
+                }
             }
             elseif(count($parsed)>=2&&isset($parsed["host"])) {
                 $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                if(strpos($parsed["path"], "www.")===0) {
+                    $final[] = "http://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"") ;
+                    $final[] = "https://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                }
             }
             else {
                 error_log("skipping unknown format: ".$url." - parsed as    : ".print_r($parsed, true));
@@ -282,6 +290,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
             }
         );
+
+        $server->get(
+            'getSingleSignonKey', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchSingleSignonKey($request, $response, $kernel);
+            }
+        );
     }
 
     protected static function initBlog(Server $server, array $controllers, Kernel $kernel): void
@@ -379,8 +393,8 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'resetPassword', function (Request $request, Response $response) use ($controllers) {
-                $controllers["authentication"]->reset($request, $response);
+            'resetPassword', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["authentication"]->reset($request, $response, $kernel);
             }
         );
         $server->get(

@@ -282,4 +282,16 @@ class AdministrationController extends AbstractController
             
   }
 
+  public function fetchSingleSignonToken(Request $request, Response $response, Kernel $kernel)
+    {
+        if(!$this->requireAdministrativeRights(...\func_get_args())) {
+            return $this->fail($response, "Invalid hash");
+        }
+        $key = getenv("SINGLE_SIGNON_TOKEN_KEY") ? getenv("SINGLE_SIGNON_TOKEN_KEY") : "";
+        if(empty($key)) {
+            return $this->fail($response, "No single sign-on key");
+        }
+        return $this->succeed($response, ["key"=>$key]);
+    }
+
 }
