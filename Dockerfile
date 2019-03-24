@@ -1,20 +1,19 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
-RUN     apt-get update && \
-        apt-get upgrade -y && \
-        apt-get install -y php7.1 php7.1-bcmath php7.1-cli php7.1-common \
-        php7.1-devphp7.1-fpm php7.1-gd php7.1-intl \
-        php7.1-json  php7.1-mbstring php7.1-mcrypt php7.1-mysqlphp7.1-opcache \
-        php7.1-readline  php7.1-xml php7.1-zip \
-        redis-server php-redis neo4j composer
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    php7.2 php7.2-common php7.2-mbstring php-bcmath php7.2-zip php7.2-curl php7.2-xml \
+    composer git
 
 RUN mkdir -p /opt/graphjs-server
 WORKDIR /opt/graphjs-server
 
 COPY . /opt/graphjs-server
- 
-CMD [ "composer", "install" ]
 
-EXPOSE 8080
+RUN composer install
 
-CMD [ "php7.1", "run.php" ]
+EXPOSE 1338
+
+CMD [ "php7.2", "run.php" ]
