@@ -102,8 +102,7 @@ class FileUploadController extends AbstractController
             "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" => "ppsm",
             "application/vnd.ms-access" => "mdb",
         ];
-        $urls = [];
-        $filetypes = [];
+        $uploads = [];
         if ($document->isMultiPart()) {
             $parts = $document->getParts();
             foreach ($parts as $part) {
@@ -113,24 +112,37 @@ class FileUploadController extends AbstractController
                 }
 
                 $body = $part->getBody();
-                //$filename = $part->getFileName();
+                $originalFilename = $part->getFileName();
                 $filename = sprintf("%s-%s.%s", $id, (string) time(), $allowedContentTypes[$mime]);
 
                 $key = strtolower("{$uuid}/{$filename}");
                 $url = $this->s3Uploader->upload($key, $body, $mime);
                 if ($url !== false) {
-                    $urls[] = $url;
-                    $filetypes[] = $mime;
+                    $bytes = strlen($body);
+                    $humanFileSize = $this->human_filesize($bytes);
+                    $uploads[] = [
+                        'url' => $url,
+                        'filetype' => $mime,
+                        'original_filename' => $originalFilename,
+                        'filesize' => $bytes,
+                        'human_filesize' => $humanFileSize,
+                    ];
                 }
             }
 
             return $this->succeed($response, [
-                'urls' => $urls,
-                'filetypes' => $filetypes
+                'uploads' => $uploads,
             ]);
         }
         else {
             return $this->fail($response);
         }
+    }
+
+    // Ref: https://www.php.net/manual/en/function.filesize.php#106569
+    public function human_filesize($bytes, $decimals = 2) {
+        $sz = 'BKMGTP';
+        $factor = (int) floor((strlen($bytes) - 1) / 3);
+        return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
     }
 }
