@@ -4,9 +4,71 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "39f1e26e42fc5f6cc43788d1bfc47316",
-    "content-hash": "e1e3172d0641f342081004cfbc4c472d",
+    "content-hash": "087f7bdb1a9421d2576d4a569441b226",
     "packages": [
+        {
+            "name": "alchemy/binary-driver",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alchemy-fr/BinaryDriver.git",
+                "reference": "6ccde0e19e81e54da77b08da1a176d43e089f3a3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alchemy-fr/BinaryDriver/zipball/6ccde0e19e81e54da77b08da1a176d43e089f3a3",
+                "reference": "6ccde0e19e81e54da77b08da1a176d43e089f3a3",
+                "shasum": ""
+            },
+            "require": {
+                "evenement/evenement": "^2.0|^1.0",
+                "monolog/monolog": "^1.3",
+                "php": ">=5.5",
+                "psr/log": "^1.0",
+                "symfony/process": "^2.3|^3.0|^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Alchemy": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                },
+                {
+                    "name": "Nicolas Le Goff",
+                    "email": "legoff.n@gmail.com"
+                },
+                {
+                    "name": "Jens Hausdorf",
+                    "email": "mail@jens-hausdorf.de",
+                    "homepage": "https://jens-hausdorf.de",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "A set of tools to build binary drivers",
+            "keywords": [
+                "binary",
+                "driver"
+            ],
+            "time": "2018-08-06T10:18:33+00:00"
+        },
         {
             "name": "aws/aws-sdk-php",
             "version": "3.89.1",
@@ -87,7 +149,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-03-08 19:15:34"
+            "time": "2019-03-08T19:15:34+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -139,7 +201,7 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2017-08-18 09:54:01"
+            "time": "2017-08-18T09:54:01+00:00"
         },
         {
             "name": "danielstjules/stringy",
@@ -195,7 +257,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2017-06-12 01:10:27"
+            "time": "2017-06-12T01:10:27+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -228,7 +290,82 @@
                 "MIT"
             ],
             "description": "implementation of xdg base directory specification for php",
-            "time": "2014-10-24 07:27:01"
+            "time": "2014-10-24T07:27:01+00:00"
+        },
+        {
+            "name": "doctrine/cache",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/cache.git",
+                "reference": "d768d58baee9a4862ca783840eca1b9add7a7f57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/cache/zipball/d768d58baee9a4862ca783840eca1b9add7a7f57",
+                "reference": "d768d58baee9a4862ca783840eca1b9add7a7f57",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.1"
+            },
+            "conflict": {
+                "doctrine/common": ">2.2,<2.4"
+            },
+            "require-dev": {
+                "alcaeus/mongo-php-adapter": "^1.1",
+                "doctrine/coding-standard": "^4.0",
+                "mongodb/mongodb": "^1.1",
+                "phpunit/phpunit": "^7.0",
+                "predis/predis": "~1.0"
+            },
+            "suggest": {
+                "alcaeus/mongo-php-adapter": "Required to use legacy MongoDB driver"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Cache\\": "lib/Doctrine/Common/Cache"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Caching library offering an object-oriented API for many cache backends",
+            "homepage": "https://www.doctrine-project.org",
+            "keywords": [
+                "cache",
+                "caching"
+            ],
+            "time": "2018-08-21T18:01:43+00:00"
         },
         {
             "name": "esokullu/react-restify",
@@ -276,7 +413,7 @@
                 "rest",
                 "restify"
             ],
-            "time": "2019-03-09 20:28:01"
+            "time": "2019-03-09T20:28:01+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -324,7 +461,7 @@
                 "event-dispatcher",
                 "event-emitter"
             ],
-            "time": "2017-07-17 17:39:19"
+            "time": "2017-07-17T17:39:19+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -370,7 +507,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         },
         {
             "name": "get-stream/stream",
@@ -424,7 +561,7 @@
                 "newsfeed",
                 "stream"
             ],
-            "time": "2018-12-03 16:28:06"
+            "time": "2018-12-03T16:28:06+00:00"
         },
         {
             "name": "graphaware/neo4j-bolt",
@@ -470,7 +607,7 @@
                 }
             ],
             "description": "Neo4j Bolt Binary Protocol PHP Driver",
-            "time": "2017-12-12 08:26:08"
+            "time": "2017-12-12T08:26:08+00:00"
         },
         {
             "name": "graphaware/neo4j-common",
@@ -516,7 +653,7 @@
                 "neo4j",
                 "statement"
             ],
-            "time": "2017-06-08 21:29:20"
+            "time": "2017-06-08T21:29:20+00:00"
         },
         {
             "name": "graphaware/neo4j-php-client",
@@ -580,7 +717,7 @@
                 "http",
                 "neo4j"
             ],
-            "time": "2018-11-21 12:08:48"
+            "time": "2018-11-21T12:08:48+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -645,7 +782,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22 15:46:56"
+            "time": "2018-04-22T15:46:56+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -696,7 +833,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -763,7 +900,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-12-04 20:46:45"
+            "time": "2018-12-04T20:46:45+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -805,7 +942,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
-            "time": "2018-09-29 17:23:10"
+            "time": "2018-09-29T17:23:10+00:00"
         },
         {
             "name": "jakub-onderka/php-console-highlighter",
@@ -851,7 +988,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
-            "time": "2018-09-29 18:48:56"
+            "time": "2018-09-29T18:48:56+00:00"
         },
         {
             "name": "kjdev/redis-graph",
@@ -886,7 +1023,7 @@
             "keywords": [
                 "redis"
             ],
-            "time": "2018-10-24 22:59:55"
+            "time": "2018-10-24T22:59:55+00:00"
         },
         {
             "name": "league/flysystem",
@@ -970,7 +1107,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-02-01 08:50:36"
+            "time": "2019-02-01T08:50:36+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1017,7 +1154,7 @@
                 }
             ],
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
-            "time": "2019-01-31 15:07:25"
+            "time": "2019-01-31T15:07:25+00:00"
         },
         {
             "name": "mailgun/mailgun-php",
@@ -1069,7 +1206,7 @@
                 }
             ],
             "description": "The Mailgun SDK provides methods for all API functions.",
-            "time": "2019-02-02 07:14:32"
+            "time": "2019-02-02T07:14:32+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1147,7 +1284,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05 09:00:11"
+            "time": "2018-11-05T09:00:11+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1202,7 +1339,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-12-03 22:08:25"
+            "time": "2016-12-03T22:08:25+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -1247,7 +1384,47 @@
             "keywords": [
                 "enum"
             ],
-            "time": "2019-02-04 21:18:49"
+            "time": "2019-02-04T21:18:49+00:00"
+        },
+        {
+            "name": "neutron/temporary-filesystem",
+            "version": "2.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/romainneutron/Temporary-Filesystem.git",
+                "reference": "694aa3885f653dd429584e825ffbab79441d285f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/romainneutron/Temporary-Filesystem/zipball/694aa3885f653dd429584e825ffbab79441d285f",
+                "reference": "694aa3885f653dd429584e825ffbab79441d285f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "symfony/filesystem": "^2.3 || ^3.0 || ^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Neutron": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com"
+                }
+            ],
+            "description": "Symfony filesystem extension to handle temporary files",
+            "time": "2018-02-07T21:11:57+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1298,7 +1475,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-02-16 20:54:15"
+            "time": "2019-02-16T20:54:15+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1343,7 +1520,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-07-02 15:55:56"
+            "time": "2018-07-02T15:55:56+00:00"
         },
         {
             "name": "pho-adapters/database-redis",
@@ -1385,7 +1562,7 @@
             ],
             "description": "A simple synchronous Redis database adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-10-26 23:21:45"
+            "time": "2018-10-26T23:21:45+00:00"
         },
         {
             "name": "pho-adapters/events-local",
@@ -1427,7 +1604,7 @@
             ],
             "description": "A development-only implementation of events adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07 11:50:53"
+            "time": "2018-01-07T11:50:53+00:00"
         },
         {
             "name": "pho-adapters/index-neo4j",
@@ -1470,7 +1647,7 @@
             ],
             "description": "Neo4J adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14 04:12:20"
+            "time": "2018-11-14T04:12:20+00:00"
         },
         {
             "name": "pho-adapters/index-redis",
@@ -1513,7 +1690,7 @@
             ],
             "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-02-12 03:39:24"
+            "time": "2019-02-12T03:39:24+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
@@ -1555,7 +1732,7 @@
             ],
             "description": "AWS S3 based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-07 06:17:03"
+            "time": "2018-09-07T06:17:03+00:00"
         },
         {
             "name": "pho-adapters/storage-filesystem",
@@ -1596,7 +1773,7 @@
             ],
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07 11:53:13"
+            "time": "2018-01-07T11:53:13+00:00"
         },
         {
             "name": "pho-recipes/network",
@@ -1634,7 +1811,7 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-15 07:33:54"
+            "time": "2019-01-15T07:33:54+00:00"
         },
         {
             "name": "pho-recipes/web",
@@ -1672,7 +1849,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-15 07:33:49"
+            "time": "2019-01-15T07:33:49+00:00"
         },
         {
             "name": "phonetworks/pho-framework",
@@ -1730,7 +1907,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-01-20 12:21:38"
+            "time": "2019-01-20T12:21:38+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1768,7 +1945,7 @@
             ],
             "description": "A simple microkernel implementation with Twitter-like functionality.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-12-08 00:46:04"
+            "time": "2018-12-08T00:46:04+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
@@ -1824,7 +2001,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2018-11-13 11:20:19"
+            "time": "2018-11-13T11:20:19+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",
@@ -1881,7 +2058,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-01-20 12:18:50"
+            "time": "2019-01-20T12:18:50+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -1925,7 +2102,7 @@
                 }
             ],
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-08 07:52:36"
+            "time": "2018-09-08T07:52:36+00:00"
         },
         {
             "name": "phonetworks/pho-server-rest",
@@ -1982,7 +2159,91 @@
                 "rest",
                 "server"
             ],
-            "time": "2018-03-13 15:27:16"
+            "time": "2018-03-13T15:27:16+00:00"
+        },
+        {
+            "name": "php-ffmpeg/php-ffmpeg",
+            "version": "v0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHP-FFMpeg/PHP-FFMpeg.git",
+                "reference": "c11b79ab5b0174aa1a56c54c67491169e78a4c17"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/c11b79ab5b0174aa1a56c54c67491169e78a4c17",
+                "reference": "c11b79ab5b0174aa1a56c54c67491169e78a4c17",
+                "shasum": ""
+            },
+            "require": {
+                "alchemy/binary-driver": "^1.5 || ~2.0.0",
+                "doctrine/cache": "^1.0",
+                "evenement/evenement": "^2.0 || ^1.0",
+                "neutron/temporary-filesystem": "^2.1.1",
+                "php": "^5.3.9 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36",
+                "sami/sami": "~1.0",
+                "silex/silex": "~1.0"
+            },
+            "suggest": {
+                "php-ffmpeg/extras": "A compilation of common audio & video drivers for PHP-FFMpeg"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "FFMpeg": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Romain Neutron",
+                    "email": "imprec@gmail.com",
+                    "homepage": "http://www.lickmychip.com/"
+                },
+                {
+                    "name": "Phraseanet Team",
+                    "email": "info@alchemy.fr",
+                    "homepage": "http://www.phraseanet.com/"
+                },
+                {
+                    "name": "Patrik Karisch",
+                    "email": "patrik@karisch.guru",
+                    "homepage": "http://www.karisch.guru"
+                },
+                {
+                    "name": "Romain Biard",
+                    "email": "romain.biard@gmail.com",
+                    "homepage": "https://www.strime.io/"
+                },
+                {
+                    "name": "Jens Hausdorf",
+                    "email": "hello@jens-hausdorf.de",
+                    "homepage": "https://jens-hausdorf.de"
+                }
+            ],
+            "description": "FFMpeg PHP, an Object Oriented library to communicate with AVconv / ffmpeg",
+            "keywords": [
+                "audio",
+                "audio processing",
+                "avconv",
+                "avprobe",
+                "ffmpeg",
+                "ffprobe",
+                "video",
+                "video processing"
+            ],
+            "time": "2018-08-06T20:02:43+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -2043,7 +2304,7 @@
                 "http",
                 "httplug"
             ],
-            "time": "2019-02-02 07:03:15"
+            "time": "2019-02-02T07:03:15+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -2107,7 +2368,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-02-23 07:42:53"
+            "time": "2019-02-23T07:42:53+00:00"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -2167,7 +2428,7 @@
                 "Guzzle",
                 "http"
             ],
-            "time": "2016-05-10 06:13:32"
+            "time": "2016-05-10T06:13:32+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -2223,7 +2484,7 @@
                 "client",
                 "http"
             ],
-            "time": "2016-08-31 08:30:17"
+            "time": "2016-08-31T08:30:17+00:00"
         },
         {
             "name": "php-http/message",
@@ -2295,7 +2556,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2018-11-01 09:32:41"
+            "time": "2018-11-01T09:32:41+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -2345,7 +2606,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2015-12-19 14:08:53"
+            "time": "2015-12-19T14:08:53+00:00"
         },
         {
             "name": "php-http/multipart-stream-builder",
@@ -2402,7 +2663,7 @@
                 "multipart stream",
                 "stream"
             ],
-            "time": "2017-05-21 17:45:25"
+            "time": "2017-05-21T17:45:25+00:00"
         },
         {
             "name": "php-http/promise",
@@ -2452,7 +2713,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-01-26 13:27:02"
+            "time": "2016-01-26T13:27:02+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -2498,7 +2759,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
         },
         {
             "name": "predis/predis",
@@ -2548,7 +2809,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16 16:22:20"
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/container",
@@ -2597,7 +2858,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2647,7 +2908,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -2694,7 +2955,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20 15:27:04"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psy/psysh",
@@ -2768,7 +3029,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-10-13 15:16:03"
+            "time": "2018-10-13T15:16:03+00:00"
         },
         {
             "name": "rakit/validation",
@@ -2808,7 +3069,7 @@
                 }
             ],
             "description": "PHP Laravel like standalone validation library",
-            "time": "2018-11-10 03:57:56"
+            "time": "2018-11-10T03:57:56+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -2848,7 +3109,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2016-02-11 07:05:27"
+            "time": "2016-02-11T07:05:27+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -2930,7 +3191,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2018-07-19 23:38:55"
+            "time": "2018-07-19T23:38:55+00:00"
         },
         {
             "name": "react/event-loop",
@@ -2972,7 +3233,7 @@
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2017-04-27 10:56:23"
+            "time": "2017-04-27T10:56:23+00:00"
         },
         {
             "name": "react/http",
@@ -3017,7 +3278,7 @@
                 "server",
                 "streaming"
             ],
-            "time": "2017-02-16 15:01:02"
+            "time": "2017-02-16T15:01:02+00:00"
         },
         {
             "name": "react/promise",
@@ -3063,7 +3324,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2019-01-07 21:25:54"
+            "time": "2019-01-07T21:25:54+00:00"
         },
         {
             "name": "react/socket",
@@ -3105,7 +3366,7 @@
             "keywords": [
                 "Socket"
             ],
-            "time": "2017-03-09 12:13:07"
+            "time": "2017-03-09T12:13:07+00:00"
         },
         {
             "name": "react/stream",
@@ -3149,7 +3410,7 @@
                 "pipe",
                 "stream"
             ],
-            "time": "2017-01-25 14:44:14"
+            "time": "2017-01-25T14:44:14+00:00"
         },
         {
             "name": "ringcentral/psr7",
@@ -3207,7 +3468,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2018-01-15 21:00:49"
+            "time": "2018-01-15T21:00:49+00:00"
         },
         {
             "name": "riverline/multipart-parser",
@@ -3259,7 +3520,7 @@
                 "multipart",
                 "parser"
             ],
-            "time": "2018-12-17 13:02:25"
+            "time": "2018-12-17T13:02:25+00:00"
         },
         {
             "name": "sabre/event",
@@ -3319,7 +3580,7 @@
                 "reactor",
                 "signal"
             ],
-            "time": "2018-03-05 13:55:47"
+            "time": "2018-03-05T13:55:47+00:00"
         },
         {
             "name": "superbalist/php-pubsub",
@@ -3365,7 +3626,7 @@
                 }
             ],
             "description": "An adapter based PubSub package for PHP",
-            "time": "2017-05-16 09:52:04"
+            "time": "2017-05-16T09:52:04+00:00"
         },
         {
             "name": "superbalist/php-pubsub-redis",
@@ -3413,7 +3674,7 @@
                 }
             ],
             "description": "A Redis adapter for the php-pubsub package",
-            "time": "2017-05-16 11:26:47"
+            "time": "2017-05-16T11:26:47+00:00"
         },
         {
             "name": "symfony/console",
@@ -3485,7 +3746,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23 15:17:42"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/contracts",
@@ -3553,7 +3814,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2018-12-05 08:06:11"
+            "time": "2018-12-05T08:06:11+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3617,7 +3878,57 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-23 15:17:42"
+            "time": "2019-02-23T15:17:42+00:00"
+        },
+        {
+            "name": "symfony/filesystem",
+            "version": "v4.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "e16b9e471703b2c60b95f14d31c1239f68f11601"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/e16b9e471703b2c60b95f14d31c1239f68f11601",
+                "reference": "e16b9e471703b2c60b95f14d31c1239f68f11601",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Filesystem\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Filesystem Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-02-07T11:40:08+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -3671,7 +3982,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-02-23 15:17:42"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -3729,7 +4040,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-08-06 14:22:27"
+            "time": "2018-08-06T14:22:27+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3788,7 +4099,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21 13:07:52"
+            "time": "2018-09-21T13:07:52+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -3843,7 +4154,56 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-09-21 13:07:52"
+            "time": "2018-09-21T13:07:52+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
+                "reference": "6c05edb11fbeff9e2b324b4270ecb17911a8b7ad",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "time": "2019-01-24T22:05:03+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -3919,7 +4279,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-02-23 15:17:42"
+            "time": "2019-02-23T15:17:42+00:00"
         },
         {
             "name": "vanilla/garden-cli",
@@ -3956,7 +4316,7 @@
                 }
             ],
             "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
-            "time": "2018-06-26 14:29:46"
+            "time": "2018-06-26T14:29:46+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4007,7 +4367,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29 11:11:52"
+            "time": "2019-01-29T11:11:52+00:00"
         },
         {
             "name": "vlucas/valitron",
@@ -4056,7 +4416,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2018-12-14 21:15:14"
+            "time": "2018-12-14T21:15:14+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -4107,7 +4467,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-12-25 11:19:39"
+            "time": "2018-12-25T11:19:39+00:00"
         },
         {
             "name": "zendframework/zend-config",
@@ -4167,7 +4527,7 @@
                 "config",
                 "zf"
             ],
-            "time": "2018-04-24 19:26:44"
+            "time": "2018-04-24T19:26:44+00:00"
         },
         {
             "name": "zendframework/zend-file",
@@ -4224,7 +4584,7 @@
                 "file",
                 "zf"
             ],
-            "time": "2019-02-06 16:53:31"
+            "time": "2019-02-06T16:53:31+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -4270,7 +4630,7 @@
                 "stdlib",
                 "zf"
             ],
-            "time": "2018-08-28 21:34:05"
+            "time": "2018-08-28T21:34:05+00:00"
         }
     ],
     "packages-dev": [
@@ -4476,7 +4836,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-02-26 21:14:50"
+            "time": "2019-02-26T21:14:50+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4554,7 +4914,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-11-07 22:31:41"
+            "time": "2018-11-07T22:31:41+00:00"
         }
     ],
     "aliases": [],

@@ -22,7 +22,8 @@
         "riverline/multipart-parser": "^2.0",
         "aws/aws-sdk-php": "^3.87",
         "pho-adapters/index-redis": "dev-master",
-        "pho-recipes/network": "dev-master"
+        "pho-recipes/network": "dev-master",
+        "php-ffmpeg/php-ffmpeg": "^0.13.0"
     },
     "require-dev": {
         "psy/psysh": "*",
