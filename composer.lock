@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "087f7bdb1a9421d2576d4a569441b226",
+    "content-hash": "d8a56d4c70f82d6a83fa32418cd4f3a3",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -4933,7 +4933,8 @@
     "platform": {
         "php": "^7.2.0",
         "ext-sodium": "*",
-        "ext-bcmath": "*"
+        "ext-bcmath": "*",
+        "ext-gd": "*"
     },
     "platform-dev": []
 }
