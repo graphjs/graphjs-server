@@ -10,11 +10,12 @@ GraphJS-Server does not rely on a third party HTTP Server such as [NGINX](https:
 ## Requirements
 
 * PHP 7.2+
-* PHP extensions: bcmath, and sodium
+* PHP extensions: bcmath, sodium, gd
 * [Composer](https://getcomposer.org/)
 * [Git](https://git-scm.com/)
 * Redis: [Install](https://redis.io/topics/quickstart)
 * Neo4j: [Install](https://neo4j.com/download/)
+* ffmpeg
 
 ## Heroku Installation
 
