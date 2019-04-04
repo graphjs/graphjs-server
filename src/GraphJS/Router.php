@@ -236,6 +236,14 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
+        
+        if(getenv('INSTALLATION_TYPE') === 'groupsv2') {
+            $server->get(
+                'setAbout', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->setAbout($request, $response, $kernel);
+                }
+            );
+        }
 
         $server->get(
             'getId', function (Request $request, Response $response) use ($controllers, $kernel) {
