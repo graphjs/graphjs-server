@@ -37,7 +37,7 @@ class BlogController extends AbstractController
 
     public function fetchAll(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        
+        $data = $request->getQueryParams();
         $blogs = [];
         $everything = $kernel->graph()->members();
         $is_moderated = $kernel->graph()->getCommentsModerated();
@@ -83,7 +83,7 @@ class BlogController extends AbstractController
         }
         $this->succeed(
             $response, [
-                "blogs" => $blogs
+                "blogs" => (isset($data["order"])&&$data["order"]=="asc") ? $blogs : array_reverse($blogs)
             ]
         );
     }
