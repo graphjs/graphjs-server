@@ -263,6 +263,7 @@ class BlogController extends AbstractController
     protected function canEdit(Kernel $kernel, AbstractActor $actor)
     {
         return (
+            getenv('INSTALLATION_TYPE') === 'groupsv2'  ||
             $kernel->founder()->id()->equals($actor->id()) ||
             isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor
         );
