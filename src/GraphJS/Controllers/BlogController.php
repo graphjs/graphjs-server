@@ -81,9 +81,22 @@ class BlogController extends AbstractController
                 ];
             }
         }
+
+        // https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
+        if((isset($data["order"])&&$data["order"]=="asc") ) {
+            usort($blogs, function ($item1, $item2) {
+                return $item1['publish_time'] <=> $item2['publish_time'];
+            });
+        }
+        else {
+            usort($blogs, function ($item1, $item2) {
+                return $item2['publish_time'] <=> $item1['publish_time'];
+            });
+        }
+        
         $this->succeed(
             $response, [
-                "blogs" => (isset($data["order"])&&$data["order"]=="asc") ? $blogs : array_reverse($blogs)
+                "blogs" => $blogs 
             ]
         );
     }
