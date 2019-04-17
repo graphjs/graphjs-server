@@ -3,6 +3,14 @@
     "description": "Serving GraphJS",
     "repository": "https://github.com/phonetworks/graphjs-server",
     "addons": ["cloudcube"],
+    "buildpacks": [
+        {
+            "url": "https://github.com/kontentcore/heroku-buildpack-ffmpeg"
+        },
+        {
+            "url": "heroku/php"
+        }
+    ],
     "formation": {
         "web": {
             "quantity": 1,

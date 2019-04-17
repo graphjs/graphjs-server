@@ -19,18 +19,24 @@ class S3Uploader
         $this->bucket = $bucket;
     }
 
-    public function upload($key, $source, $mime)
+    public function upload($key, $source, $mime, $randomizeKey = true)
     {
         $currentAttempt = 0;
         $maxAttempts = 2;
-        do {
-            $currentAttempt++;
-            $key = $this->generateKey($key);
-            if (! $this->keyExists($key)) {
-                $url = $this->uploadToS3($key, $source, $mime);
-                return $url;
-            }
-        } while ($currentAttempt < $maxAttempts);
+        if ($randomizeKey) {
+            do {
+                $currentAttempt++;
+                $key = $this->generateKey($key);
+                if (!$this->keyExists($key)) {
+                    $url = $this->uploadToS3($key, $source, $mime);
+                    return $url;
+                }
+            } while ($currentAttempt < $maxAttempts);
+        }
+        else {
+            $url = $this->uploadToS3($key, $source, $mime);
+            return $url;
+        }
 
         return false;
     }

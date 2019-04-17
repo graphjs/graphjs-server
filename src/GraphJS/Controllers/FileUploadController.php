@@ -117,6 +117,27 @@ class FileUploadController extends AbstractController
 
                 $key = strtolower("{$uuid}/{$filename}");
                 $url = $this->s3Uploader->upload($key, $body, $mime);
+
+                $previewUrl = null;
+
+                if (substr($mime, 0, strlen('video/')) === 'video/') {
+                    $previewKey = "{$key}-preview.jpg";
+                    $previewMime = 'image/jpeg';
+                    try {
+                        $videoFile = $this->getTempFile();
+                        file_put_contents($videoFile, $body);
+                        $frameFile = $this->getTempFile();
+                        $this->saveFrame($videoFile, $frameFile);
+
+                        $resizedFrameFile = $this->getTempFile();
+                        $this->resizeImage($frameFile, $resizedFrameFile, 600, 600);
+                        $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), $previewMime, false);
+                    }
+                    catch (\Exception $ex) {
+                        error_log('error occurred during preview image generation');
+                        error_log($ex);
+                    }
+                }
                 if ($url !== false) {
                     $bytes = strlen($body);
                     $humanFileSize = $this->human_filesize($bytes);
@@ -126,6 +147,7 @@ class FileUploadController extends AbstractController
                         'original_filename' => $originalFilename,
                         'filesize' => $bytes,
                         'human_filesize' => $humanFileSize,
+                        'preview_url' => $previewUrl,
                     ];
                 }
             }
@@ -144,5 +166,85 @@ class FileUploadController extends AbstractController
         $sz = 'BKMGTP';
         $factor = (int) floor((strlen($bytes) - 1) / 3);
         return sprintf("%.{$decimals}f", $bytes / pow(1024, $factor)) . @$sz[$factor];
+    }
+
+    public function getTempFile()
+    {
+        $tmp = tmpfile();
+        $tempFile = stream_get_meta_data($tmp)['uri'];
+        return $tempFile;
+    }
+
+    public function saveFrame($videoFile, $frameFile)
+    {
+        $ffmpeg = \FFMpeg\FFMpeg::create();
+        $ffprobe = \FFMpeg\FFProbe::create();
+        $video = $ffmpeg->open($videoFile);
+        $duration = (int) $ffprobe
+            ->format($videoFile)
+            ->get('duration');
+
+        $frameAt = 10;
+        if ($duration < 20) {
+            $frameAt = (int) ($duration / 2);
+        }
+        $video
+            ->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds($frameAt))
+            ->save($frameFile);
+    }
+
+    /**
+     * @see https://gist.github.com/janzikan/2994977
+     *
+     * Resize image - preserve ratio of width and height.
+     * @param string $sourceImage path to source JPEG image
+     * @param string $targetImage path to final JPEG image file
+     * @param int $maxWidth maximum width of final image (value 0 - width is optional)
+     * @param int $maxHeight maximum height of final image (value 0 - height is optional)
+     * @param int $quality quality of final image (0-100)
+     * @return bool
+     */
+    function resizeImage($sourceImage, $targetImage, $maxWidth, $maxHeight, $quality = 80)
+    {
+        // Obtain image from given source file.
+        if (!$image = @imagecreatefromjpeg($sourceImage))
+        {
+            return false;
+        }
+
+        // Get dimensions of source image.
+        list($origWidth, $origHeight) = getimagesize($sourceImage);
+
+        if ($maxWidth == 0)
+        {
+            $maxWidth  = $origWidth;
+        }
+
+        if ($maxHeight == 0)
+        {
+            $maxHeight = $origHeight;
+        }
+
+        // Calculate ratio of desired maximum sizes and original sizes.
+        $widthRatio = $maxWidth / $origWidth;
+        $heightRatio = $maxHeight / $origHeight;
+
+        // Ratio used for calculating new image dimensions.
+        $ratio = min($widthRatio, $heightRatio);
+
+        // Calculate new image dimensions.
+        $newWidth  = (int)$origWidth  * $ratio;
+        $newHeight = (int)$origHeight * $ratio;
+
+        // Create final image with new dimensions.
+        $newImage = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $origWidth, $origHeight);
+        imagejpeg($newImage, $targetImage, $quality);
+
+        // Free up the memory.
+        imagedestroy($image);
+        imagedestroy($newImage);
+
+        return true;
     }
 }
