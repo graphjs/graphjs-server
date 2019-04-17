@@ -37,7 +37,7 @@ class BlogController extends AbstractController
 
     public function fetchAll(Request $request, Response $response, Session $session, Kernel $kernel)
     {
-        
+        $data = $request->getQueryParams();
         $blogs = [];
         $everything = $kernel->graph()->members();
         $is_moderated = $kernel->graph()->getCommentsModerated();
@@ -81,9 +81,22 @@ class BlogController extends AbstractController
                 ];
             }
         }
+
+        // https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
+        if((isset($data["order"])&&$data["order"]=="asc") ) {
+            usort($blogs, function ($item1, $item2) {
+                return $item1['publish_time'] <=> $item2['publish_time'];
+            });
+        }
+        else {
+            usort($blogs, function ($item1, $item2) {
+                return $item2['publish_time'] <=> $item1['publish_time'];
+            });
+        }
+        
         $this->succeed(
             $response, [
-                "blogs" => $blogs
+                "blogs" => $blogs 
             ]
         );
     }
@@ -263,6 +276,7 @@ class BlogController extends AbstractController
     protected function canEdit(Kernel $kernel, AbstractActor $actor)
     {
         return (
+            getenv('INSTALLATION_TYPE') === 'groupsv2'  ||
             $kernel->founder()->id()->equals($actor->id()) ||
             isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor
         );

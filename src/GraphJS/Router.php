@@ -38,7 +38,7 @@ class Router extends \Pho\Server\Rest\Router
      */
     protected static function expandCorsUrl(string $cors): array
     {
-        $final = ["https://graphjs.com", "http://graphjs.com", "https://www.graphjs.com", "http://www.graphjs.com"];
+        $final = ["https://graphjs.com", "http://graphjs.com", "https://www.graphjs.com", "http://www.graphjs.com", "http://build.gr.ps", "https://build.gr.ps", "http://groups2.com", "https://groups2.com", "http://www.groups2.com", "https://www.groups2.com", "http://grou.ps", "https://grou.ps"];
         if(strpos($cors, ";")===false) {
             $urls = [0=>$cors];
         }
@@ -236,6 +236,20 @@ class Router extends \Pho\Server\Rest\Router
 
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
+
+        if(getenv('INSTALLATION_TYPE') === 'groupsv2') {
+            $server->get(
+                'setAbout', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->setAbout($request, $response, $kernel);
+                }
+            );
+
+            $server->get(
+                'getAbout', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->getAbout($request, $response, $kernel);
+                }
+            );
+        }
 
         $server->get(
             'getId', function (Request $request, Response $response) use ($controllers, $kernel) {
