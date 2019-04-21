@@ -5,7 +5,7 @@
     "addons": ["cloudcube"],
     "buildpacks": [
         {
-            "url": "https://github.com/kontentcore/heroku-buildpack-ffmpeg"
+            "url": "https://github.com/kontentcore/heroku-buildpack-ffmpeg#3daeec86f1aaf4f769aaefa2015d7b1108525f58"
         },
         {
             "url": "heroku/php"
