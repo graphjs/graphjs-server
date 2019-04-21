@@ -49,6 +49,7 @@ class MembersController extends AbstractController
                 );
                 $members[(string) $node->id()] = [
                     "username" => (string) $node->getUsername(),
+                    "email" => (string) $node->getEmail(),
                     "avatar" => (string) $node->getAvatar(),
                     "is_editor" => intval($is_editor)
                 ];
