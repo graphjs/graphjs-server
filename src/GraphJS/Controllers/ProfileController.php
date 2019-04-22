@@ -185,7 +185,7 @@ class ProfileController extends AbstractController
                 $custom_field = "custom_field".$m;
                 if(isset($data[$custom_field])) {
                     $sets[] = $custom_field;
-                    $i->attributes()->$custom_field($data[$custom_field]);
+                    $i->attributes()->$custom_field = $data[$custom_field];
                 }
             }
         }
