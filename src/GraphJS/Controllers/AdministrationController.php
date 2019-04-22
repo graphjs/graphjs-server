@@ -154,9 +154,9 @@ class AdministrationController extends AbstractController
         $custom_field2 = (string) $data["custom_field2"];
         $custom_field3 = (string) $data["custom_field3"];
 
-        $kernel->graph()->setCustomField1($custom_field1);
-        $kernel->graph()->setCustomField2($custom_field2);
-        $kernel->graph()->setCustomField3($custom_field3);
+        $kernel->graph()->attributes()->custom_field1 = $custom_field1;
+        $kernel->graph()->attributes()->custom_field2 = $custom_field2;
+        $kernel->graph()->attributes()->custom_field3 = $custom_field3;
         
         $kernel->graph()->persist();
         $this->succeed($response);
@@ -172,9 +172,9 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "Invalid function");
         }
 
-        $custom_field1 = (string) $kernel->graph()->getCustomField1();
-        $custom_field2 = (string) $kernel->graph()->getCustomField2();
-        $custom_field3 = (string) $kernel->graph()->getCustomField3();
+        $custom_field1 = (string) $kernel->graph()->attributes()->custom_field1;
+        $custom_field2 = (string) $kernel->graph()->attributes()->custom_field2;
+        $custom_field3 = (string) $kernel->graph()->attributes()->custom_field3;
         
         $this->succeed($response, [
             "custom_field1"=>$custom_field1,
