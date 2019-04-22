@@ -250,6 +250,19 @@ class Router extends \Pho\Server\Rest\Router
                 }
             );
         }
+        else {
+            $server->get(
+                'setCustomFields', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->setCustomFields($request, $response, $kernel);
+                }
+            );
+
+            $server->get(
+                'getCustomFields', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->getCustomFields($request, $response, $kernel);
+                }
+            );
+        }
 
         $server->get(
             'getId', function (Request $request, Response $response) use ($controllers, $kernel) {
