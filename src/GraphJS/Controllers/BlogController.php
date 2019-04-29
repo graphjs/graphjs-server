@@ -98,7 +98,7 @@ class BlogController extends AbstractController
         if(isset($data["offset"])&&is_numeric($data["offset"])) {
             $offset = $data["offset"];
         }
-        if(isset($data["count"])&&is_numeric($data["count"])) {
+        if(isset($data["count"])&&is_numeric($data["count"])&&$data["count"]!=0) {
             $count = $data["count"];
         }
         else {
