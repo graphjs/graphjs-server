@@ -93,7 +93,18 @@ class BlogController extends AbstractController
                 return $item2['publish_time'] <=> $item1['publish_time'];
             });
         }
-        
+
+        $offset = 0;
+        if(isset($data["offset"])&&is_numeric($data["offset"])) {
+            $offset = $data["offset"];
+        }
+        if(isset($data["count"])&&is_numeric($data["count"])) {
+            $count = $data["count"];
+        }
+        else {
+            $count = count($blogs);
+        }
+        $blogs = array_slice($blogs, $offset, $count, true);
         $this->succeed(
             $response, [
                 "blogs" => $blogs 
