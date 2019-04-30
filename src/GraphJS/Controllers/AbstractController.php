@@ -56,7 +56,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
      * @param boolean $keepKeys
      * @return array
      */
-    private static function sortAssocArrayByValue(array $arrayToSort, string $sortKey, bool $isAsc = true, bool $keepKeys = false): array 
+    protected static function sortAssocArrayByValue(array $arrayToSort, string $sortKey, bool $isAsc = true, bool $keepKeys = false): array 
     {
         if ($isAsc === true) {
             $sort = SORT_ASC;
