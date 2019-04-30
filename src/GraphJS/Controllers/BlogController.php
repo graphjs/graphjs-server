@@ -44,6 +44,7 @@ class BlogController extends AbstractController
         foreach($everything as $thing) {
 
             if($thing instanceof Blog) {
+                try{
                 error_log("blog id: ".$thing->id()->toString());
                 $publish_time =  intval($thing->getPublishTime());
                 $comments = $is_moderated ?
@@ -79,6 +80,11 @@ class BlogController extends AbstractController
                     "publish_time" => (string) $publish_time,
                     "comment_count" => $comment_count
                 ];
+            }
+            catch(\Exception $e) {
+                // missing edge or something
+                
+            }
             }
         }
 
