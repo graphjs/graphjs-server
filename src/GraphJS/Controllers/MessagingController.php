@@ -259,11 +259,28 @@ class MessagingController extends AbstractController
             $this->fail($response, "Invalid User ID");
             return;
         }
+        /*
+        // not supported with Redis so...
+        // @todo make sure RedisGraph supports this too
         $ret = $kernel->index()->query(
             "MATCH (:user {udid: {u1}})-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN startNode(r).udid as t, r ORDER BY r.SentTime DESC",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $records = $ret->results();
+        */
+        // instead1
+        $ret = $kernel->index()->query(
+            "MATCH (sn:user {udid: {u1}})-[r:message]->(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t, r",
+                array("u1"=>$id, "u2"=>$data["with"])
+        );
+        $records1 = $ret->results();
+        $ret = $kernel->index()->query(
+            "MATCH (sn:user {udid: {u1}})<-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t",
+                array("u1"=>$id, "u2"=>$data["with"])
+        );
+        $records2 = $ret->results();
+        $records = array_merge($records1, $records2);
+        // instead1 ENDS
         $return = [];
         foreach($records as $i=>$res) {
             try {
@@ -289,6 +306,9 @@ class MessagingController extends AbstractController
                 continue;
             }
         }
+        // instead2
+        $return = self::sortAssocArrayByValue($return, "timestamp", false, true);
+        // instead2 ENDS
         $this->succeed($response, [ "messages" => $return ]);
     }
 

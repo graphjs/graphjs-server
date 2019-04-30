@@ -45,6 +45,59 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         return $mixed;
     }
 
+    /**
+     * Utility function to sort associative arrays by value
+     * 
+     * Source: https://www.texelate.co.uk/blog/sort-associative-array-by-value-and-keep-keys-with-php
+     *
+     * @param array $arrayToSort
+     * @param string $sortKey
+     * @param boolean $isAsc
+     * @param boolean $keepKeys
+     * @return array
+     */
+    private static function sortAssocArrayByValue(array $arrayToSort, string $sortKey, bool $isAsc = true, bool $keepKeys = false): array 
+    {
+        if ($isAsc === true) {
+            $sort = SORT_ASC;
+        } else {
+            $sort = SORT_DESC;
+        }
+    
+        $array 	= [];
+        $data	= [];
+    
+        // The keys are preserved by making them strings
+        foreach ($arrayToSort as $key => $value) {
+            if ($keepKeys === true) {
+               $k = '_' . $key;
+            } else {
+                $k = $key;   
+            }
+    
+            $data[$k]	= $value;
+            $array[$k] 	= $value[$sortKey];
+        }
+    
+        // This sorts the data based on $array
+        array_multisort($array, $sort, $data);
+    
+        // If the keys are not being kept then the work is done
+        if ($keepKeys === false) {
+           return $data; 
+        }
+
+        // To keep the keys the new array overwrites the old one and the numerical keys are restored
+        $arrayToSort = [];
+    
+        foreach ($data as $key => $value) {
+    
+            $arrayToSort[ltrim($key, '_')] = $value;
+    
+        }
+        return $arrayToSort;
+    }
+
     protected function succeed(Response $response, array $data = []): void
     {
         $data = self::utf8ize($data);
