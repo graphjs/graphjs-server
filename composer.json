@@ -10,7 +10,7 @@
             "email": "emre@phonetworks.org",
             "homepage": "http://www.emresokullu.com"
         }
-    ]
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
