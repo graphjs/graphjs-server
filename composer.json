@@ -3,7 +3,7 @@
     "type": "server",
     "description": "GraphJS REST APIs",
     "homepage": "https://graphjs.com",
-    "license": "AGPL",
+    "license": "AGPL-3.0-or-later",
     "authors": [
         {
             "name": "Emre Sokullu",
