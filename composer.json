@@ -1,4 +1,16 @@
 {
+    "name": "graphjs/server",
+    "type": "server",
+    "description": "GraphJS REST APIs",
+    "homepage": "https://graphjs.com",
+    "license": "AGPL",
+    "authors": [
+        {
+            "name": "Emre Sokullu",
+            "email": "emre@phonetworks.org",
+            "homepage": "http://www.emresokullu.com"
+        }
+    ]
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
