@@ -63,6 +63,49 @@ class GroupController extends AbstractController
             ]
         );
     }
+    
+    /**
+     * Deletes an existing Group
+     * 
+     * [title, description]
+     * 
+     * @param Request  $request
+     * @param Response $response
+     * @param Session  $session
+     * @param Kernel   $kernel
+     * @param string   $id
+     * 
+     * @return void
+     */
+    public function deleteGroup(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        $data = $request->getQueryParams();
+        $validation = $this->validator->validate($data, [
+            'id' => 'required'
+        ]);
+        if($validation->fails()) {
+            $this->fail($response, "Group ID is required.");
+            return;
+        }
+        
+        $i = $kernel->gs()->node($id);
+
+        $group = $kernel->gs()->node($data["id"]);
+        if(!$group instanceof Group) {
+            return $this->fail($response, "Valid Group ID is required.");
+        }
+        
+        $group_owner = $group->edges()->in(Create::class)->current()->tail()->id()->toString();
+        if($group_owner!=$id && $kernel->founder()->id()->toString()!=$id ) {
+            return $this->fail($response, "You do not have privileges to delete this group.");
+        }
+        
+        $group->destroy();
+        $this->succeed($response);
+    }
 
     public function setGroup(Request $request, Response $response, Session $session, Kernel $kernel)
     {
