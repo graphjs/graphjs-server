@@ -666,6 +666,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["group"]->createGroup($request, $response, $session, $kernel);
             }
         );
+        
+        $server->get(
+            'deleteGroup', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["group"]->deleteGroup($request, $response, $session, $kernel);
+            }
+        );
 
         $server->get(
             'setGroup', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
