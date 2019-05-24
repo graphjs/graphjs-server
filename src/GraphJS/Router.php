@@ -43,7 +43,7 @@ class Router extends \Pho\Server\Rest\Router
             $urls = [0=>$cors];
         }
         else {
-            $urls = explode(";",$cors);
+            $urls = preg_split("/;/",$cors, -1, PREG_SPLIT_NO_EMPTY);
         }
         foreach($urls as $url) {
             $parsed = parse_url($url);

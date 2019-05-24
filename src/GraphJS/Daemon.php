@@ -24,13 +24,14 @@ use Pho\Plugins\FeedPlugin;
  */
 class Daemon extends \Pho\Server\Rest\Daemon
 {
-    protected $configs_file = "";
+    //protected $configs_file = "";
     protected $heroku = false;
     
     public function __construct(string $configs = "", string $cors = "", bool $heroku = false)
     {
         $this->heroku = $heroku;
-        $this->configs_file = $configs;
+        $this->loadEnvVars($configs);
+        $cors .= sprintf(";%s", getenv("CORS_DOMAIN"));
         $this->server = new Server();
         $this->server->setAccessControlAllowOrigin("*");
         $this->initKernel();
@@ -38,14 +39,14 @@ class Daemon extends \Pho\Server\Rest\Daemon
         Router::init2($this->server, $this->controllers, $this->kernel, $cors);
     }
 
-    protected function initKernel(): void
+    protected function loadEnvVars(string $confgis_file): void
     {
         if($this->heroku) {
             include __DIR__ . '/../../inc/heroku.php';
         }
         else {
-            $configs_file = $this->configs_file;
-            if(empty($this->configs_file)) {
+            //$configs_file = $this->configs_file;
+            if(empty($configs_file)) {
                 $configs_file = __DIR__ . '/../../';
             }
             $dotenv = new \Dotenv\Dotenv($configs_file);
@@ -53,6 +54,10 @@ class Daemon extends \Pho\Server\Rest\Daemon
         }
         $this->configureEnvironmentVariable();
         $this->configureAutoloading();
+    }
+
+    protected function initKernel(): void
+    {
         $configs = array(
             "services"=>array(
                 "database" => ["type" => getenv('DATABASE_TYPE'), "uri" => getenv('DATABASE_URI')],
