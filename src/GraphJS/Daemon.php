@@ -39,7 +39,7 @@ class Daemon extends \Pho\Server\Rest\Daemon
         Router::init2($this->server, $this->controllers, $this->kernel, $cors);
     }
 
-    protected function loadEnvVars(string $confgis_file): void
+    protected function loadEnvVars(string $configs_file): void
     {
         if($this->heroku) {
             include __DIR__ . '/../../inc/heroku.php';
