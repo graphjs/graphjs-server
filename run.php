@@ -17,7 +17,7 @@ $port = $args->getOpt(
     (getenv('PORT') ?  getenv('PORT') : 1338) // default
 );
 $configs = $args->getOpt('conf', "");
-$cors = $args->getOpt('domain', "http://localhost");
+$cors = $args->getOpt('domain', "");
 $heroku = ($args->getOpt('heroku', false) === "yes");
 $server = new \GraphJS\Daemon($configs, $cors, $heroku);
 $server->setPort($port); 
