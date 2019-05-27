@@ -41,7 +41,7 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
             }
         } else if (is_string ($mixed)) {
             // return \mb_convert_encoding(\utf8_encode($mixed), 'HTML-ENTITIES', 'UTF-8');
-            return \utf8_encode($mixed);
+            return $mixed; // \utf8_encode($mixed);
         }
         return $mixed;
     }
