@@ -40,7 +40,8 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
                 $mixed[$key] = self::utf8ize($value);
             }
         } else if (is_string ($mixed)) {
-            return \mb_convert_encoding(utf8_encode($mixed), 'HTML-ENTITIES', 'UTF-8');
+            // return \mb_convert_encoding(\utf8_encode($mixed), 'HTML-ENTITIES', 'UTF-8');
+            return \utf8_encode($mixed);
         }
         return $mixed;
     }
