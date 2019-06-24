@@ -38,6 +38,8 @@ class MembersController extends AbstractController
      */
     public function getMembers(Request $request, Response $response, Kernel $kernel)
     {
+        $isModerated = $this->isMembershipModerated($kernel);
+        $verificationRequired = $this->isVerificationRequired($kernel);
         $nodes = $kernel->graph()->members();
         $members = [];
         foreach($nodes as $node) {
@@ -47,12 +49,17 @@ class MembersController extends AbstractController
                     ||
                     ($kernel->founder()->id()->equals($node->id()))
                 );
-                $members[(string) $node->id()] = [
-                    "username" => (string) $node->getUsername(),
-                    "email" => (string) $node->getEmail(),
-                    "avatar" => (string) $node->getAvatar(),
-                    "is_editor" => intval($is_editor)
-                ];
+                if(
+                    (!$isModerated||!$node->attributes()->pending)
+                    &&
+                    (!$verificationRequired||!$node->attributes()->pending_verification)
+                    )
+                    $members[(string) $node->id()] = [
+                        "username" => (string) $node->getUsername(),
+                        "email" => (string) $node->getEmail(),
+                        "avatar" => (string) $node->getAvatar(),
+                        "is_editor" => intval($is_editor)
+                    ];
             }
         }
         $this->succeed($response, ["members" => $members]);

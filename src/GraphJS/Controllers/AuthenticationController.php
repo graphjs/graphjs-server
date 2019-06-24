@@ -96,8 +96,23 @@ class AuthenticationController extends AbstractController
         $this->actualSignup( $request,  $response,  $session,  $kernel, $data["username"], $data["email"], $data["password"]);
     }
 
-    protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
+    protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password)
     {
+        //$verificationRequired = $this->isVerificationRequired($kernel);
+        $data = $request->getQueryParams();
+        $extra_reqs_to_validate = [];
+        $reqs = $kernel->graph()->attributes()->toArray();
+        for($i=1;$i++;$i<4) {
+            if(isset($reqs["custom_field{$i}_must"])&&$reqs["custom_field{$i}_must"]&&!empty($reqs["custom_field{$i}"])) {
+                $field = $reqs["custom_field{$i}"];
+                $extra_reqs_to_validate[$field] = 'required';
+            }
+        }
+        $validation = $this->validator->validate($data, $extra_reqs_to_validate);
+        if($validation->fails()) {
+            return $this->fail($response, "Valid ".addslashes(implode(", ", $extra_reqs_to_validate)). " required.");
+        }
+        
         $result = $kernel->index()->query(
             "MATCH (n:user) WHERE n.Username= {username} OR n.Email = {email} RETURN n",
             [ 
@@ -121,10 +136,37 @@ class AuthenticationController extends AbstractController
             $this->fail($response, $e->getMessage());
             return;
         }
+
+
+        for($i=1;$i++;$i<4) {
+            if(isset($reqs["custom_field1"])&&!empty($reqs["custom_field{$i}"])&&isset($data["custom_field1"])&&!empty($data["custom_field1"])) {
+                $new_user->attributes()->custom_field1 = $data["custom_field{$i}"];
+            }
+        }
+
+        $moderation = $this->isMembershipModerated($kernel);
+        if($moderation)
+            $new_user->attributes()->pending = true;
+
+        $verification = $this->isVerificationRequired($kernel);
+        if($verification) {
+            $pin = rand(1000, 9999);
+            $new_user->attributes()->pending_verification = $pin;
+                $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
+                $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
+                array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
+                        'to'      => $data["email"],
+                        'subject' => 'Please Verify',
+                        'text'    => 'Please enter this 4 digit passcode to verify your email: '.$pin)
+                );
+        }
+
         $session->set($request, "id", (string) $new_user->id());
         $this->succeed(
             $response, [
-                "id" => (string) $new_user->id()
+                "id" => (string) $new_user->id(),
+                "pending_moderation"=>$moderation,
+                "pending_verification"=>$verification
             ]
         );
     }
@@ -196,7 +238,7 @@ class AuthenticationController extends AbstractController
         
     }
 
-    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
+    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password)
     {
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
@@ -215,6 +257,15 @@ class AuthenticationController extends AbstractController
         error_log("is a  success");
         $user = $result->results()[0];
         error_log(print_r($user));
+
+        if($this->isMembershipModerated($kernel) && $n["n.pending"]==true) {
+            return $this->fail($response, "Pending membership");
+        }
+
+        if($this->isVerificationRequired($kernel) && $n["n.pending_verification"]==true) {
+            return $this->fail($response, "You have not verified your email yet");
+        }
+
         $session->set($request, "id", $user["n.udid"]);
         $this->succeed(
             $response, [

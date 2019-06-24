@@ -256,7 +256,7 @@ class Router extends \Pho\Server\Rest\Router
                 }
             );
         }
-        else {
+        //else {
 
             // PUT /administration/fields
             $server->get(
@@ -271,7 +271,31 @@ class Router extends \Pho\Server\Rest\Router
                     $controllers["administration"]->getCustomFields($request, $response, $kernel);
                 }
             );
-        }
+        //}
+
+        $server->get(
+            'approveMembership', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->approveMembership($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getPendingMemberships', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getPendingMemberships($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setMembershipModerationMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
+            }
+        );
 
         // GET /administration/{id} or phonetworks /{id} @todo figure it out
         $server->get(
