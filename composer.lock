@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1991aab3348fc44f79d459eabf0516db",
-    "content-hash": "f3267b294270519b1b51d94cae4a9bc1",
+    "hash": "2877df0084d6de7240048517ba782538",
+    "content-hash": "c09a2b65b04cd94bdc728da244f2e3c3",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1744,16 +1744,16 @@
         },
         {
             "name": "pho-recipes/network",
-            "version": "dev-master",
+            "version": "dev-private-content",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Network.git",
-                "reference": "d1d9271e1ad3bf57c070c147a74559e91c49e923"
+                "reference": "8c6902d66223c6cc4789dd948aea10be8dd20247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/d1d9271e1ad3bf57c070c147a74559e91c49e923",
-                "reference": "d1d9271e1ad3bf57c070c147a74559e91c49e923",
+                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/8c6902d66223c6cc4789dd948aea10be8dd20247",
+                "reference": "8c6902d66223c6cc4789dd948aea10be8dd20247",
                 "shasum": ""
             },
             "require": {
@@ -1778,20 +1778,20 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-04-22 03:50:13"
+            "time": "2019-06-24 07:49:12"
         },
         {
             "name": "pho-recipes/web",
-            "version": "dev-master",
+            "version": "dev-private-content",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Web.git",
-                "reference": "22771604c2cf7c021d36997d1ab3fb2b89e31fcc"
+                "reference": "a12c0c45601bd5229695aefec44d161b8df33574"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/22771604c2cf7c021d36997d1ab3fb2b89e31fcc",
-                "reference": "22771604c2cf7c021d36997d1ab3fb2b89e31fcc",
+                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/a12c0c45601bd5229695aefec44d161b8df33574",
+                "reference": "a12c0c45601bd5229695aefec44d161b8df33574",
                 "shasum": ""
             },
             "require": {
@@ -1816,7 +1816,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-04-22 03:49:30"
+            "time": "2019-06-24 07:48:55"
         },
         {
             "name": "phonetworks/pho-framework",
