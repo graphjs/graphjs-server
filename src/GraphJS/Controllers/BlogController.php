@@ -54,9 +54,14 @@ class BlogController extends AbstractController
                     : $thing->getComments();
                 $comment_count = (string) count($comments);
                 $author = $thing->getAuthor();
+                $title = $thing->getTitle();
+                $summary = $thing->getContent();
                 error_log("Author(s) as follows: ".gettype($author));
                 //error_log(print_r($author, true));
-                if(!($author instanceof User)) {
+                if(
+                    !($author instanceof User) ||
+                    ($title=="Unnamed"&&$summary=="Dummy content...")
+                ) {
                     continue;
                     /*
                     if(!is_array($author)) {
@@ -68,8 +73,8 @@ class BlogController extends AbstractController
                 //eval(\Psy\sh());
                 $blogs[] = [
                     "id" => (string) $thing->id(),
-                    "title" => $thing->getTitle(),
-                    "summary" => $thing->getContent(),
+                    "title" => $title,
+                    "summary" => $summary,
                     "author" => [
                         "id" => (string) $thing->getAuthor()->id(),
                        "username" => (string) $thing->getAuthor()->getUsername()
