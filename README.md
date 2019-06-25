@@ -23,17 +23,9 @@ Heroku is popular cloud provider by Salesforce. To install, just click the butto
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/phonetworks/graphjs-server/tree/master)
 
-> **WARNING for Heroku installations**: Since GrapheneDB (the cloud Neo4J provider) provision takes longer than app's initial build and launch, you will need to reboot (re-deploy) the app once after it's built for the first time. Otherwise, there will be issues with the instance, and you won't be able to run the API calls properly. This is a common issue first-time Heroku installers are facing, please beware.
+> **WARNING for Heroku installations**: Since GrapheneDB (the cloud Neo4J provider) provision takes longer than app's initial build and launch, you will need to wait at least 5 minutes before testing your instance after setup. If it still doesn't work, try rebooting the app  after it's built for the first time. This is a common issue first-time Heroku installers are facing, please beware.
 
-You may need to modify `app.json` to use for free instance. Remove `formation` and modify `addons` as follows:
-```
-{
-    ...
-    "addons": [ "rediscloud", "graphenedb", "cloudcube", "mailgun", "stream" ],
-    ...
-}
-```
-For more information, see https://devcenter.heroku.com/articles/app-json-schema
+Once Heroku is deployed you can test it with the `/whoami` command with a GET request to `https://{my_heroku_instance}.herokuapp.com/whoami`
 
 ## Manual Installation
 
