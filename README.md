@@ -27,6 +27,8 @@ Heroku is popular cloud provider by Salesforce. To install, just click the butto
 
 Once Heroku is deployed you can test it with the `/whoami` command with a GET request to `https://{my_heroku_instance}.herokuapp.com/whoami`
 
+Feel free to watch this video at https://youtu.be/K7bWKlT0k_g for a preview of the process.
+
 ## Manual Installation
 
 In case, heroku installation is not an option for you, here are the steps to install it manually:
