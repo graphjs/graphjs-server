@@ -395,6 +395,11 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["feed"]->generate($request, $response, $kernel);
             }
         );
+        $server->get(
+            'addFeedItem', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["feed"]->addFeedItem($request, $response, $session, $kernel);
+            }
+        );
     }
 
     protected static function initAuthentication(Server $server, array $controllers, Kernel $kernel): void
