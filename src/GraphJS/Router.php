@@ -58,7 +58,7 @@ class Router extends \Pho\Server\Rest\Router
             elseif(count($parsed)>=2&&isset($parsed["host"])) {
                 $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
-                if(strpos($parsed["path"], "www.")===0) {
+                if(strpos($parsed["host"], "www.")===0) {
                     $final[] = "http://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"") ;
                     $final[] = "https://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 }
