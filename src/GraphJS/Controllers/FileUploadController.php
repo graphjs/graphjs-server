@@ -21,6 +21,8 @@ class FileUploadController extends AbstractController
             $this->s3Uploader = new S3Uploader($this->getS3Client(), getenv('AWS_S3_BUCKET'));
         $max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
         @ini_set("upload_max_filesize", $max_upload_size);
+        error_log("max upload file size 1: ".$max_upload_size);
+        error_log("max upload file size 2: ".ini_get("upload_max_filesize"));
     }
 
     private function isS3Active(): bool
