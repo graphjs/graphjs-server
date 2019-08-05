@@ -5,8 +5,6 @@ ob_start();
 use Garden\Cli\Cli;
 $composerClassLoader = require "vendor/autoload.php";
 define('APP_ROOT', __DIR__);
-$max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
-ini_set("upload_max_filesize", $max_upload_size);
 $cli = new Cli();
 $cli->description('GraphJS Server')
     ->opt('conf:C', 'Config file.', false)
