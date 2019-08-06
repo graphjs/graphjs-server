@@ -59,8 +59,8 @@ class Router extends \Pho\Server\Rest\Router
                 $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 if(strpos($parsed["host"], "www.")===0) {
-                    $final[] = "http://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"") ;
-                    $final[] = "https://".str_replace("www.", "", $parsed["host"], 1) . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                    $final[] = "http://".self::str_replace_first("www.", "", $parsed["host"]) . (isset($parsed["port"])?":{$parsed["port"]}":"") ;
+                    $final[] = "https://".self::str_replace_first("www.", "", $parsed["host"]) . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 }
             }
             else {
@@ -68,6 +68,13 @@ class Router extends \Pho\Server\Rest\Router
             }
         }
         return array_unique($final);
+    }
+
+    // https://stackoverflow.com/a/1252705
+    private static function str_replace_first(string $from, string $to, string $content): string
+    {
+        $from = '/'.preg_quote($from, '/').'/';
+        return preg_replace($from, $to, $content, 1);
     }
 
     public static function init2(Server $server, array $controllers, Kernel $kernel, string $cors): void
