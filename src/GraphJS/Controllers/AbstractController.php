@@ -130,6 +130,33 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
                     ])
                     ->end();
     }
+
+    /**
+     * Paginate a given array
+     *
+     * @param array $assets
+     * @param array $queryParams
+     * @param ?int  $maxCount
+     * @return array
+     */
+    protected function paginate(array $assets, array $queryParams, ?int $maxCount = null): array
+    {
+        // find out offset
+        $offset = 0;
+        if(isset($queryParams["offset"])&&is_numeric($queryParams["offset"])) {
+            $offset = $queryParams["offset"];
+        }
+
+        // find out count
+        if(isset($queryParams["count"])&&is_numeric($queryParams["count"])&&$queryParams["count"]!=0) {
+            $count = $queryParams["count"];
+        }
+        else {
+            $count = ($maxCount ?? count($blogs));
+        }
+
+        return array_slice($assets, $offset, $count, true);
+    }
     
     /**
      * Makes sure the method is dependent on session availability

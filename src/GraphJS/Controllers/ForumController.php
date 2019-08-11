@@ -236,9 +236,13 @@ class ForumController extends AbstractController
                 ];
             }
         }
+
+
+        $threads = $this->paginate($threads, $request->getQueryParams(), 20);
+
         $this->succeed(
             $response, [
-            "threads" => $threads
+                "threads" => $threads
             ]
         );
     }
