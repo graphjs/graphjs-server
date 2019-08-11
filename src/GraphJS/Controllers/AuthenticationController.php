@@ -26,6 +26,8 @@ use GraphJS\Crypto;
  */
 class AuthenticationController extends AbstractController
 {
+ 
+ const PASSWORD_RECOVERY_EXPIRY = 15*60;
 
     public function signupViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
@@ -296,7 +298,7 @@ class AuthenticationController extends AbstractController
         $pin = mt_rand(100000, 999999);
         if($this->isRedisPasswordReminder()) {
             $kernel->database()->set("password-reminder-".md5($data["email"]), $pin);
-            $kernel->database()->expire("password-reminder-".md5($data["email"]), 60*60);
+            $kernel->database()->expire("password-reminder-".md5($data["email"]), self::PASSWORD_RECOVERY_EXPIRY);
         }
         else{
             file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
@@ -340,7 +342,7 @@ class AuthenticationController extends AbstractController
         //error_log(print_r($pins, true));
         if($pins[0]==$data["code"]) {
             //if((int) $pins[1]<time()-7*60) {
-            if($redis_password_reminder!=1 && (int) $pins[1]<time()-7*60) {
+            if(!$this->isRedisPasswordReminder() && (int) $pins[1]<time()-self::PASSWORD_RECOVERY_EXPIRY) {
                 $this->fail($response, "Expired.");
                 return;
             }
