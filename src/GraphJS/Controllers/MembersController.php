@@ -55,6 +55,7 @@ class MembersController extends AbstractController
                 ];
             }
         }
+        $members = $this->paginate($members, $request->getQueryParams(), 20);
         $this->succeed($response, ["members" => $members]);
     }
  
