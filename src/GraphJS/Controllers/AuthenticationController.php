@@ -295,6 +295,7 @@ class AuthenticationController extends AbstractController
         // check if email exists ?
         $pin = mt_rand(100000, 999999);
         $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
+     error_log("password reminder is ".$redis_password_reminder);
         if($redis_password_reminder===1||$redis_password_reminder==="1"||$redis_password_reminder==="on") {
             $kernel->database()->set("password-reminder-".md5($data["email"]), $pin);
             $kernel->database()->expire("password-reminder-".md5($data["email"]), 60*60);
