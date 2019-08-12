@@ -198,6 +198,22 @@ class AuthenticationController extends AbstractController
         
     }
 
+    protected function actualLoginViaEmail(string $email, string $password): ?array
+    {
+        $result = $kernel->index()->query(
+            "MATCH (n:user {Email: {email}, Password: {password}}) RETURN n",
+            [ 
+                "email" => $email,
+                "password" => md5($password)
+            ]
+        );
+        $success = (count($result->results()) >= 1);
+        if(!$success) {
+            return null;
+        }
+        return $result->results()[0];
+    }
+
     protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
     {
         $result = $kernel->index()->query(
@@ -210,12 +226,19 @@ class AuthenticationController extends AbstractController
         error_log(print_r($result, true));
         $success = (count($result->results()) >= 1);
         if(!$success) {
-            error_log("failing!!! ");
-            $this->fail($response, "Information don't match records");
-            return;
+            error_log("try with email!!! ");
+            $user = $this->actualLoginViaEmail($username, $password);
+            if(is_null($user)) {
+                error_log("failing!!! ");
+                $this->fail($response, "Information don't match records");
+                return;
+            }
         }
-        error_log("is a  success");
-        $user = $result->results()[0];
+        else {
+            error_log("is a  success");
+            $user = $result->results()[0];
+        }
+        
         error_log(print_r($user));
         $session->set($request, "id", $user["n.udid"]);
         $this->succeed(
@@ -223,6 +246,7 @@ class AuthenticationController extends AbstractController
                 "id" => $user["n.udid"]
             ]
         );
+        
         error_log("is a  success");
     }
 
