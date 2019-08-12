@@ -198,7 +198,7 @@ class AuthenticationController extends AbstractController
         
     }
 
-    protected function actualLoginViaEmail(string $email, string $password): ?array
+    protected function actualLoginViaEmail($kernel, string $email, string $password): ?array
     {
         $result = $kernel->index()->query(
             "MATCH (n:user {Email: {email}, Password: {password}}) RETURN n",
@@ -227,7 +227,7 @@ class AuthenticationController extends AbstractController
         $success = (count($result->results()) >= 1);
         if(!$success) {
             error_log("try with email!!! ");
-            $user = $this->actualLoginViaEmail($username, $password);
+            $user = $this->actualLoginViaEmail($kernel, $username, $password);
             if(is_null($user)) {
                 error_log("failing!!! ");
                 $this->fail($response, "Information don't match records");
@@ -246,7 +246,7 @@ class AuthenticationController extends AbstractController
                 "id" => $user["n.udid"]
             ]
         );
-        
+
         error_log("is a  success");
     }
 
