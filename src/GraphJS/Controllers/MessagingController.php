@@ -290,7 +290,11 @@ class MessagingController extends AbstractController
                 continue;
             }
             try {
+                error_log("about to read an edge");
+                error_log("about to read the edge: ".$res["r.udid"]);
                 $obj = $kernel->gs()->edge($res["r.udid"]);
+                error_log("read, now set IsRead");
+                error_log(print_r($obj->attributes()->toArray(), true));
                 $obj->setIsRead(true);
             }
             catch(\Exception $e) {
