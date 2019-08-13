@@ -284,6 +284,7 @@ class MessagingController extends AbstractController
         $records = array_merge($records1, $records2);
         // instead1 ENDS
         $return = [];
+        error_log("========> TOTAL RECORDS NUM IS: ".count($records));
         foreach($records as $i=>$res) {
             if(!isset($res["r.udid"])||is_null($res["r.udid"])) {
                 error_log("r was not set or was null");
