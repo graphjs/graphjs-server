@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1991aab3348fc44f79d459eabf0516db",
-    "content-hash": "f3267b294270519b1b51d94cae4a9bc1",
+    "hash": "5db2bb88f038e552c2aa83f598ecf562",
+    "content-hash": "c1664f5508d1040930bedb27a700fdd7",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1980,19 +1980,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "13c88d9716ab8becd799e7c3537f45d809f6641f"
+                "reference": "7b68f476ea49f9976ae766f4f124bbfb4c4ac91d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/13c88d9716ab8becd799e7c3537f45d809f6641f",
-                "reference": "13c88d9716ab8becd799e7c3537f45d809f6641f",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/7b68f476ea49f9976ae766f4f124bbfb4c4ac91d",
+                "reference": "7b68f476ea49f9976ae766f4f124bbfb4c4ac91d",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
                 "monolog/monolog": "^1.22",
                 "phonetworks/pho-framework": "^11.3",
-                "php": "^7.1",
+                "php": "^7.2",
                 "pimple/pimple": "^1.1",
                 "psr/log": "^1.0",
                 "vlucas/phpdotenv": "^2.4",
@@ -2029,7 +2029,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-05-31 02:24:28"
+            "time": "2019-08-13 21:04:16"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
