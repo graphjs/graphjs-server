@@ -199,8 +199,9 @@ class MessagingController extends AbstractController
         $ret = [];
         foreach($sent_messages as $m) 
         {
+            $ts = $m->getSentTime();
             if(array_key_exists(($op=$m->head()->id()->toString()), $ret)
-                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+                && $ret[$op]["timestamp"] > $ts
             ) {
                 continue;
             }
@@ -216,8 +217,9 @@ class MessagingController extends AbstractController
         }
         foreach($incoming_messages as $m) 
         {
+            $ts = $m->getSentTime();
             if(array_key_exists(($op=$m->tail()->id()->toString()), $ret)
-                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+                && $ret[$op]["timestamp"] > $ts
             ) {
                 continue;
             }
@@ -275,7 +277,7 @@ class MessagingController extends AbstractController
         );
         $records1 = $ret->results();
         $ret = $kernel->index()->query(
-            "MATCH (sn:user {udid: {u1}})<-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t",
+            "MATCH (sn:user {udid: {u1}})<-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t, r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $records2 = $ret->results();
@@ -283,6 +285,10 @@ class MessagingController extends AbstractController
         // instead1 ENDS
         $return = [];
         foreach($records as $i=>$res) {
+            if(!isset($res["r.udid"])||is_null($res["r.udid"])) {
+                error_log("r was not set or was null");
+                continue;
+            }
             try {
                 $obj = $kernel->gs()->edge($res["r.udid"]);
                 $obj->setIsRead(true);
