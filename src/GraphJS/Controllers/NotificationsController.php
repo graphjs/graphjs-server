@@ -63,11 +63,11 @@ class NotificationsController extends AbstractController
         foreach($notifications as $notification) {
             error_log(print_r($notification->toArray(), true));
             try {
-                $ret["data"][$c]["actor"]["username"] =  $notification->edge()->tail()->getUsername();
-                $ret["data"][$c]["actor"]["avatar"] =  $notification->edge()->tail()->getAvatar();
-                $ret["data"][$c]["actor"]["id"] =  (string) $notification->edge()->tail()->id();
+                $ret["data"][$c]["actor"]["username"] =  $notification->edge()->tail()->node()->getUsername();
+                $ret["data"][$c]["actor"]["avatar"] =  $notification->edge()->tail()->node()->getAvatar();
+                $ret["data"][$c]["actor"]["id"] =  (string) $notification->edge()->tail()->node()->id();
                 $ret["data"][$c]["label"] =  $notification->label();
-                $ret["data"][$c]["target"]["id"] =  (string) $notification->edge()->head()->id();
+                $ret["data"][$c]["target"]["id"] =  (string) $notification->edge()->head()->node()->id();
                 $c+=1;
             }
             catch(\Exception $e) {
