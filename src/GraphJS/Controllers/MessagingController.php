@@ -303,6 +303,10 @@ class MessagingController extends AbstractController
             }
             try {
                 $sender = $res["t"];
+                error_log("Sender is: ".$sender);
+                error_log("With is: ".$data["with"]);
+                error_log("r.Content is: ".$res["r.Content"]);
+                error_log("r.SentTime is: ".$res["r.SentTime"]);
                 $return[$res["r.udid"]] = [
                     "from" => ($sender == $id) ? $id  : $data["with"],
                     "to" => ($sender == $id) ? $data["with"]  : $id,
