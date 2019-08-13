@@ -277,7 +277,7 @@ class MessagingController extends AbstractController
         );
         $records1 = $ret->results();
         $ret = $kernel->index()->query(
-            "MATCH (sn:user {udid: {u1}})<-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t, r",
+            "MATCH (user {udid: {u1}})<-[r:message]-(sn:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t, r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $records2 = $ret->results();
