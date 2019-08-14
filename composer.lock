@@ -1824,22 +1824,22 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.3.1",
+            "version": "11.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "796257a1d84e93d77a6451ec43ede487179ce0f3"
+                "reference": "26395f671193342391d80dc1a439dc6b66d48e0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/796257a1d84e93d77a6451ec43ede487179ce0f3",
-                "reference": "796257a1d84e93d77a6451ec43ede487179ce0f3",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/26395f671193342391d80dc1a439dc6b66d48e0b",
+                "reference": "26395f671193342391d80dc1a439dc6b66d48e0b",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
                 "phonetworks/pho-lib-graph": "^8.1",
-                "php": ">=5.3.0",
+                "php": ">=7.2.0",
                 "psr/log": "^1.0",
                 "vlucas/valitron": "^1.4",
                 "webmozart/assert": "^1.2",
@@ -1878,7 +1878,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-01-20 12:21:38"
+            "time": "2019-08-14 00:10:57"
         },
         {
             "name": "phonetworks/pho-kernel",
