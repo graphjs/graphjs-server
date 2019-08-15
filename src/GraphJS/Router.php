@@ -280,6 +280,11 @@ class Router extends \Pho\Server\Rest\Router
             );
         }
 
+        $server->get('getObjectCounts', function (Request $request, Response $response) use ($kernel) {
+                $controllers["administration"]->fetchCounts($request, $response, $kernel);
+            }
+        );
+
         // GET /administration/{id} or phonetworks /{id} @todo figure it out
         $server->get(
             'getId', function (Request $request, Response $response) use ($controllers, $kernel) {

@@ -278,7 +278,22 @@ class AdministrationController extends AbstractController
         $this->succeed($response);
     }
 
-    public function setFounderPassword(Request $request, Response $response,Kernel $kernel)
+    public function fetchCounts(Request $request, Response $response, Kernel $kernel)
+    {
+        $nodes_count = $edges_count = 0;
+        $entities = $kernel->database()->keys(); // because it's faster than ->members()
+        foreach($entities as $entity) {
+            $clue = \hexdec($entity[0]);
+            if($clue[0] < 6) $nodes_count++;
+            else $edges_count++;
+        }
+        $this->succeed($response, [
+            "node_count" => (string) $nodes_count,
+            "edge_count" => (string) $edges_count
+        ]);
+    }
+
+    public function setFounderPassword(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args()))
             return $this->fail($response, "Invalid hash");
