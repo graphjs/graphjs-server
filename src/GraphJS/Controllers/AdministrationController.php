@@ -280,16 +280,18 @@ class AdministrationController extends AbstractController
 
     public function fetchCounts(Request $request, Response $response, Kernel $kernel)
     {
-        $nodes_count = $edges_count = 0;
+        $nodes_count = $edges_count = $actors_count = 0;
         $entities = $kernel->database()->keys(); // because it's faster than ->members()
         foreach($entities as $entity) {
             $clue = \hexdec($entity[0]);
-            if($clue[0] < 6) $nodes_count++;
+            if($clue==4) $actors_count++;
+            if($clue < 6) $nodes_count++;
             else $edges_count++;
         }
         $this->succeed($response, [
-            "node_count" => (string) $nodes_count,
-            "edge_count" => (string) $edges_count
+            "actor_count" => (string) $actors_count,
+            "node_count"  => (string) $nodes_count,
+            "edge_count"  => (string) $edges_count
         ]);
     }
 
