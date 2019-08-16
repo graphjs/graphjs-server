@@ -280,7 +280,8 @@ class Router extends \Pho\Server\Rest\Router
             );
         }
 
-        $server->get('getObjectCounts', function (Request $request, Response $response) use ($kernel) {
+        $server->get(
+            'getObjectCounts', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->fetchCounts($request, $response, $kernel);
             }
         );
