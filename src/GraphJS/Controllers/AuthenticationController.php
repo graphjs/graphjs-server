@@ -104,12 +104,14 @@ class AuthenticationController extends AbstractController
         $data = $request->getQueryParams();
         $extra_reqs_to_validate = [];
         $reqs = $kernel->graph()->attributes()->toArray();
+        error_log("about to enter custom_fields loop");
         for($i=1;$i++;$i<4) {
             if(isset($reqs["custom_field{$i}_must"])&&$reqs["custom_field{$i}_must"]&&!empty($reqs["custom_field{$i}"])) {
                 $field = $reqs["custom_field{$i}"];
                 $extra_reqs_to_validate[$field] = 'required';
             }
         }
+        error_log("out of custom_fields loop");
         $validation = $this->validator->validate($data, $extra_reqs_to_validate);
         if($validation->fails()) {
             return $this->fail($response, "Valid ".addslashes(implode(", ", $extra_reqs_to_validate)). " required.");
