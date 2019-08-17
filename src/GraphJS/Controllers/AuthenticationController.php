@@ -26,6 +26,8 @@ use GraphJS\Crypto;
  */
 class AuthenticationController extends AbstractController
 {
+ 
+ const PASSWORD_RECOVERY_EXPIRY = 15*60;
 
     public function signupViaToken(Request $request, Response $response, Session $session, Kernel $kernel)
     {
@@ -238,7 +240,23 @@ class AuthenticationController extends AbstractController
         
     }
 
-    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password)
+    protected function actualLoginViaEmail($kernel, string $email, string $password): ?array
+    {
+        $result = $kernel->index()->query(
+            "MATCH (n:user {Email: {email}, Password: {password}}) RETURN n",
+            [ 
+                "email" => $email,
+                "password" => md5($password)
+            ]
+        );
+        $success = (count($result->results()) >= 1);
+        if(!$success) {
+            return null;
+        }
+        return $result->results()[0];
+    }
+
+    protected function actualLogin(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $password): void
     {
         $result = $kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
@@ -250,20 +268,29 @@ class AuthenticationController extends AbstractController
         error_log(print_r($result, true));
         $success = (count($result->results()) >= 1);
         if(!$success) {
-            error_log("failing!!! ");
-            $this->fail($response, "Information don't match records");
-            return;
+            error_log("try with email!!! ");
+            $user = $this->actualLoginViaEmail($kernel, $username, $password);
+            if(is_null($user)) {
+                error_log("failing!!! ");
+                $this->fail($response, "Information don't match records");
+                return;
+            }
         }
-        error_log("is a  success");
-        $user = $result->results()[0];
+        else {
+            error_log("is a  success");
+            $user = $result->results()[0];
+        }
+        
         error_log(print_r($user));
 
         if($this->isMembershipModerated($kernel) && $n["n.pending"]==true) {
-            return $this->fail($response, "Pending membership");
+            $this->fail($response, "Pending membership");
+            return;
         }
 
         if($this->isVerificationRequired($kernel) && $n["n.pending_verification"]==true) {
-            return $this->fail($response, "You have not verified your email yet");
+            $this->fail($response, "You have not verified your email yet");
+            return;
         }
 
         $session->set($request, "id", $user["n.udid"]);
@@ -272,6 +299,7 @@ class AuthenticationController extends AbstractController
                 "id" => $user["n.udid"]
             ]
         );
+
         error_log("is a  success");
     }
 
@@ -345,10 +373,9 @@ class AuthenticationController extends AbstractController
 
         // check if email exists ?
         $pin = mt_rand(100000, 999999);
-        $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
-        if($redis_password_reminder===1) {
+        if($this->isRedisPasswordReminder()) {
             $kernel->database()->set("password-reminder-".md5($data["email"]), $pin);
-            $kernel->database()->expire("password-reminder-".md5($data["email"]), 60*60);
+            $kernel->database()->expire("password-reminder-".md5($data["email"]), self::PASSWORD_RECOVERY_EXPIRY);
         }
         else{
             file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
@@ -362,6 +389,13 @@ class AuthenticationController extends AbstractController
         );
         $this->succeed($response);
     }
+ 
+ protected function isRedisPasswordReminder(): bool
+ {
+      $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
+      error_log("password reminder is ".$redis_password_reminder);
+      return($redis_password_reminder===1||$redis_password_reminder==="1"||$redis_password_reminder==="on");
+ }
 
     public function verify(Request $request, Response $response, Session $session, Kernel $kernel)
     {
@@ -375,8 +409,7 @@ class AuthenticationController extends AbstractController
             return;
         }
         $pins = explode(":", trim(file_get_contents(getenv("PASSWORD_REMINDER").md5($data["email"]))));
-        $redis_password_reminder = getenv("PASSWORD_REMINDER_ON_REDIS");
-        if($redis_password_reminder===1) {
+        if($this->isRedisPasswordReminder()) {
             $pins = [];
             $pins[0] = $kernel->database()->get("password-reminder-".md5($data["email"]));
         }
@@ -386,7 +419,7 @@ class AuthenticationController extends AbstractController
         //error_log(print_r($pins, true));
         if($pins[0]==$data["code"]) {
             //if((int) $pins[1]<time()-7*60) {
-            if($redis_password_reminder!=1 && (int) $pins[1]<time()-7*60) {
+            if(!$this->isRedisPasswordReminder() && (int) $pins[1]<time()-self::PASSWORD_RECOVERY_EXPIRY) {
                 $this->fail($response, "Expired.");
                 return;
             }

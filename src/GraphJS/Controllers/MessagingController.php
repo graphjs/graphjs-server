@@ -199,8 +199,9 @@ class MessagingController extends AbstractController
         $ret = [];
         foreach($sent_messages as $m) 
         {
+            $ts = $m->getSentTime();
             if(array_key_exists(($op=$m->head()->id()->toString()), $ret)
-                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+                && $ret[$op]["timestamp"] > $ts
             ) {
                 continue;
             }
@@ -216,8 +217,9 @@ class MessagingController extends AbstractController
         }
         foreach($incoming_messages as $m) 
         {
+            $ts = $m->getSentTime();
             if(array_key_exists(($op=$m->tail()->id()->toString()), $ret)
-                && $ret[$op]["timestamp"] > ($ts = $m->getSentTime())
+                && $ret[$op]["timestamp"] > $ts
             ) {
                 continue;
             }
@@ -275,16 +277,25 @@ class MessagingController extends AbstractController
         );
         $records1 = $ret->results();
         $ret = $kernel->index()->query(
-            "MATCH (sn:user {udid: {u1}})<-[r:message]-(:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t",
+            "MATCH (user {udid: {u1}})<-[r:message]-(sn:user {udid: {u2}}) SET r.IsRead = true RETURN sn.udid as t, r",
                 array("u1"=>$id, "u2"=>$data["with"])
         );
         $records2 = $ret->results();
         $records = array_merge($records1, $records2);
         // instead1 ENDS
         $return = [];
+        error_log("========> TOTAL RECORDS NUM IS: ".count($records));
         foreach($records as $i=>$res) {
+            if(!isset($res["r.udid"])||is_null($res["r.udid"])) {
+                error_log("r was not set or was null");
+                continue;
+            }
             try {
+                error_log("about to read an edge");
+                error_log("about to read the edge: ".$res["r.udid"]);
                 $obj = $kernel->gs()->edge($res["r.udid"]);
+                error_log("read, now set IsRead");
+                error_log(print_r($obj->attributes()->toArray(), true));
                 $obj->setIsRead(true);
             }
             catch(\Exception $e) {
@@ -293,6 +304,10 @@ class MessagingController extends AbstractController
             }
             try {
                 $sender = $res["t"];
+                error_log("Sender is: ".$sender);
+                error_log("With is: ".$data["with"]);
+                error_log("r.Content is: ".$res["r.Content"]);
+                error_log("r.SentTime is: ".$res["r.SentTime"]);
                 $return[$res["r.udid"]] = [
                     "from" => ($sender == $id) ? $id  : $data["with"],
                     "to" => ($sender == $id) ? $data["with"]  : $id,

@@ -62,12 +62,23 @@ class NotificationsController extends AbstractController
         error_log("started");
         foreach($notifications as $notification) {
             error_log(print_r($notification->toArray(), true));
-            $ret["data"][$c]["actor"]["username"] =  $notification->edge()->tail()->getUsername();
-            $ret["data"][$c]["actor"]["avatar"] =  $notification->edge()->tail()->getAvatar();
-            $ret["data"][$c]["actor"]["id"] =  (string) $notification->edge()->tail()->id();
-            $ret["data"][$c]["label"] =  $notification->label();
-            $ret["data"][$c]["target"]["id"] =  (string) $notification->edge()->head()->id();
-            $c+=1;
+            try {
+                error_log("starting");
+                $ret["data"][$c]["actor"]["username"] =  $notification->edge()->tail()->node()->getUsername();
+                error_log("username ok");
+                $ret["data"][$c]["actor"]["avatar"] =  $notification->edge()->tail()->node()->getAvatar();
+                error_log("2 ok");
+                $ret["data"][$c]["actor"]["id"] =  (string) $notification->edge()->tail()->node()->id();
+                error_log("3 ok");
+                $ret["data"][$c]["label"] =  $notification->label();
+                error_log("4 ok");
+                $ret["data"][$c]["target"]["id"] =  (string) $notification->edge()->head()->node()->id();
+                error_log("5 ok");
+                $c+=1;
+            }
+            catch(\Exception $e) {
+                error_log("There was an exception: ".$e->getMessage());
+            }
         }
         $this->succeed($response, $ret);
     }

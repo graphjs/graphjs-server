@@ -317,7 +317,7 @@ class ContentController extends AbstractController
      */
     public function fetchStarredContent(Request $request, Response $response, Kernel $kernel)
     {
-        $res = $kernel->index()->query("MATCH ()-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count");
+        $res = $kernel->index()->query("MATCH ()-[e:star]->(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count");
         $array = $res->results();
         $ret = [];
         foreach($array as $a) {
@@ -339,7 +339,7 @@ class ContentController extends AbstractController
             return;
         }
         $res = $kernel->index()->query(
-            "MATCH (:user {udid: {me}})-[e:star]-(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
+            "MATCH (:user {udid: {me}})-[e:star]->(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
             array("me"=>$id)
         );
         $array = $res->results();

@@ -18,6 +18,7 @@
         "ext-sodium": "*",
         "ext-bcmath": "*",
         "ext-mbstring": "*",
+        "ext-gd": "*",
         "phonetworks/pho-server-rest": "^2.1.3",
         "pho-adapters/index-neo4j": "dev-master",
         "pho-recipes/web": "dev-private-content",
@@ -36,8 +37,7 @@
         "aws/aws-sdk-php": "^3.87",
         "pho-adapters/index-redis": "dev-master",
         "pho-recipes/network": "dev-private-content",
-        "php-ffmpeg/php-ffmpeg": "^0.13.0",
-        "ext-gd": "*"
+        "php-ffmpeg/php-ffmpeg": "^0.13.0"
     },
     "require-dev": {
         "psy/psysh": "*",
