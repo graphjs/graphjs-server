@@ -38,7 +38,7 @@ class BlogController extends AbstractController
     public function fetchAll(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $blogs = [];
+        $blogs = $pinned = [];
         $everything = $kernel->graph()->members();
         $is_moderated = $kernel->graph()->getCommentsModerated();
         foreach($everything as $thing) {
@@ -71,7 +71,7 @@ class BlogController extends AbstractController
                     */
                 }
                 //eval(\Psy\sh());
-                $blogs[] = [
+                $item = [
                     "id" => (string) $thing->id(),
                     "title" => $title,
                     "summary" => $summary,
@@ -85,6 +85,13 @@ class BlogController extends AbstractController
                     "publish_time" => (string) $publish_time,
                     "comment_count" => $comment_count
                 ];
+
+                $is_pinned = $this->getIsPinned();
+                if($is_pinned) {
+                    $pinned[] = $item;
+                    continue;
+                }
+                $blogs[] = $item;
             }
             catch(\Exception $e) {
                 // missing edge or something
@@ -95,16 +102,23 @@ class BlogController extends AbstractController
 
         // https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
         if((isset($data["order"])&&$data["order"]=="asc") ) {
+            usort($pinned, function ($item1, $item2) {
+                return $item1['publish_time'] <=> $item2['publish_time'];
+            });
             usort($blogs, function ($item1, $item2) {
                 return $item1['publish_time'] <=> $item2['publish_time'];
             });
         }
         else {
+            usort($pinned, function ($item1, $item2) {
+                return $item2['publish_time'] <=> $item1['publish_time'];
+            });
             usort($blogs, function ($item1, $item2) {
                 return $item2['publish_time'] <=> $item1['publish_time'];
             });
         }
 
+        $blogs = array_merge($pinned, $blogs);
         $blogs = $this->paginate($blogs, $data);
         
         $this->succeed(
