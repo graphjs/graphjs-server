@@ -290,7 +290,7 @@ class Router extends \Pho\Server\Rest\Router
 
         $server->get(
             'getPendingMemberships', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["administration"]->getPendingMemberships($request, $response, $session, $kernel);
+                $controllers["administration"]->getPendingMemberships($request, $response, $kernel);
             }
         );
 

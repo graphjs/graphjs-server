@@ -420,7 +420,7 @@ class AdministrationController extends AbstractController
     return $this->fail($response, "Problem approving member")    ;
   }
 
-  public function getPendingMemberships(Request $request, Response $response, Session $session, Kernel $kernel)
+  public function getPendingMemberships(Request $request, Response $response, Kernel $kernel)
   {
     if(!$this->requireAdministrativeRights(...\func_get_args())) {
         return $this->fail($response, "Invalid hash");
