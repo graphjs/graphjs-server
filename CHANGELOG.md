@@ -18,3 +18,5 @@
 * membership_moderated
 
 * verification_required
+
+* pin

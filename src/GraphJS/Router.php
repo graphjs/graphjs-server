@@ -422,6 +422,17 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["blog"]->publish($request, $response, $session, $kernel);
             }
         );
+
+        $server->get(
+            'unpin', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->unpin($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'pin', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->pin($request, $response, $session, $kernel);
+            }
+        );
     }
 
     protected static function initFeed(Server $server, array $controllers, Kernel $kernel): void

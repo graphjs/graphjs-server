@@ -152,6 +152,44 @@ class BlogController extends AbstractController
         );
     }
 
+    public function pinOp(bool $op = true, Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        if($id!=$kernel->founder()->id()->toString()) {
+            $this->fail($response, "Only admins can operate this command.");
+            return;
+        }
+        $validation = $this->validator->validate($data, [
+            'id' => 'required'
+        ]);
+        if($validation->fails()) {
+            $this->fail($response, "Content ID required");
+            return;
+        }
+        try {
+            $blog = $kernel->gs()->node($data["id"]);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "No such Blog Post");
+        }
+        if(!$blog instanceof Blog) {
+            return $this->fail($response, "Given id is not a blog post");
+        }
+        $blog->setIsPinned($op);
+        $this->succeed($response);
+    }
+
+    public function pin(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        $this->pinOp(true, ...func_get_args());
+    }
+
+    public function unpin(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        $this->pinOp(false, ...func_get_args());
+    }
 
 
     public function post(Request $request, Response $response, Session $session, Kernel $kernel)
