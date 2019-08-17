@@ -343,7 +343,7 @@ class BlogController extends AbstractController
         return (
             getenv('INSTALLATION_TYPE') === 'groupsv2'  ||
             $kernel->founder()->id()->equals($actor->id()) ||
-            isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor
+            isset($actor->attributes()->IsEditor) && (bool) $actor->attributes()->IsEditor
         );
     }
 

@@ -37,7 +37,8 @@
         "aws/aws-sdk-php": "^3.87",
         "pho-adapters/index-redis": "dev-master",
         "pho-recipes/network": "dev-private-content",
-        "php-ffmpeg/php-ffmpeg": "^0.13.0"
+        "php-ffmpeg/php-ffmpeg": "^0.13.0",
+        "danielstjules/stringy": "^3.1"
     },
     "require-dev": {
         "psy/psysh": "*",

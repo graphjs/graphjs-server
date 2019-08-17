@@ -45,14 +45,14 @@ class MembersController extends AbstractController
         foreach($nodes as $node) {
             if($node instanceof User) {
                 $is_editor = (
-                    (isset($node->attributes()->is_editor) && (bool) $node->attributes()->is_editor)
+                    (isset($node->attributes()->IsEditor) && (bool) $node->attributes()->IsEditor)
                     ||
                     ($kernel->founder()->id()->equals($node->id()))
                 );
                 if(
-                    (!$isModerated||!$node->attributes()->pending)
+                    (!$isModerated||!$node->attributes()->Pending)
                     &&
-                    (!$verificationRequired||!$node->attributes()->pending_verification)
+                    (!$verificationRequired||!$node->attributes()->PendingVerification)
                     )
                     $members[(string) $node->id()] = [
                         "username" => (string) $node->getUsername(),

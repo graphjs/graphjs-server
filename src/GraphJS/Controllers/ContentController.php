@@ -236,7 +236,7 @@ class ContentController extends AbstractController
                 }, 
                 $kernel->graph()->getCommentsModerated() === true ? 
                     array_filter($page->getComments(), function(Comment $comm) {
-                        return $comm->getPending() !== true;
+                        return (true !== $comm->getPending());
                     })
                     : $page->getComments()
          );

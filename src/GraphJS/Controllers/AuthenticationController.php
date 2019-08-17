@@ -109,8 +109,8 @@ class AuthenticationController extends AbstractController
         error_log("about to enter custom_fields loop: ".count($reqs));
         error_log("about to enter custom_fields loop: ".print_r(array_keys($reqs), true));
         for($i=1;$i<4;$i++) {
-            if(isset($reqs["custom_field{$i}_must"])&&$reqs["custom_field{$i}_must"]&&!empty($reqs["custom_field{$i}"])) {
-                $field = $reqs["custom_field{$i}"];
+            if(isset($reqs["CustomField{$i}Must"])&&$reqs["CustomField{$i}Must"]&&!empty($reqs["CustomField{$i}"])) {
+                $field = $reqs["CustomField{$i}"];
                 $extra_reqs_to_validate[$field] = 'required';
             }
         }
@@ -146,19 +146,20 @@ class AuthenticationController extends AbstractController
 
 
         for($i=1;$i<4;$i++) {
-            if(isset($reqs["custom_field1"])&&!empty($reqs["custom_field{$i}"])&&isset($data["custom_field1"])&&!empty($data["custom_field1"])) {
-                $new_user->attributes()->custom_field1 = $data["custom_field{$i}"];
+            if(isset($reqs["CustomField{$i}"])&&!empty($reqs["CustomField{$i}"])&&isset($data["custom_field{$i}"])&&!empty($data["custom_field{$i}"])) {
+                $_ = "setCustomField{$i}";
+                $new_user->attributes()->$_($data["custom_field{$i}"]);
             }
         }
 
         $moderation = $this->isMembershipModerated($kernel);
         if($moderation)
-            $new_user->attributes()->pending = true;
+            $new_user->setPending(true);
 
         $verification = $this->isVerificationRequired($kernel);
         if($verification) {
             $pin = rand(1000, 9999);
-            $new_user->attributes()->pending_verification = $pin;
+            $new_user->setPendingVerification($pin);
                 $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
                 $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
                 array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
@@ -288,12 +289,12 @@ class AuthenticationController extends AbstractController
         
         error_log(print_r($user));
 
-        if($this->isMembershipModerated($kernel) && $n["n.pending"]==true) {
+        if($this->isMembershipModerated($kernel) && $n["n.Pending"]==true) {
             $this->fail($response, "Pending membership");
             return;
         }
 
-        if($this->isVerificationRequired($kernel) && $n["n.pending_verification"]==true) {
+        if($this->isVerificationRequired($kernel) && $n["n.PendingVerification"]==true) {
             $this->fail($response, "You have not verified your email yet");
             return;
         }
@@ -344,7 +345,7 @@ class AuthenticationController extends AbstractController
                     "editor" => ( 
                         (($id==$kernel->founder()->id()->toString())) 
                         || 
-                        (isset($i->attributes()->is_editor) && (bool) $i->attributes()->is_editor)
+                        (isset($i->attributes()->IsEditor) && (bool) $i->attributes()->IsEditor)
                     )
                 ]
             );

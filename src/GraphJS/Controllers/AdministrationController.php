@@ -137,7 +137,7 @@ class AdministrationController extends AbstractController
             catch(\Exception $e) {
                 return $this->fail($response, "Invalid user id");
             }
-            $user->attributes()->is_editor = (bool) ($is_editor);
+            $user->setIsEditor((bool) ($is_editor));
             $this->succeed($response);
     }
 
@@ -159,12 +159,12 @@ class AdministrationController extends AbstractController
         $custom_field3 = ((isset($data["custom_field3"])) ? (string) $data["custom_field3"] : "");
         $custom_field3_must = ((isset($data["custom_field3_must"])) ? (bool) $data["custom_field3_must"] : false);
 
-        $kernel->graph()->attributes()->custom_field1 = $custom_field1;
-        $kernel->graph()->attributes()->custom_field1_must = $custom_field1_must;
-        $kernel->graph()->attributes()->custom_field2 = $custom_field2;
-        $kernel->graph()->attributes()->custom_field2_must = $custom_field2_must;
-        $kernel->graph()->attributes()->custom_field3 = $custom_field3;
-        $kernel->graph()->attributes()->custom_field3_must = $custom_field3_must;
+        $kernel->graph()->setCustomField1($custom_field1);
+        $kernel->graph()->setCustomField1Must($custom_field1_must);
+        $kernel->graph()->setCustomField2($custom_field2);
+        $kernel->graph()->setCustomField2Must($custom_field2_must);
+        $kernel->graph()->setCustomField3($custom_field3);
+        $kernel->graph()->setCustomField3Must ($custom_field3_must);
         
         $kernel->graph()->persist();
         $this->succeed($response);
@@ -180,9 +180,9 @@ class AdministrationController extends AbstractController
             return $this->fail($response, "Invalid function");
         }
 
-        $custom_field1 = (string) $kernel->graph()->attributes()->custom_field1;
-        $custom_field2 = (string) $kernel->graph()->attributes()->custom_field2;
-        $custom_field3 = (string) $kernel->graph()->attributes()->custom_field3;
+        $custom_field1 = (string) $kernel->graph()->attributes()->CustomField1;
+        $custom_field2 = (string) $kernel->graph()->attributes()->CustomField2;
+        $custom_field3 = (string) $kernel->graph()->attributes()->CustomField3;
         
         $this->succeed($response, [
             "custom_field1"=>$custom_field1,
@@ -434,14 +434,14 @@ class AdministrationController extends AbstractController
         foreach($nodes as $node) {
             if($node instanceof User) {
                 $is_editor = (
-                    (isset($node->attributes()->is_editor) && (bool) $node->attributes()->is_editor)
+                    (isset($node->attributes()->IsEditor) && (bool) $node->attributes()->IsEditor)
                     ||
                     ($kernel->founder()->id()->equals($node->id()))
                 );
                 if(
                     $node->attributes()->pending
                     &&
-                    (!$verificationRequired||!$node->attributes()->pending_verification)
+                    (!$verificationRequired||!$node->attributes()->PendingVerification)
                     )
                     $members[(string) $node->id()] = [
                         "username" => (string) $node->getUsername(),
