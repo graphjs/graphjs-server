@@ -301,8 +301,8 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["administration"]->listPrivateContents($request, $response, $session, $kernel);
+            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
             }
         );
 
