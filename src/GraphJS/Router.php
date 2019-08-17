@@ -283,8 +283,8 @@ class Router extends \Pho\Server\Rest\Router
         //}
 
         $server->get(
-            'approveMembership', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["administration"]->approveMembership($request, $response, $session, $kernel);
+            'approveMembership', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->approveMembership($request, $response, $kernel);
             }
         );
 

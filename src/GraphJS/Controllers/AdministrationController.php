@@ -384,7 +384,7 @@ class AdministrationController extends AbstractController
             
   }
 
-  public function approveMembership(Request $request, Response $response, Session $session, Kernel $kernel)
+  public function approveMembership(Request $request, Response $response, Kernel $kernel)
   {
     if(!$this->requireAdministrativeRights(...\func_get_args())) {
         return $this->fail($response, "Invalid hash");
