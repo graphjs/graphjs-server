@@ -281,26 +281,26 @@ class Router extends \Pho\Server\Rest\Router
         //}
 
         $server->get(
-            'approveMembership', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->approveMembership($request, $response, $kernel);
+            'approveMembership', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->approveMembership($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
-            'getPendingMemberships', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->getPendingMemberships($request, $response, $kernel);
+            'getPendingMemberships', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->getPendingMemberships($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
-            'setMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->setMembershipModerationMode($request, $response, $kernel);
+            'setMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->setMembershipModerationMode($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
-            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
+            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->listPrivateContents($request, $response, $session, $kernel);
             }
         );
 
@@ -331,14 +331,14 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'deletePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->disapprovePendingComment($request, $response, $kernel);
+            'deletePendingComment', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->disapprovePendingComment($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
-            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->approvePendingComment($request, $response, $kernel);
+            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->approvePendingComment($request, $response, $session, $kernel);
             }
         );
 
