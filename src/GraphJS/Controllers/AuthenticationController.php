@@ -108,7 +108,7 @@ class AuthenticationController extends AbstractController
         error_log("about to enter custom_fields loop");
         error_log("about to enter custom_fields loop: ".count($reqs));
         error_log("about to enter custom_fields loop: ".print_r(array_keys($reqs), true));
-        for($i=1;$i++;$i<4) {
+        for($i=1;$i<4;$i++) {
             if(isset($reqs["custom_field{$i}_must"])&&$reqs["custom_field{$i}_must"]&&!empty($reqs["custom_field{$i}"])) {
                 $field = $reqs["custom_field{$i}"];
                 $extra_reqs_to_validate[$field] = 'required';
@@ -145,7 +145,7 @@ class AuthenticationController extends AbstractController
         }
 
 
-        for($i=1;$i++;$i<4) {
+        for($i=1;$i<4;$i++) {
             if(isset($reqs["custom_field1"])&&!empty($reqs["custom_field{$i}"])&&isset($data["custom_field1"])&&!empty($data["custom_field1"])) {
                 $new_user->attributes()->custom_field1 = $data["custom_field{$i}"];
             }
