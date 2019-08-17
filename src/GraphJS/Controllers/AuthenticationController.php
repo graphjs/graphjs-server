@@ -104,7 +104,7 @@ class AuthenticationController extends AbstractController
         $data = $request->getQueryParams();
         $extra_reqs_to_validate = [];
         $reqs = $kernel->graph()->attributes()->toArray();
-        error_log("about to enter custom_fields loop");
+        error_log("about to enter custom_fields loop: ".print_r($reqs, true));
         for($i=1;$i++;$i<4) {
             if(isset($reqs["custom_field{$i}_must"])&&$reqs["custom_field{$i}_must"]&&!empty($reqs["custom_field{$i}"])) {
                 $field = $reqs["custom_field{$i}"];
