@@ -38,21 +38,28 @@ class MembersController extends AbstractController
      */
     public function getMembers(Request $request, Response $response, Kernel $kernel)
     {
+        $isModerated = $this->isMembershipModerated($kernel);
+        $verificationRequired = $this->isVerificationRequired($kernel);
         $nodes = $kernel->graph()->members();
         $members = [];
         foreach($nodes as $node) {
             if($node instanceof User) {
                 $is_editor = (
-                    (isset($node->attributes()->is_editor) && (bool) $node->attributes()->is_editor)
+                    (isset($node->attributes()->IsEditor) && (bool) $node->attributes()->IsEditor)
                     ||
                     ($kernel->founder()->id()->equals($node->id()))
                 );
-                $members[(string) $node->id()] = [
-                    "username" => (string) $node->getUsername(),
-                    "email" => (string) $node->getEmail(),
-                    "avatar" => (string) $node->getAvatar(),
-                    "is_editor" => intval($is_editor)
-                ];
+                if(
+                    (!$isModerated||!$node->attributes()->Pending)
+                    &&
+                    (!$verificationRequired||!$node->attributes()->PendingVerification)
+                    )
+                    $members[(string) $node->id()] = [
+                        "username" => (string) $node->getUsername(),
+                        "email" => (string) $node->getEmail(),
+                        "avatar" => (string) $node->getAvatar(),
+                        "is_editor" => intval($is_editor)
+                    ];
             }
         }
         $members_count = count($members);

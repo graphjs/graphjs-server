@@ -98,8 +98,28 @@ class AuthenticationController extends AbstractController
         $this->actualSignup( $request,  $response,  $session,  $kernel, $data["username"], $data["email"], $data["password"]);
     }
 
-    protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password): void
+    protected function actualSignup(Request $request, Response $response, Session $session, Kernel $kernel, string $username, string $email, string $password)
     {
+        //$verificationRequired = $this->isVerificationRequired($kernel);
+        $data = $request->getQueryParams();
+        $extra_reqs_to_validate = [];
+        $reqs = $kernel->graph()->attributes()->toArray();
+        //error_log("about to enter custom_fields loop: ".print_r($reqs, true));
+        error_log("about to enter custom_fields loop");
+        error_log("about to enter custom_fields loop: ".count($reqs));
+        error_log("about to enter custom_fields loop: ".print_r(array_keys($reqs), true));
+        for($i=1;$i<4;$i++) {
+            if(isset($reqs["CustomField{$i}Must"])&&$reqs["CustomField{$i}Must"]&&!empty($reqs["CustomField{$i}"])) {
+                $field = $reqs["CustomField{$i}"];
+                $extra_reqs_to_validate[$field] = 'required';
+            }
+        }
+        error_log("out of custom_fields loop");
+        $validation = $this->validator->validate($data, $extra_reqs_to_validate);
+        if($validation->fails()) {
+            return $this->fail($response, "Valid ".addslashes(implode(", ", $extra_reqs_to_validate)). " required.");
+        }
+        
         $result = $kernel->index()->query(
             "MATCH (n:user) WHERE n.Username= {username} OR n.Email = {email} RETURN n",
             [ 
@@ -123,10 +143,38 @@ class AuthenticationController extends AbstractController
             $this->fail($response, $e->getMessage());
             return;
         }
+
+
+        for($i=1;$i<4;$i++) {
+            if(isset($reqs["CustomField{$i}"])&&!empty($reqs["CustomField{$i}"])&&isset($data["custom_field{$i}"])&&!empty($data["custom_field{$i}"])) {
+                $_ = "setCustomField{$i}";
+                $new_user->attributes()->$_($data["custom_field{$i}"]);
+            }
+        }
+
+        $moderation = $this->isMembershipModerated($kernel);
+        if($moderation)
+            $new_user->setPending(true);
+
+        $verification = $this->isVerificationRequired($kernel);
+        if($verification) {
+            $pin = rand(1000, 9999);
+            $new_user->setPendingVerification($pin);
+                $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
+                $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
+                array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
+                        'to'      => $data["email"],
+                        'subject' => 'Please Verify',
+                        'text'    => 'Please enter this 4 digit passcode to verify your email: '.$pin)
+                );
+        }
+
         $session->set($request, "id", (string) $new_user->id());
         $this->succeed(
             $response, [
-                "id" => (string) $new_user->id()
+                "id" => (string) $new_user->id(),
+                "pending_moderation"=>$moderation,
+                "pending_verification"=>$verification
             ]
         );
     }
@@ -240,6 +288,17 @@ class AuthenticationController extends AbstractController
         }
         
         error_log(print_r($user));
+
+        if($this->isMembershipModerated($kernel) && $n["n.Pending"]==true) {
+            $this->fail($response, "Pending membership");
+            return;
+        }
+
+        if($this->isVerificationRequired($kernel) && $n["n.PendingVerification"]==true) {
+            $this->fail($response, "You have not verified your email yet");
+            return;
+        }
+
         $session->set($request, "id", $user["n.udid"]);
         $this->succeed(
             $response, [
@@ -286,7 +345,7 @@ class AuthenticationController extends AbstractController
                     "editor" => ( 
                         (($id==$kernel->founder()->id()->toString())) 
                         || 
-                        (isset($i->attributes()->is_editor) && (bool) $i->attributes()->is_editor)
+                        (isset($i->attributes()->IsEditor) && (bool) $i->attributes()->IsEditor)
                     )
                 ]
             );

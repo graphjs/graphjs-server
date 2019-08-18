@@ -38,7 +38,7 @@ class BlogController extends AbstractController
     public function fetchAll(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         $data = $request->getQueryParams();
-        $blogs = [];
+        $blogs = $pinned = [];
         $everything = $kernel->graph()->members();
         $is_moderated = $kernel->graph()->getCommentsModerated();
         foreach($everything as $thing) {
@@ -71,7 +71,7 @@ class BlogController extends AbstractController
                     */
                 }
                 //eval(\Psy\sh());
-                $blogs[] = [
+                $item = [
                     "id" => (string) $thing->id(),
                     "title" => $title,
                     "summary" => $summary,
@@ -85,6 +85,13 @@ class BlogController extends AbstractController
                     "publish_time" => (string) $publish_time,
                     "comment_count" => $comment_count
                 ];
+
+                $is_pinned = $this->getIsPinned();
+                if($is_pinned) {
+                    $pinned[] = $item;
+                    continue;
+                }
+                $blogs[] = $item;
             }
             catch(\Exception $e) {
                 // missing edge or something
@@ -95,16 +102,23 @@ class BlogController extends AbstractController
 
         // https://stackoverflow.com/questions/1597736/how-to-sort-an-array-of-associative-arrays-by-value-of-a-given-key-in-php
         if((isset($data["order"])&&$data["order"]=="asc") ) {
+            usort($pinned, function ($item1, $item2) {
+                return $item1['publish_time'] <=> $item2['publish_time'];
+            });
             usort($blogs, function ($item1, $item2) {
                 return $item1['publish_time'] <=> $item2['publish_time'];
             });
         }
         else {
+            usort($pinned, function ($item1, $item2) {
+                return $item2['publish_time'] <=> $item1['publish_time'];
+            });
             usort($blogs, function ($item1, $item2) {
                 return $item2['publish_time'] <=> $item1['publish_time'];
             });
         }
 
+        $blogs = array_merge($pinned, $blogs);
         $blogs_count = count($blogs);
         $blogs = $this->paginate($blogs, $data);
         
@@ -154,6 +168,44 @@ class BlogController extends AbstractController
         );
     }
 
+    public function pinOp(bool $op = true, Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+        if($id!=$kernel->founder()->id()->toString()) {
+            $this->fail($response, "Only admins can operate this command.");
+            return;
+        }
+        $validation = $this->validator->validate($data, [
+            'id' => 'required'
+        ]);
+        if($validation->fails()) {
+            $this->fail($response, "Content ID required");
+            return;
+        }
+        try {
+            $blog = $kernel->gs()->node($data["id"]);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "No such Blog Post");
+        }
+        if(!$blog instanceof Blog) {
+            return $this->fail($response, "Given id is not a blog post");
+        }
+        $blog->setIsPinned($op);
+        $this->succeed($response);
+    }
+
+    public function pin(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        $this->pinOp(true, ...func_get_args());
+    }
+
+    public function unpin(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        $this->pinOp(false, ...func_get_args());
+    }
 
 
     public function post(Request $request, Response $response, Session $session, Kernel $kernel)
@@ -291,9 +343,9 @@ class BlogController extends AbstractController
     protected function canEdit(Kernel $kernel, AbstractActor $actor)
     {
         return (
-            getenv('INSTALLATION_TYPE') === 'groupsv2'  ||
+            getenv('INSTALLATION_TYPE')  'groupsv2'  ||
             $kernel->founder()->id()->equals($actor->id()) ||
-            isset($actor->attributes()->is_editor) && (bool) $actor->attributes()->is_editor
+            isset($actor->attributes()->IsEditor) && (bool) $actor->attributes()->IsEditor
         );
     }
 
