@@ -119,11 +119,13 @@ class BlogController extends AbstractController
         }
 
         $blogs = array_merge($pinned, $blogs);
+        $blogs_count = count($blogs);
         $blogs = $this->paginate($blogs, $data);
         
         $this->succeed(
             $response, [
-                "blogs" => $blogs 
+                "blogs" => $blogs ,
+                "total" => $blogs_count
             ]
         );
     }
@@ -343,7 +345,7 @@ class BlogController extends AbstractController
         return (
             getenv('INSTALLATION_TYPE') === 'groupsv2'  ||
             $kernel->founder()->id()->equals($actor->id()) ||
-            isset($actor->attributes()->IsEditor) && (bool) $actor->attributes()->IsEditor
+            isset($actor->attributes()->IsEditor) && (bool) $actor->getIsEditor()
         );
     }
 
