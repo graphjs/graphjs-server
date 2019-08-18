@@ -55,8 +55,12 @@ class MembersController extends AbstractController
                 ];
             }
         }
+        $members_count = count($members);
         $members = $this->paginate($members, $request->getQueryParams(), 20);
-        $this->succeed($response, ["members" => $members]);
+        $this->succeed($response, [
+         "members" => $members,
+         "total"   => $members_count
+        ]);
     }
  
     public function getFollowers(Request $request, Response $response, Session $session, Kernel $kernel)
