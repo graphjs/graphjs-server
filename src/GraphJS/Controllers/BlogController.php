@@ -105,11 +105,13 @@ class BlogController extends AbstractController
             });
         }
 
+        $blogs_count = count($blogs);
         $blogs = $this->paginate($blogs, $data);
         
         $this->succeed(
             $response, [
-                "blogs" => $blogs 
+                "blogs" => $blogs ,
+                "total" => $blogs_count
             ]
         );
     }
