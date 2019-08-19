@@ -1751,12 +1751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Network.git",
-                "reference": "a1c2741a9cd934b7d5110a87047a148961e8ec0e"
+                "reference": "cf39723fe6cd2c3afd5caa5b3e75370fce480b54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/a1c2741a9cd934b7d5110a87047a148961e8ec0e",
-                "reference": "a1c2741a9cd934b7d5110a87047a148961e8ec0e",
+                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/cf39723fe6cd2c3afd5caa5b3e75370fce480b54",
+                "reference": "cf39723fe6cd2c3afd5caa5b3e75370fce480b54",
                 "shasum": ""
             },
             "require": {
@@ -1781,7 +1781,7 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-17T06:56:06+00:00"
+            "time": "2019-08-19T01:17:06+00:00"
         },
         {
             "name": "pho-recipes/web",
@@ -1789,12 +1789,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Web.git",
-                "reference": "8b1c0faeb84370c924993b967fbf152c78872670"
+                "reference": "be0130778b227b44ac9ac4d9167f5592aa23612d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/8b1c0faeb84370c924993b967fbf152c78872670",
-                "reference": "8b1c0faeb84370c924993b967fbf152c78872670",
+                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/be0130778b227b44ac9ac4d9167f5592aa23612d",
+                "reference": "be0130778b227b44ac9ac4d9167f5592aa23612d",
                 "shasum": ""
             },
             "require": {
@@ -1819,7 +1819,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-17T06:55:54+00:00"
+            "time": "2019-08-19T01:17:35+00:00"
         },
         {
             "name": "phonetworks/pho-framework",

@@ -121,16 +121,23 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     protected function isMembershipModerated(Kernel $kernel)
     {
-        if(!isset($kernel->graph()->attributes()->membership_moderated))
+        if(!isset($kernel->graph()->attributes()->MembershipModerated))
             return false;
-        return $kernel->graph()->attributes()->membership_moderated;
+        return (bool) $kernel->graph()->getMembershipModerated();
+    }
+
+    protected function isReadOnly(Kernel $kernel)
+    {
+        if(!isset($kernel->graph()->attributes()->ReadOnly))
+            return false;
+        return (bool) $kernel->graph()->getReadOnly();
     }
 
     protected function isVerificationRequired(Kernel $kernel)
     {
-        if(!isset($kernel->graph()->attributes()->verification_required))
+        if(!isset($kernel->graph()->attributes()->VerificationRequired))
             return false;
-        return $kernel->graph()->attributes()->verification_required;
+        return (bool) $kernel->graph()->getVerificationRequired();
     }
 
     protected function fail(Response $response, string $message = ""): void

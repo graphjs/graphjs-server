@@ -307,6 +307,30 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'getVerificationRequiredMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getVerificationRequiredMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setVerificationRequiredMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setVerificationRequiredMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getReadOnlyMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getReadOnlyMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setReadOnlyMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setReadOnlyMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->listPrivateContents($request, $response, $kernel);
             }

@@ -470,7 +470,7 @@ class AdministrationController extends AbstractController
 
       $mode = (bool) $data["mode"];
 
-      $kernel->graph()->attributes()->membership_moderated = $mode;
+      $kernel->graph()->setMembershipModerated($mode);
 
       return $this->succeed($response);
     
@@ -481,7 +481,69 @@ class AdministrationController extends AbstractController
     $mode = $this->isMembershipModerated($kernel);
 
     return $this->succeed($response,
-        ["status" => intval($mode)]
+        ["mode" => intval($mode)]
+    );
+    
+  }
+
+  public function setVerificationRequiredMode(Request $request, Response $response, Kernel $kernel)
+  {
+    if(!$this->requireAdministrativeRights(...\func_get_args())) {
+        return $this->fail($response, "Invalid hash");
+    }
+    $data = $request->getQueryParams();
+      $validation = $this->validator->validate($data, [
+          "mode" => "required"
+      ]);
+      if($validation->fails()) {
+          return $this->fail($response, "Mode is required.");
+      }
+
+      $mode = (bool) $data["mode"];
+
+      $kernel->graph()->setVerificationRequired($mode);
+
+      return $this->succeed($response);
+    
+  }
+
+  public function getVerificationRequiredMode(Request $request, Response $response, Kernel $kernel)
+  {
+    $mode = $this->isVerificationRequired($kernel);
+
+    return $this->succeed($response,
+        ["mode" => intval($mode)]
+    );
+    
+  }
+
+  public function setReadOnlyMode(Request $request, Response $response, Kernel $kernel)
+  {
+    if(!$this->requireAdministrativeRights(...\func_get_args())) {
+        return $this->fail($response, "Invalid hash");
+    }
+    $data = $request->getQueryParams();
+      $validation = $this->validator->validate($data, [
+          "mode" => "required"
+      ]);
+      if($validation->fails()) {
+          return $this->fail($response, "Mode is required.");
+      }
+
+      $mode = (bool) $data["mode"];
+
+      $kernel->graph()->setReadOnly($mode);
+
+      return $this->succeed($response);
+    
+  }
+
+  public function getReadOnlyMode(Request $request, Response $response, Kernel $kernel)
+  {
+    $mode = $this->isReadOnly($kernel);
+
+    return $this->succeed($response,
+        ["mode" => intval($mode)]
     );
     
   }
