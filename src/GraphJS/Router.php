@@ -331,6 +331,18 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'getAllModes', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getAllModes($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setAllModes', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setAllModes($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->listPrivateContents($request, $response, $kernel);
             }
