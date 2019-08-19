@@ -295,6 +295,12 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
+            'getMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getMembershipModerationMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
             'setMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->setMembershipModerationMode($request, $response, $kernel);
             }
