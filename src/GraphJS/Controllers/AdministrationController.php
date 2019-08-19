@@ -478,10 +478,6 @@ class AdministrationController extends AbstractController
 
   public function getMembershipModerationMode(Request $request, Response $response, Kernel $kernel)
   {
-    if(!$this->requireAdministrativeRights(...\func_get_args())) {
-        return $this->fail($response, "Invalid hash");
-    }
-
     $mode = $this->isMembershipModerated($kernel);
 
     return $this->succeed($response,
