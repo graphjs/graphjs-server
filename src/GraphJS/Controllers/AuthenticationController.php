@@ -294,7 +294,7 @@ class AuthenticationController extends AbstractController
             return;
         }
 
-        if($this->isVerificationRequired($kernel) && $n["n.PendingVerification"]) {
+        if($this->isVerificationRequired($kernel) && $user["n.PendingVerification"]) {
             $this->fail($response, "You have not verified your email yet");
             return;
         }
@@ -302,7 +302,8 @@ class AuthenticationController extends AbstractController
         $session->set($request, "id", $user["n.udid"]);
         $this->succeed(
             $response, [
-                "id" => $user["n.udid"]
+                "id" => $user["n.udid"],
+                "pending" => $user["n.Pending"]
             ]
         );
 
