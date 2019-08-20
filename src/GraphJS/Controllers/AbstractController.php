@@ -121,9 +121,10 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
 
     protected function isMembershipModerated(Kernel $kernel)
     {
-        if(!isset($kernel->graph()->attributes()->MembershipModerated))
-            return false;
-        return (bool) $kernel->graph()->getMembershipModerated();
+        return 
+            isset($kernel->graph()->attributes()->MembershipModerated) 
+            &&
+            (bool) $kernel->graph()->getMembershipModerated();
     }
 
     protected function isReadOnly(Kernel $kernel)
