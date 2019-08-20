@@ -352,9 +352,7 @@ class AdministrationController extends AbstractController
             catch(\Exception $e) {
                 return $this->fail($response, "Problem with deleting the User");
             }
-            return $this->succeed($response, [
-                    "deleted" => $deleted
-            ]);
+            return $this->succeed($response);
         }
         $this->fail($response, "The ID does not belong to a User.");
     }
