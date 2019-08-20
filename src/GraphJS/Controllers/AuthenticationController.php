@@ -345,7 +345,10 @@ class AuthenticationController extends AbstractController
                     "editor" => ( 
                         (($id==$kernel->founder()->id()->toString())) 
                         || 
-                        (isset($i->attributes()->IsEditor) && (bool) $i->attributes()->IsEditor)
+                        (isset($i->attributes()->IsEditor) && (bool) $i->getIsEditor())
+                    ),
+                    "pending" => (
+                        (isset($i->attributes()->Pending) && (bool) $i->getPending())
                     )
                 ]
             );
