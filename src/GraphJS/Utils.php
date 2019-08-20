@@ -14,8 +14,8 @@ class Utils
 {
     # https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago
     public static function time_elapsed_string($datetime, $full = false) {
-        $now = new DateTime;
-        $ago = new DateTime($datetime);
+        $now = new \DateTime;
+        $ago = new \DateTime($datetime);
         $diff = $now->diff($ago);
     
         $diff->w = floor($diff->d / 7);
