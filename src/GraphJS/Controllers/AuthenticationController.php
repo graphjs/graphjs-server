@@ -289,12 +289,12 @@ class AuthenticationController extends AbstractController
         
         error_log(print_r($user));
 
-        if($this->isMembershipModerated($kernel) && $user["n.Pending"]==true) {
+        if($this->isMembershipModerated($kernel) && $user["n.Pending"]) {
             $this->fail($response, "Pending membership");
             return;
         }
 
-        if($this->isVerificationRequired($kernel) && $n["n.PendingVerification"]==true) {
+        if($this->isVerificationRequired($kernel) && $n["n.PendingVerification"]) {
             $this->fail($response, "You have not verified your email yet");
             return;
         }
