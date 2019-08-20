@@ -86,7 +86,7 @@ class BlogController extends AbstractController
                     "comment_count" => $comment_count
                 ];
 
-                $is_pinned = $this->getIsPinned();
+                $is_pinned = $thing->getIsPinned();
                 if($is_pinned) {
                     $pinned[] = $item;
                     continue;
