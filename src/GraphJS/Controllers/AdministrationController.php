@@ -443,7 +443,7 @@ class AdministrationController extends AbstractController
                         "username" => (string) $node->getUsername(),
                         "email" => (string) $node->getEmail(),
                         "avatar" => (string) $node->getAvatar(),
-                        "signup_time" => $node->getJoinTime() // Utils::time_elapsed_string($node->getJoinTime())
+                        "signup_time" =>  Utils::time_elapsed_string(date("r", $node->getJoinTime()))
                     ];
                 }
             }
