@@ -410,7 +410,7 @@ class AdministrationController extends AbstractController
     }
     if($entity instanceof User) {
         try {
-            $entity->attributes()->pending = false;
+            $entity->setPending(false);
         }
         catch(\Exception $e) {
             return $this->fail($response, "Problem with approving the User");
