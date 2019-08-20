@@ -288,6 +288,8 @@ class AuthenticationController extends AbstractController
         }
         
         error_log(print_r($user));
+        error_log(intval($this->isMembershipModerated($kernel)));
+        error_log("Done");
 
         if($this->isMembershipModerated($kernel) && $user["n.Pending"]) {
             $this->fail($response, "Pending membership");
