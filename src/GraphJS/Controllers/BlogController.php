@@ -118,10 +118,7 @@ class BlogController extends AbstractController
             });
         }
 
-<<<<<<< HEAD
-=======
         $blogs = array_merge($pinned, $blogs);
->>>>>>> v2
         $blogs_count = count($blogs);
         $blogs = $this->paginate($blogs, $data);
         
