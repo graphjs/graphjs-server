@@ -55,6 +55,7 @@ class MembersController extends AbstractController
                     (!$verificationRequired||!$node->attributes()->PendingVerification)
                     )
                     $members[(string) $node->id()] = [
+                        "id" => (string) $node->id(),
                         "username" => (string) $node->getUsername(),
                         "email" => (string) $node->getEmail(),
                         "avatar" => (string) $node->getAvatar(),
