@@ -568,6 +568,8 @@ class AdministrationController extends AbstractController
       foreach($vars as $var) {
         $$var = ($data[$var]==="off"||$data[$var]==="false") ? false : (bool) $data[$var];
         $func = sprintf("set%s", S::upperCamelize($var));
+        error_log($func);
+        error_log($$var);
         $kernel->graph()->$func($$var);
       }
 
