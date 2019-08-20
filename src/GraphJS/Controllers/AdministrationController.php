@@ -440,7 +440,7 @@ class AdministrationController extends AbstractController
                     ($kernel->founder()->id()->equals($node->id()))
                 );
                 if(
-                    $node->attributes()->pending
+                    $node->attributes()->Pending
                     &&
                     (!$verificationRequired||!$node->attributes()->PendingVerification)
                     )
