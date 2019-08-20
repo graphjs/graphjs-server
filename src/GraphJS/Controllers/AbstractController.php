@@ -119,6 +119,27 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
             ->end();
     }
 
+    protected function isMembershipModerated(Kernel $kernel)
+    {
+        if(!isset($kernel->graph()->attributes()->MembershipModerated))
+            return false;
+        return (bool) $kernel->graph()->getMembershipModerated();
+    }
+
+    protected function isReadOnly(Kernel $kernel)
+    {
+        if(!isset($kernel->graph()->attributes()->ReadOnly))
+            return false;
+        return (bool) $kernel->graph()->getReadOnly();
+    }
+
+    protected function isVerificationRequired(Kernel $kernel)
+    {
+        if(!isset($kernel->graph()->attributes()->VerificationRequired))
+            return false;
+        return (bool) $kernel->graph()->getVerificationRequired();
+    }
+
     protected function fail(Response $response, string $message = ""): void
     {
         $method = $this->getWriteMethod();
