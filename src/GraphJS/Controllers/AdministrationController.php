@@ -433,25 +433,19 @@ class AdministrationController extends AbstractController
         $nodes = $kernel->graph()->members();
         $members = [];
         foreach($nodes as $node) {
-            if($node instanceof User) error_log(print_r($node->toArray()));
+            //if($node instanceof User) error_log(print_r($node->toArray()));
             if($node instanceof User && 
                     isset($node->attributes()->Pending) && $node->getPending() &&
                     (!$verificationRequired||!$node->attributes()->PendingVerification)
                     ) {
-                        $is_editor = (
-                            (isset($node->attributes()->IsEditor) && (bool) $node->getIsEditor())
-                            ||
-                            ($kernel->founder()->id()->equals($node->id()))
-                        );
                     $members[(string) $node->id()] = [
                         "username" => (string) $node->getUsername(),
                         "email" => (string) $node->getEmail(),
-                        "avatar" => (string) $node->getAvatar(),
-                        "is_editor" => intval($is_editor)
+                        "avatar" => (string) $node->getAvatar()
                     ];
                 }
             }
-        
+        error_log(count($members));
         $this->succeed($response, ["members" => $members]);
     
   }
