@@ -464,10 +464,10 @@ class AdministrationController extends AbstractController
           return $this->fail($response, "Mode is required.");
       }
 
-      $mode = (bool) $data["mode"];
+      $mode = (($data["mode"]=="off") ? false : (bool) $data["mode"]);
 
       $kernel->graph()->setMembershipModerated($mode);
-
+      $kernel->graph()->persist();
       return $this->succeed($response);
     
   }
@@ -571,6 +571,7 @@ class AdministrationController extends AbstractController
         $kernel->graph()->$func($$var);
         error_log(intval($kernel->graph()->$getter()));
       }
+      $kernel->graph()->persist();
 
       return $this->succeed($response);
     
