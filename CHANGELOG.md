@@ -8,15 +8,13 @@
 * bugfix with starred contents
 
 
-## v2
-
+## 0.9
+This is an incomplete version of v2. 
+The infra for v2 is ready, but not everything
+is fully implemented and it is still experimental.
 * listPrivateContents
 * privateContent under new structure
-
-* custom_field1 hem admin, hem user sign up'da, hem set'te
-
+* custom_fields
 * membership_moderated
-
 * verification_required
-
 * pin
