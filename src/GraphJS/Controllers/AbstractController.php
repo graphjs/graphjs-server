@@ -166,15 +166,15 @@ abstract class AbstractController extends   \Pho\Server\Rest\Controllers\Abstrac
         // find out offset
         $offset = 0;
         if(isset($queryParams["offset"])&&is_numeric($queryParams["offset"])) {
-            $offset = $queryParams["offset"];
+            $offset = (int) $queryParams["offset"];
         }
 
         // find out count
         if(isset($queryParams["count"])&&is_numeric($queryParams["count"])&&$queryParams["count"]!=0) {
-            $count = $queryParams["count"];
+            $count = (int) $queryParams["count"];
         }
         else {
-            $count = ($maxCount ?? count($blogs));
+            $count = (int) ($maxCount ?? count($blogs));
         }
 
         return array_slice($assets, $offset, $count, true);

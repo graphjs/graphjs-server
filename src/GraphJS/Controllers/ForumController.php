@@ -239,7 +239,7 @@ class ForumController extends AbstractController
 
 
         $threads_count = count($threads);
-        $threads = $this->paginate($threads, $request->getQueryParams(), 20);
+        $threads = array_values($this->paginate($threads, $request->getQueryParams(), 20));
 
         $this->succeed(
             $response, [
