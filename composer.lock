@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c33fbb9a622801e64be6600f39591906",
-    "content-hash": "c3d0d1e900deb556b30ad4442c38b4ba",
+    "hash": "92d4ac23e98f9753ea51da97e7118ddb",
+    "content-hash": "dfb9510a936c0f67d9480c1a05a543c0",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -72,16 +72,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.109.7",
+            "version": "3.109.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e8d3416f9b1e21029fc0eb63df075e325c690187"
+                "reference": "a7948d0de42185cb1af551713a0e99ad593fd962"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e8d3416f9b1e21029fc0eb63df075e325c690187",
-                "reference": "e8d3416f9b1e21029fc0eb63df075e325c690187",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a7948d0de42185cb1af551713a0e99ad593fd962",
+                "reference": "a7948d0de42185cb1af551713a0e99ad593fd962",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-08-19 18:08:45"
+            "time": "2019-08-20 18:42:25"
         },
         {
             "name": "clue/stream-filter",
@@ -1748,16 +1748,16 @@
         },
         {
             "name": "pho-recipes/network",
-            "version": "dev-private-content",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Network.git",
-                "reference": "cf39723fe6cd2c3afd5caa5b3e75370fce480b54"
+                "reference": "103f5bdcd9061be3de69b8bb62607ca9523f5c95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/cf39723fe6cd2c3afd5caa5b3e75370fce480b54",
-                "reference": "cf39723fe6cd2c3afd5caa5b3e75370fce480b54",
+                "url": "https://api.github.com/repos/pho-recipes/Network/zipball/103f5bdcd9061be3de69b8bb62607ca9523f5c95",
+                "reference": "103f5bdcd9061be3de69b8bb62607ca9523f5c95",
                 "shasum": ""
             },
             "require": {
@@ -1782,20 +1782,20 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-19 01:17:06"
+            "time": "2019-08-21 11:38:02"
         },
         {
             "name": "pho-recipes/web",
-            "version": "dev-private-content",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-recipes/Web.git",
-                "reference": "be0130778b227b44ac9ac4d9167f5592aa23612d"
+                "reference": "24d796db5df33affee83c83e106e335a1da33e57"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/be0130778b227b44ac9ac4d9167f5592aa23612d",
-                "reference": "be0130778b227b44ac9ac4d9167f5592aa23612d",
+                "url": "https://api.github.com/repos/pho-recipes/Web/zipball/24d796db5df33affee83c83e106e335a1da33e57",
+                "reference": "24d796db5df33affee83c83e106e335a1da33e57",
                 "shasum": ""
             },
             "require": {
@@ -1820,7 +1820,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-19 01:17:35"
+            "time": "2019-08-21 11:53:28"
         },
         {
             "name": "phonetworks/pho-framework",
