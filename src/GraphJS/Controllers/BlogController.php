@@ -232,7 +232,13 @@ class BlogController extends AbstractController
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
-        $blog = $i->postBlog($data["title"], $data["content"]);
+        error_log("about to post");
+        try {
+            $blog = $i->postBlog($data["title"], $data["content"]);
+        }
+        catch (\Exception $e) {
+            error_log($e->getMessage());
+        }
         $this->succeed(
             $response, [
                 "id" => (string) $blog->id()
