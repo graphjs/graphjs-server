@@ -345,6 +345,8 @@ class AuthenticationController extends AbstractController
             }
             $this->succeed($response, [
                     "id" => $id, 
+                    "admin" => (bool) ($id==$kernel->founder()->id()->toString()),
+                    "username" => (string) $i->getUsername(),
                     "editor" => ( 
                         (($id==$kernel->founder()->id()->toString())) 
                         || 
