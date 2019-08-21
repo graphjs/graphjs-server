@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0a14712d12deb22acc65070feaf52502",
-    "content-hash": "1cad7b33380900c99122102f4409fdc7",
+    "hash": "8007d74ec9c4bd93d41d8474287f22cb",
+    "content-hash": "0f4259dacf2b12f3eea4380413a018d1",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1824,16 +1824,16 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.4.3",
+            "version": "11.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "2824f30c9c7dfb8f1c02afe7bbeb6db56d45d2a0"
+                "reference": "04658e859a3821d6c1ea775667338bc017e61256"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/2824f30c9c7dfb8f1c02afe7bbeb6db56d45d2a0",
-                "reference": "2824f30c9c7dfb8f1c02afe7bbeb6db56d45d2a0",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/04658e859a3821d6c1ea775667338bc017e61256",
+                "reference": "04658e859a3821d6c1ea775667338bc017e61256",
                 "shasum": ""
             },
             "require": {
@@ -1878,7 +1878,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-08-21 12:34:01"
+            "time": "2019-08-21 12:42:10"
         },
         {
             "name": "phonetworks/pho-kernel",
