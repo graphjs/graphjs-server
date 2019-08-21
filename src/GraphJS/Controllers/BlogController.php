@@ -234,7 +234,7 @@ class BlogController extends AbstractController
         }
         error_log("about to post");
         try {
-            $blog = $i->postBlog($data["title"], $data["content"], null, null);
+            $blog = $i->postBlog($data["title"], $data["content"], time(), false);
         }
         catch (\Exception $e) {
             error_log($e->getMessage());
