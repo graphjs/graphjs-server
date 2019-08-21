@@ -193,7 +193,7 @@ class ForumController extends AbstractController
      */
     public function getThreads(Request $request, Response $response, Kernel $kernel)
     {
-            
+        $params = $request->getQueryParams();
         $threads = [];
         $everything = $kernel->graph()->members();
         
@@ -239,7 +239,7 @@ class ForumController extends AbstractController
 
 
         $threads_count = count($threads);
-        $threads = array_values($this->paginate($threads, $request->getQueryParams(), 20));
+        $threads = array_values($this->paginate($threads, $params, 20));
 
         $this->succeed(
             $response, [
