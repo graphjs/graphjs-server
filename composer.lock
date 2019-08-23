@@ -72,16 +72,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.109.8",
+            "version": "3.110.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a7948d0de42185cb1af551713a0e99ad593fd962"
+                "reference": "994fc9368f7fb635385b910b9079486fefd666c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a7948d0de42185cb1af551713a0e99ad593fd962",
-                "reference": "a7948d0de42185cb1af551713a0e99ad593fd962",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/994fc9368f7fb635385b910b9079486fefd666c6",
+                "reference": "994fc9368f7fb635385b910b9079486fefd666c6",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-08-20 18:42:25"
+            "time": "2019-08-22 18:31:50"
         },
         {
             "name": "clue/stream-filter",
@@ -1824,16 +1824,16 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.4.6",
+            "version": "11.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "726a0ff993e177c4a31518410cdb0e97ff21d2f2"
+                "reference": "63dfdbb9e654d04936310b0bc57750d396943ce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/726a0ff993e177c4a31518410cdb0e97ff21d2f2",
-                "reference": "726a0ff993e177c4a31518410cdb0e97ff21d2f2",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/63dfdbb9e654d04936310b0bc57750d396943ce3",
+                "reference": "63dfdbb9e654d04936310b0bc57750d396943ce3",
                 "shasum": ""
             },
             "require": {
@@ -1878,7 +1878,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-08-21 15:13:51"
+            "time": "2019-08-22 07:56:31"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -2617,33 +2617,34 @@
         },
         {
             "name": "php-http/multipart-stream-builder",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/multipart-stream-builder.git",
-                "reference": "1fa3c623fc813a43b39494b2a1612174e36e0fb0"
+                "reference": "5d73adad53cf1d674dcc6c5b288a3ff3f76c4849"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/1fa3c623fc813a43b39494b2a1612174e36e0fb0",
-                "reference": "1fa3c623fc813a43b39494b2a1612174e36e0fb0",
+                "url": "https://api.github.com/repos/php-http/multipart-stream-builder/zipball/5d73adad53cf1d674dcc6c5b288a3ff3f76c4849",
+                "reference": "5d73adad53cf1d674dcc6c5b288a3ff3f76c4849",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5 || ^7.0",
-                "php-http/discovery": "^1.0",
+                "php": "^7.1",
+                "php-http/discovery": "^1.7",
                 "php-http/message-factory": "^1.0.2",
+                "psr/http-factory": "^1.0",
                 "psr/http-message": "^1.0"
             },
             "require-dev": {
+                "nyholm/psr7": "^1.0",
                 "php-http/message": "^1.5",
-                "phpunit/phpunit": "^4.8 || ^5.4",
-                "zendframework/zend-diactoros": "^1.3.5"
+                "phpunit/phpunit": "^7.5 || ^8.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.3-dev"
+                    "dev-master": "1.1-dev"
                 }
             },
             "autoload": {
@@ -2670,7 +2671,7 @@
                 "multipart stream",
                 "stream"
             ],
-            "time": "2017-05-21 17:45:25"
+            "time": "2019-08-22 14:13:19"
         },
         {
             "name": "php-http/promise",
@@ -2866,6 +2867,58 @@
                 "psr"
             ],
             "time": "2017-02-14 16:28:37"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "reference": "12ac7fcd07e5b077433f5f2bee95b3a771bf61be",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "time": "2019-04-30 12:38:16"
         },
         {
             "name": "psr/http-message",
