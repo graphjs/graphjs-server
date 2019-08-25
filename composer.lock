@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "781e3562e64c348194cf6b83eac956be",
-    "content-hash": "ca168a369dcb9b6f504e505ed864320e",
+    "hash": "09c651d098fab1f0586e356614e51891",
+    "content-hash": "0b88ff2d85bcdec739da57f02db4af19",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -72,16 +72,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.110.1",
+            "version": "3.110.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "994fc9368f7fb635385b910b9079486fefd666c6"
+                "reference": "b39e6c8c3082f0f1f6672a6bd2aba92cfc38da9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/994fc9368f7fb635385b910b9079486fefd666c6",
-                "reference": "994fc9368f7fb635385b910b9079486fefd666c6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b39e6c8c3082f0f1f6672a6bd2aba92cfc38da9a",
+                "reference": "b39e6c8c3082f0f1f6672a6bd2aba92cfc38da9a",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-08-22 18:31:50"
+            "time": "2019-08-23 18:12:25"
         },
         {
             "name": "clue/stream-filter",
@@ -998,16 +998,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.53",
+            "version": "1.0.55",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674"
+                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/08e12b7628f035600634a5e76d95b5eb66cea674",
-                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/33c91155537c6dc899eacdc54a13ac6303f156e6",
+                "reference": "33c91155537c6dc899eacdc54a13ac6303f156e6",
                 "shasum": ""
             },
             "require": {
@@ -1078,7 +1078,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-06-18 20:09:29"
+            "time": "2019-08-24 11:17:19"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1356,6 +1356,44 @@
                 "enum"
             ],
             "time": "2019-08-19 13:53:00"
+        },
+        {
+            "name": "nebulaprotocol/ipfs-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NebulaProtocol/IPFS-PHP.git",
+                "reference": "4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NebulaProtocol/IPFS-PHP/zipball/4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945",
+                "reference": "4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "guzzlehttp/guzzle": "^6.3.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cesar Rodriguez",
+                    "email": "kesarr+ipfs@gmail.com"
+                }
+            ],
+            "description": "IPFS library in PHP",
+            "time": "2018-08-26 15:34:10"
         },
         {
             "name": "neutron/temporary-filesystem",
@@ -4458,21 +4496,27 @@
         },
         {
             "name": "vanilla/garden-cli",
-            "version": "v2.1",
+            "version": "v2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vanilla/garden-cli.git",
-                "reference": "d9f57b2a96d34898bdefead355c644ef52ccb065"
+                "reference": "b0eb212d897483babf7b3dc95c5d5d32df5b5d1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/garden-cli/zipball/d9f57b2a96d34898bdefead355c644ef52ccb065",
-                "reference": "d9f57b2a96d34898bdefead355c644ef52ccb065",
+                "url": "https://api.github.com/repos/vanilla/garden-cli/zipball/b0eb212d897483babf7b3dc95c5d5d32df5b5d1b",
+                "reference": "b0eb212d897483babf7b3dc95c5d5d32df5b5d1b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.0",
+                "ext-json": "*",
+                "php": ">=7.1",
                 "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7",
+                "vanilla/standards": "^1.3",
+                "vimeo/psalm": "^3.4"
             },
             "type": "library",
             "autoload": {
@@ -4491,7 +4535,7 @@
                 }
             ],
             "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
-            "time": "2018-06-26 14:29:46"
+            "time": "2019-08-24 22:36:28"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4546,16 +4590,16 @@
         },
         {
             "name": "vlucas/valitron",
-            "version": "v1.4.5",
+            "version": "v1.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/valitron.git",
-                "reference": "c3b4dac8586291990e6398961852e972600ac7b5"
+                "reference": "76e44188e29909553a7d1d181f2a3688ad1fadc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/valitron/zipball/c3b4dac8586291990e6398961852e972600ac7b5",
-                "reference": "c3b4dac8586291990e6398961852e972600ac7b5",
+                "url": "https://api.github.com/repos/vlucas/valitron/zipball/76e44188e29909553a7d1d181f2a3688ad1fadc7",
+                "reference": "76e44188e29909553a7d1d181f2a3688ad1fadc7",
                 "shasum": ""
             },
             "require": {
@@ -4591,20 +4635,20 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-03-21 20:12:22"
+            "time": "2019-08-21 10:16:21"
         },
         {
             "name": "webmozart/assert",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozart/assert.git",
-                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9"
+                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/83e253c8e0be5b0257b881e1827274667c5c17a9",
-                "reference": "83e253c8e0be5b0257b881e1827274667c5c17a9",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/88e6d84706d09a236046d686bbea96f07b3a34f4",
+                "reference": "88e6d84706d09a236046d686bbea96f07b3a34f4",
                 "shasum": ""
             },
             "require": {
@@ -4612,8 +4656,7 @@
                 "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.6",
-                "sebastian/version": "^1.0.1"
+                "phpunit/phpunit": "^4.8.36 || ^7.5.13"
             },
             "type": "library",
             "extra": {
@@ -4642,7 +4685,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2018-12-25 11:19:39"
+            "time": "2019-08-24 08:43:50"
         },
         {
             "name": "zendframework/zend-config",
