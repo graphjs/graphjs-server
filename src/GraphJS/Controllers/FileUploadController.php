@@ -12,6 +12,48 @@ use Riverline\MultiPartParser\StreamedPart;
 
 class FileUploadController extends AbstractController
 {
+    const PREVIEW_MAX_WIDTH = 600;
+    const PREVIEW_MAX_HEIGHT = 600;
+    const PREVIEW_MIME = 'image/jpeg';
+    const ALLOWED_CONTENT_TYPES = [
+        "image/jpeg" => "jpg",
+        "image/png" => "png",
+        "image/gif" => "gif",
+        "video/mp4" => "mp4",
+        "video/mpeg" => "mpeg",
+        "video/avi" => "avi",
+        "video/flv" => "flv",
+        "video/wmv" => "wmv",
+        "application/pdf" => "pdf",
+        "application/msword" => "doc",
+        "application/msword" => "dot",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "docx",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.template" => "dotx",
+        "application/vnd.ms-word.document.macroEnabled.12" => "docm",
+        "application/vnd.ms-word.template.macroEnabled.12" => "dotm",
+        "application/vnd.ms-excel" => "xls",
+        "application/vnd.ms-excel" => "xlt",
+        "application/vnd.ms-excel" => "xla",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "xlsx",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.template" => "xltx",
+        "application/vnd.ms-excel.sheet.macroEnabled.12" => "xlsm",
+        "application/vnd.ms-excel.template.macroEnabled.12" => "xltm",
+        "application/vnd.ms-excel.addin.macroEnabled.12" => "xlam",
+        "application/vnd.ms-excel.sheet.binary.macroEnabled.12" => "xlsb",
+        "application/vnd.ms-powerpoint" => "ppt",
+        "application/vnd.ms-powerpoint" => "pot",
+        "application/vnd.ms-powerpoint" => "pps",
+        "application/vnd.ms-powerpoint" => "ppa",
+        "application/vnd.openxmlformats-officedocument.presentationml.presentation" => "pptx",
+        "application/vnd.openxmlformats-officedocument.presentationml.template" => "potx",
+        "application/vnd.openxmlformats-officedocument.presentationml.slideshow" => "ppsx",
+        "application/vnd.ms-powerpoint.addin.macroEnabled.12" => "ppam",
+        "application/vnd.ms-powerpoint.presentation.macroEnabled.12" => "pptm",
+        "application/vnd.ms-powerpoint.template.macroEnabled.12" => "potm",
+        "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" => "ppsm",
+        "application/vnd.ms-access" => "mdb",
+    ];
+
     private $s3Uploader = null;
 
     public function __construct()
@@ -53,12 +95,72 @@ class FileUploadController extends AbstractController
         return $s3Client;
     }
 
+    private function processPart($id, $part): ?array
+    {
+        $uuid = getenv('UUID');
+        $mime = $part->getMimeType();
+        if (! ($part->isFile() && array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
+            return null;
+        }
+
+        $body = $part->getBody();
+        $originalFilename = $part->getFileName();
+        $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
+
+        $key = strtolower("{$uuid}/{$filename}");
+        
+        $url = $this->s3Uploader->upload($key, $body, $mime);
+        if($url===false)
+            return null;
+
+        $previewUrl = null;
+        if (substr($mime, 0, strlen('video/')) === 'video/') {
+            try {
+                $previewUrl = $this->generateVideoPreview($key, $body);
+            }
+            catch(\Exception $e) {}
+        }
+
+        $bytes = strlen($body);
+        $humanFileSize = $this->human_filesize($bytes);
+        return [
+            'url' => $url,
+            'filetype' => $mime,
+            'original_filename' => $originalFilename,
+            'filesize' => $bytes,
+            'human_filesize' => $humanFileSize,
+            'preview_url' => $previewUrl,
+        ];
+    }
+
+    private function generateVideoPreview($key, $body): string
+    {
+        $previewUrl = null;
+        $previewKey = "{$key}-preview.jpg";
+        try {
+            $videoFile = $this->getTempFile();
+            file_put_contents($videoFile, $body);
+            $frameFile = $this->getTempFile();
+            $this->saveFrame($videoFile, $frameFile);
+
+            $resizedFrameFile = $this->getTempFile();
+            $this->resizeImage($frameFile, $resizedFrameFile, static::PREVIEW_MAX_WIDTH, static::PREVIEW_MAX_HEIGHT);
+            $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), static::PREVIEW_MIME, false);
+        }
+        catch (\Exception $ex) {
+            error_log('error occurred during preview image generation');
+            error_log($ex);
+        }
+
+        return $previewUrl;
+    }
+
     public function upload(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;
         }
-        $uuid = getenv('UUID');
+
         $httpRequest = $request->httpRequest;
         $contentType = $httpRequest->getHeader('content-type');
         $content = $request->getContent();
@@ -68,101 +170,26 @@ class FileUploadController extends AbstractController
         rewind($stream);
 
         $document = new StreamedPart($stream);
-        $allowedContentTypes = [
-            "image/jpeg" => "jpg",
-            "image/png" => "png",
-            "image/gif" => "gif",
-            "video/mp4" => "mp4",
-            "video/mpeg" => "mpeg",
-            "video/avi" => "avi",
-            "video/flv" => "flv",
-            "video/wmv" => "wmv",
-            "application/pdf" => "pdf",
-            "application/msword" => "doc",
-            "application/msword" => "dot",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.document" => "docx",
-            "application/vnd.openxmlformats-officedocument.wordprocessingml.template" => "dotx",
-            "application/vnd.ms-word.document.macroEnabled.12" => "docm",
-            "application/vnd.ms-word.template.macroEnabled.12" => "dotm",
-            "application/vnd.ms-excel" => "xls",
-            "application/vnd.ms-excel" => "xlt",
-            "application/vnd.ms-excel" => "xla",
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" => "xlsx",
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.template" => "xltx",
-            "application/vnd.ms-excel.sheet.macroEnabled.12" => "xlsm",
-            "application/vnd.ms-excel.template.macroEnabled.12" => "xltm",
-            "application/vnd.ms-excel.addin.macroEnabled.12" => "xlam",
-            "application/vnd.ms-excel.sheet.binary.macroEnabled.12" => "xlsb",
-            "application/vnd.ms-powerpoint" => "ppt",
-            "application/vnd.ms-powerpoint" => "pot",
-            "application/vnd.ms-powerpoint" => "pps",
-            "application/vnd.ms-powerpoint" => "ppa",
-            "application/vnd.openxmlformats-officedocument.presentationml.presentation" => "pptx",
-            "application/vnd.openxmlformats-officedocument.presentationml.template" => "potx",
-            "application/vnd.openxmlformats-officedocument.presentationml.slideshow" => "ppsx",
-            "application/vnd.ms-powerpoint.addin.macroEnabled.12" => "ppam",
-            "application/vnd.ms-powerpoint.presentation.macroEnabled.12" => "pptm",
-            "application/vnd.ms-powerpoint.template.macroEnabled.12" => "potm",
-            "application/vnd.ms-powerpoint.slideshow.macroEnabled.12" => "ppsm",
-            "application/vnd.ms-access" => "mdb",
-        ];
+        
         $uploads = [];
-        if ($document->isMultiPart()) {
-            $parts = $document->getParts();
-            foreach ($parts as $part) {
-                $mime = $part->getMimeType();
-                if (! ($part->isFile() && array_key_exists($mime, $allowedContentTypes))) {
-                    continue;
-                }
-
-                $body = $part->getBody();
-                $originalFilename = $part->getFileName();
-                $filename = sprintf("%s-%s.%s", $id, (string) time(), $allowedContentTypes[$mime]);
-
-                $key = strtolower("{$uuid}/{$filename}");
-                $url = $this->s3Uploader->upload($key, $body, $mime);
-
-                $previewUrl = null;
-
-                if (substr($mime, 0, strlen('video/')) === 'video/') {
-                    $previewKey = "{$key}-preview.jpg";
-                    $previewMime = 'image/jpeg';
-                    try {
-                        $videoFile = $this->getTempFile();
-                        file_put_contents($videoFile, $body);
-                        $frameFile = $this->getTempFile();
-                        $this->saveFrame($videoFile, $frameFile);
-
-                        $resizedFrameFile = $this->getTempFile();
-                        $this->resizeImage($frameFile, $resizedFrameFile, 600, 600);
-                        $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), $previewMime, false);
-                    }
-                    catch (\Exception $ex) {
-                        error_log('error occurred during preview image generation');
-                        error_log($ex);
-                    }
-                }
-                if ($url !== false) {
-                    $bytes = strlen($body);
-                    $humanFileSize = $this->human_filesize($bytes);
-                    $uploads[] = [
-                        'url' => $url,
-                        'filetype' => $mime,
-                        'original_filename' => $originalFilename,
-                        'filesize' => $bytes,
-                        'human_filesize' => $humanFileSize,
-                        'preview_url' => $previewUrl,
-                    ];
-                }
-            }
-
-            return $this->succeed($response, [
-                'uploads' => $uploads,
-            ]);
-        }
-        else {
+        if (!$document->isMultiPart()) {
             return $this->fail($response);
         }
+            
+        $parts = $document->getParts();
+        foreach ($parts as $part) {
+
+            if(is_null( 
+                ($part_processed = $this->processPart($id, $part))
+            )) {
+                continue;
+            }
+            $uploads[] = $part_processed;
+        }
+
+        return $this->succeed($response, [
+            'uploads' => $uploads,
+        ]);
     }
 
     // Ref: https://www.php.net/manual/en/function.filesize.php#106569
