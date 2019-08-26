@@ -57,6 +57,7 @@ class FileUploadController extends AbstractController
 
     private $s3Uploader = null;
     private $ipfs = null;
+    private $kernel;
 
     public function __construct()
     {
@@ -136,7 +137,7 @@ class FileUploadController extends AbstractController
         
         if($this->isIPFSActive())
         {
-            
+            $this->kernel->storage()->put($originalFilename, $key);
         }
 
         if(!$this->isS3Active())
@@ -179,6 +180,11 @@ class FileUploadController extends AbstractController
 
             $resizedFrameFile = $this->getTempFile();
             $this->resizeImage($frameFile, $resizedFrameFile, static::PREVIEW_MAX_WIDTH, static::PREVIEW_MAX_HEIGHT);
+
+            if($this->isIPFSActive()) {
+                $this->kernel->storage()->put($resizedFrameFile, $previewKey);
+            }
+
             if($this->isS3Active())
                 $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), static::PREVIEW_MIME, false);
         }
@@ -196,6 +202,7 @@ class FileUploadController extends AbstractController
             return;
         }
 
+        $this->kernel = $kernel;
         $httpRequest = $request->httpRequest;
         $contentType = $httpRequest->getHeader('content-type');
         $content = $request->getContent();
