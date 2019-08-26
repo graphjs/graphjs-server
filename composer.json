@@ -25,7 +25,7 @@
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
         "pho-adapters/storage-aws-s3": "dev-master",
-        "nebulaprotocol/ipfs-php": "^1.0",
+        "pho-adapters/storage-ipfs": "dev-master",
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
         "phonetworks/pho-plugins-feeds": "^0.1",
