@@ -57,7 +57,6 @@ class FileUploadController extends AbstractController
 
     private $s3Uploader = null;
     private $ipfs = null;
-    private $kernel;
 
     public function __construct()
     {
