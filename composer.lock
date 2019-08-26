@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "09c651d098fab1f0586e356614e51891",
-    "content-hash": "0b88ff2d85bcdec739da57f02db4af19",
+    "hash": "69385f972d8d052d2504a8ccce664bc4",
+    "content-hash": "f1cc1e74e75b8c0f0162e3216d2662aa",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1783,6 +1783,49 @@
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
             "time": "2018-01-07 11:53:13"
+        },
+        {
+            "name": "pho-adapters/storage-ipfs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pho-adapters/storage-ipfs.git",
+                "reference": "9ca5ca4c81b435208c7b5cd91bcd54df8aa16f47"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pho-adapters/storage-ipfs/zipball/9ca5ca4c81b435208c7b5cd91bcd54df8aa16f47",
+                "reference": "9ca5ca4c81b435208c7b5cd91bcd54df8aa16f47",
+                "shasum": ""
+            },
+            "require": {
+                "nebulaprotocol/ipfs-php": "^1.0",
+                "php": "^7.2",
+                "predis/predis": "^1.1"
+            },
+            "provide": {
+                "phonetworks/service-storage-implementation": "1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pho\\Kernel\\Services\\Storage\\Adapters\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "IPFS storage adapter for the Phở stack.",
+            "homepage": "https://phonetworks.org",
+            "time": "2019-08-25 15:36:30"
         },
         {
             "name": "pho-recipes/network",
@@ -3570,16 +3613,16 @@
         },
         {
             "name": "riverline/multipart-parser",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Riverline/multipart-parser.git",
-                "reference": "b88c9ed363429d4669258b5ac81367172b939588"
+                "reference": "062832daee7af34453f196ce575570f7fd21ed36"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Riverline/multipart-parser/zipball/b88c9ed363429d4669258b5ac81367172b939588",
-                "reference": "b88c9ed363429d4669258b5ac81367172b939588",
+                "url": "https://api.github.com/repos/Riverline/multipart-parser/zipball/062832daee7af34453f196ce575570f7fd21ed36",
+                "reference": "062832daee7af34453f196ce575570f7fd21ed36",
                 "shasum": ""
             },
             "require": {
@@ -3587,7 +3630,7 @@
                 "php": ">=5.6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5.2 || ^6.0 || ^7.0",
+                "phpunit/phpunit": "^5.2 || ^6.0 || ^7.0",
                 "psr/http-message": "^1.0",
                 "symfony/psr-http-message-bridge": "^1.1",
                 "zendframework/zend-diactoros": "^1.0"
@@ -3604,12 +3647,12 @@
             ],
             "authors": [
                 {
-                    "name": "Riverline",
-                    "homepage": "http://www.riverline.fr"
-                },
-                {
                     "name": "Romain Cambien",
                     "email": "romain@cambien.net"
+                },
+                {
+                    "name": "Riverline",
+                    "homepage": "http://www.riverline.fr"
                 }
             ],
             "description": "One class library to parse multipart content with encoding and charset support.",
@@ -3618,7 +3661,7 @@
                 "multipart",
                 "parser"
             ],
-            "time": "2019-07-17 12:04:20"
+            "time": "2019-08-26 09:27:06"
         },
         {
             "name": "sabre/event",
@@ -5153,6 +5196,7 @@
         "pho-recipes/web": 20,
         "phonetworks/pho-kernel": 20,
         "pho-adapters/storage-aws-s3": 20,
+        "pho-adapters/storage-ipfs": 20,
         "pho-adapters/index-redis": 20,
         "pho-recipes/network": 20,
         "roave/security-advisories": 20
