@@ -185,11 +185,18 @@ class AdministrationController extends AbstractController
         $custom_field1 = (string) $kernel->graph()->attributes()->CustomField1;
         $custom_field2 = (string) $kernel->graph()->attributes()->CustomField2;
         $custom_field3 = (string) $kernel->graph()->attributes()->CustomField3;
+
+        $custom_field1_must = (string) $kernel->graph()->attributes()->CustomField1Must;
+        $custom_field2_must = (string) $kernel->graph()->attributes()->CustomField2Must;
+        $custom_field3_must = (string) $kernel->graph()->attributes()->CustomField3Must;
         
         $this->succeed($response, [
             "custom_field1"=>$custom_field1,
             "custom_field2"=>$custom_field2,
-            "custom_field3"=>$custom_field3
+            "custom_field3"=>$custom_field3,
+            "custom_field1_must"=>$custom_field1_must,
+            "custom_field2_must"=>$custom_field2_must,
+            "custom_field3_must"=>$custom_field3_must,
         ]);
     }
 
