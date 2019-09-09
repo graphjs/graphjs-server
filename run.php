@@ -3,7 +3,8 @@
 @ob_end_clean();
 ob_start();
 use Garden\Cli\Cli;
-require "vendor/autoload.php";
+$composerClassLoader = require "vendor/autoload.php";
+define('APP_ROOT', __DIR__);
 $cli = new Cli();
 $cli->description('GraphJS Server')
     ->opt('conf:C', 'Config file.', false)
@@ -16,13 +17,14 @@ $port = $args->getOpt(
     (getenv('PORT') ?  getenv('PORT') : 1338) // default
 );
 $configs = $args->getOpt('conf', "");
-$cors = $args->getOpt('domain', "http://localhost");
+$cors = $args->getOpt('domain', "");
 $heroku = ($args->getOpt('heroku', false) === "yes");
-if($heroku) {
-    $cors = getenv("CORS_DOMAIN");
-}
 $server = new \GraphJS\Daemon($configs, $cors, $heroku);
 $server->setPort($port); 
 ob_end_flush();
 error_log(sprintf("Serving through port %s with the config file %s", (string) $port, $configs));
+
+$max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
+ini_set("upload_max_filesize", $max_upload_size);
+
 $server->serve();

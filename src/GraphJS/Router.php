@@ -38,35 +38,85 @@ class Router extends \Pho\Server\Rest\Router
      */
     protected static function expandCorsUrl(string $cors): array
     {
-        $final = ["https://graphjs.com", "http://graphjs.com", "https://www.graphjs.com", "http://www.graphjs.com"];
+        $final = ["https://graphjs.com", "http://graphjs.com", "https://www.graphjs.com", "http://www.graphjs.com", "http://build.gr.ps", "https://build.gr.ps", "http://groups2.com", "https://groups2.com", "http://www.groups2.com", "https://www.groups2.com", "http://grou.ps", "https://grou.ps"];
         if(strpos($cors, ";")===false) {
             $urls = [0=>$cors];
         }
         else {
-            $urls = explode(";",$cors);
+            $urls = preg_split("/;/",$cors, -1, PREG_SPLIT_NO_EMPTY);
         }
         foreach($urls as $url) {
             $parsed = parse_url($url);
             if(count($parsed)==1&&isset($parsed["path"])) {
                 $final[] = "http://".$parsed["path"];
                 $final[] = "https://".$parsed["path"];
+                if(strpos($parsed["path"], "www.")===0) {
+                    $final[] = "http://".str_replace("www.", "", $parsed["path"], 1);
+                    $final[] = "https://".str_replace("www.", "", $parsed["path"], 1);
+                }
             }
             elseif(count($parsed)>=2&&isset($parsed["host"])) {
                 $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
                 $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                if(strpos($parsed["host"], "www.")===0) {
+                    $final[] = "http://".self::str_replace_first("www.", "", $parsed["host"]) . (isset($parsed["port"])?":{$parsed["port"]}":"") ;
+                    $final[] = "https://".self::str_replace_first("www.", "", $parsed["host"]) . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                }
             }
             else {
-                error_log("skipping unknown format: ".$url." - parsed as: ".print_r($parsed, true));
+                error_log("skipping unknown format: ".$url." - parsed as    : ".print_r($parsed, true));
             }
         }
         return array_unique($final);
     }
 
+    // https://stackoverflow.com/a/1252705
+    private static function str_replace_first(string $from, string $to, string $content): string
+    {
+        $from = '/'.preg_quote($from, '/').'/';
+        return preg_replace($from, $to, $content, 1);
+    }
+
     public static function init2(Server $server, array $controllers, Kernel $kernel, string $cors): void
     {
         
+        $server->on('NotFound', function($request, $response) {
+            if("options"==strtolower($request->getMethod())) {
+                error_log("options request");
+                $response->addHeader('Access-Control-Allow-Methods', join(',', [
+                    'GET',
+                    'POST',
+                    'PUT',
+                    'DELETE',
+                    'OPTIONS',
+                    'PATCH',
+                    'HEAD',
+                ]));
+                $response->addHeader('Access-Control-Allow-Headers', join(',', [
+                    'Origin',
+                    'X-Requested-With',
+                    'Content-Type',
+                    'Accept',
+                    'Authorization',
+                ]));
+                $response->addHeader('Access-Control-Allow-Credentials', 'true');
+                $origin = $request->getHeader("origin");
+                $response
+                    ->addHeader("Access-Control-Allow-Origin", $origin[0])
+                    ->setStatus(200)
+                    ->end();
+            }
+            else {
+                $response
+                    ->setStatus(404)
+                    ->write('Not found')
+                    ->end();
+            }
+        });
+
         $server->use(
-            function (Request $request, Response $response, $next) use ($kernel, $cors) {
+            function (Request $request, Response $response, $next) use ($kernel, $cors, $server) {
+                
                 $response->addHeader('Access-Control-Allow-Methods', join(',', [
                     'GET',
                     'POST',
@@ -91,19 +141,48 @@ class Router extends \Pho\Server\Rest\Router
                     $cors = self::expandCorsUrl($cors);
                     $origin = $request->getHeader("origin");
                     //error_log(print_r($origin, true));
-                    $is_production = (bool) getenv("IS_PRODUCTION");
+                    $is_production = (null==getenv("IS_PRODUCTION") || getenv("IS_PRODUCTION") === "false") ? false : (bool) getenv("IS_PRODUCTION");
+                    //error_log("as follows: ".$is_production. " - ".print_r($origin, true) . " - " . print_r($cors));
                     if(
-                        (is_array($origin)&&count($origin)==1) 
-                        &&
-                        (!$is_production || in_array($origin[0], $cors))
-                    )
+                        (is_array($origin)&&count($origin)==1) )
+                        {
+                            error_log("origin problem");
+                            error_log(print_r($origin, true));
+                        }
+                    if($is_production) {
+                        if(in_array($origin[0], $cors)) {
+                            // $response->addHeader("Access-Control-Allow-Origin", $cors[0]);
+                            $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
+                        }
+                        else {
+                            error_log("cors problem");
+                            error_log("cors: ".print_r($cors, true));
+                            error_log("origin: ".print_r($origin, true));
+                            $response->addHeader("Access-Control-Allow-Origin", $cors[0]);
+                        }
+                    }
+                    else {
                         $response->addHeader("Access-Control-Allow-Origin", $origin[0]); 
-                    else
-                        $response->addHeader("Access-Control-Allow-Origin", $cors[0]); 
+                    }
                 }
+                error_log("request method: ". $request->getMethod());
                 $next();
             }
         );
+        $server->use(function(Request $request, Response $response, $next) {
+            $is_inactive = (null==getenv("IS_INACTIVE") || intval(getenv("IS_INACTIVE")) != 1) ? false : true;
+            if(!$is_inactive) {
+                $next();
+            }
+            else {
+                $response
+                    ->writeJson([
+                        "success" => false,
+                        "reason"   => "Instance inactive"
+                    ])
+                    ->end();
+            }
+        });
         self::initSession(...\func_get_args());
         self::initAuthentication(...\func_get_args());
         self::initMessaging(...\func_get_args());
@@ -113,8 +192,21 @@ class Router extends \Pho\Server\Rest\Router
         self::initForum(...\func_get_args());
         self::initGroup(...\func_get_args());
         self::initFeed(...\func_get_args());
+        self::initBlog(...\func_get_args());
+        self::initNotifications(...\func_get_args());
         self::initAdministration(...\func_get_args());
         self::initSubscription(...\func_get_args());
+        self::initFileUpload(...\func_get_args());
+
+        $server->get('', function(Request $request, Response $response) {
+            $response
+                    ->addHeader("Access-Control-Allow-Credentials", "true")
+                    ->writeJson([
+                        "success" => false,
+                        "reason"   => "Path does not exist. Try /whoami"
+                    ])
+                    ->end();
+        }); 
     }
 
     
@@ -135,9 +227,142 @@ class Router extends \Pho\Server\Rest\Router
         );
     }
 
+    protected static function initNotifications(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+
+        // GET /notificatons/count
+        $server->get(
+            'getNotificationsCount', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["notifications"]->count($request, $response, $session, $kernel);
+            }
+        );
+
+        // GET /notifications
+        $server->get(
+            'getNotifications', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["notifications"]->read($request, $response, $session, $kernel);
+            }
+        );
+    }
+
     protected static function initAdministration(Server $server, array $controllers, Kernel $kernel): void
     {
 
+        $session = self::$session;
+
+        // PUT /administration/about
+        if($kernel->graph() instanceof \PhoNetworksAutogenerated\Network) {
+            $server->get(
+                'setAbout', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->setAbout($request, $response, $kernel);
+                }
+            );
+
+            // GET /administration/about
+            $server->get(
+                'getAbout', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->getAbout($request, $response, $kernel);
+                }
+            );
+        }
+        //else {
+
+            // PUT /administration/fields
+            $server->get(
+                'setCustomFields', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->setCustomFields($request, $response, $kernel);
+                }
+            );
+
+            // GET /administration/fields
+            $server->get(
+                'getCustomFields', function (Request $request, Response $response) use ($controllers, $kernel) {
+                    $controllers["administration"]->getCustomFields($request, $response, $kernel);
+                }
+            );
+        //}
+
+        $server->get(
+            'approveMembership', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->approveMembership($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getPendingMemberships', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->getPendingMemberships($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getMembershipModerationMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setMembershipModerationMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setMembershipModerationMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getVerificationRequiredMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getVerificationRequiredMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setVerificationRequiredMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setVerificationRequiredMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getReadOnlyMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getReadOnlyMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setReadOnlyMode', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setReadOnlyMode($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getAllModes', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->getAllModes($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setAllModes', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setAllModes($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getObjectCounts', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchCounts($request, $response, $kernel);
+            }
+        );
+
+        // GET /administration/{id} or phonetworks /{id} @todo figure it out
+        $server->get(
+            'getId', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchId($request, $response, $kernel);
+            }
+        );
+
+        // DELETE /administration/{member_id}
         $server->get(
             'deleteMember', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->deleteMember($request, $response, $kernel);
@@ -151,20 +376,26 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'deletePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->disapprovePendingComment($request, $response, $kernel);
+            'deletePendingComment', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->disapprovePendingComment($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
-            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->approvePendingComment($request, $response, $kernel);
+            'approvePendingComment', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["administration"]->approvePendingComment($request, $response, $session, $kernel);
             }
         );
 
         $server->get(
             'setCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->setCommentModeration($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'setBlogEditor', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->setBlogEditor($request, $response, $kernel);
             }
         );
 
@@ -177,6 +408,74 @@ class Router extends \Pho\Server\Rest\Router
         $server->get(
             'getCommentModeration', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->getCommentModeration($request, $response, $kernel);
+            }
+        );
+
+        $server->get(
+            'getSingleSignonKey', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["administration"]->fetchSingleSignonKey($request, $response, $kernel);
+            }
+        );
+    }
+
+    protected static function initBlog(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'getBlogPosts', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->fetchAll($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'getBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->fetch($request, $response, $session, $kernel);
+            }
+        );
+        $server->post(
+            'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->post($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'startBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->post($request, $response, $session, $kernel);
+            }
+        );
+        $server->post(
+            'editBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->edit($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'editBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->edit($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'removeBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->delete($request, $response, $session, $kernel);
+            }
+        );
+        
+        $server->get(
+            'unpublishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->unpublish($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'publishBlogPost', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->publish($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'unpin', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->unpin($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'pin', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["blog"]->pin($request, $response, $session, $kernel);
             }
         );
     }
@@ -195,8 +494,18 @@ class Router extends \Pho\Server\Rest\Router
     {
         $session = self::$session;
         $server->get(
+            'tokenSignup', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->signupViaToken($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
             'signup', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
                 $controllers["authentication"]->signup($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'tokenLogin', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->loginViaToken($request, $response, $session, $kernel);
             }
         );
         $server->get(
@@ -210,18 +519,23 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
         $server->get(
-            'whoami', function (Request $request, Response $response) use ($session, $controllers) {
-                $controllers["authentication"]->whoami($request, $response, $session);
+            'whoami', function (Request $request, Response $response) use ($session, $controllers, $kernel) {
+                $controllers["authentication"]->whoami($request, $response, $session, $kernel);
             }
         );
         $server->get(
-            'resetPassword', function (Request $request, Response $response) use ($controllers) {
-                $controllers["authentication"]->reset($request, $response);
+            'resetPassword', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["authentication"]->reset($request, $response, $kernel);
             }
         );
         $server->get(
             'verifyReset', function (Request $request, Response $response) use ($session, $kernel, $controllers) {
                 $controllers["authentication"]->verify($request, $response, $session, $kernel);
+            }
+        );
+        $server->get(
+            'verifyEmailCode', function (Request $request, Response $response) use ($session, $kernel, $controllers) {
+                $controllers["authentication"]->verifyEmailCode($request, $response, $session, $kernel);
             }
         );
     }
@@ -461,6 +775,12 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["group"]->createGroup($request, $response, $session, $kernel);
             }
         );
+        
+        $server->get(
+            'deleteGroup', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["group"]->deleteGroup($request, $response, $session, $kernel);
+            }
+        );
 
         $server->get(
             'setGroup', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
@@ -517,6 +837,15 @@ class Router extends \Pho\Server\Rest\Router
             'createSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["stripe"]->createSubscription($request, $response, $kernel);
             }
-        );
+          );
+    }
+    protected function initFileUpload(Server $server, array $controllers, Kernel $kernel)
+    {
+        $session = self::$session;
+        $server->post(
+            'uploadFile', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
+                $controllers["fileupload"]->upload($request, $response, $session, $kernel);
+              
+        });
     }
 } 

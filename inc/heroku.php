@@ -19,9 +19,16 @@
 putenv("DATABASE_TYPE=redis");
 putenv("DATABASE_URI=".getenv('REDISCLOUD_URL'));
 
+$installationType = getenv('INSTALLATION_TYPE');
 
-putenv("INDEX_TYPE=neo4j");
-putenv("INDEX_URI=".getenv('GRAPHENEDB_URL'));
+if (in_array($installationType, [ 'groupsv2', 'graphjs' ])) {
+    putenv("INDEX_TYPE=redis");
+    putenv("INDEX_URI=".getenv('DATABASE_URI'));
+}
+else {
+    putenv("INDEX_TYPE=neo4j");
+    putenv("INDEX_URI=".getenv('GRAPHENEDB_URL'));
+}
 
 preg_match("/^https:\/\/(cloud-cube((-eu)?)).+$/", getenv('CLOUDCUBE_URL'), $matches); // // https://cloud-cube.s3.amazonaws.com
 putenv("STORAGE_TYPE=s3");

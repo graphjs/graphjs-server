@@ -2,7 +2,21 @@
     "name": "GraphJS-Server",
     "description": "Serving GraphJS",
     "repository": "https://github.com/phonetworks/graphjs-server",
-    "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun", "stream"],
+    "addons": ["rediscloud", "graphenedb", "cloudcube", "mailgun"],
+    "buildpacks": [
+        {
+            "url": "https://github.com/kontentcore/heroku-buildpack-ffmpeg#3daeec86f1aaf4f769aaefa2015d7b1108525f58"
+        },
+        {
+            "url": "heroku/php"
+        }
+    ],
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "free"
+        }
+    },
     "env": {
           "PASSWORD_REMINDER": {
               "value": "/tmp/pins/"
