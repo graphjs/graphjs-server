@@ -453,7 +453,10 @@ class AuthenticationController extends AbstractController
 
         $data["id"] = strtolower($data["id"]);
         $session->set($request, "id", $data["id"]);
-        return $this->succeed($response);
+        return $this->succeed($response, [
+            "id"=>$data["id"],
+            "username"=>$i->getUsername()
+        ]);
     }
 
     public function verify(Request $request, Response $response, Session $session, Kernel $kernel)
