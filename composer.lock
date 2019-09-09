@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "781e3562e64c348194cf6b83eac956be",
-    "content-hash": "ca168a369dcb9b6f504e505ed864320e",
+    "hash": "2ab4f422195b1e371431b0d4f9d9b101",
+    "content-hash": "792f56b75290ca7e127f3827b66538d1",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -72,16 +72,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.110.5",
+            "version": "3.110.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e0c217851369efd42382c44b8c003db0b58abbdd"
+                "reference": "3f222649634fa039c59f58082e60159a6bb59bbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e0c217851369efd42382c44b8c003db0b58abbdd",
-                "reference": "e0c217851369efd42382c44b8c003db0b58abbdd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3f222649634fa039c59f58082e60159a6bb59bbf",
+                "reference": "3f222649634fa039c59f58082e60159a6bb59bbf",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-08-28 18:33:29"
+            "time": "2019-09-06 18:21:14"
         },
         {
             "name": "clue/stream-filter",
@@ -997,6 +997,62 @@
             "time": "2018-09-29 18:48:56"
         },
         {
+            "name": "krowinski/bcmath-extended",
+            "version": "5.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/krowinski/bcmath-extended.git",
+                "reference": "bba0abac8aa159cf60ee260c1d85b5897420e3c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/krowinski/bcmath-extended/zipball/bba0abac8aa159cf60ee260c1d85b5897420e3c8",
+                "reference": "bba0abac8aa159cf60ee260c1d85b5897420e3c8",
+                "shasum": ""
+            },
+            "require": {
+                "ext-bcmath": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BCMathExtended\\": "src/BCMathExtended/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kacper Rowiński",
+                    "email": "kacper.rowinski@gmail.com"
+                }
+            ],
+            "description": "Extends php BCMath lib for missing functions like floor, ceil, round, abs, min, max, rand for big numbers. Also wraps existing BCMath functions. (more http://php.net/manual/en/book.bc.php) Supports scientific notation.s",
+            "keywords": [
+                "Arbitrary-precision",
+                "abs",
+                "bc",
+                "bcmath",
+                "bignumber",
+                "ceil",
+                "complex-numbers",
+                "floor",
+                "math",
+                "php",
+                "precision",
+                "rand",
+                "round",
+                "scientific-notation"
+            ],
+            "time": "2019-09-01 08:58:33"
+        },
+        {
             "name": "league/flysystem",
             "version": "1.0.55",
             "source": {
@@ -1181,16 +1237,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.24.0",
+            "version": "1.25.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266"
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
-                "reference": "bfc9ebb28f97e7a24c45bdc3f0ff482e47bb0266",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
+                "reference": "70e65a5470a42cfec1a7da00d30edb6e617e8dcf",
                 "shasum": ""
             },
             "require": {
@@ -1255,7 +1311,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2018-11-05 09:00:11"
+            "time": "2019-09-06 13:49:17"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1399,16 +1455,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.2.3",
+            "version": "v4.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "e612609022e935f3d0337c1295176505b41188c8"
+                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/e612609022e935f3d0337c1295176505b41188c8",
-                "reference": "e612609022e935f3d0337c1295176505b41188c8",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/97e59c7a16464196a8b9c77c47df68e4a39a45c4",
+                "reference": "97e59c7a16464196a8b9c77c47df68e4a39a45c4",
                 "shasum": ""
             },
             "require": {
@@ -1446,7 +1502,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-08-12 20:17:41"
+            "time": "2019-09-01 07:51:21"
         },
         {
             "name": "paragonie/random_compat",
@@ -1824,21 +1880,21 @@
         },
         {
             "name": "phonetworks/pho-framework",
-            "version": "11.4.8",
+            "version": "11.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-framework.git",
-                "reference": "63dfdbb9e654d04936310b0bc57750d396943ce3"
+                "reference": "5b4e8680b32394d0dad446d2cc7240af79c6a630"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/63dfdbb9e654d04936310b0bc57750d396943ce3",
-                "reference": "63dfdbb9e654d04936310b0bc57750d396943ce3",
+                "url": "https://api.github.com/repos/phonetworks/pho-framework/zipball/5b4e8680b32394d0dad446d2cc7240af79c6a630",
+                "reference": "5b4e8680b32394d0dad446d2cc7240af79c6a630",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
-                "phonetworks/pho-lib-graph": "^8.1",
+                "phonetworks/pho-lib-graph": "^9.0",
                 "php": ">=7.2.0",
                 "psr/log": "^1.0",
                 "vlucas/valitron": "^1.4",
@@ -1878,7 +1934,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-08-22 07:56:31"
+            "time": "2019-08-31 03:13:53"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1919,21 +1975,70 @@
             "time": "2019-05-27 02:15:36"
         },
         {
-            "name": "phonetworks/pho-lib-graph",
-            "version": "8.1.2",
+            "name": "phonetworks/pho-lib-dht",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phonetworks/pho-lib-graph.git",
-                "reference": "634d382a09f6e0580a48eea9188143d1d88371de"
+                "url": "https://github.com/phonetworks/pho-lib-dht.git",
+                "reference": "36cab4d89df116bbe5ce6b351745ad6dd4b64622"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/634d382a09f6e0580a48eea9188143d1d88371de",
-                "reference": "634d382a09f6e0580a48eea9188143d1d88371de",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/36cab4d89df116bbe5ce6b351745ad6dd4b64622",
+                "reference": "36cab4d89df116bbe5ce6b351745ad6dd4b64622",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
+                "ext-bcmath": "*",
+                "krowinski/bcmath-extended": "^5.0",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.6",
+                "phpdocumentor/phpdocumentor": "*",
+                "phpunit/phpunit": "^6.0",
+                "psy/psysh": "*",
+                "roave/security-advisories": "dev-master",
+                "squizlabs/php_codesniffer": "^2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pho\\Lib\\DHT\\": "src/Pho/Lib/DHT/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "A PHP DHT implementation",
+            "homepage": "https://phonetworks.org",
+            "time": "2019-08-31 02:49:25"
+        },
+        {
+            "name": "phonetworks/pho-lib-graph",
+            "version": "9.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phonetworks/pho-lib-graph.git",
+                "reference": "cef0e2a118997a86be3468168f70089328731137"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/cef0e2a118997a86be3468168f70089328731137",
+                "reference": "cef0e2a118997a86be3468168f70089328731137",
+                "shasum": ""
+            },
+            "require": {
+                "phonetworks/pho-lib-dht": "*",
+                "php": ">=7.1",
                 "psr/log": "^1.0"
             },
             "require-dev": {
@@ -1972,7 +2077,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2018-11-13 11:20:19"
+            "time": "2019-08-31 02:55:20"
         },
         {
             "name": "phonetworks/pho-microkernel",
@@ -1980,18 +2085,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-microkernel.git",
-                "reference": "9ebf8e8e89a4fde71c87333393811c121d7268c8"
+                "reference": "18fdc1130400c22f3b848c660392ce160785981c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/9ebf8e8e89a4fde71c87333393811c121d7268c8",
-                "reference": "9ebf8e8e89a4fde71c87333393811c121d7268c8",
+                "url": "https://api.github.com/repos/phonetworks/pho-microkernel/zipball/18fdc1130400c22f3b848c660392ce160785981c",
+                "reference": "18fdc1130400c22f3b848c660392ce160785981c",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
                 "monolog/monolog": "^1.22",
-                "phonetworks/pho-framework": "^11.4",
+                "phonetworks/pho-framework": "^11.5",
                 "php": "^7.2",
                 "pimple/pimple": "^1.1",
                 "psr/log": "^1.0",
@@ -2029,7 +2134,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-20 03:54:29"
+            "time": "2019-08-31 03:28:46"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -3644,16 +3749,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.19.5",
+            "version": "v6.43.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "1ab5c54fae4c16e9cc47d60c7454e6c3b6bbcb85"
+                "reference": "42fcdaf99c44bb26937223f8eae1f263491d5ab8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/1ab5c54fae4c16e9cc47d60c7454e6c3b6bbcb85",
-                "reference": "1ab5c54fae4c16e9cc47d60c7454e6c3b6bbcb85",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/42fcdaf99c44bb26937223f8eae1f263491d5ab8",
+                "reference": "42fcdaf99c44bb26937223f8eae1f263491d5ab8",
                 "shasum": ""
             },
             "require": {
@@ -3665,7 +3770,8 @@
             "require-dev": {
                 "php-coveralls/php-coveralls": "1.*",
                 "phpunit/phpunit": "~4.0",
-                "squizlabs/php_codesniffer": "~2.0"
+                "squizlabs/php_codesniffer": "~2.0",
+                "symfony/process": "~2.8"
             },
             "type": "library",
             "extra": {
@@ -3695,7 +3801,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2018-10-17T14:58:41+00:00"
+            "time": "2019-08-29 16:56:12"
         },
         {
             "name": "superbalist/php-pubsub",
@@ -4607,16 +4713,16 @@
         },
         {
             "name": "vlucas/valitron",
-            "version": "v1.4.6",
+            "version": "v1.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/valitron.git",
-                "reference": "76e44188e29909553a7d1d181f2a3688ad1fadc7"
+                "reference": "a03072bed1679660200766d134507a30193eaf6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/valitron/zipball/76e44188e29909553a7d1d181f2a3688ad1fadc7",
-                "reference": "76e44188e29909553a7d1d181f2a3688ad1fadc7",
+                "url": "https://api.github.com/repos/vlucas/valitron/zipball/a03072bed1679660200766d134507a30193eaf6d",
+                "reference": "a03072bed1679660200766d134507a30193eaf6d",
                 "shasum": ""
             },
             "require": {
@@ -4652,7 +4758,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-08-21 10:16:21"
+            "time": "2019-08-29 19:49:43"
         },
         {
             "name": "webmozart/assert",

@@ -33,7 +33,7 @@
         "mailgun/mailgun-php": "^2.5.0",
         "ramsey/uuid": "^3.0",
         "superbalist/php-pubsub-redis": "^2.0",
-        "stripe/stripe-php": "^6.19"
+        "stripe/stripe-php": "^6.19",
         "rakit/validation": "^0.22.2",
         "php-http/guzzle6-adapter": "^1.0",
         "riverline/multipart-parser": "^2.0",
