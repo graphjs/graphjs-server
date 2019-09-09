@@ -432,7 +432,7 @@ class AuthenticationController extends AbstractController
             $this->fail($response, "Valid code, ID are required.");
             return;
         }
-
+        $id =(string) $data["id"];
         try {
             $i = $kernel->gs()->node($id);
         }
