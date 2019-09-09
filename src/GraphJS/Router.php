@@ -532,6 +532,11 @@ class Router extends \Pho\Server\Rest\Router
                 $controllers["authentication"]->verify($request, $response, $session, $kernel);
             }
         );
+        $server->get(
+            'verifyEmailCode', function (Request $request, Response $response) use ($session, $kernel, $controllers) {
+                $controllers["authentication"]->verifyEmailCode($request, $response, $session, $kernel);
+            }
+        );
     }
 
     protected static function initMessaging(Server $server, array $controllers, Kernel $kernel): void

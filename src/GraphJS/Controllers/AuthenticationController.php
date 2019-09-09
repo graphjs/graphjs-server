@@ -362,6 +362,9 @@ class AuthenticationController extends AbstractController
                 ]
             );
         }
+        else {
+            $this->fail($response, "You are not logged in");
+        }
     }
 
     public function reset(Request $request, Response $response, Kernel $kernel)
@@ -414,6 +417,44 @@ class AuthenticationController extends AbstractController
       error_log("password reminder is ".$redis_password_reminder);
       return($redis_password_reminder===1||$redis_password_reminder==="1"||$redis_password_reminder==="on");
  }
+ 
+ public function verifyEmailCode(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        $data = $request->getQueryParams();
+        $validation = $this->validator->validate($data, [
+            'id'   => 'required',
+            'code' => 'required'
+        ]);
+        if($validation->fails()
+        ||!preg_match("/^[0-9]{6}$/", $data["code"])
+        ||!preg_match("/^[0-9a-fA-F]{32}$/", $data["id"])
+        ) {
+            $this->fail($response, "Valid code, ID are required.");
+            return;
+        }
+
+        try {
+            $i = $kernel->gs()->node($id);
+        }
+        catch(\Exception $e) {
+            return $this->fail($response, "Invalid user");
+        }
+
+        $code_expected = (int) $i->getPendingVerification();
+        if($code_expected==0)
+            return $this->fail($response, "Invalid code");
+
+        $data["code"] = (int) $data["code"];
+        if($code_expected!=$data["code"]) {
+            return $this->fail($response, "Invalid code");
+        }
+
+        $i->setPendingVerification(0);
+
+        $data["id"] = strtolower($data["id"]);
+        $session->set($request, "id", $data["id"]);
+        return $this->succeed($response);
+    }
 
     public function verify(Request $request, Response $response, Session $session, Kernel $kernel)
     {
