@@ -162,14 +162,14 @@ class AuthenticationController extends AbstractController
 
         $verification = $this->isVerificationRequired($kernel);
         if($verification) {
-            $pin = rand(1000, 9999);
+            $pin = rand(100000, 999999);
             $new_user->setPendingVerification($pin);
                 $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
                 $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
                 array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
                         'to'      => $data["email"],
                         'subject' => 'Please Verify',
-                        'text'    => 'Please enter this 4 digit passcode to verify your email: '.$pin)
+                        'text'    => 'Please enter this 6 digit passcode to verify your email: '.$pin)
                 );
         }
 
