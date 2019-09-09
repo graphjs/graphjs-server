@@ -195,6 +195,7 @@ class Router extends \Pho\Server\Rest\Router
         self::initBlog(...\func_get_args());
         self::initNotifications(...\func_get_args());
         self::initAdministration(...\func_get_args());
+        self::initSubscription(...\func_get_args());
         self::initFileUpload(...\func_get_args());
 
         $server->get('', function(Request $request, Response $response) {
@@ -824,13 +825,27 @@ class Router extends \Pho\Server\Rest\Router
         );
     }
 
+    protected static function initSubscription(Server $server, array $controllers, Kernel $kernel): void
+    {
+        $session = self::$session;
+        $server->get(
+            'checkSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["stripe"]->checkSubscription($request, $response, $kernel);
+            }
+        );
+        $server->get(
+            'createSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
+                $controllers["stripe"]->createSubscription($request, $response, $kernel);
+            }
+          );
+    }
     protected function initFileUpload(Server $server, array $controllers, Kernel $kernel)
     {
         $session = self::$session;
         $server->post(
             'uploadFile', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
                 $controllers["fileupload"]->upload($request, $response, $session, $kernel);
-        }
-        );
+              
+        });
     }
 } 
