@@ -109,8 +109,12 @@ class AuthenticationController extends AbstractController
         error_log("about to enter custom_fields loop: ".count($reqs));
         error_log("about to enter custom_fields loop: ".print_r(array_keys($reqs), true));
         for($i=1;$i<4;$i++) {
-            if(isset($reqs["CustomField{$i}Must"])&&$reqs["CustomField{$i}Must"]&&!empty($reqs["CustomField{$i}"])) {
-                $field = $reqs["CustomField{$i}"];
+            if(
+                isset($reqs["CustomField{$i}Must"])&&isset($reqs["CustomField{$i}"])
+                &&$reqs["CustomField{$i}Must"]
+                &&!empty($reqs["CustomField{$i}"])
+            ) {
+                $field = "custom_field{$i}"; // $reqs["CustomField{$i}"];
                 $extra_reqs_to_validate[$field] = 'required';
             }
         }
