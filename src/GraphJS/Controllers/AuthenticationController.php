@@ -152,7 +152,7 @@ class AuthenticationController extends AbstractController
         for($i=1;$i<4;$i++) {
             if(isset($reqs["CustomField{$i}"])&&!empty($reqs["CustomField{$i}"])&&isset($data["custom_field{$i}"])&&!empty($data["custom_field{$i}"])) {
                 $_ = "setCustomField{$i}";
-                $new_user->attributes()->$_($data["custom_field{$i}"]);
+                $new_user->$_($data["custom_field{$i}"]);
             }
         }
 
