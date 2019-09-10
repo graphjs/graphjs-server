@@ -830,12 +830,12 @@ class Router extends \Pho\Server\Rest\Router
         $session = self::$session;
         $server->get(
             'checkSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["stripe"]->checkSubscription($request, $response, $kernel);
+                $controllers["subscription"]->checkSubscription($request, $response, $kernel);
             }
         );
         $server->get(
             'createSubscription', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["stripe"]->createSubscription($request, $response, $kernel);
+                $controllers["subscription"]->createSubscription($request, $response, $kernel);
             }
           );
     }
