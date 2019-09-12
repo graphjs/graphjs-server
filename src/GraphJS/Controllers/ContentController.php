@@ -356,6 +356,24 @@ class ContentController extends AbstractController
         $this->succeed($response, ["pages"=>$ret]);
     }
 
+    public function listPrivateContents(Request $request, Response $response, Session $session, Kernel $kernel)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return;
+        }
+
+        $all = $kernel->graph()->members();
+        $private_pages = array_filter($all, function($val) {
+            return ($val instanceof PrivateContent);
+        });
+        $contents = [];
+        foreach($private_pages as $content) {
+            $contents[$content->id()->toString()] = substr($content->getContent(), 0, 35);
+        }
+
+        return $this->succeed($response, ["contents"=>$contents]);
+    }
+
     public function addPrivateContent(Request $request, Response $response, Session $session, Kernel $kernel)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {

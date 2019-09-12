@@ -344,12 +344,6 @@ class Router extends \Pho\Server\Rest\Router
         );
 
         $server->get(
-            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
-            }
-        );
-
-        $server->get(
             'getObjectCounts', function (Request $request, Response $response) use ($controllers, $kernel) {
                 $controllers["administration"]->fetchCounts($request, $response, $kernel);
             }
@@ -704,6 +698,12 @@ class Router extends \Pho\Server\Rest\Router
         $server->get(
             'getPrivateContent', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
                 $controllers["content"]->getPrivateContent($request, $response, $session, $kernel);
+            }
+        );
+
+        $server->get(
+            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel, $session) {
+                $controllers["content"]->listPrivateContents($request, $response, $session, $kernel);
             }
         );
 

@@ -602,24 +602,6 @@ class AdministrationController extends AbstractController
     
   }
 
-  public function listPrivateContents(Request $request, Response $response, Kernel $kernel)
-    {
-        if(!$this->requireAdministrativeRights(...\func_get_args())) {
-            return $this->fail($response, "Invalid hash");
-        }
-
-        $all = $kernel->graph()->members();
-        $private_pages = array_filter($all, function($val) {
-            return ($val instanceof PrivateContent);
-        });
-        $contents = [];
-        foreach($private_pages as $content) {
-            $contents[$content->id()->toString()] = substr($content->getContent(), 0, 35);
-        }
-
-        return $this->succeed($response, ["contents"=>$contents]);
-    }
-
   public function fetchSingleSignonToken(Request $request, Response $response, Kernel $kernel)
     {
         if(!$this->requireAdministrativeRights(...\func_get_args())) {
