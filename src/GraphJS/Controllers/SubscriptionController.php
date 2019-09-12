@@ -46,9 +46,10 @@ class SubscriptionController extends AbstractController
             $this->fail($response, "Not allowed.");
             return;
         }
-        $v = new Validator($data);
-        $v->rule('required', ['username']);
-        if(!$v->validate()) {
+        $validation = $this->validator->validate($data, [
+            'username' => 'required',
+        ]);
+        if($validation->fails()) {
             $this->fail($response, "Valid username required.");
             return;
         }
@@ -105,12 +106,13 @@ class SubscriptionController extends AbstractController
             $this->fail($response, "Not allowed.");
             return;
         }
-        $v = new Validator($data);
-        $v->rule('required', ['email']);
-        $v->rule('required', ['plan']);
-        $v->rule('required', ['source']);
+        $validation = $this->validator->validate($data, [
+            'email' => 'required',
+            'plan' => 'required',
+            'source' => 'required'
+        ]);
         
-        if(!$v->validate()) {
+        if($validation->fails()) {
             $this->fail($response, "Valid email,plan,source required.");
             return;
         }
