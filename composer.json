@@ -14,17 +14,16 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.2.0",
+        "php": "^7.3.0",
         "ext-sodium": "*",
         "ext-bcmath": "*",
         "ext-mbstring": "*",
         "ext-gd": "*",
         "phonetworks/pho-framework": "^11.4.5",
-        "phonetworks/pho-server-rest": "^2.1.3",
+        "phonetworks/pho-server-rest": "^3.1.4",
         "pho-adapters/index-neo4j": "dev-master",
         "pho-recipes/web": "dev-master",
-   
-      "phonetworks/pho-kernel": "dev-master",
+        "phonetworks/pho-kernel": "dev-master",
         "pho-adapters/storage-aws-s3": "dev-master",
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
@@ -41,7 +40,8 @@
         "pho-adapters/index-redis": "dev-master",
         "pho-recipes/network": "dev-master",
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
-        "danielstjules/stringy": "^3.1"
+        "danielstjules/stringy": "^3.1",
+        "wyrihaximus/react-http-middleware-session": "^3.0.0"
     },
     "require-dev": {
         "psy/psysh": "*",

@@ -5,7 +5,7 @@ namespace GraphJS\Controllers;
 use Aws\S3\S3Client;
 use CapMousse\ReactRestify\Http\Request;
 use CapMousse\ReactRestify\Http\Response;
-use CapMousse\ReactRestify\Http\Session;
+
 use GraphJS\S3Uploader;
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
@@ -56,9 +56,9 @@ class FileUploadController extends AbstractController
 
     private $s3Uploader = null;
 
-    public function __construct()
+    public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
     {
-        parent::__construct();
+        parent::__construct($kernel, $jsonp);
         if($this->isS3Active())
             $this->s3Uploader = new S3Uploader($this->getS3Client(), getenv('AWS_S3_BUCKET'));
         $max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
@@ -155,7 +155,7 @@ class FileUploadController extends AbstractController
         return $previewUrl;
     }
 
-    public function upload(Request $request, Response $response, Session $session, Kernel $kernel)
+    public function uploadFile(Request $request, Response $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return;

@@ -11,10 +11,9 @@
 
  namespace GraphJS\Controllers;
 
+ use Psr\Http\Message\ResponseInterface;
+ use Psr\Http\Message\ServerRequestInterface;
 
-use CapMousse\ReactRestify\Http\Request;
-use CapMousse\ReactRestify\Http\Response;
-use CapMousse\ReactRestify\Http\Session;
 use Pho\Kernel\Kernel;
 use Valitron\Validator;
 use Stripe\Stripe;
@@ -32,13 +31,13 @@ class SubscriptionController extends AbstractController
     /**
      * Check Subscription
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param Kernel   $kernel
+     * @param ServerRequestInterface  $request
+     * @param ResponseInterface $response
+     * @param Kernel   $this->kernel
      * 
      * @return void
      */
-    public function checkSubscription(Request $request, Response $response, Kernel $kernel)
+    public function checkSubscription(ServerRequestInterface $request, ResponseInterface $response)
     {   
         $data = $request->getQueryParams();
         $stripe_key = trim(getenv('STRIPE_KEY'));
@@ -54,7 +53,7 @@ class SubscriptionController extends AbstractController
             return;
         }
         try {
-            $result = $kernel->index()->query(
+            $result = $this->kernel->index()->query(
                 "MATCH (n:user {Username: {username}}) RETURN n",
                 [ 
                     "username" => $data["username"]
@@ -92,13 +91,13 @@ class SubscriptionController extends AbstractController
     /**
      * Check Subscription
      *
-     * @param Request  $request
-     * @param Response $response
-     * @param Kernel   $kernel
+     * @param ServerRequestInterface  $request
+     * @param ResponseInterface $response
+     * @param Kernel   $this->kernel
      * 
      * @return void
      */
-    public function createSubscription(Request $request, Response $response, Kernel $kernel)
+    public function createSubscription(ServerRequestInterface $request, ResponseInterface $response)
     {   
         $data = $request->getQueryParams();
         $stripe_key = trim(getenv('STRIPE_KEY'));

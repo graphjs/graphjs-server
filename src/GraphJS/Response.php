@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of the Pho package.
  *
@@ -10,8 +11,7 @@
 
 namespace GraphJS;
 
-class Server extends \Pho\Server\Rest\Server
+class Response extends \Psr\Http\Message\ResponseInterface
 {
-    const VERSION = "2.0";
-    const NAME = "GraphJS";
+
 }

@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "2ab4f422195b1e371431b0d4f9d9b101",
-    "content-hash": "792f56b75290ca7e127f3827b66538d1",
+    "content-hash": "1d05e9dfef5ae496ea69b3a43e313f7f",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -68,20 +67,20 @@
                 "binary",
                 "driver"
             ],
-            "time": "2018-08-06 10:18:33"
+            "time": "2018-08-06T10:18:33+00:00"
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.111.0",
+            "version": "3.112.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a31376012346118b2b88df6d2f0c185af71e3096"
+                "reference": "1e21446c6780a3b9b5e4315bd6d4347d2c3381eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a31376012346118b2b88df6d2f0c185af71e3096",
-                "reference": "a31376012346118b2b88df6d2f0c185af71e3096",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1e21446c6780a3b9b5e4315bd6d4347d2c3381eb",
+                "reference": "1e21446c6780a3b9b5e4315bd6d4347d2c3381eb",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +150,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-09 18:13:28"
+            "time": "2019-09-12T18:09:53+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -203,7 +202,7 @@
                 "stream_filter_append",
                 "stream_filter_register"
             ],
-            "time": "2019-04-09 12:31:48"
+            "time": "2019-04-09T12:31:48+00:00"
         },
         {
             "name": "danielstjules/stringy",
@@ -259,7 +258,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2017-06-12 01:10:27"
+            "time": "2017-06-12T01:10:27+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -292,7 +291,7 @@
                 "MIT"
             ],
             "description": "implementation of xdg base directory specification for php",
-            "time": "2014-10-24 07:27:01"
+            "time": "2014-10-24T07:27:01+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -367,55 +366,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2018-08-21 18:01:43"
-        },
-        {
-            "name": "esokullu/react-restify",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/esokullu/React-Restify.git",
-                "reference": "ab9e80af3ac581210efcdb7483a04622b0498421"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/esokullu/React-Restify/zipball/ab9e80af3ac581210efcdb7483a04622b0498421",
-                "reference": "ab9e80af3ac581210efcdb7483a04622b0498421",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0",
-                "psr/container": "^1.0",
-                "react/http": "0.5.*"
-            },
-            "require-dev": {
-                "atoum/atoum": "^3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CapMousse\\ReactRestify\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jérémy Barbe",
-                    "email": "echo@jeremy.sh",
-                    "homepage": "https://www.jeremy.sh",
-                    "role": "developer"
-                }
-            ],
-            "description": "Create RESTful API with ReactPHP",
-            "keywords": [
-                "react",
-                "rest",
-                "restify"
-            ],
-            "time": "2019-05-27 22:24:20"
+            "time": "2018-08-21T18:01:43+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -463,7 +414,7 @@
                 "event-dispatcher",
                 "event-emitter"
             ],
-            "time": "2017-07-17 17:39:19"
+            "time": "2017-07-17T17:39:19+00:00"
         },
         {
             "name": "firebase/php-jwt",
@@ -509,7 +460,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2017-06-27 22:17:23"
+            "time": "2017-06-27T22:17:23+00:00"
         },
         {
             "name": "get-stream/stream",
@@ -563,7 +514,7 @@
                 "newsfeed",
                 "stream"
             ],
-            "time": "2018-12-03 16:28:06"
+            "time": "2018-12-03T16:28:06+00:00"
         },
         {
             "name": "graphaware/neo4j-bolt",
@@ -609,7 +560,7 @@
                 }
             ],
             "description": "Neo4j Bolt Binary Protocol PHP Driver",
-            "time": "2017-12-12 08:26:08"
+            "time": "2017-12-12T08:26:08+00:00"
         },
         {
             "name": "graphaware/neo4j-common",
@@ -655,7 +606,7 @@
                 "neo4j",
                 "statement"
             ],
-            "time": "2017-06-08 21:29:20"
+            "time": "2017-06-08T21:29:20+00:00"
         },
         {
             "name": "graphaware/neo4j-php-client",
@@ -719,7 +670,7 @@
                 "http",
                 "neo4j"
             ],
-            "time": "2018-11-21 12:08:48"
+            "time": "2018-11-21T12:08:48+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -784,7 +735,7 @@
                 "rest",
                 "web service"
             ],
-            "time": "2018-04-22 15:46:56"
+            "time": "2018-04-22T15:46:56+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -835,7 +786,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-12-20 10:07:11"
+            "time": "2016-12-20T10:07:11+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
@@ -906,7 +857,66 @@
                 "uri",
                 "url"
             ],
-            "time": "2019-07-01 23:21:34"
+            "time": "2019-07-01T23:21:34+00:00"
+        },
+        {
+            "name": "hansott/psr7-cookies",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hansott/psr7-cookies.git",
+                "reference": "2c43fc7720b475289a150ec3be8b81d283da768b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hansott/psr7-cookies/zipball/2c43fc7720b475289a150ec3be8b81d283da768b",
+                "reference": "2c43fc7720b475289a150ec3be8b81d283da768b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~7.0",
+                "psr/http-message": "^1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/psr7": "^1.3",
+                "phpunit/phpunit": "~4.0||~5.0",
+                "scrutinizer/ocular": "~1.1",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "HansOtt\\PSR7Cookies\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hans Ott",
+                    "role": "Developer",
+                    "email": "hansott@hotmail.be",
+                    "homepage": "https://hansott.github.io"
+                }
+            ],
+            "description": "PSR-7 Cookies",
+            "homepage": "https://github.com/hansott/psr7-cookies",
+            "keywords": [
+                "cookies",
+                "fig",
+                "hansott",
+                "http-message",
+                "psr7-cookies",
+                "setcookie"
+            ],
+            "time": "2019-03-23T15:17:46+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -948,7 +958,7 @@
                     "email": "jakub.onderka@gmail.com"
                 }
             ],
-            "time": "2018-09-29 17:23:10"
+            "time": "2018-09-29T17:23:10+00:00"
         },
         {
             "name": "jakub-onderka/php-console-highlighter",
@@ -994,7 +1004,7 @@
                 }
             ],
             "description": "Highlight PHP code in terminal",
-            "time": "2018-09-29 18:48:56"
+            "time": "2018-09-29T18:48:56+00:00"
         },
         {
             "name": "krowinski/bcmath-extended",
@@ -1050,7 +1060,7 @@
                 "round",
                 "scientific-notation"
             ],
-            "time": "2019-09-01 08:58:33"
+            "time": "2019-09-01T08:58:33+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1134,7 +1144,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-08-24 11:17:19"
+            "time": "2019-08-24T11:17:19+00:00"
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1181,7 +1191,7 @@
                 }
             ],
             "description": "Flysystem adapter for the AWS S3 SDK v3.x",
-            "time": "2019-06-05 17:18:29"
+            "time": "2019-06-05T17:18:29+00:00"
         },
         {
             "name": "mailgun/mailgun-php",
@@ -1233,7 +1243,7 @@
                 }
             ],
             "description": "The Mailgun SDK provides methods for all API functions.",
-            "time": "2019-02-02 07:14:32"
+            "time": "2019-02-02T07:14:32+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1311,7 +1321,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2019-09-06 13:49:17"
+            "time": "2019-09-06T13:49:17+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -1366,7 +1376,7 @@
                 "json",
                 "jsonpath"
             ],
-            "time": "2016-12-03 22:08:25"
+            "time": "2016-12-03T22:08:25+00:00"
         },
         {
             "name": "myclabs/php-enum",
@@ -1411,7 +1421,7 @@
             "keywords": [
                 "enum"
             ],
-            "time": "2019-08-19 13:53:00"
+            "time": "2019-08-19T13:53:00+00:00"
         },
         {
             "name": "neutron/temporary-filesystem",
@@ -1451,7 +1461,53 @@
                 }
             ],
             "description": "Symfony filesystem extension to handle temporary files",
-            "time": "2018-02-07 21:11:57"
+            "time": "2018-02-07T21:11:57+00:00"
+        },
+        {
+            "name": "nikic/fast-route",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nikic/FastRoute.git",
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nikic/FastRoute/zipball/181d480e08d9476e61381e04a71b34dc0432e812",
+                "reference": "181d480e08d9476e61381e04a71b34dc0432e812",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35|~5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FastRoute\\": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nikita Popov",
+                    "email": "nikic@php.net"
+                }
+            ],
+            "description": "Fast request router for PHP",
+            "keywords": [
+                "router",
+                "routing"
+            ],
+            "time": "2018-02-13T20:26:39+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1502,7 +1558,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2019-09-01 07:51:21"
+            "time": "2019-09-01T07:51:21+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -1547,7 +1603,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2018-07-02 15:55:56"
+            "time": "2018-07-02T15:55:56+00:00"
         },
         {
             "name": "pho-adapters/database-redis",
@@ -1589,7 +1645,7 @@
             ],
             "description": "A simple synchronous Redis database adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-07 23:52:43"
+            "time": "2019-08-07T23:52:43+00:00"
         },
         {
             "name": "pho-adapters/events-local",
@@ -1631,7 +1687,7 @@
             ],
             "description": "A development-only implementation of events adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07 11:50:53"
+            "time": "2018-01-07T11:50:53+00:00"
         },
         {
             "name": "pho-adapters/index-neo4j",
@@ -1674,7 +1730,7 @@
             ],
             "description": "Neo4J adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-11-14 04:12:20"
+            "time": "2018-11-14T04:12:20+00:00"
         },
         {
             "name": "pho-adapters/index-redis",
@@ -1717,7 +1773,7 @@
             ],
             "description": "Redis adapter for indexing data from nodes and edges of graphs for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-13 20:57:43"
+            "time": "2019-08-13T20:57:43+00:00"
         },
         {
             "name": "pho-adapters/storage-aws-s3",
@@ -1759,7 +1815,7 @@
             ],
             "description": "AWS S3 based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-07 06:17:03"
+            "time": "2018-09-07T06:17:03+00:00"
         },
         {
             "name": "pho-adapters/storage-filesystem",
@@ -1800,7 +1856,7 @@
             ],
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2018-01-07 11:53:13"
+            "time": "2018-01-07T11:53:13+00:00"
         },
         {
             "name": "pho-recipes/network",
@@ -1838,7 +1894,7 @@
             ],
             "description": "A social network graph in Pho (made for Grou.ps v2)",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-21 11:38:02"
+            "time": "2019-08-21T11:38:02+00:00"
         },
         {
             "name": "pho-recipes/web",
@@ -1876,7 +1932,7 @@
             ],
             "description": "A web site graph in Pho",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-21 11:53:28"
+            "time": "2019-08-21T11:53:28+00:00"
         },
         {
             "name": "phonetworks/pho-framework",
@@ -1934,7 +1990,7 @@
                 "network",
                 "social"
             ],
-            "time": "2019-08-31 03:13:53"
+            "time": "2019-08-31T03:13:53+00:00"
         },
         {
             "name": "phonetworks/pho-kernel",
@@ -1972,7 +2028,7 @@
             ],
             "description": "A simple microkernel implementation with Twitter-like functionality.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-05-27 02:15:36"
+            "time": "2019-05-27T02:15:36+00:00"
         },
         {
             "name": "phonetworks/pho-lib-dht",
@@ -2020,7 +2076,7 @@
             ],
             "description": "A PHP DHT implementation",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-31 02:49:25"
+            "time": "2019-08-31T02:49:25+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
@@ -2077,7 +2133,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2019-08-31 02:55:20"
+            "time": "2019-08-31T02:55:20+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",
@@ -2134,7 +2190,7 @@
             ],
             "description": "Social-Enabled App Infrastructure",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-31 03:28:46"
+            "time": "2019-08-31T03:28:46+00:00"
         },
         {
             "name": "phonetworks/pho-plugins-feeds",
@@ -2178,26 +2234,27 @@
                 }
             ],
             "homepage": "https://phonetworks.org",
-            "time": "2018-09-08 07:52:36"
+            "time": "2018-09-08T07:52:36+00:00"
         },
         {
             "name": "phonetworks/pho-server-rest",
-            "version": "2.1.3",
+            "version": "3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-server-rest.git",
-                "reference": "b649e1cc5efb5d7184e0cccdd41d74d8e44a2594"
+                "reference": "7d35ab7ca9ca22de732bc5575b09a844c1bf2971"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/b649e1cc5efb5d7184e0cccdd41d74d8e44a2594",
-                "reference": "b649e1cc5efb5d7184e0cccdd41d74d8e44a2594",
+                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/7d35ab7ca9ca22de732bc5575b09a844c1bf2971",
+                "reference": "7d35ab7ca9ca22de732bc5575b09a844c1bf2971",
                 "shasum": ""
             },
             "require": {
                 "danielstjules/stringy": "^3.0",
-                "esokullu/react-restify": "dev-master",
-                "php": ">=7.1.0"
+                "nikic/fast-route": "^1.3",
+                "php": ">=7.2.0",
+                "react/http": "^0.8.4"
             },
             "require-dev": {
                 "fzaninotto/faker": "^1.6",
@@ -2235,7 +2292,7 @@
                 "rest",
                 "server"
             ],
-            "time": "2018-03-13 15:27:16"
+            "time": "2019-09-13T13:57:12+00:00"
         },
         {
             "name": "phonetworks/redis-graph",
@@ -2270,7 +2327,7 @@
             "keywords": [
                 "redis"
             ],
-            "time": "2019-04-30 09:30:08"
+            "time": "2019-04-30T09:30:08+00:00"
         },
         {
             "name": "php-ffmpeg/php-ffmpeg",
@@ -2354,7 +2411,7 @@
                 "video",
                 "video processing"
             ],
-            "time": "2018-08-06 20:02:43"
+            "time": "2018-08-06T20:02:43+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -2415,7 +2472,7 @@
                 "http",
                 "httplug"
             ],
-            "time": "2019-02-02 07:03:15"
+            "time": "2019-02-02T07:03:15+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -2480,7 +2537,7 @@
                 "message",
                 "psr7"
             ],
-            "time": "2019-06-30 09:04:27"
+            "time": "2019-06-30T09:04:27+00:00"
         },
         {
             "name": "php-http/guzzle6-adapter",
@@ -2540,7 +2597,7 @@
                 "Guzzle",
                 "http"
             ],
-            "time": "2016-05-10 06:13:32"
+            "time": "2016-05-10T06:13:32+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -2596,7 +2653,7 @@
                 "client",
                 "http"
             ],
-            "time": "2016-08-31 08:30:17"
+            "time": "2016-08-31T08:30:17+00:00"
         },
         {
             "name": "php-http/message",
@@ -2668,7 +2725,7 @@
                 "message",
                 "psr-7"
             ],
-            "time": "2019-08-05 06:55:08"
+            "time": "2019-08-05T06:55:08+00:00"
         },
         {
             "name": "php-http/message-factory",
@@ -2718,7 +2775,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2015-12-19 14:08:53"
+            "time": "2015-12-19T14:08:53+00:00"
         },
         {
             "name": "php-http/multipart-stream-builder",
@@ -2776,7 +2833,7 @@
                 "multipart stream",
                 "stream"
             ],
-            "time": "2019-08-22 14:13:19"
+            "time": "2019-08-22T14:13:19+00:00"
         },
         {
             "name": "php-http/promise",
@@ -2826,7 +2883,7 @@
             "keywords": [
                 "promise"
             ],
-            "time": "2016-01-26 13:27:02"
+            "time": "2016-01-26T13:27:02+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -2872,7 +2929,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2013-11-22 08:30:29"
+            "time": "2013-11-22T08:30:29+00:00"
         },
         {
             "name": "predis/predis",
@@ -2922,7 +2979,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16 16:22:20"
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/container",
@@ -2971,7 +3028,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -3023,7 +3080,7 @@
                 "request",
                 "response"
             ],
-            "time": "2019-04-30 12:38:16"
+            "time": "2019-04-30T12:38:16+00:00"
         },
         {
             "name": "psr/http-message",
@@ -3073,7 +3130,7 @@
                 "request",
                 "response"
             ],
-            "time": "2016-08-06 14:39:51"
+            "time": "2016-08-06T14:39:51+00:00"
         },
         {
             "name": "psr/log",
@@ -3120,7 +3177,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2018-11-20 15:27:04"
+            "time": "2018-11-20T15:27:04+00:00"
         },
         {
             "name": "psy/psysh",
@@ -3194,7 +3251,7 @@
                 "interactive",
                 "shell"
             ],
-            "time": "2018-10-13 15:16:03"
+            "time": "2018-10-13T15:16:03+00:00"
         },
         {
             "name": "rakit/validation",
@@ -3234,7 +3291,7 @@
                 }
             ],
             "description": "PHP Laravel like standalone validation library",
-            "time": "2018-11-10 03:57:56"
+            "time": "2018-11-10T03:57:56+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -3274,7 +3331,7 @@
                 }
             ],
             "description": "A polyfill for getallheaders.",
-            "time": "2019-03-08 08:55:37"
+            "time": "2019-03-08T08:55:37+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3356,32 +3413,116 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2018-07-19 23:38:55"
+            "time": "2018-07-19T23:38:55+00:00"
         },
         {
-            "name": "react/event-loop",
-            "version": "v0.4.3",
+            "name": "react/cache",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/reactphp/event-loop.git",
-                "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f"
+                "url": "https://github.com/reactphp/cache.git",
+                "reference": "aa10d63a1b40a36a486bdf527f28bac607ee6466"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
-                "reference": "8bde03488ee897dc6bb3d91e4e17c353f9c5252f",
+                "url": "https://api.github.com/repos/reactphp/cache/zipball/aa10d63a1b40a36a486bdf527f28bac607ee6466",
+                "reference": "aa10d63a1b40a36a486bdf527f28bac607ee6466",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "php": ">=5.3.0",
+                "react/promise": "~2.0|~1.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Async, Promise-based cache interface for ReactPHP",
+            "keywords": [
+                "cache",
+                "caching",
+                "promise",
+                "reactphp"
+            ],
+            "time": "2019-07-11T13:45:28+00:00"
+        },
+        {
+            "name": "react/dns",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/dns.git",
+                "reference": "a214d90c2884dac18d0cac6176202f247b66d762"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/dns/zipball/a214d90c2884dac18d0cac6176202f247b66d762",
+                "reference": "a214d90c2884dac18d0cac6176202f247b66d762",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "react/cache": "^1.0 || ^0.6 || ^0.5",
+                "react/event-loop": "^1.0 || ^0.5",
+                "react/promise": "^2.7 || ^1.2.1",
+                "react/promise-timer": "^1.2"
+            },
+            "require-dev": {
+                "clue/block-react": "^1.2",
+                "phpunit/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Dns\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Async DNS resolver for ReactPHP",
+            "keywords": [
+                "async",
+                "dns",
+                "dns-resolver",
+                "reactphp"
+            ],
+            "time": "2019-08-15T09:06:31+00:00"
+        },
+        {
+            "name": "react/event-loop",
+            "version": "v1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/event-loop.git",
+                "reference": "a0ecac955c67b57c40fe4a1b88a7cca1b58c982d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/event-loop/zipball/a0ecac955c67b57c40fe4a1b88a7cca1b58c982d",
+                "reference": "a0ecac955c67b57c40fe4a1b88a7cca1b58c982d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35"
             },
             "suggest": {
-                "ext-event": "~1.0",
-                "ext-libev": "*",
-                "ext-libevent": ">=0.1.0"
+                "ext-event": "~1.0 for ExtEventLoop",
+                "ext-pcntl": "For signal handling support when using the StreamSelectLoop",
+                "ext-uv": "* for ExtUvLoop"
             },
             "type": "library",
             "autoload": {
@@ -3393,36 +3534,39 @@
             "license": [
                 "MIT"
             ],
-            "description": "Event loop abstraction layer that libraries can use for evented I/O.",
+            "description": "ReactPHP's core reactor event loop that libraries can use for evented I/O.",
             "keywords": [
                 "asynchronous",
                 "event-loop"
             ],
-            "time": "2017-04-27 10:56:23"
+            "time": "2019-02-07T16:19:49+00:00"
         },
         {
             "name": "react/http",
-            "version": "v0.5.0",
+            "version": "v0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/http.git",
-                "reference": "3f4821c3021ac7e5a404edb5d371c3d2fdeb38b7"
+                "reference": "b29ab96557ac5c53e738fcb26f73f631a3f81f1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/http/zipball/3f4821c3021ac7e5a404edb5d371c3d2fdeb38b7",
-                "reference": "3f4821c3021ac7e5a404edb5d371c3d2fdeb38b7",
+                "url": "https://api.github.com/repos/reactphp/http/zipball/b29ab96557ac5c53e738fcb26f73f631a3f81f1a",
+                "reference": "b29ab96557ac5c53e738fcb26f73f631a3f81f1a",
                 "shasum": ""
             },
             "require": {
-                "evenement/evenement": "^2.0 || ^1.0",
+                "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
                 "php": ">=5.3.0",
-                "react/socket": "^0.5",
-                "react/stream": "^0.4.4",
+                "react/promise": "^2.3 || ^1.2.1",
+                "react/promise-stream": "^1.1",
+                "react/socket": "^1.0 || ^0.8.3",
+                "react/stream": "^1.0 || ^0.7.1",
                 "ringcentral/psr7": "^1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.10||^5.0"
+                "clue/block-react": "^1.1",
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -3443,7 +3587,7 @@
                 "server",
                 "streaming"
             ],
-            "time": "2017-02-16 15:01:02"
+            "time": "2019-01-16T07:26:32+00:00"
         },
         {
             "name": "react/promise",
@@ -3489,33 +3633,143 @@
                 "promise",
                 "promises"
             ],
-            "time": "2019-01-07 21:25:54"
+            "time": "2019-01-07T21:25:54+00:00"
         },
         {
-            "name": "react/socket",
-            "version": "v0.5.1",
+            "name": "react/promise-stream",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/reactphp/socket.git",
-                "reference": "c0e337e375d5fb064da4ba62a91a29815e7502f8"
+                "url": "https://github.com/reactphp/promise-stream.git",
+                "reference": "6384d8b76cf7dcc44b0bf3343fb2b2928412d1fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/socket/zipball/c0e337e375d5fb064da4ba62a91a29815e7502f8",
-                "reference": "c0e337e375d5fb064da4ba62a91a29815e7502f8",
+                "url": "https://api.github.com/repos/reactphp/promise-stream/zipball/6384d8b76cf7dcc44b0bf3343fb2b2928412d1fe",
+                "reference": "6384d8b76cf7dcc44b0bf3343fb2b2928412d1fe",
                 "shasum": ""
             },
             "require": {
-                "evenement/evenement": "~2.0|~1.0",
-                "php": ">=5.3.0",
-                "react/event-loop": "0.4.*|0.3.*",
-                "react/promise": "^2.0 || ^1.1",
-                "react/stream": "^0.6 || ^0.5 || ^0.4.5"
+                "php": ">=5.3",
+                "react/promise": "^2.1 || ^1.2",
+                "react/stream": "^1.0 || ^0.7 || ^0.6 || ^0.5 || ^0.4.6"
             },
             "require-dev": {
-                "clue/block-react": "^1.1",
-                "phpunit/phpunit": "~4.8",
-                "react/socket-client": "^0.5.1"
+                "clue/block-react": "^1.0",
+                "phpunit/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35",
+                "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3",
+                "react/promise-timer": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Promise\\Stream\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@lueck.tv"
+                }
+            ],
+            "description": "The missing link between Promise-land and Stream-land for ReactPHP",
+            "homepage": "https://github.com/reactphp/promise-stream",
+            "keywords": [
+                "Buffer",
+                "async",
+                "promise",
+                "reactphp",
+                "stream",
+                "unwrap"
+            ],
+            "time": "2019-07-03T12:29:10+00:00"
+        },
+        {
+            "name": "react/promise-timer",
+            "version": "v1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/promise-timer.git",
+                "reference": "35fb910604fd86b00023fc5cda477c8074ad0abc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/promise-timer/zipball/35fb910604fd86b00023fc5cda477c8074ad0abc",
+                "reference": "35fb910604fd86b00023fc5cda477c8074ad0abc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
+                "react/promise": "^2.7.0 || ^1.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "React\\Promise\\Timer\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Lück",
+                    "email": "christian@lueck.tv"
+                }
+            ],
+            "description": "A trivial implementation of timeouts for Promises, built on top of ReactPHP.",
+            "homepage": "https://github.com/reactphp/promise-timer",
+            "keywords": [
+                "async",
+                "event-loop",
+                "promise",
+                "reactphp",
+                "timeout",
+                "timer"
+            ],
+            "time": "2019-03-27T18:10:32+00:00"
+        },
+        {
+            "name": "react/socket",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/reactphp/socket.git",
+                "reference": "10f0629ec83ea0fa22597f348623f554227e3ca0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/reactphp/socket/zipball/10f0629ec83ea0fa22597f348623f554227e3ca0",
+                "reference": "10f0629ec83ea0fa22597f348623f554227e3ca0",
+                "shasum": ""
+            },
+            "require": {
+                "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
+                "php": ">=5.3.0",
+                "react/dns": "^1.0 || ^0.4.13",
+                "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
+                "react/promise": "^2.6.0 || ^1.2.1",
+                "react/promise-timer": "^1.4.0",
+                "react/stream": "^1.1"
+            },
+            "require-dev": {
+                "clue/block-react": "^1.2",
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -3527,38 +3781,38 @@
             "license": [
                 "MIT"
             ],
-            "description": "Async, streaming plaintext TCP/IP and secure TLS socket server for React PHP",
+            "description": "Async, streaming plaintext TCP/IP and secure TLS socket server and client connections for ReactPHP",
             "keywords": [
-                "Socket"
+                "Connection",
+                "Socket",
+                "async",
+                "reactphp",
+                "stream"
             ],
-            "time": "2017-03-09 12:13:07"
+            "time": "2019-07-10T10:11:14+00:00"
         },
         {
             "name": "react/stream",
-            "version": "v0.4.6",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/stream.git",
-                "reference": "44dc7f51ea48624110136b535b9ba44fd7d0c1ee"
+                "reference": "50426855f7a77ddf43b9266c22320df5bf6c6ce6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/stream/zipball/44dc7f51ea48624110136b535b9ba44fd7d0c1ee",
-                "reference": "44dc7f51ea48624110136b535b9ba44fd7d0c1ee",
+                "url": "https://api.github.com/repos/reactphp/stream/zipball/50426855f7a77ddf43b9266c22320df5bf6c6ce6",
+                "reference": "50426855f7a77ddf43b9266c22320df5bf6c6ce6",
                 "shasum": ""
             },
             "require": {
-                "evenement/evenement": "^2.0|^1.0",
-                "php": ">=5.3.8"
+                "evenement/evenement": "^3.0 || ^2.0 || ^1.0",
+                "php": ">=5.3.8",
+                "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5"
             },
             "require-dev": {
                 "clue/stream-filter": "~1.2",
-                "react/event-loop": "^0.4|^0.3",
-                "react/promise": "^2.0|^1.0"
-            },
-            "suggest": {
-                "react/event-loop": "^0.4",
-                "react/promise": "^2.0"
+                "phpunit/phpunit": "^6.4 || ^5.7 || ^4.8.35"
             },
             "type": "library",
             "autoload": {
@@ -3570,12 +3824,18 @@
             "license": [
                 "MIT"
             ],
-            "description": "Basic readable and writable stream interfaces that support piping.",
+            "description": "Event-driven readable and writable streams for non-blocking I/O in ReactPHP",
             "keywords": [
+                "event-driven",
+                "io",
+                "non-blocking",
                 "pipe",
-                "stream"
+                "reactphp",
+                "readable",
+                "stream",
+                "writable"
             ],
-            "time": "2017-01-25 14:44:14"
+            "time": "2019-01-01T16:15:09+00:00"
         },
         {
             "name": "ringcentral/psr7",
@@ -3633,7 +3893,7 @@
                 "stream",
                 "uri"
             ],
-            "time": "2018-01-15 21:00:49"
+            "time": "2018-01-15T21:00:49+00:00"
         },
         {
             "name": "riverline/multipart-parser",
@@ -3685,7 +3945,7 @@
                 "multipart",
                 "parser"
             ],
-            "time": "2019-08-26 14:21:49"
+            "time": "2019-08-26T14:21:49+00:00"
         },
         {
             "name": "sabre/event",
@@ -3745,7 +4005,7 @@
                 "reactor",
                 "signal"
             ],
-            "time": "2018-03-05 13:55:47"
+            "time": "2018-03-05T13:55:47+00:00"
         },
         {
             "name": "stripe/stripe-php",
@@ -3801,7 +4061,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-08-29 16:56:12"
+            "time": "2019-08-29T16:56:12+00:00"
         },
         {
             "name": "superbalist/php-pubsub",
@@ -3847,7 +4107,7 @@
                 }
             ],
             "description": "An adapter based PubSub package for PHP",
-            "time": "2017-05-16 09:52:04"
+            "time": "2017-05-16T09:52:04+00:00"
         },
         {
             "name": "superbalist/php-pubsub-redis",
@@ -3895,7 +4155,7 @@
                 }
             ],
             "description": "A Redis adapter for the php-pubsub package",
-            "time": "2017-05-16 11:26:47"
+            "time": "2017-05-16T11:26:47+00:00"
         },
         {
             "name": "symfony/console",
@@ -3970,7 +4230,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26 08:26:39"
+            "time": "2019-08-26T08:26:39+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -4040,7 +4300,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26 08:55:16"
+            "time": "2019-08-26T08:55:16+00:00"
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -4098,7 +4358,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-06-20 06:46:26"
+            "time": "2019-06-20T06:46:26+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -4148,7 +4408,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-20 14:07:54"
+            "time": "2019-08-20T14:07:54+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -4202,7 +4462,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2019-08-08 09:29:19"
+            "time": "2019-08-08T09:29:19+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4260,7 +4520,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -4319,7 +4579,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -4374,7 +4634,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -4432,7 +4692,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2019-08-06 08:03:45"
+            "time": "2019-08-06T08:03:45+00:00"
         },
         {
             "name": "symfony/process",
@@ -4481,7 +4741,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-08-26 08:26:39"
+            "time": "2019-08-26T08:26:39+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -4539,7 +4799,7 @@
                 "interoperability",
                 "standards"
             ],
-            "time": "2019-08-20 14:44:19"
+            "time": "2019-08-20T14:44:19+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -4615,7 +4875,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2019-08-26 08:26:39"
+            "time": "2019-08-26T08:26:39+00:00"
         },
         {
             "name": "vanilla/garden-cli",
@@ -4658,7 +4918,7 @@
                 }
             ],
             "description": "A full-featured, yet ridiculously simple commandline parser for your next php cli script. Stop fighting with getopt().",
-            "time": "2019-08-24 22:36:28"
+            "time": "2019-08-24T22:36:28+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -4709,7 +4969,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-01-29 11:11:52"
+            "time": "2019-01-29T11:11:52+00:00"
         },
         {
             "name": "vlucas/valitron",
@@ -4758,7 +5018,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2019-08-29 19:49:43"
+            "time": "2019-08-29T19:49:43+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -4808,7 +5068,51 @@
                 "check",
                 "validate"
             ],
-            "time": "2019-08-24 08:43:50"
+            "time": "2019-08-24T08:43:50+00:00"
+        },
+        {
+            "name": "wyrihaximus/react-http-middleware-session",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WyriHaximus/reactphp-http-middleware-session.git",
+                "reference": "86ca5d5b7cf15449e60bb0626e04eaabe9d8a231"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WyriHaximus/reactphp-http-middleware-session/zipball/86ca5d5b7cf15449e60bb0626e04eaabe9d8a231",
+                "reference": "86ca5d5b7cf15449e60bb0626e04eaabe9d8a231",
+                "shasum": ""
+            },
+            "require": {
+                "hansott/psr7-cookies": "^2.0 || ^1.0",
+                "php": "^7.3",
+                "psr/http-message": "^1.0",
+                "react/cache": "^0.5.0 || ^0.6.0 || ^1.0.0",
+                "react/http": "^0.8.0",
+                "react/promise": "^2.7"
+            },
+            "require-dev": {
+                "wyrihaximus/async-test-utilities": "^1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "WyriHaximus\\React\\Http\\Middleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cees-Jan Kiewiet",
+                    "email": "ceesjank@gmail.com"
+                }
+            ],
+            "description": "react/http middleware that takes care of session handling",
+            "time": "2019-07-12T06:11:38+00:00"
         },
         {
             "name": "zendframework/zend-config",
@@ -4868,7 +5172,7 @@
                 "config",
                 "zf"
             ],
-            "time": "2019-06-08 18:58:54"
+            "time": "2019-06-08T18:58:54+00:00"
         },
         {
             "name": "zendframework/zend-file",
@@ -4925,7 +5229,7 @@
                 "file",
                 "zf"
             ],
-            "time": "2019-02-06 16:53:31"
+            "time": "2019-02-06T16:53:31+00:00"
         },
         {
             "name": "zendframework/zend-stdlib",
@@ -4971,7 +5275,7 @@
                 "stdlib",
                 "zf"
             ],
-            "time": "2018-08-28 21:34:05"
+            "time": "2018-08-28T21:34:05+00:00"
         }
     ],
     "packages-dev": [
@@ -5188,7 +5492,7 @@
                 }
             ],
             "description": "Prevents installation of composer packages with known security vulnerabilities: no API, simply require it",
-            "time": "2019-07-18 15:17:58"
+            "time": "2019-07-18T15:17:58+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -5266,7 +5570,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2018-11-07 22:31:41"
+            "time": "2018-11-07T22:31:41+00:00"
         }
     ],
     "aliases": [],
@@ -5283,7 +5587,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.0",
+        "php": "^7.3.0",
         "ext-sodium": "*",
         "ext-bcmath": "*",
         "ext-mbstring": "*",

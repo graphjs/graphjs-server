@@ -12,7 +12,7 @@ namespace GraphJS;
 
 use CapMousse\ReactRestify\Http\Request;
 use CapMousse\ReactRestify\Http\Response;
-use CapMousse\ReactRestify\Http\Session;
+
 use Pho\Kernel\Kernel;
 use Pho\Server\Rest\Server;
 
@@ -343,11 +343,6 @@ class Router extends \Pho\Server\Rest\Router
             }
         );
 
-        $server->get(
-            'listPrivateContents', function (Request $request, Response $response) use ($controllers, $kernel) {
-                $controllers["administration"]->listPrivateContents($request, $response, $kernel);
-            }
-        );
 
         $server->get(
             'getObjectCounts', function (Request $request, Response $response) use ($controllers, $kernel) {
@@ -621,7 +616,7 @@ class Router extends \Pho\Server\Rest\Router
         );
         $server->get(
             'getFollowers', function (Request $request, Response $response) use ($controllers, $session, $kernel) {
-                $controllers["members"]->setExceptionHandler($response)->getFollowers($request, $response, $session, $kernel);
+                $controllers["members"]->getFollowers($request, $response, $session, $kernel);
             }
         );
         $server->get(
