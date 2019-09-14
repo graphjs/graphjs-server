@@ -158,7 +158,7 @@ class FileUploadController extends AbstractController
     public function uploadFile(Request $request, Response $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
 
         $httpRequest = $request->httpRequest;

@@ -35,15 +35,15 @@ class ForumController extends AbstractController
     public function deleteForumPost(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Entity ID unavailable.");
-            return;
+            return $this->fail($response, "Entity ID unavailable.");
+            
         }
         $entity = $this->kernel->gs()->entity($data["id"]);
         $deleted = [];
@@ -69,7 +69,7 @@ class ForumController extends AbstractController
             return $this->fail($response, "You are not the owner of this reply.");
         }
         
-        $this->fail($response, "The ID does not belong to a thread or reply.");
+        return $this->fail($response, "The ID does not belong to a thread or reply.");
     }
 
     /**
@@ -87,7 +87,7 @@ class ForumController extends AbstractController
     public function startThread(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -95,12 +95,12 @@ class ForumController extends AbstractController
             'message' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Title (up to 80 chars) and Message are required.");
-            return;
+            return $this->fail($response, "Title (up to 80 chars) and Message are required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $thread = $i->start($data["title"], $data["message"]);
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "id" => (string) $thread->id()
             ]
@@ -120,7 +120,7 @@ class ForumController extends AbstractController
     public function reply(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -128,17 +128,17 @@ class ForumController extends AbstractController
             'message' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Thread ID and Message are required.");
-            return;
+            return $this->fail($response, "Thread ID and Message are required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $thread = $this->kernel->gs()->node($data["id"]);
         if(!$thread instanceof Thread) {
-            $this->fail($response, "Given  ID is not associated with a forum thread.");
-            return;
+            return $this->fail($response, "Given  ID is not associated with a forum thread.");
+            
         }
         $reply = $i->reply($thread, $data["message"]);
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "id" => (string) $reply->id()
             ]
@@ -149,7 +149,7 @@ class ForumController extends AbstractController
     public function editForumPost(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -157,23 +157,23 @@ class ForumController extends AbstractController
             'content' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Message ID and Content are required.");
-            return;
+            return $this->fail($response, "Message ID and Content are required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $entity = $this->kernel->gs()->entity($data["id"]);
         if(!$entity instanceof Thread && !$entity instanceof Reply) {
-            $this->fail($response, "Incompatible entity type.");
-            return;
+            return $this->fail($response, "Incompatible entity type.");
+            
         }
         try {
         $i->edit($entity)->setContent($data["content"]);
         }
      catch(\Exception $e) {
-        $this->fail($response, $e->getMessage());
-            return;
+        return $this->fail($response, $e->getMessage());
+            
      }
-     $this->succeed($response);
+     return $this->succeed($response);
     }
 
     /**
@@ -238,7 +238,7 @@ class ForumController extends AbstractController
         $threads_count = count($threads);
         $threads = array_values($this->paginate($threads, $params, 20));
 
-        $this->succeed(
+        return $this->succeed(
             $response, [
                 "threads" => $threads,
                 "total"   => $threads_count
@@ -264,15 +264,15 @@ class ForumController extends AbstractController
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Thread ID required.");
-            return;
+            return $this->fail($response, "Thread ID required.");
+            
         }
         $thread = $this->kernel->gs()->node($data["id"]);
         if(!$thread instanceof Thread) {
-            $this->fail($response, "Not a Thread");
+            return $this->fail($response, "Not a Thread");
         }
         $replies = $thread->getReplies();
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "title" => $thread->getTitle(),
             "messages" => array_merge(

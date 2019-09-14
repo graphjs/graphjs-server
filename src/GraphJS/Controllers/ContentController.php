@@ -46,7 +46,7 @@ class ContentController extends AbstractController
     public function star(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -54,8 +54,8 @@ class ContentController extends AbstractController
                         'id' => 'required_without:url',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Url or ID required.");
-            return;
+            return $this->fail($response, "Url or ID required.");
+            
         }
         $i = $this->kernel->gs()->node($id);  
         //$page = $this->_fromUrlToNode($this->kernel, $data["url"]);
@@ -70,7 +70,7 @@ class ContentController extends AbstractController
                     }
                 }
         $i->star($page);    
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "count" => count($page->getStarrers())
             ]
@@ -112,8 +112,8 @@ class ContentController extends AbstractController
             'id' => 'required_without:url',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Url or ID required.");
-            return;
+            return $this->fail($response, "Url or ID required.");
+            
         }
         if(isset($data["url"])&&!empty($data["url"]))  {
                         $page = $this->_fromUrlToNode($data["url"]);
@@ -127,7 +127,7 @@ class ContentController extends AbstractController
                     }
           $starrers = $page->getStarrers();
           $me= $session->get($request, "id");
-          $this->succeed(
+          return $this->succeed(
               $response, [
               "count"=>count($starrers), 
               "starred"=>is_null($me) ? false : $page->hasStarrer(ID::fromString($me))]
@@ -138,7 +138,7 @@ class ContentController extends AbstractController
     public function editComment(ServerRequestInterface $request, ResponseInterface $response) 
     {
      if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+        return $this->failSession($response);
         }
      $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -146,29 +146,29 @@ class ContentController extends AbstractController
             'content' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Comment ID and Content are required.");
-            return;
+            return $this->fail($response, "Comment ID and Content are required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $entity = $this->kernel->gs()->entity($data["id"]);
         if(!$entity instanceof Comment) {
-            $this->fail($response, "Given ID is not a Comment.");
-            return;
+            return $this->fail($response, "Given ID is not a Comment.");
+            
         }
         try {
         $i->edit($entity)->setContent($data["content"]);
         }
      catch(\Exception $e) {
-        $this->fail($response, $e->getMessage());
-            return;
+        return $this->fail($response, $e->getMessage());
+            
      }
-     $this->succeed($response);
+     return $this->succeed($response);
     }
 
     public function addComment(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -177,8 +177,8 @@ class ContentController extends AbstractController
             'content' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "(Url or id) and content fields are required.");
-            return;
+            return $this->fail($response, "(Url or id) and content fields are required.");
+            
         }
         $i = $this->kernel->gs()->node($id); 
         if(isset($data["url"])&&!empty($data["url"]))  {
@@ -200,7 +200,7 @@ class ContentController extends AbstractController
                 $this->kernel->graph()->getCommentsModerated() === true // it's not moderated
             )
         );
-        $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
+        return $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
     }
 
     public function getComments(ServerRequestInterface $request, ResponseInterface $response)
@@ -211,8 +211,8 @@ class ContentController extends AbstractController
             'id' => 'required_without:url',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Url or ID field is required.");
-            return;
+            return $this->fail($response, "Url or ID field is required.");
+            
         }
         if(isset($data["url"])&&!empty($data["url"])) {
             $page = $this->_fromUrlToNode($data["url"]);
@@ -240,7 +240,7 @@ class ContentController extends AbstractController
                     })
                     : $page->getComments()
          );
-         $this->succeed(
+         return $this->succeed(
              $response, [
                 "comments"=>$comments
              ]
@@ -250,30 +250,30 @@ class ContentController extends AbstractController
     public function removeComment(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'comment_id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Comment_id field is required.");
-            return;
+            return $this->fail($response, "Comment_id field is required.");
+            
         }
         $i = $this->kernel->gs()->node($id);  
         if(!$i->hasComment(ID::fromString($data["comment_id"]))) {
-            $this->fail($response, "Comment_id does not belong to you.");
-            return;
+            return $this->fail($response, "Comment_id does not belong to you.");
+            
         }
         $comment = $this->kernel->gs()->edge($data["comment_id"]);
         $comment->destroy();
-        $this->succeed($response);
+        return $this->succeed($response);
     }
  
     public function unstar(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -282,8 +282,8 @@ class ContentController extends AbstractController
         ]);
 
         if($validation->fails()) {
-            $this->fail($response, "Url or ID required.");
-            return;
+            return $this->fail($response, "Url or ID required.");
+            
         }
         $i = $this->kernel->gs()->node($id);  
         if(isset($data["url"])&&!empty($data["url"]))  {
@@ -302,7 +302,7 @@ class ContentController extends AbstractController
             error_log("Star ID: ".$star->id()->toString());
             $star->destroy();
         }
-        $this->succeed($response);
+        return $this->succeed($response);
     }
  
     /**
@@ -328,15 +328,15 @@ class ContentController extends AbstractController
             ];
         }
         if(count($array)==0) {
-            $this->fail($response, "No content starred yet");
+            return $this->fail($response, "No content starred yet");
         }
-        $this->succeed($response, ["pages"=>$ret]);
+        return $this->succeed($response, ["pages"=>$ret]);
     }
 
     public function getMyStarredContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $res = $this->kernel->index()->query(
             "MATCH (:user {udid: {me}})-[e:star]->(n:page) WITH n.Url AS content, n.Title AS the_title, count(e) AS star_count RETURN the_title, content, star_count ORDER BY star_count", 
@@ -351,23 +351,23 @@ class ContentController extends AbstractController
             ];
         }
         if(count($array)==0) {
-            $this->fail($response, "No content starred yet");
+            return $this->fail($response, "No content starred yet");
         }
-        $this->succeed($response, ["pages"=>$ret]);
+        return $this->succeed($response, ["pages"=>$ret]);
     }
 
     public function addPrivateContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'data' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Data field is required.");
-            return;
+            return $this->fail($response, "Data field is required.");
+            
         }
         $i = $this->kernel->gs()->node($id);  
         try {
@@ -383,7 +383,7 @@ class ContentController extends AbstractController
     public function editPrivateContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -391,8 +391,8 @@ class ContentController extends AbstractController
             'data' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "ID and Data fields are required.");
-            return;
+            return $this->fail($response, "ID and Data fields are required.");
+            
         }
         $i = $this->kernel->gs()->node($id); 
         try {
@@ -411,7 +411,7 @@ class ContentController extends AbstractController
     public function getPrivateContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -442,15 +442,15 @@ class ContentController extends AbstractController
     public function deletePrivateContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "ID is required.");
-            return;
+            return $this->fail($response, "ID is required.");
+            
         }
         try {
             $i = $this->kernel->gs()->node($id);

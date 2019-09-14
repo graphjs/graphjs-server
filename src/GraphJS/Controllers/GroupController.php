@@ -43,7 +43,7 @@ class GroupController extends AbstractController
     public function createGroup(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
@@ -51,12 +51,12 @@ class GroupController extends AbstractController
             'description' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Title (up to 80 chars) and Description are required.");
-            return;
+            return $this->fail($response, "Title (up to 80 chars) and Description are required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $group = $i->create($data["title"], $data["description"]);
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "id" => (string) $group->id()
             ]
@@ -79,15 +79,15 @@ class GroupController extends AbstractController
     public function deleteGroup(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required'
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID is required.");
-            return;
+            return $this->fail($response, "Group ID is required.");
+            
         }
         
         $i = $this->kernel->gs()->node($id);
@@ -103,13 +103,13 @@ class GroupController extends AbstractController
         }
         
         $group->destroy();
-        $this->succeed($response);
+        return $this->succeed($response);
     }
 
     public function setGroup(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         // Avatar, Birthday, About, Username, Email
         $data = $request->getQueryParams();
@@ -117,8 +117,8 @@ class GroupController extends AbstractController
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID is required.");
-            return;
+            return $this->fail($response, "Group ID is required.");
+            
         }
     
         $i = $this->kernel->gs()->node($id);
@@ -136,8 +136,8 @@ class GroupController extends AbstractController
 
         if(isset($data["title"])) {
             if(strlen($data["title"])>80) {
-                $this->fail($response, "Title must be 80 chars or less.");
-                return;
+                return $this->fail($response, "Title must be 80 chars or less.");
+                
             }
             $sets[] = "title";
             $group->setTitle($data["title"]);
@@ -150,18 +150,18 @@ class GroupController extends AbstractController
 
         if(isset($data["cover"])) {
             if(!preg_match('/^https?:\/\/.+\.(png|jpg|jpeg|gif)$/i', $data["cover"])) {
-                $this->fail($response, "Cover field should point to a URL.");
-                return;
+                return $this->fail($response, "Cover field should point to a URL.");
+                
             }
             $sets[] = "cover";
             $group->setCover($data["cover"]);
         }
 
         if(count($sets)==0) {
-            $this->fail($response, "No field to set");
-            return;
+            return $this->fail($response, "No field to set");
+            
         }
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "message" => sprintf(
                 "Following fields set successfully: %s", 
@@ -186,31 +186,31 @@ class GroupController extends AbstractController
     public function leave(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID  required.");
-            return;
+            return $this->fail($response, "Group ID  required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $group = $this->kernel->gs()->node($data["id"]);
 
         if(!($group instanceof Group)) {
-            $this->fail($response, "Given ID is not associated with a Group");
-            return;
+            return $this->fail($response, "Given ID is not associated with a Group");
+            
         }
 
         if(!$group->contains($i->id())) {
-            $this->fail($response, "User is not a member of given Group");
-            return;
+            return $this->fail($response, "User is not a member of given Group");
+            
         }
 
         $i->leave($group);
-        $this->succeed($response);
+        return $this->succeed($response);
     }
 
     /**
@@ -228,26 +228,26 @@ class GroupController extends AbstractController
     public function join(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID  required.");
-            return;
+            return $this->fail($response, "Group ID  required.");
+            
         }
         $i = $this->kernel->gs()->node($id);
         $group = $this->kernel->gs()->node($data["id"]);
 
         if(!($group instanceof Group)) {
-            $this->fail($response, "Given ID is not associated with a Group");
-            return;
+            return $this->fail($response, "Given ID is not associated with a Group");
+            
         }
 
         $i->join($group);
-        $this->succeed($response);
+        return $this->succeed($response);
     }
 
 
@@ -269,13 +269,13 @@ class GroupController extends AbstractController
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "User ID  required.");
-            return;
+            return $this->fail($response, "User ID  required.");
+            
         }
         $them = $this->kernel->gs()->node($data["id"]);
         $q = $this->listGroups($request, $response, $this->kernel);
         if(!$q[0]) {
-            $this->fail($response, "Problem fetching groups");
+            return $this->fail($response, "Problem fetching groups");
         }
         $groups = $q[1];
         $their_groups = [];
@@ -284,7 +284,7 @@ class GroupController extends AbstractController
             if($group_obj->contains($them->id()))
                 $their_groups[] = $group;
         }
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "groups" => $their_groups
             ]
@@ -348,12 +348,12 @@ class GroupController extends AbstractController
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID  required.");
-            return;
+            return $this->fail($response, "Group ID  required.");
+            
         }
         $group = $this->kernel->gs()->node($data["id"]);
         if(!$group instanceof Group) {
-            $this->fail($response, sprintf("The object with ID %s is not a Group", $data["id"]));
+            return $this->fail($response, sprintf("The object with ID %s is not a Group", $data["id"]));
         }
         $info = [
                 "id" => (string) $group->id(),
@@ -369,7 +369,7 @@ class GroupController extends AbstractController
                     return ($value instanceof User);
             }
         ));
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "group" => $info
             ]
@@ -394,13 +394,13 @@ class GroupController extends AbstractController
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Group ID  required.");
-            return;
+            return $this->fail($response, "Group ID  required.");
+            
         }
         $group = $this->kernel->gs()->node($data["id"]);
         if(!$group instanceof Group) {
-            $this->fail($response, "Given ID is not associated with a Group");
-            return;
+            return $this->fail($response, "Given ID is not associated with a Group");
+            
         }
         $members = array_filter(
             $group->members(),
@@ -408,7 +408,7 @@ class GroupController extends AbstractController
                     return ($value instanceof User);
             }
         );
-        $this->succeed(
+        return $this->succeed(
             $response, [
             "members" => array_keys($members)
             ]

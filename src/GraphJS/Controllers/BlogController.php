@@ -122,7 +122,7 @@ class BlogController extends AbstractController
         $blogs_count = count($blogs);
         $blogs = $this->paginate($blogs, $data);
         
-        $this->succeed(
+        return $this->succeed(
             $response, [
                 "blogs" => $blogs ,
                 "total" => $blogs_count
@@ -149,7 +149,7 @@ class BlogController extends AbstractController
             return $this->fail($response, "Given id is not a blog post");
         }
         $publish_time =  intval($blog->getPublishTime());
-        $this->succeed(
+        return $this->succeed(
             $response, [
                 "blog" => [
                     "id" => (string) $blog->id(),
@@ -171,18 +171,16 @@ class BlogController extends AbstractController
     public function pinOp(bool $op = true, ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         if($id!=$this->kernel->founder()->id()->toString()) {
-            $this->fail($response, "Only admins can operate this command.");
-            return;
+            return $this->fail($response, "Only admins can operate this command.");
         }
         $validation = $this->validator->validate($data, [
             'id' => 'required'
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Content ID required");
-            return;
+            return $this->fail($response, "Content ID required");
         }
         try {
             $blog = $this->kernel->gs()->node($data["id"]);
@@ -194,24 +192,24 @@ class BlogController extends AbstractController
             return $this->fail($response, "Given id is not a blog post");
         }
         $blog->setIsPinned($op);
-        $this->succeed($response);
+        return $this->succeed($response);
     }
 
     public function pin(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $this->pinOp(true, ...func_get_args());
+        return $this->pinOp(true, ...func_get_args());
     }
 
     public function unpin(ServerRequestInterface $request, ResponseInterface $response)
     {
-        $this->pinOp(false, ...func_get_args());
+        return $this->pinOp(false, ...func_get_args());
     }
 
 
     public function startBlogPost(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $_data = $request->getData();
@@ -224,8 +222,7 @@ class BlogController extends AbstractController
             'content' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Title (up to 255 chars) and Content are required.");
-            return;
+            return $this->fail($response, "Title (up to 255 chars) and Content are required.");
         }
         $i = $this->kernel->gs()->node($id);
         $can_edit = $this->canEdit($this->kernel, $i);
@@ -239,7 +236,7 @@ class BlogController extends AbstractController
         catch (\Exception $e) {
             error_log($e->getMessage());
         }
-        $this->succeed(
+        return $this->succeed(
             $response, [
                 "id" => (string) $blog->id()
             ]
@@ -250,7 +247,7 @@ class BlogController extends AbstractController
     public function editBlogPost(ServerRequestInterface $request, ResponseInterface $response) 
     {
      if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+        return $this->failSession($response);
         }
      $data = $request->getQueryParams();
      $_data = $request->getData();
@@ -266,8 +263,7 @@ class BlogController extends AbstractController
             'content' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "ID, Title and Content are required.");
-            return;
+            return $this->fail($response, "ID, Title and Content are required.");
         }
         $i = $this->kernel->gs()->node($id);
         $can_edit = $this->canEdit($this->kernel, $i);
@@ -282,8 +278,7 @@ class BlogController extends AbstractController
             return $this->fail($response, "Invalid ID");
         }
         if(!$entity instanceof Blog) {
-            $this->fail($response, "Given ID is not a Blog.");
-            return;
+            return $this->fail($response, "Given ID is not a Blog.");
         }
         try {
         $i->edit($entity)->setTitle($data["title"]);
@@ -291,25 +286,23 @@ class BlogController extends AbstractController
         $i->edit($entity)->setLastEditTime(time());
         }
      catch(\Exception $e) {
-        $this->fail($response, $e->getMessage());
-            return;
+        return $this->fail($response, $e->getMessage());
      }
-     $this->succeed($response);
+     return $this->succeed($response);
     }
 
 
     public function removeBlogPost(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return;
+            return $this->failSession($response);
         }
         $data = $request->getQueryParams();
         $validation = $this->validator->validate($data, [
             'id' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "ID is required.");
-            return;
+            return $this->fail($response, "ID is required.");
         }
         try {
             $i = $this->kernel->gs()->node($id);
@@ -360,7 +353,7 @@ class BlogController extends AbstractController
     {
 
      if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-        return;
+        return $this->failSession($response);
     }
  $data = $request->getQueryParams();
     $validation = $this->validator->validate($data, [
@@ -379,8 +372,7 @@ class BlogController extends AbstractController
         return $this->fail($response, "Invalid ID");
     }
     if(!$entity instanceof Blog) {
-        $this->fail($response, "Given ID is not a Blog.");
-        return;
+        return $this->fail($response, "Given ID is not a Blog.");
     }
     $can_edit = $this->canEdit($this->kernel, $i);
         if(!$can_edit) {
@@ -390,25 +382,23 @@ class BlogController extends AbstractController
     $i->edit($entity)->setPublishTime(time());
     }
  catch(\Exception $e) {
-    $this->fail($response, $e->getMessage());
-        return;
+    return $this->fail($response, $e->getMessage());
  }
- $this->succeed($response);
+ return $this->succeed($response);
     }
 
     public function unpublishBlogPost(ServerRequestInterface $request, ResponseInterface $response)
     {
 
      if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-        return;
+        return $this->failSession($response);
     }
  $data = $request->getQueryParams();
     $validation = $this->validator->validate($data, [
         'id' => 'required'
     ]);
     if($validation->fails()) {
-        $this->fail($response, "ID is required.");
-        return;
+        return $this->fail($response, "ID is required.");
     }
     $i = $this->kernel->gs()->node($id);
     try {
@@ -423,17 +413,15 @@ class BlogController extends AbstractController
             return $this->fail($response, "No privileges for blog posts");
         }
     if(!$entity instanceof Blog) {
-        $this->fail($response, "Given ID is not a Blog.");
-        return;
+        return $this->fail($response, "Given ID is not a Blog.");
     }
     try {
         $i->edit($entity)->setPublishTime(0);
     }
  catch(\Exception $e) {
-    $this->fail($response, $e->getMessage());
-        return;
+    return $this->fail($response, $e->getMessage());
  }
- $this->succeed($response);
+ return $this->succeed($response);
     }
 
 }

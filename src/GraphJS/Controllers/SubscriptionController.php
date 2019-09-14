@@ -11,11 +11,9 @@
 
  namespace GraphJS\Controllers;
 
- use Psr\Http\Message\ResponseInterface;
- use Psr\Http\Message\ServerRequestInterface;
-
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Pho\Kernel\Kernel;
-use Valitron\Validator;
 use Stripe\Stripe;
 use Stripe\Subscription;
 use Stripe\Customer;
@@ -34,23 +32,19 @@ class SubscriptionController extends AbstractController
      * @param ServerRequestInterface  $request
      * @param ResponseInterface $response
      * @param Kernel   $this->kernel
-     * 
-     * @return void
      */
     public function checkSubscription(ServerRequestInterface $request, ResponseInterface $response)
     {   
         $data = $request->getQueryParams();
         $stripe_key = trim(getenv('STRIPE_KEY'));
         if(!$data["public_id"] || empty($stripe_key)) {
-            $this->fail($response, "Not allowed.");
-            return;
+            return $this->fail($response, "Not allowed.");
         }
         $validation = $this->validator->validate($data, [
             'username' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Valid username required.");
-            return;
+            return $this->fail($response, "Valid username required.");
         }
         try {
             $result = $this->kernel->index()->query(
@@ -61,8 +55,7 @@ class SubscriptionController extends AbstractController
             );
             $success = (count($result->results()) == 1);
             if(!$success) {
-                $this->fail($response, "Information don't match records");
-                return;
+                return $this->fail($response, "Information don't match records");
             }
             $user = $result->results()[0];
             
@@ -80,11 +73,10 @@ class SubscriptionController extends AbstractController
                 }
             }
             
-            $this->succeed($response, ["subscribed" => $subscribedOrNot,"customerData" => $customerData]);
+            return $this->succeed($response, ["subscribed" => $subscribedOrNot,"customerData" => $customerData]);
         }
         catch(\Exception $e) {
-            $this->fail($response, $e);
-            return;
+            return $this->fail($response, $e->getMessage());
         }
 
     }
@@ -102,8 +94,7 @@ class SubscriptionController extends AbstractController
         $data = $request->getQueryParams();
         $stripe_key = trim(getenv('STRIPE_KEY'));
         if(!$data["public_id"] || empty($stripe_key)) {
-            $this->fail($response, "Not allowed.");
-            return;
+            return $this->fail($response, "Not allowed.");
         }
         $validation = $this->validator->validate($data, [
             'email' => 'required',
@@ -112,8 +103,7 @@ class SubscriptionController extends AbstractController
         ]);
         
         if($validation->fails()) {
-            $this->fail($response, "Valid email,plan,source required.");
-            return;
+            return $this->fail($response, "Valid email,plan,source required.");
         }
         try {
             $email = $data['email'];
@@ -133,11 +123,10 @@ class SubscriptionController extends AbstractController
                 'items' => [['plan' => $plan ]],
             ]);
             
-            $this->succeed($response, ["subscription" => $subscription]);
+            return $this->succeed($response, ["subscription" => $subscription]);
         }
         catch(\Exception $e) {
-            $this->fail($response, "Invalid Details");
-            return;
+            return $this->fail($response, "Invalid Details");
         }
 
     }

@@ -38,12 +38,12 @@ class FeedController extends AbstractController
             'type' => 'required',
         ]);
         if($validation->fails()) {
-            $this->fail($response, "Type and/or id fields unavailable.");
-            return;
+            return $this->fail($response, "Type and/or id fields unavailable.");
+            
         }
         if($data["type"]!="wall"&&$data["type"]!="user"&&$data["type"]!="timeline") {
-            $this->fail($response, "Invalid type.");
-            return;
+            return $this->fail($response, "Invalid type.");
+            
         }
         $client = new \GetStream\Stream\Client(getenv("STREAM_KEY"), getenv("STREAM_SECRET"));
         $feed = $client->feed($data["type"], $data["id"]);

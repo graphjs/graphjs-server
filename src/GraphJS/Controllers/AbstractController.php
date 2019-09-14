@@ -27,11 +27,23 @@ use WyriHaximus\React\Http\Middleware\SessionMiddleware;
 abstract class AbstractController extends  \Pho\Server\Rest\Controllers\AbstractController
 {
     protected $validator;
+    const SESSION_FAIL_MESSAGE = "Session required.";
+    const INVALID_HASH_MESSAGE = "Invalid hash.";
 
     public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
     {
         $this->validator = new Validator();
         parent::__construct($kernel, $jsonp);
+    }
+
+    protected function failSession(ResponseInterface $response)
+    {
+        return $this->fail($response, static::SESSION_FAIL_MESSAGE);
+    }
+
+    protected function failHash(ResponseInterface $response)
+    {
+        return $this->fail($response, static::INVALID_HASH_MESSAGE);
     }
 
     protected function isMembershipModerated()
