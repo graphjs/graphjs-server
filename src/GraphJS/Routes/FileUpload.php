@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'uploadFile' => ["GET", "uploadFile"]
+    ["GET", "uploadFile",'uploadFile']
 );

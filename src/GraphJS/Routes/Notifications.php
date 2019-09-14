@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    'getNotificationsCount' => ["GET", "/getNotificationsCount"],
-    'getNotifications' => ["GET", "/getNotifications"]
+    ["GET", "/getNotificationsCount",'getNotificationsCount'],
+    ["GET", "/getNotifications",'getNotifications']
 );

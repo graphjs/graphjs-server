@@ -1,13 +1,13 @@
 <?php
 
 return array(
-    "tokenSignup" => ['GET', '/tokenSignup'],
-    "tokenLogin" => ['GET', '/tokenLogin'],
-    "signup" => ['GET', '/signup'],
-    "login" => ['GET', '/login'],
-    "logout" => ['GET', '/logout'],
-    "whoami" => ['GET', '/whoami'],
-    "resetPassword" => ['GET', '/resetPassword'],
-    "verifyReset" => ['GET', '/verifyReset'],
-    "verifyEmailCode" => ['GET', '/verifyEmailCode'],
+    ['GET', '/tokenSignup',"tokenSignup"],
+    ['GET', '/tokenLogin',"tokenLogin"],
+    ['GET', '/signup',"signup"],
+    ['GET', '/login',"login"],
+    ['GET', '/logout',"logout"],
+    ['GET', '/whoami',"whoami"],
+    ['GET', '/resetPassword',"resetPassword"],
+    ['GET', '/verifyReset',"verifyReset"],
+    ['GET', '/verifyEmailCode',"verifyEmailCode"],
 );

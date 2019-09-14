@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'generateFeedToken' => ["GET", "/generateFeedToken"]
+    ["GET", "/generateFeedToken",'generateFeedToken']
 );

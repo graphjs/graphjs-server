@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    "getProfile" => ['GET', '/getProfile'],
-    "setProfile" => ['GET', '/setProfile'],
+    ['GET', '/getProfile',"getProfile"],
+    ['GET', '/setProfile',"setProfile"],
 );

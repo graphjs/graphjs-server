@@ -1,20 +1,20 @@
 <?php
 
 return array(
-    "isStarred" => ["GET", "/isStarred"],
-    "unstar" => ["GET", "/unstar"],
-    "star" => ["GET", "/star"],
-    "addComment" => ["GET", "/addComment"],
-    "removeComment" => ["GET", "/removeComment"],
-    "editComment" => ["GET", "/editComment"],
-    "getComments" => ["GET", "/getComments"],
-    "getMyStarredContent" => ["GET", "/getMyStarredContent"],
-    "getStarredContent" => ["GET", "/getStarredContent"],
-    "getPrivateContent" => ["GET", "/getPrivateContent"],
-    "addPrivateContent" => ["GET", "/addPrivateContent"],
-    "editPrivateContent" => ["GET", "/editPrivateContent"],
-    "deletePrivateContent" => ["GET", "/deletePrivateContent"],
-    "listPrivateContents" => ["GET", "/listPrivateContents"],
+    ["GET", "/isStarred","isStarred"],
+    ["GET", "/unstar","unstar"],
+    ["GET", "/star","star"],
+    ["GET", "/addComment","addComment"],
+    ["GET", "/removeComment","removeComment"],
+    ["GET", "/editComment","editComment"],
+    ["GET", "/getComments","getComments"],
+    ["GET", "/getMyStarredContent","getMyStarredContent"],
+    ["GET", "/getStarredContent","getStarredContent"],
+    ["GET", "/getPrivateContent","getPrivateContent"],
+    ["GET", "/addPrivateContent","addPrivateContent"],
+    ["GET", "/editPrivateContent","editPrivateContent"],
+    ["GET", "/deletePrivateContent","deletePrivateContent"],
+    ["GET", "/listPrivateContents","listPrivateContents"],
 );
 
 

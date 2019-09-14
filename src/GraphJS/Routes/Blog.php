@@ -1,15 +1,15 @@
 <?php
 
 return array(
-    'getBlogPosts' => ["GET", "/getBlogPosts"],
-    'getBlogPost' => ["GET", "/getBlogPost"],
-    'startBlogPost' => ["GET", "/startBlogPost"],
-    'startBlogPost' => ["POST", "/startBlogPost"],
-    'editBlogPost' => ["GET", "/editBlogPost"],
-    'editBlogPost' => ["POST", "/editBlogPost"],
-    'removeBlogPost' => ["GET", "/removeBlogPost"],
-    'unpublishBlogPost' => ["GET", "/unpublishBlogPost"],
-    'publishBlogPost' => ["GET", "/publishBlogPost"],
-    'unpin' => ["GET", "/unpin"],
-    'pin' => ["GET", "/pin"]
+    ["GET", "/getBlogPosts",'getBlogPosts'],
+    ["GET", "/getBlogPost",'getBlogPost'],
+    ["GET", "/startBlogPost",'startBlogPost'],
+    ["POST", "/startBlogPost",'startBlogPost'],
+    ["GET", "/editBlogPost",'editBlogPost'],
+    ["POST", "/editBlogPost",'editBlogPost'],
+    ["GET", "/removeBlogPost",'removeBlogPost'],
+    ["GET", "/unpublishBlogPost",'unpublishBlogPost'],
+    ["GET", "/publishBlogPost",'publishBlogPost'],
+    ["GET", "/unpin",'unpin'],
+    ["GET", "/pin",'pin']
 );
