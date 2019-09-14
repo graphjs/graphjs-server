@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/createGroup","createGroup"],
     ["GET", "/deleteGroup","deleteGroup"],
     ["GET", "/setGroup","setGroup"],
@@ -10,4 +10,4 @@ return array(
     ["GET", "/getGroup","getGroup"],
     ["GET", "/listMemberships","listMemberships"],
     ["GET", "/listMembers","listMembers"],
-);
+]);

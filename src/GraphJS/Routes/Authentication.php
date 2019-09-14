@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ['GET', '/tokenSignup',"tokenSignup"],
     ['GET', '/tokenLogin',"tokenLogin"],
     ['GET', '/signup',"signup"],
@@ -10,4 +10,4 @@ return array(
     ['GET', '/resetPassword',"resetPassword"],
     ['GET', '/verifyReset',"verifyReset"],
     ['GET', '/verifyEmailCode',"verifyEmailCode"],
-);
+]);

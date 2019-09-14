@@ -1,5 +1,5 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/generateFeedToken",'generateFeedToken']
-);
+]);

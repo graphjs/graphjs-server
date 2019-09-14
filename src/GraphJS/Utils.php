@@ -15,9 +15,13 @@ class Utils
 
     public static function convertLegacyRoutes(array $routes): array
     {
+        $copy = $routes;
         foreach($routes as $route) {
             //$routes[] = 
+            $route[1] = sprintf("/v1%s", $route[1]);
+            $copy[] = $route;
         }
+        return $copy;
     }
 
     # https://stackoverflow.com/questions/1416697/converting-timestamp-to-time-ago-in-php-e-g-1-day-ago-2-days-ago

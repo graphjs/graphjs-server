@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/checkSubscription",'checkSubscription'],
     ["GET", '/createSubscription','createSubscription']
-);
+]);

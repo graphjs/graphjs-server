@@ -100,18 +100,19 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
      *
      * @param ServerRequestInterface  $request
      * @param ResponseInterface $response
-     
-     * @param variadic $ignore
      * 
      * @return int 0 if session does not exists, user ID otherwise.
      */
-    protected function dependOnSession(ServerRequestInterface $request, ResponseInterface &$response, ...$ignore): ?string
+    protected function dependOnSession(ServerRequestInterface $request, ResponseInterface $response): ?string
     {
+        //echo SessionMiddleware::ATTRIBUTE_NAME."\n";
         $session = $request->getAttribute(SessionMiddleware::ATTRIBUTE_NAME);
+        if(is_null($session))
+            return null;
         $contents = $session->getContents();
         if(isset($contents["id"]))
             return $contents["id"];
-        $response = $this->fail($response->withHeader("Access-Control-Allow-Credentials", "true"), "No active session");
+        //$response = $this->fail($response->withHeader("Access-Control-Allow-Credentials", "true"), "No active session");
         return null;
     }
 

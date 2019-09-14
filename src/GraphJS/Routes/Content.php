@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/isStarred","isStarred"],
     ["GET", "/unstar","unstar"],
     ["GET", "/star","star"],
@@ -15,6 +15,6 @@ return array(
     ["GET", "/editPrivateContent","editPrivateContent"],
     ["GET", "/deletePrivateContent","deletePrivateContent"],
     ["GET", "/listPrivateContents","listPrivateContents"],
-);
+]);
 
 

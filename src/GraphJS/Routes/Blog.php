@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/getBlogPosts",'getBlogPosts'],
     ["GET", "/getBlogPost",'getBlogPost'],
     ["GET", "/startBlogPost",'startBlogPost'],
@@ -12,4 +12,4 @@ return array(
     ["GET", "/publishBlogPost",'publishBlogPost'],
     ["GET", "/unpin",'unpin'],
     ["GET", "/pin",'pin']
-);
+]);

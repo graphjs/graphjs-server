@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return \GraphJS\Utils::convertLegacyRoutes([
     ['GET', '/sendAnonymousMessage','message'],
     ['GET', '/sendMessage','message'],
     ['GET', '/countUnreadMessages','countUnreadMessages'],
@@ -9,4 +9,4 @@ return array(
     ['GET', '/getConversations','getConversations'],
     ['GET', '/getConversation','getConversation'],
     ['GET', '/getMessage','getMessage']
-);
+]);
