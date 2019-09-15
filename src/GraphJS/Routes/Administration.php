@@ -4,16 +4,16 @@ return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", '/setCustomFields','setCustomFields'],
     ["GET", '/getCustomFields','getCustomFields'],
     ["GET", '/approveMembership','approveMembership'],
-    ["GET", '/getPendingMemberships','getPendingMemberships'],
-    ["GET", '/getMembershipModerationMode','getMembershipModerationMode'],
-    ["GET", '/setMembershipModerationMode','setMembershipModerationMode'],
-    ["GET", '/getVerificationRequiredMode','getVerificationRequiredMode'],
-    ["GET", '/setVerificationRequiredMode','setVerificationRequiredMode'],
-    ["GET", '/getReadOnlyMode','getReadOnlyMode'],
-    ["GET", '/setReadOnlyMode','setReadOnlyMode'],
-    ["GET", '/getAllModes','getAllModes'],
+    ["GET", '/getPendingMemberships','getPendingMemberships'], // +
+    ["GET", '/getMembershipModerationMode','getMembershipModerationMode'], // +
+    ["GET", '/setMembershipModerationMode','setMembershipModerationMode'], // +
+    ["GET", '/getVerificationRequiredMode','getVerificationRequiredMode'], // +
+    ["GET", '/setVerificationRequiredMode','setVerificationRequiredMode'], // +
+    ["GET", '/getReadOnlyMode','getReadOnlyMode'], // +
+    ["GET", '/setReadOnlyMode','setReadOnlyMode'], // +
+    ["GET", '/getAllModes','getAllModes'], // +
     ["GET", '/setAllModes','setAllModes'],
-    ["GET", '/getObjectCounts','getObjectCounts'],
+    ["GET", '/getObjectCounts','getObjectCounts'], // +
     ["GET", '/getId','getId'],
     ["GET", '/deleteMember','deleteMember'],
     ["GET", '/getPendingComments','getPendingComments'],
@@ -23,7 +23,7 @@ return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", '/setBlogEditor','setBlogEditor'],
     ["GET", '/setFounderPassword','setFounderPassword'],
     ["GET", '/getCommentModeration','getCommentModeration'],
-    ["GET", '/getSingleSignonKey','getSingleSignonKey']
+    ["GET", '/getSingleSignonKey','getSingleSignonKey'] // +
 ]);
 
 /*

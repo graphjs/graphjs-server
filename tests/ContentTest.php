@@ -34,7 +34,7 @@ class ContentTest extends TestCase
 
         public function testListPrivateContents()
         {
-            $this->signup();
+            $this->login();
             $res = $this->get('/listPrivateContents', false, true);
         
             $this->assertArrayHasKey("success", $res);

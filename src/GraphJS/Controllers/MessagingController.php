@@ -27,6 +27,12 @@ use GraphJS\Utils;
  */
 class MessagingController extends AbstractController
 {
+
+    public function sendAnonymousMessage(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        return $this->sendMessage($request, $response, true);
+    }
+
     /**
      * Send a Message
      * 
@@ -40,11 +46,13 @@ class MessagingController extends AbstractController
      * 
      * @return void
      */
-    public function message(ServerRequestInterface $request, ResponseInterface $response, bool $anonymous = false)
+    public function sendMessage(ServerRequestInterface $request, ResponseInterface $response, bool $anonymous = false)
     {
-        $id = $session->get($request, "id");
+        $id = null;
         if(!$anonymous) {
-            $this->dependOnSession(...\func_get_args());
+            if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+                return $this->failSession($response);
+            }
         }
         $data = $request->getQueryParams();
         $rules = [

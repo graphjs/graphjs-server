@@ -17,11 +17,17 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected $founder_id = '';
     protected $faker;
     protected $jar; // for cookies
+    protected $founder_username;
+    protected $founder_password;
 
     const HOST = "http://localhost:1338";
 
     public function setUp()
     {
+        $dotenv = new \Dotenv\Dotenv(dirname(__DIR__));
+        $dotenv->load();
+        $this->founder_username = getenv("FOUNDER_NICKNAME");
+        $this->founder_password = getenv("FOUNDER_PASSWORD");
         $this->faker = Faker\Factory::create();
 
         if (!file_exists('tests/logs')) {
@@ -73,6 +79,17 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return [
             $email, $username, $password, $res
         ];
+    }
+
+    protected function login(): void
+    {
+        $url = sprintf('/login?username=%s&password=%s', urlencode($this->founder_username), urlencode($this->founder_password));
+        $res = $this->get($url, false, true);
+    }
+
+    protected function getAdminHash(): string
+    {
+        return md5($this->founder_password);
     }
 
     protected function get(string $path, bool $headers = false, bool $cookies = false)
