@@ -30,8 +30,29 @@ class MembersTest extends TestCase
             $res = $this->get('/getMembers');
         
             $this->assertArrayHasKey("success", $res);
+            $this->assertTrue($res["success"]);
             $this->assertArrayHasKey("members", $res);
             $this->assertGreaterThan(0, count($res["members"]));
+        }
+
+        public function testGetFollowersFalse()
+        {
+            $this->expectException('GuzzleHttp\Exception\ServerException');
+            $res = $this->get('/getFollowers');
+        }
+
+        public function testGetFollowersTrue()
+        {
+            $res = $this->get('/getFollowers?id='.$this->founder_id);
+            $this->assertTrue($res["success"]);
+            $this->assertArrayHasKey("followers", $res);
+        }
+
+        public function testGetFollowing()
+        {
+            $res = $this->get('/getFollowing?id='.$this->founder_id);
+            $this->assertTrue($res["success"]);
+            $this->assertArrayHasKey("following", $res);
         }
 
 }

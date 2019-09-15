@@ -164,7 +164,8 @@ class AuthenticationController extends AbstractController
                 );
         }
 
-        $session->set($request, "id", (string) $new_user->id());
+        $this->startSession($request, (string) $new_user->id());
+
         return $this->succeed(
             $response, [
                 "id" => (string) $new_user->id(),
@@ -229,7 +230,7 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "Invalid token");
         }
         $password = str_replace(["/","\\"], "", substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8)); // substr(password_hash($username, PASSWORD_BCRYPT, ["salt"=>$key]), -8);
-        error_log("username is: ".$username."\npassword is: ".$password);
+        //error_log("username is: ".$username."\npassword is: ".$password);
         
         return $this->actualLogin($request, $response, $username, $password);
         
@@ -253,6 +254,7 @@ class AuthenticationController extends AbstractController
 
     protected function actualLogin(ServerRequestInterface $request, ResponseInterface $response, string $username, string $password)
     {
+        
         $result = $this->kernel->index()->query(
             "MATCH (n:user {Username: {username}, Password: {password}}) RETURN n",
             [ 
@@ -260,7 +262,7 @@ class AuthenticationController extends AbstractController
                 "password" => md5($password)
             ]
         );
-        error_log(print_r($result, true));
+        //error_log(print_r($result, true));
         $success = (count($result->results()) >= 1);
         if(!$success) {
             error_log("try with email!!! ");
@@ -287,7 +289,8 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "You have not verified your email yet");
         }
 
-        $session->set($request, "id", $user["n.udid"]);
+        $this->startSession($request, $user["n.udid"]);
+
         return $this->succeed(
             $response, [
                 "id" => $user["n.udid"],
@@ -301,16 +304,13 @@ class AuthenticationController extends AbstractController
      *
      * @param  ServerRequestInterface  $request
      * @param  ResponseInterface $response
-     * @param  Session  $session
      * @return void
      */
     public function logout(ServerRequestInterface $request, ResponseInterface $response) 
     {
-        $session = $request->getAttribute(SessionMiddleware::ATTRIBUTE_NAME);
-        // Overwrite session contents, the details of changing specific keys is up to you
-        $session->setContents([
-            'id' => null,
-        ]);
+        $session = $this->session($request);
+        $session->end();
+        return $this->succeed($response);
     }
 
     /**
@@ -318,13 +318,12 @@ class AuthenticationController extends AbstractController
      * 
      * @param  ServerRequestInterface  $request
      * @param  ResponseInterface $response
-     * @param  Session  $session
      * @return void
      */
     public function whoami(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
-            return $this->fail($response, "You are not logged in");
+            return $this->failSession($response);
         }
         try {
             $i = $this->kernel->gs()->node($id);
@@ -431,7 +430,9 @@ class AuthenticationController extends AbstractController
         $i->setPendingVerification(0);
 
         $data["id"] = strtolower($data["id"]);
-        $session->set($request, "id", $data["id"]);
+        
+        $this->startSession($request, $data["id"]);
+
         return $this->succeed($response, [
             "id"=>$data["id"],
             "username"=>$i->getUsername()
@@ -477,7 +478,7 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "This user is not registered");
         }
         $user = $result->results()[0];
-        $session->set($request, "id", $user["n.udid"]);
+        $this->startSession($request, $user["n.udid"]);
         return $this->succeed($response);
     }
 

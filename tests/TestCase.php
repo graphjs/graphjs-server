@@ -16,6 +16,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected $client;
     protected $founder_id = '';
     protected $faker;
+    protected $jar; // for cookies
 
     const HOST = "http://localhost:1338";
 
@@ -38,6 +39,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         
         sleep(0.1);
         $this->client = new \GuzzleHttp\Client();
+        $this->jar = new \GuzzleHttp\Cookie\CookieJar;
         $body = $this->get('/founder');
 
         if (!isset($body["id"])) {
@@ -61,9 +63,27 @@ class TestCase extends \PHPUnit\Framework\TestCase
         
     }
 
-    protected function get(string $path, bool $headers = false)
+    public function signup(): array
     {
-        $res = $this->client->request('GET', self::HOST . $path);
+        $email = $this->faker->email;
+        $username = substr(str_replace(".","", $this->faker->username),0,10);
+        $password = rand(10000, 999999);
+        $url = sprintf('/signup?username=%s&password=%s&email=%s', urlencode($username), urlencode($password), urlencode($email));
+        $res = $this->get($url, false, true);
+        return [
+            $email, $username, $password, $res
+        ];
+    }
+
+    protected function get(string $path, bool $headers = false, bool $cookies = false)
+    {
+        if(!$cookies)
+            $res = $this->client->request('GET', self::HOST . $path);
+        else 
+            $res = $this->client->request('GET', self::HOST . $path, [
+                'cookies' => $this->jar
+            ]);
+
         if ($headers) {
             return $res;
         }
@@ -72,9 +92,16 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return $body;
     }
 
-    protected function post(string $path, array $postData, bool $headers = false)
+    protected function post(string $path, array $postData, bool $headers = false, bool $cookies = false)
     {
-        $res = $this->client->request('POST', self::HOST . $path, [ \GuzzleHttp\RequestOptions::JSON => $postData]);
+        if(!$cookies)
+            $res = $this->client->request('POST', self::HOST . $path, [ \GuzzleHttp\RequestOptions::JSON => $postData]);
+        else 
+            $res = $this->client->request('POST', self::HOST . $path, [ 
+               'form_params' => $postData,
+                'cookies' => $this->jar
+            ]);
+
         if ($headers) {
             return $res;
         }
@@ -83,9 +110,15 @@ class TestCase extends \PHPUnit\Framework\TestCase
         return $body;
     }
 
-    protected function delete(string $path, array $postData = [], bool $headers = false)
+    protected function delete(string $path, array $postData = [], bool $headers = false, bool $cookies = false)
     {
-        $res = $this->client->request('DELETE', self::HOST . $path, ['form_params' => $postData]);
+        if(!$cookies)
+            $res = $this->client->request('DELETE', self::HOST . $path, ['form_params' => $postData]);
+        else 
+            $res = $this->client->request('GET', self::HOST . $path, [
+                'cookies' => $this->jar
+            ]);
+
         if ($headers) {
             return $res;
         }

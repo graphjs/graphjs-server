@@ -98,6 +98,7 @@ class Daemon
             getenv('FOUNDER_PASSWORD')
         );
         $this->kernel->boot($founder);
+        //eval(\Psy\sh());
     }
 
 }

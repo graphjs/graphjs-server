@@ -439,6 +439,22 @@ class ContentController extends AbstractController
         }
     }
 
+    public function listPrivateContents(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+            return $this->failSession($response);
+        }
+        $all = $this->kernel->graph()->members();
+        $private_pages = array_filter($all, function($val) {
+            return ($val instanceof PrivateContent);
+        });
+        $contents = [];
+        foreach($private_pages as $content) {
+            $contents[$content->id()->toString()] = substr($content->getContent(), 0, 35);
+        }
+        return $this->succeed($response, ["contents"=>$contents]);
+    }
+
     public function deletePrivateContent(ServerRequestInterface $request, ResponseInterface $response)
     {
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {

@@ -1,6 +1,21 @@
 <?php
 
-return \GraphJS\Utils::convertLegacyRoutes([
+/*
+ * This file is part of the Pho package.
+ *
+ * (c) Emre Sokullu <emre@phonetworks.org>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+ /**
+  * Content Controller Test
+  */
+class ContentTest extends TestCase
+{
+
+    /*
     ["GET", "/isStarred","isStarred"],
     ["GET", "/unstar","unstar"],
     ["GET", "/star","star"],
@@ -14,7 +29,15 @@ return \GraphJS\Utils::convertLegacyRoutes([
     ["GET", "/addPrivateContent","addPrivateContent"],
     ["GET", "/editPrivateContent","editPrivateContent"],
     ["GET", "/deletePrivateContent","deletePrivateContent"],
-    ["GET", "/listPrivateContents","listPrivateContents"], // +
-]);
+    ["GET", "/listPrivateContents","listPrivateContents"],
+*/
 
+        public function testListPrivateContents()
+        {
+            $this->signup();
+            $res = $this->get('/listPrivateContents', false, true);
+        
+            $this->assertArrayHasKey("success", $res);
+        }
 
+}

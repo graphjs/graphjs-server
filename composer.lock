@@ -2238,16 +2238,16 @@
         },
         {
             "name": "phonetworks/pho-server-rest",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-server-rest.git",
-                "reference": "6b0ac861be06470d0e1729e52bb1b9345e11fb01"
+                "reference": "455afc4e4c5cc3a241e6949055cbd2a9de80d991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/6b0ac861be06470d0e1729e52bb1b9345e11fb01",
-                "reference": "6b0ac861be06470d0e1729e52bb1b9345e11fb01",
+                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/455afc4e4c5cc3a241e6949055cbd2a9de80d991",
+                "reference": "455afc4e4c5cc3a241e6949055cbd2a9de80d991",
                 "shasum": ""
             },
             "require": {
@@ -2292,7 +2292,7 @@
                 "rest",
                 "server"
             ],
-            "time": "2019-09-14T09:22:24+00:00"
+            "time": "2019-09-14T12:07:02+00:00"
         },
         {
             "name": "phonetworks/redis-graph",

@@ -40,41 +40,43 @@ trait AutoloadingTrait
             $dotenv = new \Dotenv\Dotenv($configs_file);
             $dotenv->load();
         }
-        $this->configureEnvironmentVariable();
         $this->configureAutoloading();
     }
 
     protected function configureAutoloading(): void
     {
         $installationType = getenv('INSTALLATION_TYPE');
+        $indexType = getenv('INDEX_TYPE');
 
-        spl_autoload_register(function ($class) use ($installationType) {
-            return $this->autoload($installationType, $class);
+        spl_autoload_register(function ($class) use ($installationType, $indexType) {
+            return $this->autoload($installationType, $indexType, $class);
         }, true, true);
 
         error_log(var_export((new \ReflectionClass(\Pho\Kernel\Services\Index\Adapters\QueryResult::class))->getFileName()));
         error_log(var_export((new \ReflectionClass(User::class))->getFileName()));
     }
 
-    protected function configureEnvironmentVariable(): void
+    public function autoload(string $installationType, string $indexType, string $class): bool
     {
-        $installationType = getenv('INSTALLATION_TYPE');
-        if (in_array($installationType, [ 'graphjs', 'groupsv2' ])) {
-            putenv('PASSWORD_REMINDER_ON_REDIS=1');
-        }
-    }
+        $indexRes = $installationRes = false;
+        $installationType = strtolower($installationType);
+        $indexType = strtolower($indexType);
 
-    public function autoload(string $installationType, string $class): bool
-    {
-        if ($installationType === 'graphjs') {
-            return $this->useIndexRedis($class) || $this->useRecipeWeb($class);
-        }
-        elseif ($installationType === 'groupsv2') {
-            return $this->useIndexRedis($class) || $this->useRecipeNetwork($class);
+        if ($installationType === 'groupsv2') {
+            $installationRes = $this->useRecipeNetwork($class);
         }
         else {
-            return $this->useIndexNeo4j($class) || $this->useRecipeWeb($class);
+            $installationRes = $this->useRecipeWeb($class);
         }
+
+        if ($installationType === 'redis') {
+            $indexRes = $this->useIndexRedis($class);
+        } 
+        else {
+            $indexRes = $this->useIndexNeo4j($class);
+        }
+
+        return $indexRes || $installationRes;
     }
 
     private function loadClass(string $class, string $classPrefix, string $filePath): bool

@@ -212,7 +212,7 @@ class BlogController extends AbstractController
             return $this->failSession($response);
         }
         $data = $request->getQueryParams();
-        $_data = $request->getData();
+        $_data = $request->getParsedBody();
         if(isset($_data["title"]))
             $data["title"]  = $_data["title"];
         if(isset($_data["content"]))
@@ -221,14 +221,19 @@ class BlogController extends AbstractController
             'title' => 'required|max:255',
             'content' => 'required',
         ]);
+        echo "hello1\n";
         if($validation->fails()) {
             return $this->fail($response, "Title (up to 255 chars) and Content are required.");
         }
+        echo "hello2\n";
         $i = $this->kernel->gs()->node($id);
-        $can_edit = $this->canEdit($this->kernel, $i);
+        echo "hello3\n";
+        $can_edit = $this->canEdit($i);
+        echo "hello4\n";
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
+        echo "hello5\n";
         error_log("about to post");
         try {
             $blog = $i->postBlog($data["title"], $data["content"]);
@@ -249,8 +254,10 @@ class BlogController extends AbstractController
      if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
         return $this->failSession($response);
         }
+        error_log("hello\n");
      $data = $request->getQueryParams();
-     $_data = $request->getData();
+     $_data = $request->getParsedBody();
+     error_log(print_r($_data, true));
         if(isset($_data["title"]))
             $data["title"]  = $_data["title"];
         if(isset($_data["content"]))
@@ -266,7 +273,7 @@ class BlogController extends AbstractController
             return $this->fail($response, "ID, Title and Content are required.");
         }
         $i = $this->kernel->gs()->node($id);
-        $can_edit = $this->canEdit($this->kernel, $i);
+        $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
@@ -374,7 +381,7 @@ class BlogController extends AbstractController
     if(!$entity instanceof Blog) {
         return $this->fail($response, "Given ID is not a Blog.");
     }
-    $can_edit = $this->canEdit($this->kernel, $i);
+    $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
@@ -408,7 +415,7 @@ class BlogController extends AbstractController
     {
         return $this->fail($response, "Invalid ID");
     }
-    $can_edit = $this->canEdit($this->kernel, $i);
+    $can_edit = $this->canEdit($i);
         if(!$can_edit) {
             return $this->fail($response, "No privileges for blog posts");
         }
