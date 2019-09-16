@@ -60,6 +60,10 @@ In case, heroku installation is not an option for you, here are the steps to ins
 
     3. Set values of **MAILGUN_KEY**, **MAILGUN_DOMAIN**. (Optional)
 
+## Tips & Tricks
+
+* [React\Http\Io\ServerRequest](https://github.com/reactphp/http/blob/master/src/Io/ServerRequest.php) is an important file to understand how to process server requests.
+ 
 ## License
 
-MIT, see [LICENSE](https://github.com/phonetworks/pho-microkernel/blob/master/LICENSE).
+MIT, see [LICENSE](https://github.com/phonetworks/graphjs-server/blob/master/LICENSE).
