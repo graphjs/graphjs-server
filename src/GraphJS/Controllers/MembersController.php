@@ -178,7 +178,6 @@ class MembersController extends AbstractController
      *
      * @param ServerRequestInterface  $request
      * @param ResponseInterface $response
-     * @param Kernel   $this->kernel
      * 
      * @return void
      */
@@ -207,7 +206,7 @@ class MembersController extends AbstractController
         }
         $follow_edges = $i->edges()->to($followee->id(), Follow::class);
         if(count($follow_edges)!=1) {
-            return $this->fail($response, "No follow edge found");
+            return $this->fail($response, "No follow edge found: ".count($follow_edges));
         }
         //eval(\Psy\sh());
         $follow_edges->current()->destroy();

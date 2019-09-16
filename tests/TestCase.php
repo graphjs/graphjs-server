@@ -46,12 +46,9 @@ class TestCase extends \PHPUnit\Framework\TestCase
         sleep(0.1);
         $this->client = new \GuzzleHttp\Client();
         $this->jar = new \GuzzleHttp\Cookie\CookieJar;
-        $body = $this->get('/founder');
-
-        if (!isset($body["id"])) {
-            $this->markTestSkipped('Can not get founder id');
-        };
+        $body = $this->login();
         $this->founder_id = $body["id"];
+        $this->logout();
     }
 
     public function tearDown()
@@ -59,14 +56,6 @@ class TestCase extends \PHPUnit\Framework\TestCase
         if (isset($this->pipes[0]) && is_rsource($this->pipes[0])) fclose($this->pipes[0]);
         if (isset($this->pipes[1]) && is_rsource($this->pipes[1])) fclose($this->pipes[1]);
         if (is_resource($this->proc_stream)) proc_close($this->proc_stream);
-    }
-
-    protected function createUser()
-    {
-        if ($this->user) {
-            return $this->user;
-        }
-        
     }
 
     public function signup(): array
@@ -81,10 +70,20 @@ class TestCase extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    protected function login(): void
+    protected function login($username="", $password = "")
     {
-        $url = sprintf('/login?username=%s&password=%s', urlencode($this->founder_username), urlencode($this->founder_password));
+        $url = sprintf('/login?username=%s&password=%s', 
+            (empty($username) ? urlencode($this->founder_username) : urlencode($username)), 
+            (empty($password) ? urlencode($this->founder_password) : urlencode($password))
+        );
+
         $res = $this->get($url, false, true);
+        return $res;
+    }
+
+    protected function logout(): void
+    {
+        $this->get("/logout", false, true);
     }
 
     protected function getAdminHash(): string

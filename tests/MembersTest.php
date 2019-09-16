@@ -55,4 +55,43 @@ class MembersTest extends TestCase
             $this->assertArrayHasKey("following", $res);
         }
 
+        public function testFollow()
+        {
+            $hash = "hash=".$this->getAdminHash();
+            $this->get("/setMembershipModerationMode?mode=0&".$hash);
+            $this->get("/setVerificationRequiredMode?mode=0&".$hash);
+            list($email, $username, $password, $me) = $this->signup();
+            $res = $this->get('/follow?id='.$this->founder_id, false, true);
+            $this->assertTrue($res["success"]);
+            return [$me["id"], $username, $password];
+        }
+
+        /**
+         * @depends testFollow
+         */
+         public function testGetFollowers2($user)
+        {
+            $id = $user[0];
+            $res = $this->get('/getFollowers?id='.$this->founder_id);
+            $this->assertTrue($res["success"]);
+            $this->assertArrayHasKey("followers", $res);
+            $this->assertContains($id, array_keys($res["followers"]));
+            return $user;
+        }
+
+         /**
+         * @depends testGetFollowers2
+         */
+        public function testUnfollow($user)
+        {
+            list($id, $username, $password) = $user;
+            $this->login($username, $password);
+            $res = $this->get('/unfollow?id='.$this->founder_id, false, true);
+            $this->assertTrue($res["success"]);
+            $res = $this->get('/getFollowers?id='.$this->founder_id);
+            $this->assertTrue($res["success"]);
+            $this->assertArrayHasKey("followers", $res);
+            $this->assertNotContains($id, array_keys($res["followers"]));
+        }
+
 }
