@@ -18,6 +18,8 @@ use Pho\Plugins\FeedPlugin;
 use WyriHaximus\React\Http\Middleware\SessionMiddleware;
 use React\Cache\ArrayCache;
 use Sikei\React\Http\Middleware\CorsMiddleware;
+use React\Filesystem\Filesystem as ReactFilesystem;
+use WyriHaximus\React\Cache\Filesystem;
 /**
  * The async/event-driven REST server daemon
  * 
@@ -69,14 +71,23 @@ class Daemon
         }
         $this->server->withMiddleware(
             new CorsMiddleware(
-                ['allow_origin' => $origins]
+                [
+                    'allow_credentials' => true,
+                    'allow_origin'      => $origins,
+                    'allow_methods'     => ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'],
+                    'allow_headers'     => ['DNT','X-Custom-Header','Keep-Alive','User-Agent','X-Requested-With','If-Modified-Since','Cache-Control','Content-Type','Content-Range','Range'],
+                    'expose_headers'    => ['DNT','X-Custom-Header','Keep-Alive','User-Agent','X-Requested-With','If-Modified-Since','Cache-Control','Content-Type','Content-Range','Range'],
+                    'max_age'           => 60 * 60 * 24 * 20, // preflight request is valid for 20 days
+                ]
             )
         );
     }
 
     protected function addSessionSupport(): void
     {
-        $cache = new ArrayCache;
+        //$cache = new ArrayCache;
+        $filesystem = ReactFilesystem::create($this->loop);
+        $cache = new Filesystem($filesystem, sys_get_temp_dir());
         $this->server->withMiddleware(
             new SessionMiddleware(
                 'id',
