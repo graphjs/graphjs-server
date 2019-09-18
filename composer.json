@@ -41,7 +41,8 @@
         "pho-recipes/network": "dev-master",
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
         "danielstjules/stringy": "^3.1",
-        "wyrihaximus/react-http-middleware-session": "^3.0.0"
+        "wyrihaximus/react-http-middleware-session": "^3.0.0",
+        "christoph-kluge/reactphp-http-cors-middleware": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",

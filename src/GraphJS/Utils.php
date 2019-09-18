@@ -107,4 +107,40 @@ class Utils
         return $arrayToSort;
     }
 
+    /**
+     * Expands CORS Urls
+     *
+     * The input is taken from the command line and expanded into 
+     * an array with all HTTP scheme combinations, as well as
+     * cleaned format.
+     * 
+     * @param string $cors
+     * @return array
+     */
+    public static function expandCorsUrl(string $cors): array
+    {
+        $final = ["https://graphjs.com", "http://graphjs.com", "https://www.graphjs.com", "http://www.graphjs.com"];
+        if(strpos($cors, ";")===false) {
+            $urls = [0=>$cors];
+        }
+        else {
+            $urls = explode(";",$cors);
+        }
+        foreach($urls as $url) {
+            $parsed = parse_url($url);
+            if(count($parsed)==1&&isset($parsed["path"])) {
+                $final[] = "http://".$parsed["path"];
+                $final[] = "https://".$parsed["path"];
+            }
+            elseif(count($parsed)>=2&&isset($parsed["host"])) {
+                $final[] = "http://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+                $final[] = "https://".$parsed["host"] . (isset($parsed["port"])?":{$parsed["port"]}":"");
+            }
+            else {
+                error_log("skipping unknown format: ".$url." - parsed as    : ".print_r($parsed, true));
+            }
+        }
+        return array_unique($final);
+    }
+
 }

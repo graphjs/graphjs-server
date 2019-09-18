@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0692d4d3b2763cb04d52f9127785995f",
+    "content-hash": "1b1e5695a8739da6f267d36d9d7aca68",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -151,6 +151,50 @@
                 "sdk"
             ],
             "time": "2019-09-18T18:09:31+00:00"
+        },
+        {
+            "name": "christoph-kluge/reactphp-http-cors-middleware",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/christoph-kluge/reactphp-http-cors-middleware.git",
+                "reference": "335ca905a5aa0e51ee84d2eac8d40ad6df35000d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/christoph-kluge/reactphp-http-cors-middleware/zipball/335ca905a5aa0e51ee84d2eac8d40ad6df35000d",
+                "reference": "335ca905a5aa0e51ee84d2eac8d40ad6df35000d",
+                "shasum": ""
+            },
+            "require": {
+                "neomerx/cors-psr7": "^1.0",
+                "php": ">=5.6.0",
+                "psr/http-message": "^1.0",
+                "react/promise": "^2.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.10||^5.0",
+                "react/http": "^0.8.1",
+                "ringcentral/psr7": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sikei\\React\\Http\\Middleware\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Christoph Kluge",
+                    "email": "work@christoph-kluge.eu"
+                }
+            ],
+            "description": "A cors middleware for the ReactPHP HTTP-Server",
+            "time": "2018-04-04T08:48:23+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1422,6 +1466,61 @@
                 "enum"
             ],
             "time": "2019-08-19T13:53:00+00:00"
+        },
+        {
+            "name": "neomerx/cors-psr7",
+            "version": "v1.0.13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neomerx/cors-psr7.git",
+                "reference": "2556e2013f16a55532c95928455257d5b6bbc6e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/neomerx/cors-psr7/zipball/2556e2013f16a55532c95928455257d5b6bbc6e2",
+                "reference": "2556e2013f16a55532c95928455257d5b6bbc6e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0",
+                "psr/http-message": "^1.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^5.7",
+                "scrutinizer/ocular": "^1.1",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Neomerx\\Cors\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "neomerx",
+                    "email": "info@neomerx.com"
+                }
+            ],
+            "description": "Framework agnostic (PSR-7) CORS implementation (www.w3.org/TR/cors/)",
+            "homepage": "https://github.com/neomerx/cors-psr7",
+            "keywords": [
+                "Cross Origin Resource Sharing",
+                "Cross-Origin Resource Sharing",
+                "cors",
+                "neomerx",
+                "psr-7",
+                "psr7",
+                "w3.org",
+                "www.w3.org"
+            ],
+            "time": "2018-05-23T16:10:11+00:00"
         },
         {
             "name": "neutron/temporary-filesystem",

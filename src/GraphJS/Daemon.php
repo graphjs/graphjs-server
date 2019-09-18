@@ -17,7 +17,7 @@ use React\EventLoop\LoopInterface;
 use Pho\Plugins\FeedPlugin;
 use WyriHaximus\React\Http\Middleware\SessionMiddleware;
 use React\Cache\ArrayCache;
-
+use Sikei\React\Http\Middleware\CorsMiddleware;
 /**
  * The async/event-driven REST server daemon
  * 
@@ -50,11 +50,28 @@ class Daemon
         $router_dir = __DIR__ . DIRECTORY_SEPARATOR . "Routes";
         $this->server->withRoutes($router_dir);
         $this->addSessionSupport();
+        $this->addCorsSupport();
     }
 
     public function __call(string $method, array $params)//: mixed
     {
         return $this->server->$method(...$params);
+    }
+
+    protected function addCorsSupport(): void
+    {
+        $origins = ["*"];
+        $is_production = (null==getenv("IS_PRODUCTION") || getenv("IS_PRODUCTION") === "false") ? false : (bool) getenv("IS_PRODUCTION");
+        $env = getenv("CORS_DOMAIN");
+        if($is_production && isset($env)&&!empty($env)) 
+        {
+            $origins = Utils::expandCorsUrl($env);
+        }
+        $this->server->withMiddleware(
+            new CorsMiddleware(
+                ['allow_origin' => $origins]
+            )
+        );
     }
 
     protected function addSessionSupport(): void
