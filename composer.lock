@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3bac1d2912e49d172d8d3fbfbb79d39",
+    "content-hash": "0692d4d3b2763cb04d52f9127785995f",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -71,16 +71,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.0",
+            "version": "3.112.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1e21446c6780a3b9b5e4315bd6d4347d2c3381eb"
+                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1e21446c6780a3b9b5e4315bd6d4347d2c3381eb",
-                "reference": "1e21446c6780a3b9b5e4315bd6d4347d2c3381eb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c27c64904dcf3f3131a927b09b0036273a22a0ae",
+                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-12T18:09:53+00:00"
+            "time": "2019-09-18T18:09:31+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2238,16 +2238,16 @@
         },
         {
             "name": "phonetworks/pho-server-rest",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-server-rest.git",
-                "reference": "a0c7bcc88a683fc7954684b2e443ea591545a26c"
+                "reference": "757b6af1c2e5a663e9f94a05ce17597e619324cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/a0c7bcc88a683fc7954684b2e443ea591545a26c",
-                "reference": "a0c7bcc88a683fc7954684b2e443ea591545a26c",
+                "url": "https://api.github.com/repos/phonetworks/pho-server-rest/zipball/757b6af1c2e5a663e9f94a05ce17597e619324cd",
+                "reference": "757b6af1c2e5a663e9f94a05ce17597e619324cd",
                 "shasum": ""
             },
             "require": {
@@ -2292,7 +2292,7 @@
                 "rest",
                 "server"
             ],
-            "time": "2019-09-16T17:52:26+00:00"
+            "time": "2019-09-18T20:13:59+00:00"
         },
         {
             "name": "phonetworks/redis-graph",

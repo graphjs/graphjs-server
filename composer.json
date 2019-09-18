@@ -20,7 +20,7 @@
         "ext-mbstring": "*",
         "ext-gd": "*",
         "phonetworks/pho-framework": "^11.4.5",
-        "phonetworks/pho-server-rest": "^3.3.0",
+        "phonetworks/pho-server-rest": "^3.3.2",
         "pho-adapters/index-neo4j": "dev-master",
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
