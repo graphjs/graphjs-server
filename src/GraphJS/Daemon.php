@@ -85,9 +85,9 @@ class Daemon
 
     protected function addSessionSupport(): void
     {
-        //$cache = new ArrayCache;
-        $filesystem = ReactFilesystem::create($this->loop);
-        $cache = new Filesystem($filesystem, sys_get_temp_dir());
+        $cache = new ArrayCache;
+        //$filesystem = ReactFilesystem::create($this->loop);
+        //$cache = new Filesystem($filesystem, sys_get_temp_dir());
         $this->server->withMiddleware(
             new SessionMiddleware(
                 'id',
