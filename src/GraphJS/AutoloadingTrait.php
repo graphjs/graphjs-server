@@ -74,7 +74,7 @@ trait AutoloadingTrait
             }
         }
         elseif($this->isIndexClass($class)) {
-            if ($installationType === 'redis') {
+            if ($indexType === 'redis') {
                 $indexRes = $this->useIndexRedis($class);
             } 
             else {
