@@ -63,6 +63,8 @@ In case, heroku installation is not an option for you, here are the steps to ins
 ## Tips & Tricks
 
 * [React\Http\Io\ServerRequest](https://github.com/reactphp/http/blob/master/src/Io/ServerRequest.php) is an important file to understand how to process server requests.
+
+* It is recommended to install the php eio extension.
  
 ## License
 

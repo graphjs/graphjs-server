@@ -31,7 +31,7 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
     const SESSION_FAIL_MESSAGE = "Session required.";
     const INVALID_HASH_MESSAGE = "Invalid hash.";
 
-    public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
+    public function __construct(Kernel $kernel, bool $jsonp = false)
     {
         $this->validator = new Validator();
         parent::__construct($kernel, $jsonp);
