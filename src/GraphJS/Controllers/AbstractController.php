@@ -32,27 +32,62 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
     const SESSION_FAIL_MESSAGE = "Session required.";
     const INVALID_HASH_MESSAGE = "Invalid hash.";
 
+    /**
+     * Constructor
+     *
+     * @param \Pho\Kernel\Kernel $kernel
+     * @param boolean $jsonp
+     */
     public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
     {
         $this->validator = new Validator();
         parent::__construct($kernel, $jsonp);
     }
 
+    /**
+     * {@inheritDoc}
+     * 
+     * The only difference from parent's (pho-server-rest)
+     * is that this one always return in HTTP 200.
+     *
+     * @param ResponseInterface|null $response
+     * @param string $message
+     * @param integer $code
+     * 
+     * @return Response
+     */
     public function fail(?ResponseInterface $response = null, string $message = "", int $code = 200): Response
     {
         return parent::fail($response, $message, $code);
     }
 
+    /**
+     * Fail message when not logged in
+     *
+     * @param ResponseInterface $response
+     * @return void
+     */
     protected function failSession(ResponseInterface $response)
     {
         return $this->fail($response, static::SESSION_FAIL_MESSAGE);
     }
 
+    /**
+     * Fail message when not admin
+     *
+     * @param ResponseInterface $response
+     * @return void
+     */
     protected function failHash(ResponseInterface $response)
     {
         return $this->fail($response, static::INVALID_HASH_MESSAGE);
     }
 
+    /**
+     * Is membership moderated?
+     *
+     * @return boolean
+     */
     protected function isMembershipModerated()
     {
         return 
@@ -61,6 +96,11 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
             (bool) $this->kernel->graph()->getMembershipModerated();
     }
 
+    /**
+     * Is the site/network read-only?
+     *
+     * @return boolean
+     */
     protected function isReadOnly()
     {
         if(!isset($this->kernel->graph()->attributes()->ReadOnly))
@@ -68,6 +108,11 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
         return (bool) $this->kernel->graph()->getReadOnly();
     }
 
+    /**
+     * Is verification required for new members?
+     *
+     * @return boolean
+     */
     protected function isVerificationRequired()
     {
         if(!isset($this->kernel->graph()->attributes()->VerificationRequired))
@@ -102,11 +147,26 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
         return array_slice($assets, $offset, $count, true);
     }
 
+    /**
+     * Fetches the session object
+     *
+     * @param ServerRequestInterface $request
+     * @return Session
+     */
     protected function session(ServerRequestInterface $request): Session
     {
         return $request->getAttribute(SessionMiddleware::ATTRIBUTE_NAME);
     }
 
+    /**
+     * Begins a new session
+     * 
+     * Called when a user logged in
+     *
+     * @param ServerRequestInterface $request
+     * @param string $id
+     * @return Session
+     */
     protected function startSession(ServerRequestInterface $request, string $id): Session
     {
         $session = $this->session($request);
@@ -139,6 +199,12 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
         return null;
     }
 
+    /**
+     * Checks if the password is valid
+     *
+     * @param string $password
+     * @return boolean
+     */
     protected function checkPasswordFormat(string $password): bool
     {
         return preg_match("/[0-9A-Za-z!@#$%_]{5,15}/", $password);
