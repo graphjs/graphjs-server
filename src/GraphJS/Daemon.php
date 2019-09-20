@@ -87,30 +87,52 @@ class Daemon
         );
     }
 
+    /**
+     * ArrayCache based session, not reliable. 
+     * 
+     * Don't use in production.
+     * 
+     * @deprecated dev
+     */
+    protected function addBasicSessionSupport(): void
+    {
+        $cache = new ArrayCache;
+        $this->server->withMiddleware(
+            new SessionMiddleware(
+                'id',
+                $cache, // Instance implementing React\Cache\CacheInterface
+                [ // Optional array with cookie settings, order matters
+                    0, // expiresAt, int, default
+                    '', // path, string, default
+                    '', // domain, string, default
+                    false, // secure, bool, default
+                    false // httpOnly, bool, default
+                ]
+            )
+        );
+    }
+
     protected function addSessionSupport(): void
     {
-        //$cache = new ArrayCache;
         ////$filesystem = ReactFilesystem::create($this->loop);
         ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
         $uri = getenv("DATABASE_URI");
         $factory = new RedisFactory($this->loop);
-        $factory->createClient($uri)->then(function (Client $client) {
-            $cache = new Redis($client, 'session:');
-            $this->server->withMiddleware(
-                new SessionMiddleware(
-                    'id',
-                    $cache, // Instance implementing React\Cache\CacheInterface
-                    [ // Optional array with cookie settings, order matters
-                        0, // expiresAt, int, default
-                        '', // path, string, default
-                        '', // domain, string, default
-                        false, // secure, bool, default
-                        false // httpOnly, bool, default
-                    ]
-                )
-            );
-        });
-        
+        $client = $factory->createLazyClient($uri);
+        $cache = new Redis($client, 'session:');
+        $this->server->withMiddleware(
+            new SessionMiddleware(
+                'id',
+                $cache, // Instance implementing React\Cache\CacheInterface
+                [ // Optional array with cookie settings, order matters
+                    0, // expiresAt, int, default
+                    '', // path, string, default
+                    '', // domain, string, default
+                    false, // secure, bool, default
+                    false // httpOnly, bool, default
+                ]
+            )
+        );
     }
 
     protected function initKernel(): void
