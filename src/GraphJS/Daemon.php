@@ -21,7 +21,6 @@ use Sikei\React\Http\Middleware\CorsMiddleware;
 //use React\Filesystem\Filesystem as ReactFilesystem;
 //use WyriHaximus\React\Cache\Filesystem;
 use WyriHaximus\React\Cache\Redis as RedisCache;
-use Clue\React\Redis\Client;
 use Clue\React\Redis\Factory as RedisFactory;
 
 /**
@@ -119,7 +118,7 @@ class Daemon
         $uri = getenv("DATABASE_URI");
         $factory = new RedisFactory($this->loop);
         $client = $factory->createLazyClient($uri);
-        $cache = new Redis($client, 'session:');
+        $cache = new RedisCache($client, 'session:');
         $this->server->withMiddleware(
             new SessionMiddleware(
                 'id',
