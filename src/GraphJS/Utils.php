@@ -166,12 +166,14 @@ class Utils
      */
     public static function getRequestParams(ServerRequestInterface $request): array
     {
-        $data = $request->getQueryParams();
-        $post_data = $request->getParsedBody();
+        $data = (array) $request->getQueryParams();
+        $post_data = (array) $request->getParsedBody();
+        /*
         if(static::isJson($post_data)) {
             $post_data = json_decode($post_data, true);
         }
-        return array_merge($data, $post_data);
+        */
+        return array_merge([], $data, $post_data);
     }
 
 }
