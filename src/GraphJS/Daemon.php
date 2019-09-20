@@ -94,7 +94,7 @@ class Daemon
         ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
         $uri = getenv("DATABASE_URI");
         $factory = new RedisFactory($this->loop);
-        $factory->createClient()->then(function (Client $client) {
+        $factory->createClient($uri)->then(function (Client $client) {
             $cache = new Redis($client, 'session:');
             $this->server->withMiddleware(
                 new SessionMiddleware(
