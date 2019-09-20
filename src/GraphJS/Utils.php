@@ -10,6 +10,8 @@
 
 namespace GraphJS;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 class Utils
 {
 
@@ -153,6 +155,23 @@ class Utils
     {
         \json_decode($json);
         return (\json_last_error()===JSON_ERROR_NONE);
+    }
+
+
+    /**
+     * Fetches both POST and GET params
+     *
+     * @param ServerRequestInterface $request
+     * @return array
+     */
+    public static function getRequestParams(ServerRequestInterface $request): array
+    {
+        $data = $request->getQueryParams();
+        $post_data = $request->getParsedBody();
+        if(static::isJson($post_data)) {
+            $post_data = json_decode($post_data, true);
+        }
+        return array_merge($data, $post_data);
     }
 
 }

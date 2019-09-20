@@ -212,15 +212,7 @@ class BlogController extends AbstractController
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return $this->failSession($response);
         }
-        $data = $request->getQueryParams();
-        $_data = $request->getParsedBody();
-        if(Utils::isJson($_data)) {
-            $_data = json_decode($_data, true);
-        }
-        if(isset($_data["title"]))
-            $data["title"]  = $_data["title"];
-        if(isset($_data["content"]))
-            $data["content"]  = $_data["content"];
+        $data = Utils::getRequestParams($request);
         $validation = $this->validator->validate($data, [
             'title' => 'required|max:255',
             'content' => 'required',
@@ -259,18 +251,7 @@ class BlogController extends AbstractController
         return $this->failSession($response);
         }
         error_log("hello\n");
-     $data = $request->getQueryParams();
-     $_data = $request->getParsedBody();
-     if(Utils::isJson($_data)) {
-        $_data = json_decode($_data, true);
-    }
-     error_log(print_r($_data, true));
-        if(isset($_data["title"]))
-            $data["title"]  = $_data["title"];
-        if(isset($_data["content"]))
-            $data["content"]  = $_data["content"];
-        if(isset($_data["id"]))
-            $data["id"]  = $_data["id"];
+        $data = Utils::getRequestParams($request);
         $validation = $this->validator->validate($data, [
             'id' => 'required',
             'title'=>'required',
