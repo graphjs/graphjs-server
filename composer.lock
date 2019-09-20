@@ -2277,16 +2277,16 @@
         },
         {
             "name": "phonetworks/pho-lib-graph",
-            "version": "9.0.0",
+            "version": "9.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-graph.git",
-                "reference": "cef0e2a118997a86be3468168f70089328731137"
+                "reference": "dc351c5955c35a4ae1144b1729e763d9ec76b95c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/cef0e2a118997a86be3468168f70089328731137",
-                "reference": "cef0e2a118997a86be3468168f70089328731137",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/dc351c5955c35a4ae1144b1729e763d9ec76b95c",
+                "reference": "dc351c5955c35a4ae1144b1729e763d9ec76b95c",
                 "shasum": ""
             },
             "require": {
@@ -2330,7 +2330,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2019-08-31T02:55:20+00:00"
+            "time": "2019-09-20T02:54:28+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",
