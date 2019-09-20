@@ -18,8 +18,12 @@ use Pho\Plugins\FeedPlugin;
 use WyriHaximus\React\Http\Middleware\SessionMiddleware;
 use React\Cache\ArrayCache;
 use Sikei\React\Http\Middleware\CorsMiddleware;
-use React\Filesystem\Filesystem as ReactFilesystem;
-use WyriHaximus\React\Cache\Filesystem;
+//use React\Filesystem\Filesystem as ReactFilesystem;
+//use WyriHaximus\React\Cache\Filesystem;
+use WyriHaximus\React\Cache\Redis as RedisCache;
+use Clue\React\Redis\Client;
+use Clue\React\Redis\Factory as RedisFactory;
+
 /**
  * The async/event-driven REST server daemon
  * 
@@ -86,21 +90,27 @@ class Daemon
     protected function addSessionSupport(): void
     {
         //$cache = new ArrayCache;
-        $filesystem = ReactFilesystem::create($this->loop);
-        $cache = new Filesystem($filesystem, sys_get_temp_dir());
-        $this->server->withMiddleware(
-            new SessionMiddleware(
-                'id',
-                $cache, // Instance implementing React\Cache\CacheInterface
-                [ // Optional array with cookie settings, order matters
-                    0, // expiresAt, int, default
-                    '', // path, string, default
-                    '', // domain, string, default
-                    false, // secure, bool, default
-                    false // httpOnly, bool, default
-                ]
-            )
-        );
+        ////$filesystem = ReactFilesystem::create($this->loop);
+        ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
+        $uri = getenv("DATABASE_URI");
+        $factory = new RedisFactory($this->loop);
+        $factory->createClient()->then(function (Client $client) {
+            $cache = new Redis($client, 'session:');
+            $this->server->withMiddleware(
+                new SessionMiddleware(
+                    'id',
+                    $cache, // Instance implementing React\Cache\CacheInterface
+                    [ // Optional array with cookie settings, order matters
+                        0, // expiresAt, int, default
+                        '', // path, string, default
+                        '', // domain, string, default
+                        false, // secure, bool, default
+                        false // httpOnly, bool, default
+                    ]
+                )
+            );
+        });
+        
     }
 
     protected function initKernel(): void
