@@ -126,7 +126,7 @@ class ContentController extends AbstractController
                         }
                     }
           $starrers = $page->getStarrers();
-          $me= $session->get($request, "id");
+          $me = $this->dependOnSession($request, $response);
           return $this->succeed(
               $response, [
               "count"=>count($starrers), 
