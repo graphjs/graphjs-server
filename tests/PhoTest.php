@@ -16,8 +16,9 @@ class PhoTest extends TestCase
 {
 
     public function test404() {
-        $this->expectException(\GuzzleHttp\Exception\ClientException::class);
+        //$this->expectException(\GuzzleHttp\Exception\ClientException::class);
         $res = $this->get('/');
+        $this->assertFalse($res["success"]);
         //$this->assertEquals(500, $res->getStatusCode());
     }
 
@@ -141,8 +142,9 @@ class PhoTest extends TestCase
 
     public function testGetNonExistingEdge()
     {
-        $this->expectException('\GuzzleHttp\Exception\ServerException');
+        //$this->expectException('\GuzzleHttp\Exception\ServerException');
         $res = $this->get('/' . $this->founder_id . '/edges/nonExist', true);
+        $this->assertFalse($res["success"]);
     }
 
     public function testCreateEdge()
@@ -268,8 +270,9 @@ class PhoTest extends TestCase
      */
     public function testEntitySetEmptyAttribute()
     {
-        $this->expectException('\GuzzleHttp\Exception\ServerException');
+        //$this->expectException('\GuzzleHttp\Exception\ServerException');
         $this->post('/' . $this->founder_id . '/attribute/NewAttribute2', ['value' => '']);
+        $this->assertFalse($res["success"]);
     }
 
     /**

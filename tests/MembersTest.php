@@ -37,8 +37,9 @@ class MembersTest extends TestCase
 
         public function testGetFollowersFalse()
         {
-            $this->expectException('GuzzleHttp\Exception\ServerException');
+            //$this->expectException('GuzzleHttp\Exception\ServerException');
             $res = $this->get('/getFollowers');
+            $this->assertFalse($res["success"]);
         }
 
         public function testGetFollowersTrue()

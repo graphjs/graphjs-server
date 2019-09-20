@@ -113,12 +113,21 @@ class Daemon
 
     protected function addSessionSupport(): void
     {
+        
+        //return;
         ////$filesystem = ReactFilesystem::create($this->loop);
         ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
         $uri = getenv("DATABASE_URI");
-        $factory = new RedisFactory($this->loop);
-        $client = $factory->createLazyClient($uri);
-        $cache = new RedisCache($client, 'session:');
+        //echo ("uri is:".$uri);
+        $factory = new \Clue\React\Redis\Factory($this->loop);
+        $client = $factory->createLazyClient("redis://127.0.0.1:6379/2");
+        //echo ("emre");
+        $this->addBasicSessionSupport();
+        return;
+        //echo ("emel");
+        $cache = new \WyriHaximus\React\Cache\Redis($client, 'session:');
+        //eval(\Psy\sh());
+        //echo ("defne");
         $this->server->withMiddleware(
             new SessionMiddleware(
                 'id',

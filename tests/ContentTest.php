@@ -41,8 +41,9 @@ class ContentTest extends TestCase
 
         public function testAddPrivateContentFalse()
         {
-            $this->expectException("\\Exception");
+            //$this->expectException("\\Exception");
             $res = $this->get('/addPrivateContent?data=emre');
+            $this->assertFalse($res["success"]);
         }
 
         public function testAddPrivateContent()
@@ -81,8 +82,9 @@ class ContentTest extends TestCase
          */
         public function testGetPrivateContentFalse($id)
         {
-            $this->expectException("\\Exception");
+            //$this->expectException("\\Exception");
             $res = $this->get('/getPrivateContent?id='.$id, false, true);
+            $this->assertFalse($res["success"]);
         }
 
         /**

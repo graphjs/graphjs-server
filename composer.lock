@@ -71,16 +71,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.4",
+            "version": "3.112.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31"
+                "reference": "5c6f05d68576f845a8391b83020b480840eca759"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/13e5e52f8ceccd7e476cc6caef3eed941797fd31",
-                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5c6f05d68576f845a8391b83020b480840eca759",
+                "reference": "5c6f05d68576f845a8391b83020b480840eca759",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-19T20:36:59+00:00"
+            "time": "2019-09-20T22:08:27+00:00"
         },
         {
             "name": "christoph-kluge/reactphp-http-cors-middleware",
@@ -2229,16 +2229,16 @@
         },
         {
             "name": "phonetworks/pho-lib-dht",
-            "version": "dev-master",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-dht.git",
-                "reference": "b32b6f88bcdd921eb50f8d9b6156f730963456d0"
+                "reference": "e90922f3b656a90a16e1541042ded0789e19acac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/b32b6f88bcdd921eb50f8d9b6156f730963456d0",
-                "reference": "b32b6f88bcdd921eb50f8d9b6156f730963456d0",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/e90922f3b656a90a16e1541042ded0789e19acac",
+                "reference": "e90922f3b656a90a16e1541042ded0789e19acac",
                 "shasum": ""
             },
             "require": {
@@ -2271,26 +2271,26 @@
                     "homepage": "http://www.emresokullu.com"
                 }
             ],
-            "description": "A PHP DHT implementation",
+            "description": "A PHP DHT specs and utilities",
             "homepage": "https://phonetworks.org",
-            "time": "2019-09-19T16:13:34+00:00"
+            "time": "2019-09-20T22:28:47+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
-            "version": "9.0.1",
+            "version": "9.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-graph.git",
-                "reference": "dc351c5955c35a4ae1144b1729e763d9ec76b95c"
+                "reference": "591823079a2a83343b30c6f5b281a08fad4db63e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/dc351c5955c35a4ae1144b1729e763d9ec76b95c",
-                "reference": "dc351c5955c35a4ae1144b1729e763d9ec76b95c",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-graph/zipball/591823079a2a83343b30c6f5b281a08fad4db63e",
+                "reference": "591823079a2a83343b30c6f5b281a08fad4db63e",
                 "shasum": ""
             },
             "require": {
-                "phonetworks/pho-lib-dht": "*",
+                "phonetworks/pho-lib-dht": "^1.0",
                 "php": ">=7.1",
                 "psr/log": "^1.0"
             },
@@ -2330,7 +2330,7 @@
                 "predicate",
                 "vertex"
             ],
-            "time": "2019-09-20T02:54:28+00:00"
+            "time": "2019-09-20T22:32:16+00:00"
         },
         {
             "name": "phonetworks/pho-microkernel",

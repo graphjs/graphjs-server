@@ -41,8 +41,9 @@ class BlogTest extends TestCase
 
         public function testStartBlogPostFalse()
         {
-            $this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
+            //$this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
             $res = $this->post('/startBlogPost', ["title"=>"Lorem Ipsum", "content"=>$this->faker->text]);
+            $this->assertFalse($res["success"]);
         }
 
         public function testStartBlogPostTrue()
