@@ -71,16 +71,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.112.3",
+            "version": "3.112.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae"
+                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c27c64904dcf3f3131a927b09b0036273a22a0ae",
-                "reference": "c27c64904dcf3f3131a927b09b0036273a22a0ae",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/13e5e52f8ceccd7e476cc6caef3eed941797fd31",
+                "reference": "13e5e52f8ceccd7e476cc6caef3eed941797fd31",
                 "shasum": ""
             },
             "require": {
@@ -150,7 +150,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-09-18T18:09:31+00:00"
+            "time": "2019-09-19T20:36:59+00:00"
         },
         {
             "name": "cakephp/core",
@@ -2412,12 +2412,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-dht.git",
-                "reference": "36cab4d89df116bbe5ce6b351745ad6dd4b64622"
+                "reference": "b32b6f88bcdd921eb50f8d9b6156f730963456d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/36cab4d89df116bbe5ce6b351745ad6dd4b64622",
-                "reference": "36cab4d89df116bbe5ce6b351745ad6dd4b64622",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/b32b6f88bcdd921eb50f8d9b6156f730963456d0",
+                "reference": "b32b6f88bcdd921eb50f8d9b6156f730963456d0",
                 "shasum": ""
             },
             "require": {
@@ -2452,7 +2452,7 @@
             ],
             "description": "A PHP DHT implementation",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-31T02:49:25+00:00"
+            "time": "2019-09-19T16:13:34+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
