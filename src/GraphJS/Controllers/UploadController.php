@@ -169,6 +169,8 @@ class UploadController extends AbstractController
 
         echo "getting parts\n";
         $parts = $request->getUploadedFiles();
+        if(isset($parts["filepond"]))
+            $parts = $parts["filepond"];
         var_dump($parts);
         foreach ($parts as $part) {
             echo "processing part\n";
