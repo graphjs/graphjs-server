@@ -13,7 +13,7 @@ use Riverline\MultiPartParser\StreamedPart;
 
 use React\Http\Io\UploadedFile;
 
-class FileUploadController extends AbstractController
+class UploadController extends AbstractController
 {
     const PREVIEW_MAX_WIDTH = 600;
     const PREVIEW_MAX_HEIGHT = 600;
