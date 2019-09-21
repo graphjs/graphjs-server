@@ -6,11 +6,9 @@ use Aws\S3\S3Client;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-
-use GraphJS\S3Uploader;
+use GraphJS\{S3Uploader, Session};
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
-
 use React\Http\Io\UploadedFile;
 
 class UploadController extends AbstractController
@@ -163,7 +161,7 @@ class UploadController extends AbstractController
     public function uploadFile(ServerRequestInterface $request, ResponseInterface $response)
     {
         echo "uploading file\n";
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+        if(is_null($id = Session::depend($request))) {
             return $this->failSession($response);
         }
 

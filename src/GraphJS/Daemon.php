@@ -88,63 +88,10 @@ class Daemon
         );
     }
 
-    /**
-     * ArrayCache based session, not reliable. 
-     * 
-     * Don't use in production.
-     * 
-     * @deprecated dev
-     */
-    protected function addBasicSessionSupport(): void
-    {
-        $cache = new ArrayCache;
-        //$filesystem = ReactFilesystem::create($this->loop);
-        //$cache = new Filesystem("/tmp/mine");
-        $this->server->withMiddleware(
-            new SessionMiddleware(
-                '00gjsc',
-                $cache, // Instance implementing React\Cache\CacheInterface
-                [ // Optional array with cookie settings, order matters
-                    0, // expiresAt, int, default
-                    '', // path, string, default
-                    '', // domain, string, default
-                    false, // secure, bool, default
-                    false // httpOnly, bool, default
-                ]
-            )
-        );
-    }
 
     protected function addSessionSupport(): void
     {
-        
-        //return;
-        ////$filesystem = ReactFilesystem::create($this->loop);
-        ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
-        //$uri = getenv("DATABASE_URI");
-        //echo ("uri is:".$uri);
-        //$factory = new \Clue\React\Redis\Factory($this->loop);
-        //$client = $factory->createLazyClient("redis://127.0.0.1:6379/2");
-        //echo ("emre");
-        $this->addBasicSessionSupport();
-        return;
-        //echo ("emel");
-        $cache = new \WyriHaximus\React\Cache\Redis($client, 'session:');
-        //eval(\Psy\sh());
-        //echo ("defne");
-        $this->server->withMiddleware(
-            new SessionMiddleware(
-                'id',
-                $cache, // Instance implementing React\Cache\CacheInterface
-                [ // Optional array with cookie settings, order matters
-                    0, // expiresAt, int, default
-                    '', // path, string, default
-                    '', // domain, string, default
-                    false, // secure, bool, default
-                    false // httpOnly, bool, default
-                ]
-            )
-        );
+        // blank for now
     }
 
     protected function initKernel(): void
