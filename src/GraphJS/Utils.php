@@ -172,6 +172,7 @@ class Utils
         $data = (array) $data;
         $post_data = $request->getParsedBody();
         var_dump($post_data);
+        var_dump($request);
         $post_data = (array) $post_data;
         /*
         if(static::isJson($post_data)) {
