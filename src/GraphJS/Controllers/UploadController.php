@@ -162,14 +162,16 @@ class UploadController extends AbstractController
 
     public function uploadFile(Request $request, Response $response)
     {
+        echo "uploading file\n";
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
             return $this->failSession($response);
         }
 
+        echo "getting parts\n";
         $parts = $request->getUploadedFiles();
 
         foreach ($parts as $part) {
-
+            echo "processing part\n";
             if(is_null( 
                 ($part_processed = $this->processPart($id, $part))
             )) {
