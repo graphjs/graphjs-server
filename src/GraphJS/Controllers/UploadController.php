@@ -98,15 +98,17 @@ class UploadController extends AbstractController
         return $s3Client;
     }
 
-    private function processPart($id, UploadedFile $part): ?array
+    private function processPart($id, /*UploadedFile*/ $part): ?array
     {
+        echo "processing part\n";
         $uuid = getenv('UUID');
         $mime = $part->getClientMediaType();
         if ( $part->getError() || !(array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
             return null;
         }
-
+        echo "processing part about to stream\n";
         $body = $part->getStream();
+        echo "processing part about to stream 2\n";
         $originalFilename = $part->getClientFilename();
         $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
 
