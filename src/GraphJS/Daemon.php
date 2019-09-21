@@ -97,12 +97,12 @@ class Daemon
      */
     protected function addBasicSessionSupport(): void
     {
-        //$cache = new ArrayCache;
-        $filesystem = ReactFilesystem::create($this->loop);
-        $cache = new Filesystem($filesystem, sys_get_temp_dir());
+        $cache = new ArrayCache;
+        //$filesystem = ReactFilesystem::create($this->loop);
+        //$cache = new Filesystem("/tmp/mine");
         $this->server->withMiddleware(
             new SessionMiddleware(
-                'id',
+                '00gjsc',
                 $cache, // Instance implementing React\Cache\CacheInterface
                 [ // Optional array with cookie settings, order matters
                     0, // expiresAt, int, default
