@@ -170,15 +170,13 @@ class Utils
         $data = $request->getQueryParams();
         var_dump($data);
         $data = (array) $data;
-        $post_data = $request->getParsedBody();
+        $post_data = $request->getBody();
         var_dump($post_data);
         var_dump($request);
-        $post_data = (array) $post_data;
-        /*
+        $post_data = (string) $post_data;
         if(static::isJson($post_data)) {
             $post_data = json_decode($post_data, true);
         }
-        */
         return array_merge([], $data, $post_data);
     }
 
