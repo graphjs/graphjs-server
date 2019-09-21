@@ -1,5 +1,5 @@
 <?php
 
 return \GraphJS\Utils::convertLegacyRoutes([
-    ["POST", "uploadFile",'uploadFile']
+    ["POST", "/uploadFile",'uploadFile']
 ]);
