@@ -217,7 +217,7 @@ class BlogController extends AbstractController
             'title' => 'required|max:255',
             'content' => 'required',
         ]);
-        echo "hello1\n";
+        echo "hello1\n".print_r($data, true)."\n";
         if($validation->fails()) {
             return $this->fail($response, "Title (up to 255 chars) and Content are required.");
         }
