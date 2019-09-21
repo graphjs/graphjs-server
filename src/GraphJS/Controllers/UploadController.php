@@ -160,7 +160,7 @@ class UploadController extends AbstractController
         return $previewUrl;
     }
 
-    public function uploadFile(Request $request, Response $response)
+    public function uploadFile(ServerRequestInterface $request, ResponseInterface $response)
     {
         echo "uploading file\n";
         if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
