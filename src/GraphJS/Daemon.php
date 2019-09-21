@@ -18,8 +18,8 @@ use Pho\Plugins\FeedPlugin;
 use WyriHaximus\React\Http\Middleware\SessionMiddleware;
 use React\Cache\ArrayCache;
 use Sikei\React\Http\Middleware\CorsMiddleware;
-//use React\Filesystem\Filesystem as ReactFilesystem;
-//use WyriHaximus\React\Cache\Filesystem;
+use React\Filesystem\Filesystem as ReactFilesystem;
+use WyriHaximus\React\Cache\Filesystem;
 use WyriHaximus\React\Cache\Redis as RedisCache;
 use Clue\React\Redis\Factory as RedisFactory;
 
@@ -97,7 +97,9 @@ class Daemon
      */
     protected function addBasicSessionSupport(): void
     {
-        $cache = new ArrayCache;
+        //$cache = new ArrayCache;
+        $filesystem = ReactFilesystem::create($this->loop);
+        $cache = new Filesystem($filesystem, sys_get_temp_dir());
         $this->server->withMiddleware(
             new SessionMiddleware(
                 'id',
@@ -119,10 +121,10 @@ class Daemon
         //return;
         ////$filesystem = ReactFilesystem::create($this->loop);
         ////$cache = new Filesystem($filesystem, sys_get_temp_dir());
-        $uri = getenv("DATABASE_URI");
+        //$uri = getenv("DATABASE_URI");
         //echo ("uri is:".$uri);
-        $factory = new \Clue\React\Redis\Factory($this->loop);
-        $client = $factory->createLazyClient("redis://127.0.0.1:6379/2");
+        //$factory = new \Clue\React\Redis\Factory($this->loop);
+        //$client = $factory->createLazyClient("redis://127.0.0.1:6379/2");
         //echo ("emre");
         $this->addBasicSessionSupport();
         return;
