@@ -172,7 +172,7 @@ class Utils
         $post_data = (array) $request->getParsedBody(); // through httpie --form
 
         $post_data_json = $request->getBody();
-        $post_data_json = (string) $post_data;
+        $post_data_json = (string) $post_data_json;
         if(static::isJson($post_data_json)) {
             $post_data_json = json_decode($post_data_json, true);
         }
