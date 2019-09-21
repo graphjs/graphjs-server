@@ -3,12 +3,15 @@
 namespace GraphJS\Controllers;
 
 use Aws\S3\S3Client;
-use CapMousse\ReactRestify\Http\Request;
-use CapMousse\ReactRestify\Http\Response;
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 use GraphJS\S3Uploader;
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
+
+use React\Http\Io\UploadedFile;
 
 class FileUploadController extends AbstractController
 {
@@ -95,16 +98,16 @@ class FileUploadController extends AbstractController
         return $s3Client;
     }
 
-    private function processPart($id, $part): ?array
+    private function processPart($id, UploadedFile $part): ?array
     {
         $uuid = getenv('UUID');
-        $mime = $part->getMimeType();
-        if (! ($part->isFile() && array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
+        $mime = $part->getClientMediaType();
+        if ( $part->getError() || !(array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
             return null;
         }
 
-        $body = $part->getBody();
-        $originalFilename = $part->getFileName();
+        $body = $part->getStream();
+        $originalFilename = $part->getClientFilename();
         $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
 
         $key = strtolower("{$uuid}/{$filename}");
@@ -161,22 +164,8 @@ class FileUploadController extends AbstractController
             return $this->failSession($response);
         }
 
-        $httpRequest = $request->httpRequest;
-        $contentType = $httpRequest->getHeader('content-type');
-        $content = $request->getContent();
-        $requestData = "content-type:" . current($contentType) . "\n\n" . $content;
-        $stream = fopen('php://temp', 'rw');
-        fwrite($stream, $requestData);
-        rewind($stream);
+        $parts = $request->getUploadedFiles();
 
-        $document = new StreamedPart($stream);
-        
-        $uploads = [];
-        if (!$document->isMultiPart()) {
-            return $this->fail($response);
-        }
-            
-        $parts = $document->getParts();
         foreach ($parts as $part) {
 
             if(is_null( 

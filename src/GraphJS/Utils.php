@@ -166,18 +166,18 @@ class Utils
      */
     public static function getRequestParams(ServerRequestInterface $request): array
     {
-        error_log("begin getRequestParams");
         $data = $request->getQueryParams();
-        var_dump($data);
         $data = (array) $data;
-        $post_data = $request->getBody();
-        var_dump($post_data);
-        var_dump($request);
-        $post_data = (string) $post_data;
-        if(static::isJson($post_data)) {
-            $post_data = json_decode($post_data, true);
+        
+        $post_data = (array) $request->getParsedBody(); // through httpie --form
+
+        $post_data_json = $request->getBody();
+        $post_data_json = (string) $post_data;
+        if(static::isJson($post_data_json)) {
+            $post_data_json = json_decode($post_data_json, true);
         }
-        return array_merge([], $data, $post_data);
+        
+        return array_merge([], $data, $post_data, (array) $post_data_json);
     }
 
 }
