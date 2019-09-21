@@ -61,6 +61,7 @@ class AuthenticationTest extends TestCase
             $url = sprintf('/login?username=%s&password=%s', urlencode($username), urlencode($password));
             $res = $this->get($url, false, true);
             //eval(\Psy\sh());
+            $this->assertTrue($res["success"]);
             $this->assertEquals($res["id"], $id);
         }
 
