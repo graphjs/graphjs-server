@@ -56,6 +56,8 @@ class Daemon
         $this->server->withRoutes($router_dir);
         $this->addSessionSupport();
         $this->addCorsSupport();
+        $this->server->bootstrap();
+        //$this->server->disableRoutesExcept([]);
     }
 
     public function __call(string $method, array $params)//: mixed

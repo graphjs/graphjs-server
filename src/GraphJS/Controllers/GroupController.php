@@ -270,14 +270,9 @@ class GroupController extends AbstractController
         ]);
         if($validation->fails()) {
             return $this->fail($response, "User ID  required.");
-            
         }
         $them = $this->kernel->gs()->node($data["id"]);
-        $q = $this->listGroups($request, $response, $this->kernel);
-        if(!$q[0]) {
-            return $this->fail($response, "Problem fetching groups");
-        }
-        $groups = $q[1];
+        $groups = $this->_listGroups();
         $their_groups = [];
         foreach($groups as $group) {
             $group_obj = $this->kernel->gs()->node($group["id"]);
@@ -291,18 +286,7 @@ class GroupController extends AbstractController
         );
     }
 
-
-    /**
-     * List Groups
-     *
-     * @param ServerRequestInterface  $request
-     * @param ResponseInterface $response
-     
-     * @param Kernel   $this->kernel
-     * 
-     * @return void
-     */
-    public function listGroups(ServerRequestInterface $request, ResponseInterface $response)
+    protected function _listGroups(): array
     {
         error_log("listing groups");
         $groups = [];
@@ -333,6 +317,23 @@ class GroupController extends AbstractController
                 }
             }
         }
+        return $groups;
+    }
+
+
+    /**
+     * List Groups
+     *
+     * @param ServerRequestInterface  $request
+     * @param ResponseInterface $response
+     
+     * @param Kernel   $this->kernel
+     * 
+     * @return void
+     */
+    public function listGroups(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        $groups = $this->_listGroups();
         error_log("About to succeed! ".print_r($groups, true));
         return $this->succeed(
             $response, [
