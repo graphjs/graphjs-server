@@ -56,12 +56,13 @@ class AdministrationTest extends TestCase
 
         public function testNoHash()
         {   
-            $ops = ["/getPendingMemberships", "/getCommentModeration". "/getSingleSignonKey"];
+            $ops = ["/getPendingMemberships", "/getCommentModeration", "/getSingleSignonKey"];
             $op = $ops[array_rand($ops)];
             $this->login();
             //list($email, $username, $password, $res) = $this->signup();
-            $this->expectException('GuzzleHttp\Exception\ServerException');
+            //$this->expectException('GuzzleHttp\Exception\ServerException');
             $res = $this->get($op, false, true);
+            $this->assertFalse($res["success"]);
             //eval(\Psy\sh());
         }
 

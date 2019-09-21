@@ -27,4 +27,4 @@ error_log(sprintf("Serving through port %s with the config file %s", (string) $p
 $max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
 ini_set("upload_max_filesize", $max_upload_size);
 
-$server->serve();
+$server->bootstrap()->serve();

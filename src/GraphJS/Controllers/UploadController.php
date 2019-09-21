@@ -3,14 +3,15 @@
 namespace GraphJS\Controllers;
 
 use Aws\S3\S3Client;
-use CapMousse\ReactRestify\Http\Request;
-use CapMousse\ReactRestify\Http\Response;
 
-use GraphJS\S3Uploader;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use GraphJS\{S3Uploader, Session};
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
+use React\Http\Io\UploadedFile;
 
-class FileUploadController extends AbstractController
+class UploadController extends AbstractController
 {
     const PREVIEW_MAX_WIDTH = 600;
     const PREVIEW_MAX_HEIGHT = 600;
@@ -95,16 +96,18 @@ class FileUploadController extends AbstractController
         return $s3Client;
     }
 
-    private function processPart($id, $part): ?array
+    private function processPart($id, /*UploadedFile*/ $part): ?array
     {
+        echo "processing part\n";
         $uuid = getenv('UUID');
-        $mime = $part->getMimeType();
-        if (! ($part->isFile() && array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
+        $mime = $part->getClientMediaType();
+        if ( $part->getError() || !(array_key_exists($mime, static::ALLOWED_CONTENT_TYPES))) {
             return null;
         }
-
-        $body = $part->getBody();
-        $originalFilename = $part->getFileName();
+        echo "processing part about to stream\n";
+        $body = $part->getStream();
+        echo "processing part about to stream 2\n";
+        $originalFilename = $part->getClientFilename();
         $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
 
         $key = strtolower("{$uuid}/{$filename}");
@@ -155,30 +158,20 @@ class FileUploadController extends AbstractController
         return $previewUrl;
     }
 
-    public function uploadFile(Request $request, Response $response)
+    public function uploadFile(ServerRequestInterface $request, ResponseInterface $response)
     {
-        if(is_null($id = $this->dependOnSession(...\func_get_args()))) {
+        echo "uploading file\n";
+        if(is_null($id = Session::depend($request))) {
             return $this->failSession($response);
         }
 
-        $httpRequest = $request->httpRequest;
-        $contentType = $httpRequest->getHeader('content-type');
-        $content = $request->getContent();
-        $requestData = "content-type:" . current($contentType) . "\n\n" . $content;
-        $stream = fopen('php://temp', 'rw');
-        fwrite($stream, $requestData);
-        rewind($stream);
-
-        $document = new StreamedPart($stream);
-        
-        $uploads = [];
-        if (!$document->isMultiPart()) {
-            return $this->fail($response);
-        }
-            
-        $parts = $document->getParts();
+        echo "getting parts\n";
+        $parts = $request->getUploadedFiles();
+        if(isset($parts["filepond"]))
+            $parts = $parts["filepond"];
+        var_dump($parts);
         foreach ($parts as $part) {
-
+            echo "processing part\n";
             if(is_null( 
                 ($part_processed = $this->processPart($id, $part))
             )) {

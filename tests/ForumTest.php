@@ -35,8 +35,9 @@ class ForumTest extends TestCase
 
         public function testStartThreadFalse()
         {
-            $this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
+            //$this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
             $res = $this->get('/startThread?' . http_build_query(["title"=>"Lorem Ipsum", "message"=>$this->faker->text]));
+            $this->assertFalse($res["success"]);
         }
 
         public function testStartThreadTrue()
@@ -99,8 +100,9 @@ class ForumTest extends TestCase
          */
         public function testDeleteForumPostFalse($id)
         {   
-            $this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
+            //$this->expectException("GuzzleHttp\Exception\ServerException"); // because not signed in
             $res = $this->get('/deleteForumPost?id='.$id, false, true);
+            $this->assertFalse($res["success"]);
         }
 
         /**

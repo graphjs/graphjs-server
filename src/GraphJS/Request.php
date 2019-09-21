@@ -11,7 +11,7 @@
 
 namespace GraphJS;
 
-class Request extends \Psr\Http\Message\ServerRequestInterface
+class Request extends \React\Http\Io\Request
 {
 
 }

@@ -29,8 +29,9 @@ class AuthenticationTest extends TestCase
 
         public function testWhoAmIFalse()
         {
-            $this->expectException('GuzzleHttp\Exception\ServerException');
+            //$this->expectException('GuzzleHttp\Exception\ServerException');
             $res = $this->get('/whoami');
+            $this->assertFalse($res["success"]);
         }
 
         public function testSignup()
@@ -59,6 +60,8 @@ class AuthenticationTest extends TestCase
             $id = $credentials[2];
             $url = sprintf('/login?username=%s&password=%s', urlencode($username), urlencode($password));
             $res = $this->get($url, false, true);
+            //eval(\Psy\sh());
+            $this->assertTrue($res["success"]);
             $this->assertEquals($res["id"], $id);
         }
 

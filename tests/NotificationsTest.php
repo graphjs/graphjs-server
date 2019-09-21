@@ -23,8 +23,9 @@ class NotificationsTest extends TestCase
         public function testGetNotificationsCountFalse()
         {
             //eval(\Psy\sh());
-            $this->expectException("\\Exception");
+            //$this->expectException("\\Exception");
             $res = $this->get('/getNotificationsCount');
+            $this->assertFalse($res["success"]);
         }
 
         public function testGetNotificationsCountTrue()

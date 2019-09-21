@@ -1,5 +1,7 @@
 # GraphJS-Server
 
+> Master branch is currently unstable due to downstream packages (). Please check out and use the commit a1eb5fcba97ac0d8cdf8e8e1c7a497fa47e3b608. 
+
 An event-driven, non-blocking GraphJS Server. 
 
 Extends [Pho REST Server](https://github.com/phonetworks/pho-server-rest) APIs. For more information, check out http://graphjs.com

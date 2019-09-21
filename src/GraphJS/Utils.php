@@ -10,6 +10,8 @@
 
 namespace GraphJS;
 
+use Psr\Http\Message\ServerRequestInterface;
+
 class Utils
 {
 
@@ -141,6 +143,41 @@ class Utils
             }
         }
         return array_unique($final);
+    }
+
+    /**
+     * Checks if the string is in JSON format
+     *
+     * @param string $json
+     * @return boolean
+     */
+    public static function isJson(string $json): bool
+    {
+        \json_decode($json);
+        return (\json_last_error()===JSON_ERROR_NONE);
+    }
+
+
+    /**
+     * Fetches both POST and GET params
+     *
+     * @param ServerRequestInterface $request
+     * @return array
+     */
+    public static function getRequestParams(ServerRequestInterface $request): array
+    {
+        $data = $request->getQueryParams();
+        $data = (array) $data;
+        
+        $post_data = (array) $request->getParsedBody(); // through httpie --form
+
+        $post_data_json = $request->getBody();
+        $post_data_json = (string) $post_data_json;
+        if(static::isJson($post_data_json)) {
+            $post_data_json = json_decode($post_data_json, true);
+        }
+        
+        return array_merge([], $data, $post_data, (array) $post_data_json);
     }
 
 }

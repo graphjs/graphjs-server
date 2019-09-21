@@ -20,6 +20,9 @@ use React\Cache\ArrayCache;
 use Sikei\React\Http\Middleware\CorsMiddleware;
 use React\Filesystem\Filesystem as ReactFilesystem;
 use WyriHaximus\React\Cache\Filesystem;
+use WyriHaximus\React\Cache\Redis as RedisCache;
+use Clue\React\Redis\Factory as RedisFactory;
+
 /**
  * The async/event-driven REST server daemon
  * 
@@ -53,6 +56,8 @@ class Daemon
         $this->server->withRoutes($router_dir);
         $this->addSessionSupport();
         $this->addCorsSupport();
+        $this->server->bootstrap();
+        //$this->server->disableRoutesExcept([]);
     }
 
     public function __call(string $method, array $params)//: mixed
@@ -83,24 +88,10 @@ class Daemon
         );
     }
 
+
     protected function addSessionSupport(): void
     {
-        $cache = new ArrayCache;
-        //$filesystem = ReactFilesystem::create($this->loop);
-        //$cache = new Filesystem($filesystem, sys_get_temp_dir());
-        $this->server->withMiddleware(
-            new SessionMiddleware(
-                'id',
-                $cache, // Instance implementing React\Cache\CacheInterface
-                [ // Optional array with cookie settings, order matters
-                    0, // expiresAt, int, default
-                    '', // path, string, default
-                    '', // domain, string, default
-                    false, // secure, bool, default
-                    false // httpOnly, bool, default
-                ]
-            )
-        );
+        // blank for now
     }
 
     protected function initKernel(): void
