@@ -180,4 +180,23 @@ class Utils
         return array_merge([], $data, $post_data, (array) $post_data_json);
     }
 
+    /**
+     * Computes this machine's IP in CLI
+     *
+     * @return string
+     */
+    public static function getIp(): string
+    {
+        $ip = @file_get_contents("https://phonetworks.com/ip.php");
+        if(!$ip)
+            $ip = @file_get_contents("https://ipv4bot.whatismyipaddress.com");
+        if(!$ip)
+            $ip = @file_get_contents("https://api.ipify.org");
+        if(!$ip)
+            $ip = @file_get_contents("https://icanhazip.com");
+        if(!$ip)
+            throw new \Exception("Can't reach the IP. Either you're not connected to the internet, or you need to enter it manually.");
+        return $ip;
+    }
+
 }
