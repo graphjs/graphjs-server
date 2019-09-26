@@ -46,7 +46,7 @@ class P2pController extends AbstractController
             echo "i is: {$i} and router is ".get_class($GLOBALS["router"])."\n";
             $i--;
             $hops = $GLOBALS["router"]->findPeers($parameter);
-            echo "Found\n";
+            echo "Found: ".gettype($hops)."\n";
             if($hops instanceof PeerInterface)
             {
                 echo "is peer\n";
