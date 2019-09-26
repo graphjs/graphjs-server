@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c16096c1a0e718ca5d94035e76f7d0db",
+    "content-hash": "ae7f338fa8bd3bef4db43799d41596f1",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -1468,6 +1468,44 @@
             "time": "2019-08-19T13:53:00+00:00"
         },
         {
+            "name": "nebulaprotocol/ipfs-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NebulaProtocol/IPFS-PHP.git",
+                "reference": "4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NebulaProtocol/IPFS-PHP/zipball/4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945",
+                "reference": "4f469a4b1eac6bb4d02e11a4a2b0bd58416e1945",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "guzzlehttp/guzzle": "^6.3.0",
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cesar Rodriguez",
+                    "email": "kesarr+ipfs@gmail.com"
+                }
+            ],
+            "description": "IPFS library in PHP",
+            "time": "2018-08-26T15:34:10+00:00"
+        },
+        {
             "name": "neomerx/cors-psr7",
             "version": "v1.0.13",
             "source": {
@@ -1956,6 +1994,49 @@
             "description": "Win/UNIX compatible filesystem based storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
             "time": "2018-01-07T11:53:13+00:00"
+        },
+        {
+            "name": "pho-adapters/storage-ipfs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pho-adapters/storage-ipfs.git",
+                "reference": "7be599719c9b8f2117b485bc70c40bf270137f12"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pho-adapters/storage-ipfs/zipball/7be599719c9b8f2117b485bc70c40bf270137f12",
+                "reference": "7be599719c9b8f2117b485bc70c40bf270137f12",
+                "shasum": ""
+            },
+            "require": {
+                "nebulaprotocol/ipfs-php": "^1.0",
+                "php": "^7.2",
+                "predis/predis": "^1.1"
+            },
+            "provide": {
+                "phonetworks/service-storage-implementation": "1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pho\\Kernel\\Services\\Storage\\Adapters\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emre Sokullu",
+                    "email": "emre@phonetworks.org",
+                    "homepage": "http://www.emresokullu.com"
+                }
+            ],
+            "description": "IPFS storage adapter for the Phở stack.",
+            "homepage": "https://phonetworks.org",
+            "time": "2019-08-26T14:53:13+00:00"
         },
         {
             "name": "pho-recipes/network",
@@ -6966,6 +7047,7 @@
         "pho-recipes/web": 20,
         "phonetworks/pho-kernel": 20,
         "pho-adapters/storage-aws-s3": 20,
+        "pho-adapters/storage-ipfs": 20,
         "pho-adapters/index-redis": 20,
         "pho-recipes/network": 20,
         "roave/security-advisories": 20
