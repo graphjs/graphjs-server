@@ -2212,16 +2212,16 @@
         },
         {
             "name": "phonetworks/pho-lib-dht",
-            "version": "v1.x-dev",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-dht.git",
-                "reference": "4219a14890ca1ada5e250eaba81a38799a8f107a"
+                "reference": "5dce250ed730e17009b06fc1daba11369587fca8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/4219a14890ca1ada5e250eaba81a38799a8f107a",
-                "reference": "4219a14890ca1ada5e250eaba81a38799a8f107a",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/5dce250ed730e17009b06fc1daba11369587fca8",
+                "reference": "5dce250ed730e17009b06fc1daba11369587fca8",
                 "shasum": ""
             },
             "require": {
@@ -2240,11 +2240,8 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Pho\\DecentralizedComputing\\": "src/Pho/DecentralizedComputing/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
+                    "Pho\\Lib\\DHT\\": "src/Pho/Lib/DHT/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2257,9 +2254,9 @@
                     "homepage": "http://www.emresokullu.com"
                 }
             ],
-            "description": "Helper methods for decentralized computing",
+            "description": "A PHP DHT specs and utilities",
             "homepage": "https://phonetworks.org",
-            "time": "2019-07-29T19:26:05+00:00"
+            "time": "2019-09-26T07:31:37+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
