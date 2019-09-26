@@ -26,7 +26,14 @@ class P2pController extends AbstractController
 
     public function ping(ServerRequestInterface $request, ResponseInterface $response)
     {
-        return $this->succeed();
+        return $this->succeed($response);
+    }
+
+    public function dump(ServerRequestInterface $request, ResponseInterface $response)
+    {
+        return $this->succeed($response, [
+            "tree" => $GLOBALS["router"]->tree()
+        ]);
     }
 
     public function findPeer(ServerRequestInterface $request, ResponseInterface $response)
