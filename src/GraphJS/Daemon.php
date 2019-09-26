@@ -166,6 +166,7 @@ class Daemon implements \Pho\Lib\DHT\PeerInterface
         $this->ip = Utils::getIp();
         $this->router = new \Pho\Lib\DHT\Router($this, [], ["debug"=>true, "kbucket_size"=>static::BUCKET_SIZE]);
         $this->router->bootstrap();
+        $this->controllers["p2p"]->setRouter($this->router);
         //eval(\Psy\sh());
     }
 

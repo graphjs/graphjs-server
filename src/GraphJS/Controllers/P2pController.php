@@ -26,10 +26,9 @@ class P2pController extends AbstractController
 
     protected $router;
 
-    public function __construct(Kernel $kernel, bool $jsonp = false)
+    public function setRouter($router)
     {
-        parent::__construct($kernel, $jsonp);
-        $this->router = $kernel->router();
+        $this->router = $router;
     }
 
     public function ping(ServerRequestInterface $request, ResponseInterface $response)
