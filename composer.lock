@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef4255c47620eca81367659b8fcb1765",
+    "content-hash": "d8dfbb808d1712a136e344b0fffcf2b8",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -2212,16 +2212,16 @@
         },
         {
             "name": "phonetworks/pho-lib-dht",
-            "version": "1.3.1",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-dht.git",
-                "reference": "2fe46b58b2b835c2f985b159e74b6a334129c882"
+                "reference": "f2350f8720ccd56b9cb4c139402984076bd43c10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/2fe46b58b2b835c2f985b159e74b6a334129c882",
-                "reference": "2fe46b58b2b835c2f985b159e74b6a334129c882",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/f2350f8720ccd56b9cb4c139402984076bd43c10",
+                "reference": "f2350f8720ccd56b9cb4c139402984076bd43c10",
                 "shasum": ""
             },
             "require": {
@@ -2256,7 +2256,7 @@
             ],
             "description": "A PHP DHT specs and utilities",
             "homepage": "https://phonetworks.org",
-            "time": "2019-09-26T07:12:40+00:00"
+            "time": "2019-09-26T07:20:02+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
