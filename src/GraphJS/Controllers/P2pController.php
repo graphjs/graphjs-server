@@ -43,9 +43,10 @@ class P2pController extends AbstractController
             'id' => 'required'
         ];
         $validation = $this->validator->validate($data, $rules);
-        if($validation->fails()) {
+        if($validation->fails()||!preg_match("/^[0-9a-fA-F]{32}$/", $data["id"])) {
             return $this->fail($response, "Valid peer ID required.");
         }
+        $parameter = strtolower($data["id"]);
         $i = 30;
         while($i>0) {
             $i--;
