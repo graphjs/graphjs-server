@@ -49,11 +49,15 @@ class P2pController extends AbstractController
         }
         $parameter = strtolower($data["id"]);
         $i = 30;
+        echo "Parameter is: {$parameter}\n";
         while($i>0) {
+            echo "i is: {$i}\n";
             $i--;
             $hops = $this->router->findPeers($parameter);
+            echo "Found\n";
             if($hops instanceof PeerInterface)
             {
+                echo "is peer\n";
                 return $this->succeed($response, 
                     [
                         "ip" => $hops->ip(),
