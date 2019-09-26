@@ -45,7 +45,7 @@ class P2pController extends AbstractController
         while($i>0) {
             echo "i is: {$i}\n";
             $i--;
-            $hops = $this->kernel->router()->findPeers($parameter);
+            $hops = $this->kernel["router"]->findPeers($parameter);
             echo "Found\n";
             if($hops instanceof PeerInterface)
             {
