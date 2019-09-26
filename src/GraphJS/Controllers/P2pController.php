@@ -14,6 +14,7 @@ namespace GraphJS\Controllers;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Pho\Kernel\Kernel;
+use Pho\Lib\DHT\PeerInterface;
 
 /**
  * This class contains P2P related controller.
