@@ -38,18 +38,27 @@ class P2pController extends AbstractController
 
     public function findPeer(ServerRequestInterface $request, ResponseInterface $response)
     {
+        $data = $request->getQueryParams();
+        $rules = [
+            'id' => 'required'
+        ];
+        $validation = $this->validator->validate($data, $rules);
+        if($validation->fails()) {
+            return $this->fail($response, "Valid peer ID required.");
+        }
         $i = 30;
         while($i>0) {
             $i--;
             $hops = $this->router->findPeers($parameter);
             if($hops instanceof PeerInterface)
             {
-                return [
-                    "success"=>true,
-                    "ip" => $hops->ip(),
-                    "port" => $hops->port(),
-                    "debug" => "attempt ".(string) (30-$i),
-                ];
+                return $this->succeed($response, 
+                    [
+                        "ip" => $hops->ip(),
+                        "port" => $hops->port(),
+                        "debug" => "attempt ".(string) (30-$i),
+                    ]
+                );
             }
             /*
             $return = [];
@@ -59,10 +68,7 @@ class P2pController extends AbstractController
             }
             */
         }
-        return [
-            "success" => false,
-        //    "check" => $return
-        ];
+        return $this->fail($response);
     }
 
 }
