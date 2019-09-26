@@ -24,13 +24,6 @@ use Pho\Lib\DHT\PeerInterface;
 class P2pController extends AbstractController
 {
 
-    protected $router;
-
-    public function setRouter($router)
-    {
-        $this->router = $router;
-    }
-
     public function ping(ServerRequestInterface $request, ResponseInterface $response)
     {
         return $this->succeed();
@@ -52,7 +45,7 @@ class P2pController extends AbstractController
         while($i>0) {
             echo "i is: {$i}\n";
             $i--;
-            $hops = $this->router->findPeers($parameter);
+            $hops = $this->kernel->router()->findPeers($parameter);
             echo "Found\n";
             if($hops instanceof PeerInterface)
             {
