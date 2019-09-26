@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8dfbb808d1712a136e344b0fffcf2b8",
+    "content-hash": "95fc95d9b6c1161b09af7eae682579c7",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -2212,16 +2212,16 @@
         },
         {
             "name": "phonetworks/pho-lib-dht",
-            "version": "1.3.3",
+            "version": "v1.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phonetworks/pho-lib-dht.git",
-                "reference": "f2350f8720ccd56b9cb4c139402984076bd43c10"
+                "reference": "4219a14890ca1ada5e250eaba81a38799a8f107a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/f2350f8720ccd56b9cb4c139402984076bd43c10",
-                "reference": "f2350f8720ccd56b9cb4c139402984076bd43c10",
+                "url": "https://api.github.com/repos/phonetworks/pho-lib-dht/zipball/4219a14890ca1ada5e250eaba81a38799a8f107a",
+                "reference": "4219a14890ca1ada5e250eaba81a38799a8f107a",
                 "shasum": ""
             },
             "require": {
@@ -2240,8 +2240,11 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Pho\\Lib\\DHT\\": "src/Pho/Lib/DHT/"
-                }
+                    "Pho\\DecentralizedComputing\\": "src/Pho/DecentralizedComputing/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2254,9 +2257,9 @@
                     "homepage": "http://www.emresokullu.com"
                 }
             ],
-            "description": "A PHP DHT specs and utilities",
+            "description": "Helper methods for decentralized computing",
             "homepage": "https://phonetworks.org",
-            "time": "2019-09-26T07:20:02+00:00"
+            "time": "2019-07-29T19:26:05+00:00"
         },
         {
             "name": "phonetworks/pho-lib-graph",
