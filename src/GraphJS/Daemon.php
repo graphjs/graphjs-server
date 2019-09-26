@@ -167,7 +167,7 @@ class Daemon implements \Pho\Lib\DHT\PeerInterface
         $router = new \Pho\Lib\DHT\Router($this, [], ["debug"=>true, "kbucket_size"=>static::BUCKET_SIZE]);
         $router->bootstrap();
         $this->router = $router;
-        $this->kernel["p2p"] = $kernel->share(
+        $this->kernel["p2p"] = $this->kernel->share(
             function($container) use($router) {
                 return $router;
            }
