@@ -165,10 +165,10 @@ class Daemon implements \Pho\Lib\DHT\PeerInterface
         $uuid = getenv("UUID");
         $this->id = (string) $uuid;
         $this->ip = Utils::getIp();
-        $router = new \Pho\Lib\DHT\Router($this, [
+        $router = new \Pho\Lib\DHT\Router($this, [/*
             new DummyPeer("http://accounts-dev.graphjs.com", 1338, "16D58CF2FD884A49972B6F60054BF023"),
             new DummyPeer("http://accounts-dev.graphjs.com", 1339, "07660876C7E144A486C3754799733FF0")
-        ], ["debug"=>true, "kbucket_size"=>static::BUCKET_SIZE]);
+        */], ["debug"=>true, "kbucket_size"=>static::BUCKET_SIZE]);
         $router->bootstrap();
         $this->router = $router;
         $GLOBALS["router"] = $router;
