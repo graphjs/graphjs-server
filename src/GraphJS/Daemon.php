@@ -97,7 +97,7 @@ class Daemon implements \Pho\Lib\DHT\PeerInterface
     /**
      * {@inheritDoc}
      */
-    public function pingUrl()
+    public function pingUrl(): string
     {
         return $this->ip()."/p2p/ping?public_id=".$this->id();
     }
