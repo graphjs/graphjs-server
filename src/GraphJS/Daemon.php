@@ -94,6 +94,14 @@ class Daemon implements \Pho\Lib\DHT\PeerInterface
         return $this->router;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function pingUrl()
+    {
+        return $this->ip()."/p2p/ping?public_id=".$this->id();
+    }
+
 
     public function __call(string $method, array $params)//: mixed
     {
