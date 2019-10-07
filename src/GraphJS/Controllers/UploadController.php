@@ -136,13 +136,15 @@ class UploadController extends AbstractController
         $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
 
         
-        $key = strtolower("{$uuid}/{$filename}");
+        $key = strtolower("{$uuid}/{$filename}");/*
         echo "processing part about to stream 3 key: {$key}\n";
         if($this->isIPFSActive())
         {
             $this->kernel->storage()->put($originalFilename, $key);
         }
+        */
         echo "ipfs done: {$filename} {$originalFilename}\n";
+        
         if(!$this->isS3Active())
             $url = false;
         else
