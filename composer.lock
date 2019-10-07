@@ -2001,12 +2001,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pho-adapters/storage-ipfs.git",
-                "reference": "7be599719c9b8f2117b485bc70c40bf270137f12"
+                "reference": "8ae48ec93fdd278ef2b5c2bb953a67ae2198dd2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pho-adapters/storage-ipfs/zipball/7be599719c9b8f2117b485bc70c40bf270137f12",
-                "reference": "7be599719c9b8f2117b485bc70c40bf270137f12",
+                "url": "https://api.github.com/repos/pho-adapters/storage-ipfs/zipball/8ae48ec93fdd278ef2b5c2bb953a67ae2198dd2e",
+                "reference": "8ae48ec93fdd278ef2b5c2bb953a67ae2198dd2e",
                 "shasum": ""
             },
             "require": {
@@ -2036,7 +2036,7 @@
             ],
             "description": "IPFS storage adapter for the Phở stack.",
             "homepage": "https://phonetworks.org",
-            "time": "2019-08-26T14:53:13+00:00"
+            "time": "2019-10-07T06:10:01+00:00"
         },
         {
             "name": "pho-recipes/network",
