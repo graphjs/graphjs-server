@@ -10,6 +10,7 @@ use GraphJS\{S3Uploader, Session};
 use Pho\Kernel\Kernel;
 use Riverline\MultiPartParser\StreamedPart;
 use React\Http\Io\UploadedFile;
+use IPFSPHP\IPFS;
 
 class UploadController extends AbstractController
 {
@@ -56,20 +57,44 @@ class UploadController extends AbstractController
     ];
 
     private $s3Uploader = null;
+    private $ipfs = null;
 
     public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
     {
         parent::__construct($kernel, $jsonp);
         if($this->isS3Active())
             $this->s3Uploader = new S3Uploader($this->getS3Client(), getenv('AWS_S3_BUCKET'));
+        if($this->isIPFSActive()) {
+            $this->ipfs = $this->getIPFSClient();
+        }
         $max_upload_size = getenv('MAX_UPLOAD_SIZE') ?? "20M";
         @ini_set("upload_max_filesize", $max_upload_size);
         error_log("max upload file size 1: ".$max_upload_size);
         error_log("max upload file size 2: ".ini_get("upload_max_filesize"));
     }
 
+    private function getIPFSClient()
+    {
+        $hostname = getenv('IPFS_HOSTNAME');
+        $port = getenv('IPFS_PORT');
+        $api_port = getenv('IPFS_API_PORT');
+        return new IPFS($hostname, $port, $api_port);
+    }
+
+    private function isIPFSActive(): bool
+    {
+        $hostname = getenv('IPFS_HOSTNAME');
+        $port = getenv('IPFS_PORT');
+        $api_port = getenv('IPFS_API_PORT');
+        return !(empty($hostname)||empty($port)||empty($api_port));
+    }
+
     private function isS3Active(): bool
     {
+        $inactive = getenv('AWS_S3_INACTIVE');
+        if(!empty($inactive)&&$inactive==1) {
+            return false;
+        }
         $key = getenv('AWS_KEY');
         $secret = getenv('AWS_SECRET');
         $region = getenv('AWS_REGION');
@@ -112,7 +137,16 @@ class UploadController extends AbstractController
 
         $key = strtolower("{$uuid}/{$filename}");
         
-        $url = $this->s3Uploader->upload($key, $body, $mime);
+        if($this->isIPFSActive())
+        {
+            $this->kernel->storage()->put($originalFilename, $key);
+        }
+
+        if(!$this->isS3Active())
+            $url = false;
+        else
+            $url = $this->s3Uploader->upload($key, $body, $mime);
+        
         if($url===false)
             return null;
 
@@ -148,7 +182,13 @@ class UploadController extends AbstractController
 
             $resizedFrameFile = $this->getTempFile();
             $this->resizeImage($frameFile, $resizedFrameFile, static::PREVIEW_MAX_WIDTH, static::PREVIEW_MAX_HEIGHT);
-            $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), static::PREVIEW_MIME, false);
+
+            if($this->isIPFSActive()) {
+                $this->kernel->storage()->put($resizedFrameFile, $previewKey);
+            }
+
+            if($this->isS3Active())
+                $previewUrl = $this->s3Uploader->upload($previewKey, file_get_contents($resizedFrameFile), static::PREVIEW_MIME, false);
         }
         catch (\Exception $ex) {
             error_log('error occurred during preview image generation');
