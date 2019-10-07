@@ -134,14 +134,16 @@ class UploadController extends AbstractController
         echo "processing part about to stream 2\n";
         $originalFilename = $part->getClientFilename();
         $filename = sprintf("%s-%s.%s", $id, (string) time(), static::ALLOWED_CONTENT_TYPES[$mime]);
-        $part->moveTo(sys_get_temp_dir());
+        //$part->moveTo(sys_get_temp_dir()); // assuming it's already there
         
         $key = strtolower("{$uuid}/{$filename}");
         echo "processing part about to stream 3 key: {$key}\n";
+        /*
         if($this->isIPFSActive())
         {
             $this->kernel->storage()->put(sys_get_temp_dir().DIRECTORY_SEPARATOR.$originalFilename, $key);
         }
+        */
         
         echo "ipfs done: {$filename} {$originalFilename}\n";
         
