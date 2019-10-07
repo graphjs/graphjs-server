@@ -36,7 +36,7 @@ abstract class AbstractController extends  \Pho\Server\Rest\Controllers\Abstract
      * @param \Pho\Kernel\Kernel $kernel
      * @param boolean $jsonp
      */
-    public function __construct(\Pho\Kernel\Kernel $kernel, bool $jsonp = false)
+    public function __construct(Kernel $kernel, bool $jsonp = false)
     {
         $this->validator = new Validator();
         parent::__construct($kernel, $jsonp);

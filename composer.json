@@ -43,7 +43,8 @@
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
         "danielstjules/stringy": "^3.1",
         "christoph-kluge/reactphp-http-cors-middleware": "^1.0",
-        "hansott/psr7-cookies": "^2.0"
+        "hansott/psr7-cookies": "^2.0",
+        "phonetworks/pho-lib-dht": "^1.4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",

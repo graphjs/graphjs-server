@@ -85,7 +85,6 @@ class SubscriptionController extends AbstractController
      *
      * @param ServerRequestInterface  $request
      * @param ResponseInterface $response
-     * @param Kernel   $this->kernel
      * 
      * @return void
      */

@@ -205,7 +205,6 @@ class UploadController extends AbstractController
             return $this->failSession($response);
         }
 
-        echo "getting parts\n";
         $parts = $request->getUploadedFiles();
         if(isset($parts["filepond"]))
             $parts = $parts["filepond"];
