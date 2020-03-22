@@ -2,6 +2,8 @@
 
 > Master branch is currently unstable due to downstream packages (). Please check out and use the commit a1eb5fcba97ac0d8cdf8e8e1c7a497fa47e3b608. 
 
+> GraphJS is based on Pho Server Rest 3.4.0. We don't support GraphJS Server 4.x yet.
+
 An event-driven, non-blocking GraphJS Server. 
 
 Extends [Pho REST Server](https://github.com/phonetworks/pho-server-rest) APIs. For more information, check out http://graphjs.com
