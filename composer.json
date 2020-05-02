@@ -30,7 +30,7 @@
         "vanilla/garden-cli": "~2.0",
         "phonetworks/pho-plugins-feeds": "^0.1",
         "get-stream/stream": "~2.7",
-        "mailgun/mailgun-php": "^2.5.0",
+        "mailgun/mailgun-php": "^3.0",
         "ramsey/uuid": "^3.0",
         "superbalist/php-pubsub-redis": "^2.0",
         "stripe/stripe-php": "^6.19",
