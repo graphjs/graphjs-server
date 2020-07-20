@@ -1,9 +1,5 @@
 # GraphJS-Server
 
-> Master branch is currently unstable due to downstream packages (). Please check out and use the commit a1eb5fcba97ac0d8cdf8e8e1c7a497fa47e3b608. 
-
-> GraphJS is based on Pho Server Rest 3.4.0. We don't support GraphJS Server 4.x yet.
-
 An event-driven, non-blocking GraphJS Server. 
 
 Extends [Pho REST Server](https://github.com/phonetworks/pho-server-rest) APIs. For more information, check out http://graphjs.com
@@ -64,12 +60,6 @@ In case, heroku installation is not an option for you, here are the steps to ins
 
     3. Set values of **MAILGUN_KEY**, **MAILGUN_DOMAIN**. (Optional)
 
-## Tips & Tricks
-
-* [React\Http\Io\ServerRequest](https://github.com/reactphp/http/blob/master/src/Io/ServerRequest.php) is an important file to understand how to process server requests.
-
-* It is recommended to install the php eio extension.
- 
 ## License
 
-MIT, see [LICENSE](https://github.com/phonetworks/graphjs-server/blob/master/LICENSE).
+MIT, see [LICENSE](https://github.com/phonetworks/pho-microkernel/blob/master/LICENSE).

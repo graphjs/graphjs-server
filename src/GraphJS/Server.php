@@ -12,6 +12,6 @@ namespace GraphJS;
 
 class Server extends \Pho\Server\Rest\Server
 {
-    const VERSION = "2.0";
+    const VERSION = "0.1";
     const NAME = "GraphJS";
 }

@@ -14,18 +14,17 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.3.0",
+        "php": "^7.2.0",
         "ext-sodium": "*",
         "ext-bcmath": "*",
         "ext-mbstring": "*",
         "ext-gd": "*",
-        "phonetworks/pho-framework": "^11.6.0",
-        "phonetworks/pho-server-rest": "^3.4.0",
+        "phonetworks/pho-framework": "^11.4.5",
+        "phonetworks/pho-server-rest": "^3.0",
         "pho-adapters/index-neo4j": "dev-master",
         "pho-recipes/web": "dev-master",
         "phonetworks/pho-kernel": "dev-master",
         "pho-adapters/storage-aws-s3": "dev-master",
-        "pho-adapters/storage-ipfs": "dev-master",
         "vlucas/phpdotenv": "^2.4",
         "vanilla/garden-cli": "~2.0",
         "phonetworks/pho-plugins-feeds": "^0.1",
@@ -41,28 +40,17 @@
         "pho-adapters/index-redis": "dev-master",
         "pho-recipes/network": "dev-master",
         "php-ffmpeg/php-ffmpeg": "^0.13.0",
-        "danielstjules/stringy": "^3.1",
-        "christoph-kluge/reactphp-http-cors-middleware": "^1.0",
-        "hansott/psr7-cookies": "^2.0",
-        "phonetworks/pho-lib-dht": "^1.4.0"
+        "danielstjules/stringy": "^3.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7",
-        "fzaninotto/faker": "^1.6",
         "psy/psysh": "*",
         "squizlabs/php_codesniffer": "^2.5",
-        "roave/security-advisories": "dev-master",
-        "guzzlehttp/guzzle": "^6.3"
+        "roave/security-advisories": "dev-master"
     },
     "autoload": {
 	     "psr-4": {
 		       "GraphJS\\": "src/GraphJS/"
 	     }
-    },
-    "autoload-dev": {
-        "psr-4": {
-              "": "tests/"
-        }
     },
     "config": { "optimize-autoloader": false }
 }
