@@ -168,7 +168,8 @@ class AuthenticationController extends AbstractController
                error_log("verification begins in");
             $pin = rand(100000, 999999);
             $new_user->setPendingVerification($pin);
-               error_log("verification sending email");
+               error_log("verification sending email: ".getenv("MAILGUN_KEY")." -- ". getenv("MAILGUN_DOMAIN"));
+              try {
                 $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
                 $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
                 array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
@@ -176,6 +177,7 @@ class AuthenticationController extends AbstractController
                         'subject' => 'Please Verify',
                         'text'    => 'Please enter this 6 digit passcode to verify your email: '.$pin)
                 );
+              } catch(\Exception $e) { error_log("there was an error sending email"); }
               error_log("email sent");
         }
      error_log("verification ends");
