@@ -168,9 +168,9 @@ class AuthenticationController extends AbstractController
                error_log("verification begins in");
             $pin = rand(100000, 999999);
             $new_user->setPendingVerification($pin);
-               error_log("verification sending email: ".getenv("MAILGUN_KEY")." -- ". getenv("MAILGUN_DOMAIN"));
+               error_log("verification sending email: ".getenv("MAILGUN_API_KEY")." -- ". getenv("MAILGUN_DOMAIN"));
               try {
-                $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
+                $mgClient = new Mailgun(getenv("MAILGUN_API_KEY")); 
                 $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
                 array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
                         'to'      => $data["email"],
