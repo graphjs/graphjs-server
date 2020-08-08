@@ -149,17 +149,20 @@ class AuthenticationController extends AbstractController
         }
 
 
+     error_log("user created");
         for($i=1;$i<4;$i++) {
             if(isset($reqs["CustomField{$i}"])&&!empty($reqs["CustomField{$i}"])&&isset($data["custom_field{$i}"])&&!empty($data["custom_field{$i}"])) {
                 $_ = "setCustomField{$i}";
                 $new_user->$_($data["custom_field{$i}"]);
             }
         }
-
+     error_log("custom fields set");
+     
         $moderation = $this->isMembershipModerated($kernel);
         if($moderation)
             $new_user->setPending(true);
-
+ error_log("moderation complete");
+     
         $verification = $this->isVerificationRequired($kernel);
         if($verification) {
             $pin = rand(100000, 999999);
@@ -173,6 +176,8 @@ class AuthenticationController extends AbstractController
                 );
         }
 
+     error_log("email sent");
+     
         $session->set($request, "id", (string) $new_user->id());
         $this->succeed(
             $response, [
