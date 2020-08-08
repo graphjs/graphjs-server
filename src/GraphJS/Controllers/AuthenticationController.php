@@ -162,11 +162,13 @@ class AuthenticationController extends AbstractController
         if($moderation)
             $new_user->setPending(true);
  error_log("moderation complete");
-     
+      error_log("verification begins");
         $verification = $this->isVerificationRequired($kernel);
         if($verification) {
+               error_log("verification begins in");
             $pin = rand(100000, 999999);
             $new_user->setPendingVerification($pin);
+               error_log("verification sending email");
                 $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
                 $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
                 array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
@@ -174,9 +176,10 @@ class AuthenticationController extends AbstractController
                         'subject' => 'Please Verify',
                         'text'    => 'Please enter this 6 digit passcode to verify your email: '.$pin)
                 );
+              error_log("email sent");
         }
+     error_log("verification ends");
 
-     error_log("email sent");
      
         $session->set($request, "id", (string) $new_user->id());
         $this->succeed(
