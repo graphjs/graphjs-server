@@ -411,7 +411,8 @@ class AuthenticationController extends AbstractController
         else{
             file_put_contents(getenv("PASSWORD_REMINDER").md5($data["email"]), "{$pin}:".time()."\n", LOCK_EX);
         }
-        $mgClient = new Mailgun(getenv("MAILGUN_KEY")); 
+     try {
+        $mgClient = new Mailgun(getenv("MAILGUN_API_KEY")); 
         $mgClient->sendMessage(getenv("MAILGUN_DOMAIN"),
         array('from'    => 'GraphJS <postmaster@client.graphjs.com>',
                 'to'      => $data["email"],
@@ -419,6 +420,10 @@ class AuthenticationController extends AbstractController
                 'text'    => 'You may enter this 6 digit passcode: '.$pin)
         );
         $this->succeed($response);
+     }
+     catch(\Exception $e) {
+      $this->fail($response, "There was a problem sending email."); 
+     } 
     }
  
  protected function isRedisPasswordReminder(): bool
