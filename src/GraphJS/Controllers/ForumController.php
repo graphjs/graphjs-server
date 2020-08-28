@@ -199,7 +199,14 @@ class ForumController extends AbstractController
         
         foreach($everything as $thing) {
             if($thing instanceof Thread) {
+                try {
+                    $author = $thing->edges()->in(Start::class)->current()->tail();
+                }
+                catch(\Error $e) {
+                    continue;
+                }
                 $contributors_x = [];
+                $contributors_x[$author->id()->toString()] = $author;
                 $contributors = array_map(
                     function(User $u) : array 
                 {
@@ -218,25 +225,35 @@ class ForumController extends AbstractController
                 },array_map( function(Reply $r): User {
                     return $r->tail()->node();
                 }, $thing->getReplies()));
+                $contributors[] = $author;
                 foreach($contributors as $contributor) {
                     foreach($contributor as $k=>$v) {
                         if(!isset($contributors_x[$k]))
                             $contributors_x[$k] = $v;
                     }
                 }
-                unset($contributors);
-                if(is_null($thing->edges()->in(Start::class)->current())) 
+                //unset($contributors);
+                try {
+                    if(is_null($thing->edges()->in(Start::class)->current())) 
+                        continue;
+                }
+                catch(\Error $e) {
+                    // either Exception or Error
+                    //error_log("there was an exception at ".$thing->id()->toString());
                     continue;
+                }
+                catch(\Exception $e) {
+                    continue;
+                }
                 $threads[] = [
                     "id" => (string) $thing->id(),
                     "title" => $thing->getTitle(),
-                    "author" => (string) $thing->edges()->in(Start::class)->current()->tail()->id(),
+                    "author" => (string) $author->id(),
                     "timestamp" => (string) $thing->getCreateTime(),
                     "contributors" => $contributors_x
                 ];
             }
         }
-
 
         $threads_count = count($threads);
         $threads = array_values($this->paginate($threads, $params, 20));
