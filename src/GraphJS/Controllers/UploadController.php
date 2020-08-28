@@ -83,6 +83,7 @@ class UploadController extends AbstractController
 
     private function isIPFSActive(): bool
     {
+        return false; // inactive while it's cooking
         $hostname = getenv('IPFS_HOSTNAME');
         $port = getenv('IPFS_PORT');
         $api_port = getenv('IPFS_API_PORT');
