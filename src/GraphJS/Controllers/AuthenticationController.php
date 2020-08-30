@@ -187,6 +187,7 @@ class AuthenticationController extends AbstractController
         $this->succeed(
             $response, [
                 "id" => (string) $new_user->id(),
+                "username" => $username,
                 "pending_moderation"=>$moderation,
                 "pending_verification"=>$verification
             ]
@@ -319,6 +320,7 @@ class AuthenticationController extends AbstractController
         $this->succeed(
             $response, [
                 "id" => $user["n.udid"],
+                "username" => $username,
                 "pending" => $user["n.Pending"]
             ]
         );
