@@ -199,6 +199,9 @@ class ForumController extends AbstractController
         
         foreach($everything as $thing) {
             if($thing instanceof Thread) {
+                // HARD-CODED :( FIXME
+                if($thing->id()->toString()=="5b20c740445f7d1f1ad723fc16b693d5") continue;
+                // HARD-CODED :( FIXME
                 try {
                     $author = $thing->edges()->in(Start::class)->current()->tail();
                 }
