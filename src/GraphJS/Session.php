@@ -46,14 +46,14 @@ class Session
     {
         $signer = new Sha256();
         $key = new Key(md5(getenv("SINGLE_SIGNON_TOKEN_KEY")));
-        $cookie = SetCookie::thatStaysForever(static::COOKIE, $id, "/");
+        $cookie = SetCookie::thatStaysForever(static::COOKIE, $id, "/", '', true, false, "none");
         $signedCookie = $signer->sign($cookie, $key);
         $response = $signedCookie->addToResponse($response);
     }
 
     public static function destroy(ResponseInterface &$response): void
     {
-        $cookie = SetCookie::thatDeletesCookie(static::COOKIE, "/");
+        $cookie = SetCookie::thatDeletesCookie(static::COOKIE, "/", '', true, false, "none");
         $response = $cookie->addToResponse($response);
     }
 }
