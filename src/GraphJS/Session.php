@@ -44,11 +44,17 @@ class Session
 
     public static function begin(ResponseInterface &$response, string $id): void
     {
+        error_log("in");
         $signer = new Sha256();
+        error_log("in1");
         $key = new Key(md5(getenv("SINGLE_SIGNON_TOKEN_KEY")));
+        error_log("in2");
         $cookie = SetCookie::thatStaysForever(static::COOKIE, $id, "/", '', true, false, "none");
+        error_log("in3");
         $signedCookie = $signer->sign($cookie, $key);
+        error_log("in4");
         $response = $signedCookie->addToResponse($response);
+        error_log("in5");
     }
 
     public static function destroy(ResponseInterface &$response): void
