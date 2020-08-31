@@ -49,7 +49,7 @@ class Session
         error_log("in1");
         $key = new Key(md5(getenv("SINGLE_SIGNON_TOKEN_KEY")));
         error_log("in2");
-        $cookie = SetCookie::thatStaysForever(static::COOKIE, $id, "/", '', true, false, "none");
+        $cookie = SetCookie::thatStaysForever(static::COOKIE, $id, '', '', true, false, 'none');
         error_log("in3");
         $signedCookie = $signer->sign($cookie, $key);
         error_log("in4");
@@ -59,7 +59,7 @@ class Session
 
     public static function destroy(ResponseInterface &$response): void
     {
-        $cookie = SetCookie::thatDeletesCookie(static::COOKIE, "/", '', true, false, "none");
+        $cookie = SetCookie::thatDeletesCookie(static::COOKIE, "/", '', true, false, 'none');
         $response = $cookie->addToResponse($response);
     }
 }
