@@ -286,12 +286,14 @@ class AuthenticationController extends AbstractController
             return $this->fail($response, "Pending membership");
         }
 
+        error_log("check verification");
         if($this->isVerificationRequired() && $user["n.PendingVerification"]) {
             return $this->fail($response, "You have not verified your email yet");
         }
 
+        error_log("checked verification");
         Session::begin($response, $user["n.udid"]);
-
+        error_log("cookie set");
         return $this->succeed(
             $response, [
                 "id" => $user["n.udid"],
