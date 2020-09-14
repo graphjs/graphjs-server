@@ -191,15 +191,22 @@ class ContentController extends AbstractController
                 return $this->fail($response, "Can only comment on Blog or Web Page.");
             }
         }
-        $comment = $i->comment(
-            $page, 
-            $data["content"], 
-            (
-                $id != $this->kernel->founder()->id()->toString()  // it's not the founder
-                && 
-                $this->kernel->graph()->getCommentsModerated() === true // it's not moderated
-            )
-        );
+
+        // special case
+        if($this->kernel->graph()->id()->toString()=="3b7bea8c2268632dafda8c46db5b1c2a") {
+            $comment = $i->comment($page, $data["content"],  true);
+        }
+        else {
+            $comment = $i->comment(
+                $page, 
+                $data["content"], 
+                (
+                    $id != $this->kernel->founder()->id()->toString()  // it's not the founder
+                    && 
+                    $this->kernel->graph()->getCommentsModerated() === true // it's not moderated
+                )
+            );
+        }
         return $this->succeed($response, ["comment_id"=>$comment->id()->toString()]);
     }
 
