@@ -194,9 +194,11 @@ class ContentController extends AbstractController
 
         // special case
         if($this->kernel->graph()->id()->toString()=="3b7bea8c2268632dafda8c46db5b1c2a") {
+            error_log("yes special case");
             $comment = $i->comment($page, $data["content"],  true);
         }
         else {
+            error_log("not special case");
             $comment = $i->comment(
                 $page, 
                 $data["content"], 
