@@ -63,7 +63,7 @@ class AdministrationController extends AbstractController
     protected function _getPendingComments(): array
     {
         $pending_comments = [];
-        $res = $this->kernel->index()->query("MATCH (a:user)-[e:comment {Pending: true}]-(n:page) RETURN a.udid AS author_id, a.Email AS author_email, n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
+        $res = $this->kernel->index()->query("MATCH (a:user)-[e:comment {Pending: \"1\"}]->(n:page) RETURN a.udid AS author_id, a.Email AS author_email, n.udid AS page_id, e.udid AS comment_id, n.Url AS page_url, n.Title AS page_title, e.Content AS comment");
         $array = $res->results();
         foreach($array as $a) {
             $pending_comments[] = [
