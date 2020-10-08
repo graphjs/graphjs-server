@@ -228,15 +228,7 @@ class ForumController extends AbstractController
                 },array_map( function(Reply $r): User {
                     return $r->tail()->node();
                 }, $thing->getReplies()));
-                $contributors[] = array_change_key_case(
-                    array_filter(
-                        $author->attributes()->toArray(), 
-                        function (string $key): bool {
-                            return strtolower($key) != "password";
-                        },
-                        ARRAY_FILTER_USE_KEY
-                    ), CASE_LOWER
-                );
+                $contributors[] = $author;
                 foreach($contributors as $contributor) {
                     foreach($contributor as $k=>$v) {
                         if(!isset($contributors_x[$k]))
