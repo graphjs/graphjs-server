@@ -176,19 +176,6 @@ class ForumController extends AbstractController
      return $this->succeed($response);
     }
 
-    protected static function _extractProfile(User $user): array
-    {
-        return array_change_key_case(
-            array_filter(
-                $user->attributes()->toArray(), 
-                function (string $key): bool {
-                    return strtolower($key) != "password";
-                },
-                ARRAY_FILTER_USE_KEY
-            ), CASE_LOWER
-        );
-    }
-
     /**
      * Get Threads
      * 
@@ -217,18 +204,34 @@ class ForumController extends AbstractController
                     continue;
                 }
                 $contributors_x = [];
-                $contributors_x[$author->id()->toString()] = static::_extractProfile($author);
+                $contributors_x[$author->id()->toString()] = $author;
                 $contributors = array_map(
-                    function(User $u) : array  {
-                        return [  $u->id()->toString() => static::_extractProfile($u) ];
-                    }, array_map( 
-                        function(Reply $r): User {
-                            return $r->tail()->node();
-                        }, 
-                        $thing->getReplies()
-                    )
+                    function(User $u) : array 
+                {
+                        return [ 
+                            $u->id()->toString() =>
+                                array_change_key_case(
+                                    array_filter(
+                                        $u->attributes()->toArray(), 
+                                        function (string $key): bool {
+                                            return strtolower($key) != "password";
+                                        },
+                                        ARRAY_FILTER_USE_KEY
+                                    ), CASE_LOWER
+                                )
+                            ];
+                },array_map( function(Reply $r): User {
+                    return $r->tail()->node();
+                }, $thing->getReplies()));
+                $contributors[] = array_change_key_case(
+                    array_filter(
+                        $author->attributes()->toArray(), 
+                        function (string $key): bool {
+                            return strtolower($key) != "password";
+                        },
+                        ARRAY_FILTER_USE_KEY
+                    ), CASE_LOWER
                 );
-                $contributors[] = static::_extractProfile($author);
                 foreach($contributors as $contributor) {
                     foreach($contributor as $k=>$v) {
                         if(!isset($contributors_x[$k]))
